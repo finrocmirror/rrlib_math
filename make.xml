@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<targets>
+
+  <rrlib name="math"
+        libs="boost">
+    <sources>
+      tAngle.cpp
+      tMatrix.cpp
+<!--
+      tPose2D.cpp
+      tPose3D.cpp
+-->
+      tVector.cpp
+      until_0x_helper.h
+      utilities.cpp
+      angle/**
+      matrix/**
+      vector/**
+    </sources>
+  </rrlib>
+  
+  <testprogram name="vectors"
+        cxxflags="-std=gnu++0x">
+    <sources>
+      test/test_vectors.cpp
+    </sources>
+  </testprogram>
+
+  <testprogram name="matrices"
+        cxxflags="-std=gnu++0x">
+    <sources>
+      test/test_matrices.cpp
+    </sources>
+  </testprogram>
+
+  <testprogram name="angles"
+        cxxflags="-std=gnu++0x">
+    <sources>
+      test/test_angles.cpp
+    </sources>
+  </testprogram>
+
+</targets>
