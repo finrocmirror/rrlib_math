@@ -2,7 +2,8 @@
 <targets>
 
   <rrlib name="math"
-        libs="boost">
+        libs="boost"
+	cxxflags="-std=gnu++0x">
     <sources>
       tAngle.cpp
       tMatrix.cpp
@@ -12,7 +13,7 @@
 -->
       tVector.cpp
       until_0x_helper.h
-      utilities.cpp
+      utilities.h
       angle/**
       matrix/**
       vector/**
