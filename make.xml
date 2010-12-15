@@ -2,8 +2,7 @@
 <targets>
 
   <rrlib name="math"
-        libs="boost"
-	cxxflags="-std=gnu++0x">
+        libs="boost">
     <sources>
       tAngle.cpp
       tMatrix.cpp
@@ -20,25 +19,24 @@
     </sources>
   </rrlib>
   
-  <testprogram name="vectors"
-        cxxflags="-std=gnu++0x">
+  <testprogram name="vectors">
     <sources>
       test/test_vectors.cpp
     </sources>
   </testprogram>
 
-  <testprogram name="matrices"
-        cxxflags="-std=gnu++0x">
+  <testprogram name="matrices">
     <sources>
       test/test_matrices.cpp
     </sources>
   </testprogram>
 
-  <testprogram name="angles"
-        cxxflags="-std=gnu++0x">
+<!-- 
+  <testprogram name="angles">
     <sources>
       test/test_angles.cpp
     </sources>
   </testprogram>
+-->
 
 </targets>

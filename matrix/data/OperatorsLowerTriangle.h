@@ -128,7 +128,7 @@ const tMatrix<Trows, Tcolumns, typename until_0x::Auto<TLeftElement, TRightEleme
 {
   typedef tMatrix<Trows, Tcolumns, typename until_0x::Auto<TLeftElement, TRightElement>::type, LowerTriangle> tResultType;
   typename tResultType::tElementType data[Trows * Tcolumns];
-  memset(data, 0, sizeof(data));
+  std::memset(data, 0, sizeof(data));
   for (size_t row = 0; row < Trows; ++row)
   {
     for (size_t column = 0; column <= row; ++column)
@@ -149,7 +149,7 @@ const typename boost::disable_if<boost::is_same<LowerTriangle<1, 1, int>, TRight
 {
   typedef tMatrix<Trows, Tcolumns, typename until_0x::Auto<TLeftElement, TRightElement>::type, Full> tResultType;
   typename tResultType::tElementType data[Trows * Tcolumns];
-  memset(data, 0, sizeof(data));
+  std::memset(data, 0, sizeof(data));
   size_t index = 0;
   for (size_t row = 0; row < Trows; ++row)
   {

@@ -87,7 +87,7 @@ class FunctionalityShared
   inline void SetValues(TElement buffer[Tdimension])
   {
     static_assert(number_of_given_values == Tdimension, "Wrong number of values given to store in vector");
-    memcpy(this, buffer, sizeof(tVectorType));
+    std::memcpy(this, buffer, sizeof(tVectorType));
   }
   template <size_t number_of_given_values, typename ... TValues>
   inline void SetValues(TElement buffer[Tdimension], TElement value, TValues... values)
@@ -100,22 +100,22 @@ protected:
 
   inline FunctionalityShared()
   {
-    memset(this, 0, sizeof(tVectorType));
+    std::memset(this, 0, sizeof(tVectorType));
   }
   inline FunctionalityShared(const tVectorType &other)
   {
-    memcpy(this, &other, sizeof(tVectorType));
+    std::memcpy(this, &other, sizeof(tVectorType));
   }
 
   explicit inline FunctionalityShared(const TElement data[Tdimension])
   {
-    memcpy(this, data, sizeof(tVectorType));
+    std::memcpy(this, data, sizeof(tVectorType));
   }
 
   template <size_t Tother_dimension, typename TOtherElement>
   explicit inline FunctionalityShared(const tVector<Tother_dimension, TOtherElement, TData> &other)
   {
-    memset(this, 0, sizeof(tVectorType));
+    std::memset(this, 0, sizeof(tVectorType));
     size_t size = std::min(Tdimension, Tother_dimension);
     for (size_t i = 0; i < size; ++i)
     {
@@ -152,7 +152,7 @@ public:
         stream << "Overlapping memory areas in rrlib::math::tVector::operator = (this = " << this << ", other = " << &other << ")!";
         throw std::logic_error(stream.str());
       }
-      memcpy(this, &other, sizeof(tVectorType));
+      std::memcpy(this, &other, sizeof(tVectorType));
     }
     return *this;
   }
@@ -172,7 +172,7 @@ public:
         stream << "Overlapping memory areas in rrlib::math::tVector::operator = (this = " << this << ", other = " << &other << ")!";
         throw std::logic_error(stream.str());
       }
-      memset(this, 0, sizeof(tVectorType));
+      std::memset(this, 0, sizeof(tVectorType));
       size_t size = std::min(Tdimension, Tother_dimension);
       for (size_t i = 0; i < size; ++i)
       {
@@ -219,23 +219,6 @@ public:
     tVectorType *that = reinterpret_cast<tVectorType *>(this);
     *that *= 1.0 / scalar;
     return *that;
-  }
-
-  inline const bool operator == (const tVectorType &other) const
-  {
-    for (size_t i = 0; i < Tdimension; ++i)
-    {
-      if ((*this)[i] != other[i])
-      {
-        return false;
-      }
-    }
-    return true;
-  }
-
-  inline const bool operator != (const tVectorType &other) const
-  {
-    return !(*this == other);
   }
 
   inline const bool Equals(const tVectorType &other, double epsilon = 0) const
@@ -292,6 +275,29 @@ public:
 
 };
 
+
+
+template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
+inline const bool operator == (const tVector<Tdimension, TElement, TData> &left, const tVector<Tdimension, TElement, TData> &right)
+{
+  return left.Equals(right);
+}
+
+template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
+inline const bool operator != (const tVector<Tdimension, TElement, TData> &left, const tVector<Tdimension, TElement, TData> &right)
+{
+  return !(left == right);
+}
+
+template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
+inline const bool operator < (const tVector<Tdimension, TElement, TData> &left, const tVector<Tdimension, TElement, TData> &right)
+{
+  if (&left == &right)
+  {
+    return false;
+  }
+  return std::memcmp(&left, &right, sizeof(tVector<Tdimension, TElement, TData>)) < 0;
+}
 
 
 //----------------------------------------------------------------------

@@ -75,11 +75,11 @@ template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, si
 class LegacySpecialized
 {
   LegacySpecialized(const LegacySpecialized &);
+  LegacySpecialized &operator = (const LegacySpecialized &);
 
 protected:
 
   inline LegacySpecialized() {}
-  LegacySpecialized &operator = (const LegacySpecialized &);
 
 };
 

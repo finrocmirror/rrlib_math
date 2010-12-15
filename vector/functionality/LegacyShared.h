@@ -132,12 +132,12 @@ public:
 
   const tVectorType &cartesian()
   {
-    *this = reinterpret_cast<tVector<Tdimension, TElement, vector::Polar> *>(this)->GetCartesianVector();
+    reinterpret_cast<tVectorType &>(*this) = reinterpret_cast<tVector<Tdimension, TElement, vector::Polar> *>(this)->GetCartesianVector();
     return *this;
   }
   void PolarToCartesian()
   {
-    *this = reinterpret_cast<tVector<Tdimension, TElement, vector::Polar> *>(this)->GetCartesianVector();
+    reinterpret_cast<tVectorType &>(*this) = reinterpret_cast<tVector<Tdimension, TElement, vector::Polar> *>(this)->GetCartesianVector();
   }
   const tVectorType Cartesian() const
   {
@@ -147,7 +147,7 @@ public:
   const tVector<Tdimension, TElement, Polar> polar()
   {
     reinterpret_cast<tVector<Tdimension, TElement, vector::Polar> &>(*this) = this->GetCartesianVector();
-    return *this;
+    return *reinterpret_cast<tVectorType>(this);
   }
 
   void CartesianToPolar()

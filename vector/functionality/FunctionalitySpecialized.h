@@ -43,6 +43,7 @@
 //----------------------------------------------------------------------
 #include <cmath>
 #include <boost/utility/enable_if.hpp>
+#include <iostream>
 
 //----------------------------------------------------------------------
 // Internal includes with ""

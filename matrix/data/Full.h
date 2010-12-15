@@ -43,6 +43,7 @@
 //----------------------------------------------------------------------
 #include <stdexcept>
 #include <sstream>
+#include <cstring>
 
 //----------------------------------------------------------------------
 // Internal includes with ""
@@ -111,7 +112,7 @@ public:
 
   inline void SetFromArray(const TElement data[Trows * Tcolumns])
   {
-    memcpy(this->values, data, sizeof(Full));
+    std::memcpy(this->values, data, sizeof(Full));
   }
 
 };

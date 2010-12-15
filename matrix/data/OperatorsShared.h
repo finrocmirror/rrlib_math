@@ -98,7 +98,7 @@ std::istream &operator >> (std::istream &stream, tMatrix<Trows, Tcolumns, TEleme
   stream >> temp;
 
   TElement data[Trows * Tcolumns];
-  memset(data, 0, sizeof(data));
+  std::memset(data, 0, sizeof(data));
 
   if (temp == '[')
   {

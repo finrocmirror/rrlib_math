@@ -109,7 +109,7 @@ public:
     const tMatrixType *that = reinterpret_cast<const tMatrixType *>(this);
     typedef tVector < Tdimension - 1, typename until_0x::Auto<TElement, TVectorElement>::type, vector::Cartesian > tResultType;
     typename tResultType::tElementType data[Tdimension - 1];
-    memset(data, 0, sizeof(data));
+    std::memset(data, 0, sizeof(data));
     for (size_t row = 0; row < Tdimension - 1; ++row)
     {
       for (size_t column = 0; column < Tdimension - 1; ++column)

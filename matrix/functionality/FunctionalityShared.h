@@ -100,11 +100,11 @@ protected:
 
   inline FunctionalityShared()
   {
-    memset(this, 0, sizeof(tMatrixType));
+    std::memset(this, 0, sizeof(tMatrixType));
   }
   inline FunctionalityShared(const tMatrixType &other)
   {
-    memcpy(this, &other, sizeof(tMatrixType));
+    std::memcpy(this, &other, sizeof(tMatrixType));
   }
 
   explicit inline FunctionalityShared(const TElement data[Trows * Tcolumns])
@@ -115,7 +115,7 @@ protected:
   template <typename TOtherElement>
   explicit inline FunctionalityShared(const tMatrix<Trows, Tcolumns, TOtherElement, TData> &other)
   {
-    memset(this, 0, sizeof(tMatrixType));
+    std::memset(this, 0, sizeof(tMatrixType));
     for (size_t i = 0; i < sizeof(tMatrixType) / sizeof(TElement); ++i)
     {
       reinterpret_cast<TElement *>(this)[i] = reinterpret_cast<const TOtherElement *>(&other)[i];
@@ -165,7 +165,7 @@ public:
         stream << "Overlapping memory areas in rrlib::math::tMatrix::operator = (this = " << this << ", other = " << &other << ")!";
         throw std::logic_error(stream.str());
       }
-      memcpy(this, &other, sizeof(tMatrixType));
+      std::memcpy(this, &other, sizeof(tMatrixType));
     }
     return *this;
   }
@@ -185,7 +185,7 @@ public:
         stream << "Overlapping memory areas in rrlib::math::tMatrix::operator = (this = " << this << ", other = " << &other << ")!";
         throw std::logic_error(stream.str());
       }
-      memset(this, 0, sizeof(tMatrixType));
+      std::memset(this, 0, sizeof(tMatrixType));
       for (size_t i = 0; i < Trows * Tcolumns; ++i)
       {
         reinterpret_cast<TElement *>(this)[i] = reinterpret_cast<const TOtherElement *>(&other)[i];

@@ -144,7 +144,7 @@ const tMatrix<Trows, Tcolumns, typename until_0x::Auto<TLeftElement, TRightEleme
 {
   typedef tMatrix<Trows, Tcolumns, typename until_0x::Auto<TLeftElement, TRightElement>::type, Full> tResultType;
   typename tResultType::tElementType data[Trows * Tcolumns];
-  memset(data, 0, sizeof(data));
+  std::memset(data, 0, sizeof(data));
   size_t index = 0;
   for (size_t row = 0; row < Trows; ++row)
   {
@@ -166,7 +166,7 @@ const tMatrix<Trows, Tcolumns, typename until_0x::Auto<TLeftElement, TRightEleme
 {
   typedef tMatrix<Trows, Tcolumns, typename until_0x::Auto<TLeftElement, TRightElement>::type, Full> tResultType;
   typename tResultType::tElementType data[Trows * Tcolumns];
-  memset(data, 0, sizeof(data));
+  std::memset(data, 0, sizeof(data));
   size_t index = 0;
   for (size_t row = 0; row < Trows; ++row)
   {
@@ -188,7 +188,7 @@ const tMatrix<Trows, Tcolumns, typename until_0x::Auto<TLeftElement, TRightEleme
 {
   typedef tMatrix<Trows, Tcolumns, typename until_0x::Auto<TLeftElement, TRightElement>::type, Full> tResultType;
   typename tResultType::tElementType data[Trows * Tcolumns];
-  memset(data, 0, sizeof(data));
+  std::memset(data, 0, sizeof(data));
   size_t index = 0;
   for (size_t row = 0; row < Trows; ++row)
   {
