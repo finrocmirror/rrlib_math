@@ -103,7 +103,7 @@ public:
   explicit inline tVector(const tVector<Tother_dimension, TOtherElement, TData> &other) : FunctionalityShared(other) {}
 
   template <typename ... TValues>
-  inline tVector(TElement value, TValues... values)
+  explicit inline tVector(TElement value, TValues... values)
   {
     FunctionalityShared::Set(value, values...);
   }

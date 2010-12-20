@@ -128,7 +128,7 @@ public:
 //    const tVectorType *that = reinterpret_cast<const tVectorType *>(this);
 //    tVectorType temp(*that);
 //    temp.Normalize();
-//    temp.Set(temp.Y() >= 0 ? std::acos(temp.X()) : -acos(temp.X()), radius);
+//    temp.Set(temp.Y() >= 0 ? std::acos(temp.X()) : -std::acos(temp.X()), radius);
 //    return temp;
   }
 
@@ -142,6 +142,46 @@ public:
   inline const tVectorType FlipDirection() const
   {
     return -*reinterpret_cast<const tVectorType *>(this);
+  }
+
+  float GetDistance2Line(float angle, const tVectorType &line_start, const tVectorType &line_end, float max)
+  {
+    tVectorType *that = reinterpret_cast<tVectorType *>(this);
+
+    tVectorType line_direction = (line_end - line_start).Normalized();
+    // direction to look into
+    tVectorType start_direction(std::cos(angle), std::sin(angle));
+
+    // parallelogram area of unit vectors of scan and line
+    // b>0 : towards line
+    // b=0 : parallel to line
+    // b<0 : away from line
+    double b = CrossProduct(tVector<3, TElement, Cartesian>(start_direction), tVector<3, TElement, Cartesian>(line_direction)).Z();
+    if (b > 0)
+    {
+      // direction towards edge (not parallel or away from)
+      double a = CrossProduct(tVector<3, TElement, Cartesian>(line_direction), tVector<3, TElement, Cartesian>(*that - line_start)).Z();
+      if (a > 0)
+      {
+        // Division of parallelograms is equal to distance (paint it, if you don't believe it :)
+        float dist = a / b;
+        // vector of distance
+        tVectorType intersection = *that + dist * start_direction;
+
+        //check if really between start and endpoint of line
+        if (dist < max &&
+            ((intersection.X() >= line_start.X() && intersection.X() <= line_end.X()) ||
+             (intersection.X() <= line_start.X() && intersection.X() >= line_end.X()) ||
+             line_start.X() == line_end.X()) &&
+            ((intersection.Y() >= line_start.Y() && intersection.Y() <= line_end.Y()) ||
+             (intersection.Y() <= line_start.Y() && intersection.Y() >= line_end.Y()) ||
+             line_start.Y() == line_end.Y()))
+        {
+          return dist;
+        }
+      }
+    }
+    return -1;
   }
 
 };

@@ -144,24 +144,37 @@ public:
     return reinterpret_cast<const tVector<Tdimension, TElement, vector::Polar> *>(this)->GetCartesianVector();
   }
 
-  const tVector<Tdimension, TElement, Polar> polar()
+  const tVectorType polar()
   {
-    reinterpret_cast<tVector<Tdimension, TElement, vector::Polar> &>(*this) = this->GetCartesianVector();
-    return *reinterpret_cast<tVectorType>(this);
+    reinterpret_cast<tVector<Tdimension, TElement, vector::Polar> &>(*this) = reinterpret_cast<tVectorType *>(this)->GetPolarVector();
+    return *reinterpret_cast<tVectorType *>(this);
   }
 
   void CartesianToPolar()
   {
-    reinterpret_cast<tVector<Tdimension, TElement, vector::Polar> &>(*this) = this->GetCartesianVector();
+    reinterpret_cast<tVector<Tdimension, TElement, vector::Polar> &>(*this) = reinterpret_cast<tVectorType *>(this)->GetPolarVector();
   }
 
-  const tVector<Tdimension, TElement, Polar> Polar() const
+  const tVectorType Polar() const
   {
-    return reinterpret_cast<const tVectorType *>(this)->GetPolarVector();
+    tVector<Tdimension, TElement, vector::Polar> polar = reinterpret_cast<const tVectorType *>(this)->GetPolarVector();
+    return *reinterpret_cast<const tVectorType *>(&polar);
   }
 
 };
 
+template <size_t Tdimension, typename TCartesianElement, typename TPolarElement>
+inline void GetCartesianFromPolar(tVector<Tdimension, TCartesianElement, vector::Cartesian> &cartesian, const tVector<Tdimension, TPolarElement, vector::Cartesian> &polar)
+{
+  cartesian = reinterpret_cast<const tVector<Tdimension, TPolarElement, vector::Polar> *>(&polar)->GetCartesianVector();
+}
+
+template <size_t Tdimension, typename TPolarElement, typename TCartesianElement>
+inline void GetPolarFromCartesian(tVector<Tdimension, TPolarElement, vector::Cartesian> &polar, const tVector<Tdimension, TCartesianElement, vector::Cartesian> &cartesian)
+{
+  tVector<Tdimension, TCartesianElement, vector::Polar> temp = cartesian.GetPolarVector();
+  polar = *reinterpret_cast<tVector<Tdimension, TCartesianElement, vector::Cartesian> *>(&temp);
+}
 
 
 //----------------------------------------------------------------------

@@ -125,8 +125,8 @@ public:
   inline const tVector<3, TElement, Polar> GetPolarVector() const
   {
     const tVector<3, TElement, Cartesian> *that = reinterpret_cast<const tVector<3, TElement, Cartesian> *>(this);
-    TElement length = this->Length();
-    return tVector<3, TElement, Polar>(std::atan2(this->Y(), this->X()), std::acos(this->Z() / length), length);
+    TElement length = that->Length();
+    return tVector<3, TElement, Polar>(std::atan2(that->Y(), that->X()), std::acos(that->Z() / length), length);
   }
 
 };
