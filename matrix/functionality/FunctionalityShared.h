@@ -255,28 +255,6 @@ public:
     return *that;
   }
 
-  template <template <size_t, size_t, typename> class TOtherData>
-  inline const bool operator == (const tMatrix<Trows, Tcolumns, TElement, TOtherData> &other) const
-  {
-    for (size_t row = 0; row < Trows; ++row)
-    {
-      for (size_t column = 0; column < Tcolumns; ++column)
-      {
-        if ((*this)[row][column] != other[row][column])
-        {
-          return false;
-        }
-      }
-    }
-    return true;
-  }
-
-  template <template <size_t, size_t, typename> class TOtherData>
-  inline const bool operator != (const tMatrix<Trows, Tcolumns, TElement, TOtherData> &other) const
-  {
-    return !(*this == other);
-  }
-
   inline const bool IsZero(double epsilon = 0) const
   {
     for (size_t i = 0; i < sizeof(tMatrixType) / sizeof(TElement); ++i)
@@ -284,23 +262,6 @@ public:
       if (std::abs(reinterpret_cast<const TElement *>(this)[i]) >= epsilon)
       {
         return false;
-      }
-    }
-    return true;
-  }
-
-  template <template <size_t, size_t, typename> class TOtherData>
-  inline const bool Equals(const tMatrix<Trows, Tcolumns, TElement, TOtherData> &other, double epsilon = 0) const
-  {
-    const tMatrixType *that = reinterpret_cast<const tMatrixType *>(this);
-    for (size_t row = 0; row < Trows; ++row)
-    {
-      for (size_t column = 0; column < Tcolumns; ++column)
-      {
-        if (std::abs((*that)[row][column] - other[row][column]) >= epsilon)
-        {
-          return false;
-        }
       }
     }
     return true;

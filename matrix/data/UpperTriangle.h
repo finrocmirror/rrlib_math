@@ -130,7 +130,7 @@ public:
       {
         if (column < row)
         {
-          if (data[row * Tcolumns + column] != 0)
+          if (!IsEqual(data[row * Tcolumns + column], 0.0))
           {
             std::stringstream stream;
             stream << "Trying to initialize upper triangle matrix from invalid data set " << tMatrix<Trows, Tcolumns, TElement, Full>(data) << ".";

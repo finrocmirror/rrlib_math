@@ -221,22 +221,6 @@ public:
     return *that;
   }
 
-  inline const bool Equals(const tVectorType &other, double epsilon = 0) const
-  {
-    for (size_t i = 0; i < Tdimension; ++i)
-    {
-      //! fast and ugly hack to prevent compile error
-      double diff = (*this)[i] - other[i];
-      if (diff < 0.0)
-        diff *= -1.0;
-      if (/*!std::abs((*this)[i] - other[i])*/ diff >= epsilon)
-      {
-        return false;
-      }
-    }
-    return true;
-  }
-
   inline void Normalize()
   {
     tVectorType *that = reinterpret_cast<tVectorType *>(this);
@@ -279,29 +263,6 @@ public:
 
 };
 
-
-
-template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
-inline const bool operator == (const tVector<Tdimension, TElement, TData> &left, const tVector<Tdimension, TElement, TData> &right)
-{
-  return left.Equals(right);
-}
-
-template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
-inline const bool operator != (const tVector<Tdimension, TElement, TData> &left, const tVector<Tdimension, TElement, TData> &right)
-{
-  return !(left == right);
-}
-
-template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
-inline const bool operator < (const tVector<Tdimension, TElement, TData> &left, const tVector<Tdimension, TElement, TData> &right)
-{
-  if (&left == &right)
-  {
-    return false;
-  }
-  return std::memcmp(&left, &right, sizeof(tVector<Tdimension, TElement, TData>)) < 0;
-}
 
 
 //----------------------------------------------------------------------

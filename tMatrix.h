@@ -95,7 +95,7 @@ class tMatrix;
 
 #include "rrlib/math/matrix/tMatrix.h"
 
-//#include "rrlib/math/matrix/functions.h"
+#include "rrlib/math/matrix/functions.h"
 
 #undef _rrlib_math_matrix_include_guard_
 

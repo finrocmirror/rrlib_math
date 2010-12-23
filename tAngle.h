@@ -70,21 +70,21 @@ namespace math
 // Forward declarations / typedefs / enums
 //----------------------------------------------------------------------
 
-typedef tAngle<angle::Radian, angle::Signed> tAngleRad;
-typedef tAngle<angle::Degree, angle::Signed> tAngleDeg;
+typedef tAngle<double, angle::Radian, angle::Signed> tAngleRad;
+typedef tAngle<double, angle::Degree, angle::Signed> tAngleDeg;
 
-typedef tAngle<angle::Radian, angle::Unsigned> unsigned_tAngleRad;
-typedef tAngle<angle::Degree, angle::Unsigned> unsigned_tAngleDeg;
+typedef tAngle<double, angle::Radian, angle::Unsigned> unsigned_tAngleRad;
+typedef tAngle<double, angle::Degree, angle::Unsigned> unsigned_tAngleDeg;
 
 //----------------------------------------------------------------------
 // Explicit template instantiation
 //----------------------------------------------------------------------
 
-extern template class tAngle<angle::Radian, angle::Signed>;
-extern template class tAngle<angle::Degree, angle::Signed>;
+extern template class tAngle<double, angle::Radian, angle::Signed>;
+extern template class tAngle<double, angle::Degree, angle::Signed>;
 
-extern template class tAngle<angle::Radian, angle::Unsigned>;
-extern template class tAngle<angle::Degree, angle::Unsigned>;
+extern template class tAngle<double, angle::Radian, angle::Unsigned>;
+extern template class tAngle<double, angle::Degree, angle::Unsigned>;
 
 //----------------------------------------------------------------------
 // End of namespace declaration

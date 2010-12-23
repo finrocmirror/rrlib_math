@@ -19,32 +19,33 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 //
 //----------------------------------------------------------------------
-/*!\file    utilities.h
+/*!\file    functions.h
  *
  * \author  Tobias Foehst
  *
- * \date    2010-12-05
+ * \date    2008-09-26
  *
  * \brief
  *
  * \b
  *
+ * A few words for functions.h
+ *
  */
 //----------------------------------------------------------------------
-#ifndef _rrlib_math_utilities_h_
-#define _rrlib_math_utilities_h_
+#ifndef _rrlib_math_matrix_functions_h_
+#define _rrlib_math_matrix_functions_h_
 
 //----------------------------------------------------------------------
-// External includes (system with <>, local with "")
+// External includes with <>
 //----------------------------------------------------------------------
 #include <cmath>
-#include <boost/utility/enable_if.hpp>
-#include <boost/type_traits/is_float.hpp>
-#include <boost/type_traits/is_integral.hpp>
+#include <iostream>
 
 //----------------------------------------------------------------------
 // Internal includes with ""
 //----------------------------------------------------------------------
+#include "rrlib/math/utilities.h"
 
 //----------------------------------------------------------------------
 // Debugging
@@ -58,35 +59,35 @@ namespace rrlib
 namespace math
 {
 
-//----------------------------------------------------------------------
-// Forward declarations / typedefs / enums
-//----------------------------------------------------------------------
-enum tFloatComparisonMethod
-{
-  eFCM_ABSOLUTE_ERROR,
-  eFCM_RELATIVE_ERROR,
-  eFCM_DISTANCE_IN_FLOAT_REPRESENTATION
-};
 
-//----------------------------------------------------------------------
-// Function declaration
-//----------------------------------------------------------------------
 
-template <typename T>
-inline const typename boost::enable_if<boost::is_integral<T>, T>::type Modulo(T a, T b)
+template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, size_t, typename> class TLeftData, template <size_t, size_t, typename> class TRightData>
+inline bool IsEqual(const tMatrix<Trows, Tcolumns, TElement, TLeftData> &left, const tMatrix<Trows, Tcolumns, TElement, TRightData> &right, float max_error = 0.000001, tFloatComparisonMethod method = eFCM_ABSOLUTE_ERROR)
 {
-  T v = a % b;
-  return v < 0 ? v + b : v;
+  for (size_t row = 0; row < Trows; ++row)
+  {
+    for (size_t column = 0; column < Tcolumns; ++column)
+    {
+      if (!IsEqual(left[row][column], right[row][column], max_error, method))
+      {
+        return false;
+      }
+    }
+  }
+  return true;
 }
 
-template <typename T>
-inline const typename boost::enable_if<boost::is_float<T>, T>::type Modulo(T a, T b)
+template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, size_t, typename> class TLeftData, template <size_t, size_t, typename> class TRightData>
+inline const bool operator == (const tMatrix<Trows, Tcolumns, TElement, TLeftData> &left, const tMatrix<Trows, Tcolumns, TElement, TRightData> &right)
 {
-  T v = std::fmod(a, b);
-  return v < 0 ? v + b : v;
+  return IsEqual(left, right, 0.0);
 }
 
-const bool IsEqual(float a, float b, float max_error = 0.000001, tFloatComparisonMethod method = eFCM_ABSOLUTE_ERROR);
+template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, size_t, typename> class TLeftData, template <size_t, size_t, typename> class TRightData>
+inline const bool operator != (const tMatrix<Trows, Tcolumns, TElement, TLeftData> &left, const tMatrix<Trows, Tcolumns, TElement, TRightData> &right)
+{
+  return !(left == right);
+}
 
 //----------------------------------------------------------------------
 // End of namespace declaration

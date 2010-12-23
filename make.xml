@@ -6,13 +6,11 @@
     <sources>
       tAngle.cpp
       tMatrix.cpp
-<!--
       tPose2D.cpp
       tPose3D.cpp
--->
       tVector.cpp
       until_0x_helper.h
-      utilities.h
+      utilities.cpp
       angle/**
       matrix/**
       vector/**
@@ -31,12 +29,10 @@
     </sources>
   </testprogram>
 
-<!-- 
   <testprogram name="angles">
     <sources>
       test/test_angles.cpp
     </sources>
   </testprogram>
--->
 
 </targets>

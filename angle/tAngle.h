@@ -41,7 +41,7 @@
 //----------------------------------------------------------------------
 // External includes (system with <>, local with "")
 //----------------------------------------------------------------------
-#include <ostream>
+#include <iostream>
 #include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/is_same.hpp>
 
@@ -73,12 +73,13 @@ namespace math
  *
  */
 template <
+typename TElement = double,
 typename TUnitPolicy = angle::Radian,
 typename TSignPolicy = angle::Signed
 >
 class tAngle
 {
-  double value;
+  TElement value;
 
 //----------------------------------------------------------------------
 // Public methods
@@ -89,7 +90,7 @@ public:
       : value(0)
   {}
 
-  inline tAngle(double value)
+  inline tAngle(TElement value)
       : value(TSignPolicy::FitIntoRange(value, TUnitPolicy::RangeLimit()))
   {}
 
@@ -98,8 +99,8 @@ public:
   {}
 
   template <typename TOtherUnitPolicy, typename TOtherSignPolicy>
-  inline tAngle(const tAngle<TOtherUnitPolicy, TOtherSignPolicy> &other)
-      : value(TSignPolicy::FitIntoRange(TUnitPolicy::ConvertFromUnit(static_cast<double>(other), TOtherUnitPolicy()), TUnitPolicy::RangeLimit()))
+  inline tAngle(const tAngle<TElement, TOtherUnitPolicy, TOtherSignPolicy> &other)
+      : value(TSignPolicy::FitIntoRange(TUnitPolicy::ConvertFromUnit(static_cast<TElement>(other), TOtherUnitPolicy()), TUnitPolicy::RangeLimit()))
   {}
 
   inline tAngle &operator = (const tAngle &other)
@@ -115,34 +116,34 @@ public:
     return *this;
   }
 
-  inline operator double() const
+  /*explicit*/ inline operator TElement() const // FIXME
   {
     return this->value;
   }
 
   inline tAngle &operator += (const tAngle &other)
   {
-    this->value = TSignPolicy::FitIntoRange(this->value + static_cast<double>(other), TUnitPolicy::RangeLimit());
+    this->value = TSignPolicy::FitIntoRange(this->value + static_cast<TElement>(other), TUnitPolicy::RangeLimit());
     return *this;
   }
 
   template <typename TOtherUnitPolicy, typename TOtherSignPolicy>
-  inline typename boost::disable_if<boost::is_same<tAngle, tAngle<TOtherUnitPolicy, TOtherSignPolicy> >, tAngle>::type &operator += (const tAngle<TOtherUnitPolicy, TOtherSignPolicy> &other)
+  inline typename boost::disable_if<boost::is_same<tAngle, tAngle<TElement, TOtherUnitPolicy, TOtherSignPolicy> >, tAngle>::type &operator += (const tAngle<TElement, TOtherUnitPolicy, TOtherSignPolicy> &other)
   {
-    this->value = TSignPolicy::FitIntoRange(this->value + TUnitPolicy::ConvertFromUnit(static_cast<double>(other), TOtherUnitPolicy()), TUnitPolicy::RangeLimit());
+    this->value = TSignPolicy::FitIntoRange(this->value + TUnitPolicy::ConvertFromUnit(static_cast<TElement>(other), TOtherUnitPolicy()), TUnitPolicy::RangeLimit());
     return *this;
   }
 
   inline tAngle &operator -= (const tAngle &other)
   {
-    this->value = TSignPolicy::FitIntoRange(this->value - static_cast<double>(other), TUnitPolicy::RangeLimit());
+    this->value = TSignPolicy::FitIntoRange(this->value - static_cast<TElement>(other), TUnitPolicy::RangeLimit());
     return *this;
   }
 
   template <typename TOtherUnitPolicy, typename TOtherSignPolicy>
-  inline typename boost::disable_if<boost::is_same<tAngle, tAngle<TOtherUnitPolicy, TOtherSignPolicy> >, tAngle>::type &operator -= (const tAngle<TOtherUnitPolicy, TOtherSignPolicy> &other)
+  inline typename boost::disable_if<boost::is_same<tAngle, tAngle<TElement, TOtherUnitPolicy, TOtherSignPolicy> >, tAngle>::type &operator -= (const tAngle<TElement, TOtherUnitPolicy, TOtherSignPolicy> &other)
   {
-    this->value = TSignPolicy::FitIntoRange(this->value - TUnitPolicy::ConvertFromUnit(static_cast<double>(other), TOtherUnitPolicy()), TUnitPolicy::RangeLimit());
+    this->value = TSignPolicy::FitIntoRange(this->value - TUnitPolicy::ConvertFromUnit(static_cast<TElement>(other), TOtherUnitPolicy()), TUnitPolicy::RangeLimit());
     return *this;
   }
 
@@ -158,55 +159,91 @@ public:
     return *this;
   }
 
+  inline const double Sine() const
+  {
+    return std::sin(angle::Radian::ConvertFromUnit(this->value, TUnitPolicy()));
+  }
+
+  inline const double Cosine() const
+  {
+    return std::cos(angle::Radian::ConvertFromUnit(this->value, TUnitPolicy()));
+  }
+
+  inline const double Tangent() const
+  {
+    return std::tan(angle::Radian::ConvertFromUnit(this->value, TUnitPolicy()));
+  }
+
+  void SinCos(double &sine, double &cosine) const
+  {
+    sincos(angle::Radian::ConvertFromUnit(this->value, TUnitPolicy()), &sine, &cosine);
+  }
+
 };
 
-template <typename TUnitPolicy, typename TSignPolicy>
-inline const tAngle<TUnitPolicy, TSignPolicy> operator - (const tAngle<TUnitPolicy, TSignPolicy> &angle)
+template <typename TElement, typename TUnitPolicy, typename TSignPolicy>
+inline const tAngle<TElement, TUnitPolicy, TSignPolicy> operator - (const tAngle<TElement, TUnitPolicy, TSignPolicy> &angle)
 {
-  return tAngle<TUnitPolicy, TSignPolicy>(-static_cast<double>(angle));
+  return tAngle<TElement, TUnitPolicy, TSignPolicy>(-static_cast<double>(angle));
 }
 
-template <typename TUnitPolicy, typename TSignPolicy>
-inline const tAngle<TUnitPolicy, TSignPolicy> operator + (const tAngle<TUnitPolicy, TSignPolicy> &left, const tAngle<TUnitPolicy, TSignPolicy> &right)
+template <typename TElement, typename TUnitPolicy, typename TSignPolicy>
+inline const tAngle<TElement, TUnitPolicy, TSignPolicy> operator + (const tAngle<TElement, TUnitPolicy, TSignPolicy> &left, const tAngle<TElement, TUnitPolicy, TSignPolicy> &right)
 {
-  tAngle<TUnitPolicy, TSignPolicy> temp(left);
+  tAngle<TElement, TUnitPolicy, TSignPolicy> temp(left);
   temp += right;
   return temp;
 }
 
-template <typename TUnitPolicy, typename TSignPolicy>
-inline const tAngle<TUnitPolicy, TSignPolicy> operator - (const tAngle<TUnitPolicy, TSignPolicy> &left, const tAngle<TUnitPolicy, TSignPolicy> &right)
+template <typename TElement, typename TUnitPolicy, typename TSignPolicy>
+inline const tAngle<TElement, TUnitPolicy, TSignPolicy> operator - (const tAngle<TElement, TUnitPolicy, TSignPolicy> &left, const tAngle<TElement, TUnitPolicy, TSignPolicy> &right)
 {
-  tAngle<TUnitPolicy, TSignPolicy> temp(left);
+  tAngle<TElement, TUnitPolicy, TSignPolicy> temp(left);
   temp -= right;
   return temp;
 }
 
-template <typename TUnitPolicy, typename TSignPolicy>
-inline const tAngle<TUnitPolicy, TSignPolicy> operator *(const tAngle<TUnitPolicy, TSignPolicy> &angle, double factor)
+//template <typename TUnitPolicy, typename TSignPolicy>
+//inline const tAngle<TUnitPolicy, TSignPolicy> operator *(const tAngle<TUnitPolicy, TSignPolicy> &angle, double factor)
+//{
+//  tAngle<TUnitPolicy, TSignPolicy> temp(angle);
+//  temp *= factor;
+//  return temp;
+//}
+//template <typename TUnitPolicy, typename TSignPolicy>
+//inline const tAngle<TUnitPolicy, TSignPolicy> operator *(double factor, const tAngle<TUnitPolicy, TSignPolicy> &angle)
+//{
+//  return angle * factor;
+//}
+
+//template <typename TUnitPolicy, typename TSignPolicy>
+//inline const tAngle<TUnitPolicy, TSignPolicy> operator / (const tAngle<TUnitPolicy, TSignPolicy> &angle, double divider)
+//{
+//  tAngle<TUnitPolicy, TSignPolicy> temp(angle);
+//  temp /= divider;
+//  return temp;
+//}
+
+template <typename TElement, typename TUnitPolicy, typename TSignPolicy>
+std::ostream &operator << (std::ostream &stream, const tAngle<TElement, TUnitPolicy, TSignPolicy> &angle)
 {
-  tAngle<TUnitPolicy, TSignPolicy> temp(angle);
-  temp *= factor;
-  return temp;
-}
-template <typename TUnitPolicy, typename TSignPolicy>
-inline const tAngle<TUnitPolicy, TSignPolicy> operator *(double factor, const tAngle<TUnitPolicy, TSignPolicy> &angle)
-{
-  return angle * factor;
+  return stream << (static_cast<TElement>(angle) / TUnitPolicy::UnitDivider()) << (TUnitPolicy::PadUnitString() ? " " : "") << TUnitPolicy::UnitString();
 }
 
-template <typename TUnitPolicy, typename TSignPolicy>
-inline const tAngle<TUnitPolicy, TSignPolicy> operator / (const tAngle<TUnitPolicy, TSignPolicy> &angle, double divider)
+template <typename TElement, typename TUnitPolicy, typename TSignPolicy>
+std::istream &operator >> (std::istream &stream, tAngle<TElement, TUnitPolicy, TSignPolicy> &angle)
 {
-  tAngle<TUnitPolicy, TSignPolicy> temp(angle);
-  temp /= divider;
-  return temp;
-}
-
-template <typename TUnitPolicy, typename TSignPolicy>
-std::ostream &operator << (std::ostream &stream, const tAngle<TUnitPolicy, TSignPolicy> &angle)
-{
-  stream << (static_cast<double>(angle) / TUnitPolicy::UnitDivider()) << (TUnitPolicy::PadUnitString() ? " " : "") << TUnitPolicy::UnitString();
+  double value;
+  stream >> value;
+  angle = value * TUnitPolicy::UnitDivider();
+  if (TUnitPolicy::UnitString().length() > 0)
+  {
+    char temp;
+    for (std::string::size_type i = 0; i < TUnitPolicy::UnitString().length(); ++i)
+    {
+      stream >> temp;
+    }
+  }
   return stream;
 }
 

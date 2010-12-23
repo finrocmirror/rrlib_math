@@ -19,19 +19,20 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 //
 //----------------------------------------------------------------------
-/*!\file    tVector.cpp
+/*!\file    utilities.cpp
  *
  * \author  Tobias Foehst
  *
- * \date    2010-09-27
+ * \date    2010-12-05
  *
  */
 //----------------------------------------------------------------------
-#include "rrlib/math/tVector.h"
+#include "rrlib/math/utilities.h"
 
 //----------------------------------------------------------------------
 // External includes (system with <>, local with "")
 //----------------------------------------------------------------------
+#include <algorithm>
 
 //----------------------------------------------------------------------
 // Internal includes with ""
@@ -40,11 +41,19 @@
 //----------------------------------------------------------------------
 // Debugging
 //----------------------------------------------------------------------
+#include <cassert>
 
 //----------------------------------------------------------------------
 // Namespace usage
 //----------------------------------------------------------------------
-using namespace rrlib::math;
+
+//----------------------------------------------------------------------
+// Namespace declaration
+//----------------------------------------------------------------------
+namespace rrlib
+{
+namespace math
+{
 
 //----------------------------------------------------------------------
 // Forward declarations / typedefs / enums
@@ -58,24 +67,64 @@ using namespace rrlib::math;
 // Implementation
 //----------------------------------------------------------------------
 
-template class tVector<2, double, vector::Cartesian>;
-template class tVector<3, double, vector::Cartesian>;
-template class tVector<6, double, vector::Cartesian>;
+//----------------------------------------------------------------------
+// IsEqual
+//----------------------------------------------------------------------
+namespace
+{
+const bool IsEqualUsingDistanceInFloatRepresentation(float a, float b, unsigned int max_distance)
+{
+  union tFloatToIntRepresentation
+  {
+    float float_representation;
+    int int_representation;
+  } a_converter, b_converter;
 
-template class tVector<2, float, vector::Cartesian>;
-template class tVector<3, float, vector::Cartesian>;
-template class tVector<6, float, vector::Cartesian>;
+  if (std::isnan(a) || std::isnan(b) || std::isinf(a) || std::isinf(b))
+  {
+    return false;
+  }
 
-template class tVector<2, int, vector::Cartesian>;
-template class tVector<3, int, vector::Cartesian>;
-template class tVector<6, int, vector::Cartesian>;
+  a_converter.float_representation = a;
+  b_converter.float_representation = b;
 
-template class tVector<2, unsigned int, vector::Cartesian>;
-template class tVector<3, unsigned int, vector::Cartesian>;
-template class tVector<6, unsigned int, vector::Cartesian>;
+  int a_int = a_converter.int_representation;
+  int b_int = b_converter.int_representation;
 
-template class tVector<2, double, vector::Polar>;
-template class tVector<3, double, vector::Polar>;
+  // make lexicographically ordered as twos-complement
+  if (a_int < 0)
+  {
+    a_int = 0x80000000 - a_int;
+  }
+  if (b_int < 0)
+  {
+    b_int = 0x80000000 - b_int;
+  }
 
-template class tVector<2, float, vector::Polar>;
-template class tVector<3, float, vector::Polar>;
+  return static_cast<unsigned int>(std::abs(a_int - b_int)) <= max_distance;
+}
+
+}
+
+const bool IsEqual(float a, float b, float max_error, tFloatComparisonMethod method)
+{
+  if (a == b)
+  {
+    return true;
+  }
+  switch (method)
+  {
+  case eFCM_ABSOLUTE_ERROR:
+    return std::abs(a - b) <= max_error;
+  case eFCM_RELATIVE_ERROR:
+    return std::abs((a - b) / std::max(std::abs(a), std::abs(b))) <= max_error;
+  case eFCM_DISTANCE_IN_FLOAT_REPRESENTATION:
+    return IsEqualUsingDistanceInFloatRepresentation(a, b, static_cast<unsigned int>(max_error));
+  }
+}
+
+//----------------------------------------------------------------------
+// End of namespace declaration
+//----------------------------------------------------------------------
+}
+}

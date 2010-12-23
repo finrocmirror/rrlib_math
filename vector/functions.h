@@ -45,6 +45,7 @@
 //----------------------------------------------------------------------
 // Internal includes with ""
 //----------------------------------------------------------------------
+#include "rrlib/math/utilities.h"
 
 //----------------------------------------------------------------------
 // Debugging
@@ -59,6 +60,41 @@ namespace math
 {
 
 
+
+template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
+inline bool IsEqual(const tVector<Tdimension, TElement, TData> &left, const tVector<Tdimension, TElement, TData> &right, float max_error = 0.000001, tFloatComparisonMethod method = eFCM_ABSOLUTE_ERROR)
+{
+  for (size_t i = 0; i < Tdimension; ++i)
+  {
+    if (!IsEqual(left[i], right[i], max_error, method))
+    {
+      return false;
+    }
+  }
+  return true;
+}
+
+template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
+inline const bool operator == (const tVector<Tdimension, TElement, TData> &left, const tVector<Tdimension, TElement, TData> &right)
+{
+  return IsEqual(left, right, 0.0);
+}
+
+template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
+inline const bool operator != (const tVector<Tdimension, TElement, TData> &left, const tVector<Tdimension, TElement, TData> &right)
+{
+  return !(left == right);
+}
+
+template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
+inline const bool operator < (const tVector<Tdimension, TElement, TData> &left, const tVector<Tdimension, TElement, TData> &right)
+{
+  if (&left == &right)
+  {
+    return false;
+  }
+  return std::memcmp(&left, &right, sizeof(tVector<Tdimension, TElement, TData>)) < 0;
+}
 
 template <size_t Tdimension, typename TLeftElement, typename TRightElement>
 inline const tVector<Tdimension, typename until_0x::Auto<TLeftElement, TRightElement>::type, vector::Cartesian> SchurProduct(const tVector<Tdimension, TLeftElement, vector::Cartesian> &left, const tVector<Tdimension, TRightElement, vector::Cartesian> &right)

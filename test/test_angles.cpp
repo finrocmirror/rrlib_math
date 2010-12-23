@@ -65,32 +65,32 @@ using namespace rrlib::math;
 int main(int argc, char **argv)
 {
 
-//  std::cout << tAngleRad() << std::endl;
-//  std::cout << unsigned_tAngleRad() << std::endl;
-//  std::cout << tAngleDeg() << std::endl;
-//  std::cout << unsigned_tAngleDeg() << std::endl;
-//
-//  std::cout << tAngleRad(tAngleDeg(90)) << std::endl;
-//  std::cout << unsigned_tAngleRad(tAngleDeg(90)) << std::endl;
-//  std::cout << tAngleDeg(90) << std::endl;
-//  std::cout << unsigned_tAngleDeg(90) << std::endl;
-//
-//  std::cout << tAngleRad(tAngleDeg(-90)) << std::endl;
-//  std::cout << unsigned_tAngleRad(tAngleDeg(-90)) << std::endl;
-//  std::cout << tAngleDeg(-90) << std::endl;
-//  std::cout << unsigned_tAngleDeg(-90) << std::endl;
-//
-//  tAngleDeg a = 180;
-//  std::cout << a << std::endl;
-//  std::cout << a + 180 << std::endl;
-//  a += 90.0;
-//  std::cout << a << std::endl;
-//  a += 90.0;
-//  std::cout << a << std::endl;
-//  a += 90;
-//  std::cout << a << std::endl;
-//  a += 90;
-//  std::cout << a << std::endl;
+  std::cout << tAngleRad() << std::endl;
+  std::cout << unsigned_tAngleRad() << std::endl;
+  std::cout << tAngleDeg() << std::endl;
+  std::cout << unsigned_tAngleDeg() << std::endl;
+
+  std::cout << tAngleRad(tAngleDeg(90)) << std::endl;
+  std::cout << unsigned_tAngleRad(tAngleDeg(90)) << std::endl;
+  std::cout << tAngleDeg(90) << std::endl;
+  std::cout << unsigned_tAngleDeg(90) << std::endl;
+
+  std::cout << tAngleRad(tAngleDeg(-90)) << std::endl;
+  std::cout << unsigned_tAngleRad(tAngleDeg(-90)) << std::endl;
+  std::cout << tAngleDeg(-90) << std::endl;
+  std::cout << unsigned_tAngleDeg(-90) << std::endl;
+
+  tAngleDeg a = 180;
+  std::cout << a << std::endl;
+  std::cout << a + 180 << std::endl;
+  a += 90.0;
+  std::cout << a << std::endl;
+  a += 90.0;
+  std::cout << a << std::endl;
+  a += 90;
+  std::cout << a << std::endl;
+  a += 90;
+  std::cout << a << std::endl;
 
   unsigned_tAngleDeg b = 180;
   std::cout << b << std::endl;

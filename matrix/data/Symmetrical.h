@@ -47,6 +47,7 @@
 //----------------------------------------------------------------------
 // Internal includes with ""
 //----------------------------------------------------------------------
+#include "rrlib/math/utilities.h"
 
 //----------------------------------------------------------------------
 // Debugging
@@ -119,7 +120,7 @@ public:
     {
       for (size_t column = row; column < Tcolumns; ++column)
       {
-        if (data[row * Tcolumns + column] != data[column * Trows + row])
+        if (!IsEqual(data[row * Tcolumns + column], data[column * Trows + row], 0.0001, eFCM_RELATIVE_ERROR))
         {
           std::stringstream stream;
           stream << "Trying to initialize symmetric matrix from invalid data set " << tMatrix<Trows, Tcolumns, TElement, Full>(data) << ".";

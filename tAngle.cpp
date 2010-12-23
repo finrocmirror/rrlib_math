@@ -58,8 +58,8 @@ using namespace rrlib::math;
 // Implementation
 //----------------------------------------------------------------------
 
-template class tAngle<angle::Radian, angle::Signed>;
-template class tAngle<angle::Degree, angle::Signed>;
+template class tAngle<double, angle::Radian, angle::Signed>;
+template class tAngle<double, angle::Degree, angle::Signed>;
 
-template class tAngle<angle::Radian, angle::Unsigned>;
-template class tAngle<angle::Degree, angle::Unsigned>;
+template class tAngle<double, angle::Radian, angle::Unsigned>;
+template class tAngle<double, angle::Degree, angle::Unsigned>;
