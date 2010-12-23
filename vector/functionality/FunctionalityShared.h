@@ -225,7 +225,11 @@ public:
   {
     for (size_t i = 0; i < Tdimension; ++i)
     {
-      if (std::abs((*this)[i] - other[i]) >= epsilon)
+      //! fast and ugly hack to prevent compile error
+      double diff = (*this)[i] - other[i];
+      if (diff < 0.0)
+        diff *= -1.0;
+      if (/*!std::abs((*this)[i] - other[i])*/ diff >= epsilon)
       {
         return false;
       }
