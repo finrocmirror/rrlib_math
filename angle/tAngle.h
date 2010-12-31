@@ -121,11 +121,6 @@ public:
     return this->value;
   }
 
-  /*explicit*/ inline TElement Rad() const // FIXME
-  {
-    return angle::Radian::ConvertFromUnit(this->value, TUnitPolicy());
-  }
-
   inline tAngle &operator += (const tAngle &other)
   {
     this->value = TSignPolicy::FitIntoRange(this->value + static_cast<TElement>(other), TUnitPolicy::RangeLimit());
@@ -179,12 +174,12 @@ public:
     return std::tan(angle::Radian::ConvertFromUnit(this->value, TUnitPolicy()));
   }
 
-  void SinCos(double &sine, double &cosine) const
+  inline void SinCos(double &sine, double &cosine) const
   {
     sincos(angle::Radian::ConvertFromUnit(this->value, TUnitPolicy()), &sine, &cosine);
   }
 
-  void SinCos(float &sine, float &cosine) const
+  inline void SinCos(float &sine, float &cosine) const
   {
     sincosf(angle::Radian::ConvertFromUnit(this->value, TUnitPolicy()), &sine, &cosine);
   }
