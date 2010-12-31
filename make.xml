@@ -4,7 +4,7 @@
   <rrlib name="math"
         libs="boost gsl">
     <sources>
-      sGslRandomNumberGenerator.h
+      sGslRandomNumberGenerator.cpp
       tAngle.cpp
       tCholeskyDecomposition.cpp
       tLUDecomposition.cpp
