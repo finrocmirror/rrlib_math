@@ -141,7 +141,7 @@ const tMatrix<Trows, Tcolumns, typename until_0x::Auto<TLeftElement, TRightEleme
       }
     }
   }
-  return *reinterpret_cast<tResultType *>(&data);
+  return tResultType(data);
 }
 
 template <size_t Trows, size_t Tconnection, size_t Tcolumns, typename TLeftElement, typename TRightElement, template <size_t, size_t, typename> class TRightData>

@@ -46,6 +46,7 @@
 //----------------------------------------------------------------------
 // Internal includes with ""
 //----------------------------------------------------------------------
+#include "rrlib/math/tAngle.h"
 
 //----------------------------------------------------------------------
 // Debugging
@@ -101,9 +102,9 @@ protected:
 
 public:
 
-  inline void Rotate(double angle)
+  inline void Rotate(tAngleRad angle)
   {
-    this->Rotate(std::sin(angle), std::cos(angle));
+    this->Rotate(angle.Sine(), angle.Cosine());
   }
 
   inline void Rotate(double sine, double cosine)
@@ -113,7 +114,7 @@ public:
               sine * that->X() + cosine * that->Y());
   }
 
-  inline const tVectorType Rotated(double angle) const
+  inline const tVectorType Rotated(tAngleRad angle) const
   {
     const tVectorType *that = reinterpret_cast<const tVectorType *>(this);
     tVectorType temp(*that);
@@ -149,12 +150,12 @@ protected:
 public:
 
   template <typename TAxisElement>
-  inline void Rotate(double angle, const tVector<3, TAxisElement, Cartesian> &axis)
+  inline void Rotate(tAngleRad angle, const tVector<3, TAxisElement, Cartesian> &axis)
   {
     tVectorType *that = reinterpret_cast<tVectorType *>(this);
 
-    double si = std::sin(angle);
-    double co = std::cos(angle);
+    double si = angle.Sine();
+    double co = angle.Cosine();
     double mco = 1.0 - co;
     tVector<3, TAxisElement, Cartesian> normalized_axis(axis.Normalized());
 
@@ -164,7 +165,7 @@ public:
   }
 
   template <typename TAxisElement>
-  inline const tVectorType Rotated(double angle, const tVector<3, TAxisElement, Cartesian> &axis) const
+  inline const tVectorType Rotated(tAngleRad angle, const tVector<3, TAxisElement, Cartesian> &axis) const
   {
     const tVectorType *that = reinterpret_cast<const tVectorType *>(this);
     tVectorType temp(*that);

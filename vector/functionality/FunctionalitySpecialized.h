@@ -48,6 +48,7 @@
 //----------------------------------------------------------------------
 // Internal includes with ""
 //----------------------------------------------------------------------
+#include "rrlib/math/utilities.h"
 
 //----------------------------------------------------------------------
 // Debugging
@@ -132,7 +133,7 @@ public:
     const tVectorType *that = reinterpret_cast<const tVectorType *>(this);
     for (size_t i = 0; i < Tdimension; ++i)
     {
-      if (std::abs((*that)[i]) >= epsilon)
+      if (!IsEqual((*that)[i], 0, epsilon, eFCM_ABSOLUTE_ERROR))
       {
         return false;
       }

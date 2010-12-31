@@ -4,7 +4,9 @@
   <rrlib name="math"
         libs="boost">
     <sources>
+      sGslRandomNumberGenerator.h
       tAngle.cpp
+      tLUDecomposition.cpp
       tMatrix.cpp
       tPose2D.cpp
       tPose3D.cpp
@@ -14,7 +16,6 @@
       angle/**
       matrix/**
       vector/**
-      sGslRandomNumberGenerator.cpp
     </sources>
   </rrlib>
   

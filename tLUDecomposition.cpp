@@ -19,80 +19,47 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 //
 //----------------------------------------------------------------------
-/*!\file    functions.h
+/*!\file    tLUDecomposition.cpp
  *
  * \author  Tobias Foehst
  *
- * \date    2008-09-26
- *
- * \brief
- *
- * \b
- *
- * A few words for functions.h
+ * \date    2010-12-27
  *
  */
 //----------------------------------------------------------------------
-#ifndef _rrlib_math_matrix_functions_h_
-#define _rrlib_math_matrix_functions_h_
+#include "rrlib/math/tLUDecomposition.h"
 
 //----------------------------------------------------------------------
-// External includes with <>
+// External includes (system with <>, local with "")
 //----------------------------------------------------------------------
-#include <cmath>
-#include <iostream>
 
 //----------------------------------------------------------------------
 // Internal includes with ""
 //----------------------------------------------------------------------
-#include "rrlib/math/utilities.h"
 
 //----------------------------------------------------------------------
 // Debugging
 //----------------------------------------------------------------------
 
 //----------------------------------------------------------------------
-// Namespace declaration
+// Namespace usage
 //----------------------------------------------------------------------
-namespace rrlib
-{
-namespace math
-{
-
-
-
-template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, size_t, typename> class TLeftData, template <size_t, size_t, typename> class TRightData>
-inline bool IsEqual(const tMatrix<Trows, Tcolumns, TElement, TLeftData> &left, const tMatrix<Trows, Tcolumns, TElement, TRightData> &right, float max_error = 1.0E-6, tFloatComparisonMethod method = eFCM_ABSOLUTE_ERROR)
-{
-  for (size_t row = 0; row < Trows; ++row)
-  {
-    for (size_t column = 0; column < Tcolumns; ++column)
-    {
-      if (!IsEqual(left[row][column], right[row][column], max_error, method))
-      {
-        return false;
-      }
-    }
-  }
-  return true;
-}
-
-template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, size_t, typename> class TLeftData, template <size_t, size_t, typename> class TRightData>
-inline const bool operator == (const tMatrix<Trows, Tcolumns, TElement, TLeftData> &left, const tMatrix<Trows, Tcolumns, TElement, TRightData> &right)
-{
-  return IsEqual(left, right, 0.0);
-}
-
-template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, size_t, typename> class TLeftData, template <size_t, size_t, typename> class TRightData>
-inline const bool operator != (const tMatrix<Trows, Tcolumns, TElement, TLeftData> &left, const tMatrix<Trows, Tcolumns, TElement, TRightData> &right)
-{
-  return !(left == right);
-}
+using namespace rrlib::math;
 
 //----------------------------------------------------------------------
-// End of namespace declaration
+// Forward declarations / typedefs / enums
 //----------------------------------------------------------------------
-}
-}
 
-#endif
+//----------------------------------------------------------------------
+// Const values
+//----------------------------------------------------------------------
+
+//----------------------------------------------------------------------
+// Implementation
+//----------------------------------------------------------------------
+
+template class tLUDecomposition<2, float>;
+template class tLUDecomposition<3, float>;
+
+template class tLUDecomposition<2, double>;
+template class tLUDecomposition<3, double>;

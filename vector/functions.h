@@ -62,7 +62,7 @@ namespace math
 
 
 template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
-inline bool IsEqual(const tVector<Tdimension, TElement, TData> &left, const tVector<Tdimension, TElement, TData> &right, float max_error = 0.000001, tFloatComparisonMethod method = eFCM_ABSOLUTE_ERROR)
+inline bool IsEqual(const tVector<Tdimension, TElement, TData> &left, const tVector<Tdimension, TElement, TData> &right, float max_error = 1.0E-6, tFloatComparisonMethod method = eFCM_ABSOLUTE_ERROR)
 {
   for (size_t i = 0; i < Tdimension; ++i)
   {
@@ -109,7 +109,7 @@ inline const tVector<3, typename until_0x::Auto<TLeftElement, TRightElement>::ty
 }
 
 template <size_t Tdimension, typename TLeftElement, typename TRightElement, template <size_t, typename> class TData>
-inline const double EnclosedAngle(const tVector<Tdimension, TLeftElement, TData> &left, const tVector<Tdimension, TRightElement, TData> &right)
+inline const tAngleRad EnclosedAngle(const tVector<Tdimension, TLeftElement, TData> &left, const tVector<Tdimension, TRightElement, TData> &right)
 {
   if (left.IsZero() || right.IsZero())
   {
@@ -127,7 +127,7 @@ inline const double EnclosedAngle(const tVector<Tdimension, TLeftElement, TData>
   return std::acos(cos_angle);
 }
 template <typename TLeftElement, typename TRightElement, template <size_t, typename> class TData>
-const double EnclosedAngle(const tVector<2, TLeftElement, TData> &left, const tVector<2, TRightElement, TData> &right)
+const tAngleRad EnclosedAngle(const tVector<2, TLeftElement, TData> &left, const tVector<2, TRightElement, TData> &right)
 {
   if (CrossProduct(tVector<3, TLeftElement, TData>(left), tVector<3, TRightElement, TData>(right)).Z() < 0)
   {
