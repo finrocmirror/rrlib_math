@@ -19,22 +19,22 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 //
 //----------------------------------------------------------------------
-/*!\file    tLUDecomposition.h
+/*!\file    tCholeskyDecomposition.h
  *
  * \author  Tobias Foehst
  *
- * \date    2010-12-28
+ * \date    2010-12-30
  *
- * \brief   Contains tLUDecomposition
+ * \brief   Contains tCholeskyDecomposition
  *
- * \b tLUDecomposition
+ * \b tCholeskyDecomposition
  *
- * A few words for tLUDecomposition
+ * A few words for tCholeskyDecomposition
  *
  */
 //----------------------------------------------------------------------
-#ifndef _rrlib_math_tLUDecomposition_h_
-#define _rrlib_math_tLUDecomposition_h_
+#ifndef _rrlib_math_tCholeskyDecomposition_h_
+#define _rrlib_math_tCholeskyDecomposition_h_
 
 //----------------------------------------------------------------------
 // External includes (system with <>, local with "")
@@ -65,12 +65,12 @@ namespace math
 //----------------------------------------------------------------------
 // Class declaration
 //----------------------------------------------------------------------
-//! Short description of tLUDecomposition
-/*! A more detailed description of tLUDecomposition, which
+//! Short description of tCholeskyDecomposition
+/*! A more detailed description of tCholeskyDecomposition, which
     Tobias Foehst hasn't done yet !!
 */
 template <size_t Trank, typename TElement>
-class tLUDecomposition
+class tCholeskyDecomposition
 {
 
 //----------------------------------------------------------------------
@@ -78,36 +78,21 @@ class tLUDecomposition
 //----------------------------------------------------------------------
 public:
 
-  template <size_t Trows>
-  tLUDecomposition(const tMatrix<Trows, Trank, TElement, matrix::Full> &matrix);
+  tCholeskyDecomposition(const tMatrix<Trank, Trank, TElement, matrix::Symmetrical> &matrix);
 
-  tLUDecomposition(const tMatrix<Trank, Trank, TElement, matrix::LowerTriangle> &matrix);
-
-  tLUDecomposition(const tMatrix<Trank, Trank, TElement, matrix::UpperTriangle> &matrix);
-
-  tLUDecomposition(const tMatrix<Trank, Trank, TElement, matrix::Symmetrical> &matrix);
-
-  inline const tMatrix<Trank, Trank, TElement, matrix::LowerTriangle> &L() const
+  inline const tMatrix<Trank, Trank, TElement, matrix::LowerTriangle> &C() const
   {
-    return this->lower;
+    return this->cholesky_matrix;
   }
 
-  inline const tMatrix<Trank, Trank, TElement, matrix::UpperTriangle> &U() const
-  {
-    return this->upper;
-  }
-
-  template <size_t Tdimension>
-  const tVector<Trank, TElement> Solve(const tVector<Tdimension, TElement> &right_side);
+  const tVector<Trank, TElement> Solve(const tVector<Trank, TElement> &right_side);
 
 //----------------------------------------------------------------------
 // Private fields and methods
 //----------------------------------------------------------------------
 private:
 
-  tMatrix<Trank, Trank, TElement, matrix::LowerTriangle> lower;
-  tMatrix<Trank, Trank, TElement, matrix::UpperTriangle> upper;
-  size_t pivot[Trank - 1];
+  tMatrix<Trank, Trank, TElement, matrix::LowerTriangle> cholesky_matrix;
 
 };
 
@@ -115,11 +100,11 @@ private:
 // Explicit template instantiation
 //----------------------------------------------------------------------
 
-extern template class tLUDecomposition<2, float>;
-extern template class tLUDecomposition<3, float>;
+extern template class tCholeskyDecomposition<2, float>;
+extern template class tCholeskyDecomposition<3, float>;
 
-extern template class tLUDecomposition<2, double>;
-extern template class tLUDecomposition<3, double>;
+extern template class tCholeskyDecomposition<2, double>;
+extern template class tCholeskyDecomposition<3, double>;
 
 //----------------------------------------------------------------------
 // End of namespace declaration
@@ -128,6 +113,6 @@ extern template class tLUDecomposition<3, double>;
 }
 
 
-#include "rrlib/math/tLUDecomposition.hpp"
+#include "rrlib/math/tCholeskyDecomposition.hpp"
 
 #endif

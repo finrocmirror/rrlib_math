@@ -35,6 +35,7 @@
 //----------------------------------------------------------------------
 // Internal includes with ""
 //----------------------------------------------------------------------
+#include "rrlib/math/tCholeskyDecomposition.h"
 
 //----------------------------------------------------------------------
 // Debugging
@@ -200,6 +201,30 @@ tLUDecomposition<Trank, TElement>::tLUDecomposition(const tMatrix<Trank, Trank, 
   for (size_t i = 0; i < Trank - 1; ++i)
   {
     this->pivot[i] = i;
+  }
+}
+
+template <size_t Trank, typename TElement>
+tLUDecomposition<Trank, TElement>::tLUDecomposition(const tMatrix<Trank, Trank, TElement, matrix::Symmetrical> &matrix)
+{
+  try
+  {
+    tCholeskyDecomposition<Trank, TElement> cholesky_decomposition(matrix);
+    this->lower = cholesky_decomposition.C();
+    this->upper = cholesky_decomposition.C().Transposed();
+
+    for (size_t i = 0; i < Trank - 1; ++i)
+    {
+      this->pivot[i] = i;
+    }
+  }
+  catch (const std::logic_error &e)
+  {
+    tMatrix<Trank, Trank, TElement, matrix::Full> full_matrix(matrix);
+    tLUDecomposition<Trank, TElement> lu_decomposition(full_matrix);
+    this->lower = lu_decomposition.L();
+    this->upper = lu_decomposition.U();
+    std::memcpy(this->pivot, lu_decomposition.pivot, sizeof(this->pivot));
   }
 }
 

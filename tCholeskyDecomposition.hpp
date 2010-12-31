@@ -19,22 +19,14 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 //
 //----------------------------------------------------------------------
-/*!\file    tLUDecomposition.h
+/*!\file    tCholeskyDecomposition.hpp
  *
  * \author  Tobias Foehst
  *
- * \date    2010-12-28
- *
- * \brief   Contains tLUDecomposition
- *
- * \b tLUDecomposition
- *
- * A few words for tLUDecomposition
+ * \date    2010-12-30
  *
  */
 //----------------------------------------------------------------------
-#ifndef _rrlib_math_tLUDecomposition_h_
-#define _rrlib_math_tLUDecomposition_h_
 
 //----------------------------------------------------------------------
 // External includes (system with <>, local with "")
@@ -43,12 +35,11 @@
 //----------------------------------------------------------------------
 // Internal includes with ""
 //----------------------------------------------------------------------
-#include "rrlib/math/tVector.h"
-#include "rrlib/math/tMatrix.h"
 
 //----------------------------------------------------------------------
 // Debugging
 //----------------------------------------------------------------------
+#include <cassert>
 
 //----------------------------------------------------------------------
 // Namespace declaration
@@ -63,71 +54,77 @@ namespace math
 //----------------------------------------------------------------------
 
 //----------------------------------------------------------------------
-// Class declaration
+// Const values
 //----------------------------------------------------------------------
-//! Short description of tLUDecomposition
-/*! A more detailed description of tLUDecomposition, which
-    Tobias Foehst hasn't done yet !!
-*/
+
+//----------------------------------------------------------------------
+// Implementation
+//----------------------------------------------------------------------
+
+//----------------------------------------------------------------------
+// tCholeskyDecomposition constructors
+//----------------------------------------------------------------------
 template <size_t Trank, typename TElement>
-class tLUDecomposition
+tCholeskyDecomposition<Trank, TElement>::tCholeskyDecomposition(const tMatrix<Trank, Trank, TElement, matrix::Symmetrical> &matrix)
 {
-
-//----------------------------------------------------------------------
-// Public methods and typedefs
-//----------------------------------------------------------------------
-public:
-
-  template <size_t Trows>
-  tLUDecomposition(const tMatrix<Trows, Trank, TElement, matrix::Full> &matrix);
-
-  tLUDecomposition(const tMatrix<Trank, Trank, TElement, matrix::LowerTriangle> &matrix);
-
-  tLUDecomposition(const tMatrix<Trank, Trank, TElement, matrix::UpperTriangle> &matrix);
-
-  tLUDecomposition(const tMatrix<Trank, Trank, TElement, matrix::Symmetrical> &matrix);
-
-  inline const tMatrix<Trank, Trank, TElement, matrix::LowerTriangle> &L() const
+  for (size_t step = 0; step < Trank; ++step)
   {
-    return this->lower;
-  }
+    this->cholesky_matrix[step][step] = matrix[step][step];
+    for (size_t row = 0; row < step; ++row)
+    {
+      this->cholesky_matrix[step][step] -= this->cholesky_matrix[row][step] * this->cholesky_matrix[row][step];
+    }
 
-  inline const tMatrix<Trank, Trank, TElement, matrix::UpperTriangle> &U() const
+    if (this->cholesky_matrix[step][step] <= 0)
+    {
+      throw std::logic_error("Matrix not positive definite!");
+    }
+
+    this->cholesky_matrix[step][step] = std::sqrt(this->cholesky_matrix[step][step]);
+
+    for (size_t row = step + 1; row < Trank; ++row)
+    {
+      for (size_t column = 0; column < step; ++column)
+      {
+        this->cholesky_matrix[row][step] -= this->cholesky_matrix[row][column] * this->cholesky_matrix[step][column];
+      }
+      this->cholesky_matrix[row][step] /= this->cholesky_matrix[step][step];
+    }
+  }
+}
+
+//----------------------------------------------------------------------
+// tCholeskyDecomposition Solve
+//----------------------------------------------------------------------
+template <size_t Trank, typename TElement>
+const tVector<Trank, TElement> tCholeskyDecomposition<Trank, TElement>::Solve(const tVector<Trank, TElement> &right_side)
+{
+  TElement temp[Trank];
+  for (size_t row = 0; row < Trank; ++row)
   {
-    return this->upper;
+    temp[row] = right_side[row];
+    for (size_t column = 0; column < row; ++column)
+    {
+      temp[row] -= this->cholesky_matrix[row][column] * temp[column];
+    }
+    temp[row] /= this->cholesky_matrix[row][row];
   }
-
-  template <size_t Tdimension>
-  const tVector<Trank, TElement> Solve(const tVector<Tdimension, TElement> &right_side);
-
-//----------------------------------------------------------------------
-// Private fields and methods
-//----------------------------------------------------------------------
-private:
-
-  tMatrix<Trank, Trank, TElement, matrix::LowerTriangle> lower;
-  tMatrix<Trank, Trank, TElement, matrix::UpperTriangle> upper;
-  size_t pivot[Trank - 1];
-
-};
-
-//----------------------------------------------------------------------
-// Explicit template instantiation
-//----------------------------------------------------------------------
-
-extern template class tLUDecomposition<2, float>;
-extern template class tLUDecomposition<3, float>;
-
-extern template class tLUDecomposition<2, double>;
-extern template class tLUDecomposition<3, double>;
+  TElement result[Trank];
+  for (size_t step = 0; step < Trank; ++step)
+  {
+    size_t row = Trank - step - 1;
+    result[row] = temp[row];
+    for (size_t column = row + 1; column < Trank; ++column)
+    {
+      result[row] -= this->cholesky_matrix[row][column] * result[column];
+    }
+    result[row] /= this->cholesky_matrix[row][row];
+  }
+  return tVector<Trank, TElement>(result);
+}
 
 //----------------------------------------------------------------------
 // End of namespace declaration
 //----------------------------------------------------------------------
 }
 }
-
-
-#include "rrlib/math/tLUDecomposition.hpp"
-
-#endif

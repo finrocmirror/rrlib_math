@@ -2,10 +2,11 @@
 <targets>
 
   <rrlib name="math"
-        libs="boost">
+        libs="boost gsl">
     <sources>
       sGslRandomNumberGenerator.h
       tAngle.cpp
+      tCholeskyDecomposition.cpp
       tLUDecomposition.cpp
       tMatrix.cpp
       tPose2D.cpp
