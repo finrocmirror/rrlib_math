@@ -41,6 +41,7 @@
 //----------------------------------------------------------------------
 #include <cmath>
 #include <iostream>
+#include <boost/type_traits/is_floating_point.hpp>
 
 //----------------------------------------------------------------------
 // Internal includes with ""
@@ -87,6 +88,29 @@ template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, si
 inline const bool operator != (const tMatrix<Trows, Tcolumns, TElement, TLeftData> &left, const tMatrix<Trows, Tcolumns, TElement, TRightData> &right)
 {
   return !(left == right);
+}
+
+template <typename TElement>
+const tMatrix<2, 2, TElement> Get2DRotationMatrix(tAngleRad angle)
+{
+  static_assert(boost::is_floating_point<TElement>::value, "Instantiation of this method only valid for float or double!");
+  TElement sin_angle, cos_angle;
+  angle.SinCos(sin_angle, cos_angle);
+  return tMatrix<2, 2, TElement>(cos_angle, -sin_angle, sin_angle, cos_angle);
+}
+
+template <typename TElement>
+const tMatrix<3, 3, TElement> Get3DRotationMatrixFromRollPitchYaw(tAngleRad roll, tAngleRad pitch, tAngleRad yaw)
+{
+  double sin_roll, cos_roll;
+  roll.SinCos(sin_roll, cos_roll);
+  double sin_pitch, cos_pitch;
+  pitch.SinCos(sin_pitch, cos_pitch);
+  double sin_yaw, cos_yaw;
+  yaw.SinCos(sin_yaw, cos_yaw);
+  return tMatrix<3, 3, TElement>(cos_pitch * cos_yaw, -cos_roll * sin_yaw + sin_roll * sin_pitch * cos_yaw, sin_roll * sin_yaw + cos_roll * sin_pitch * cos_yaw,
+                                 cos_pitch * sin_yaw , cos_roll * cos_yaw + sin_roll * sin_pitch * sin_yaw, -sin_roll * cos_yaw + cos_roll * sin_pitch * sin_yaw,
+                                 -sin_pitch, sin_roll * cos_pitch, cos_roll * cos_pitch);
 }
 
 //----------------------------------------------------------------------

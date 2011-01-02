@@ -166,10 +166,7 @@ tPose2D &tPose2D::operator -= (const tPose2D & other)
 //----------------------------------------------------------------------
 const tMat2x2d tPose2D::GetRotationMatrix() const
 {
-  double sin_yaw, cos_yaw;
-  this->yaw.SinCos(sin_yaw, cos_yaw);
-  return tMat2x2d(cos_yaw, -sin_yaw,
-                  sin_yaw, cos_yaw);
+  return Get2DRotationMatrix<double>(this->yaw);
 }
 
 void tPose2D::GetRotationMatrix(tMat2x2d &matrix) const

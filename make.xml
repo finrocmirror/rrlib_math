@@ -9,6 +9,7 @@
       tCholeskyDecomposition.cpp
       tLUDecomposition.cpp
       tMatrix.cpp
+      tPolynomial.h
       tPose2D.cpp
       tPose3D.cpp
       tVector.cpp
@@ -35,6 +36,12 @@
   <testprogram name="angles">
     <sources>
       test/test_angles.cpp
+    </sources>
+  </testprogram>
+
+  <testprogram name="polynomial">
+    <sources>
+      test/test_polynomial.cpp
     </sources>
   </testprogram>
 

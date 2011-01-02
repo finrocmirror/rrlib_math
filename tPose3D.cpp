@@ -225,15 +225,7 @@ tPose3D &tPose3D::operator -= (const tPose3D & other)
 //----------------------------------------------------------------------
 const tMat3x3d tPose3D::GetRotationMatrix() const
 {
-  double sin_roll, cos_roll;
-  this->roll.SinCos(sin_roll, cos_roll);
-  double sin_pitch, cos_pitch;
-  this->pitch.SinCos(sin_pitch, cos_pitch);
-  double sin_yaw, cos_yaw;
-  this->yaw.SinCos(sin_yaw, cos_yaw);
-  return tMat3x3d(cos_pitch * cos_yaw, -cos_roll * sin_yaw + sin_roll * sin_pitch * cos_yaw, sin_roll * sin_yaw + cos_roll * sin_pitch * cos_yaw,
-                  cos_pitch * sin_yaw , cos_roll * cos_yaw + sin_roll * sin_pitch * sin_yaw, -sin_roll * cos_yaw + cos_roll * sin_pitch * sin_yaw,
-                  -sin_pitch, sin_roll * cos_pitch, cos_roll * cos_pitch);
+  return Get3DRotationMatrixFromRollPitchYaw<double>(this->roll, this->pitch, this->yaw);
 }
 
 void tPose3D::GetRotationMatrix(tMat3x3d &matrix) const
