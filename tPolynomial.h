@@ -82,10 +82,10 @@ public:
 
   tPolynomial(const double coefficients[Tdegree + 1]);
 
-  template <typename ... TCoefficients>
-  tPolynomial(const TCoefficients... coefficients);
-
   tPolynomial(const tPolynomial &other);
+
+  template <typename ... TCoefficients>
+  explicit tPolynomial(const TCoefficients... coefficients);
 
   tPolynomial &operator = (const tPolynomial &other);
 

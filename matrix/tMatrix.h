@@ -70,7 +70,7 @@ namespace math
 /*!
  *
  */
-template < size_t Trows, size_t Tcolumns, typename TElement, template <size_t, size_t, typename> class TData = matrix::Full >
+template < size_t Trows, size_t Tcolumns, typename TElement = double, template <size_t, size_t, typename> class TData = matrix::Full >
 class tMatrix : public TData<Trows, Tcolumns, TElement>,
     public matrix::FunctionalityShared<Trows, Tcolumns, TElement, TData>,
     public matrix::FunctionalitySpecialized<Trows, Tcolumns, TElement, TData>,

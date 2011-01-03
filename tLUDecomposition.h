@@ -69,7 +69,7 @@ namespace math
 /*! A more detailed description of tLUDecomposition, which
     Tobias Foehst hasn't done yet !!
 */
-template <size_t Trank, typename TElement>
+template < size_t Trank, typename TElement = double >
 class tLUDecomposition
 {
 
@@ -98,7 +98,7 @@ public:
   }
 
   template <size_t Tdimension>
-  const tVector<Trank, TElement> Solve(const tVector<Tdimension, TElement> &right_side);
+  const tVector<Trank, TElement> Solve(const tVector<Tdimension, TElement> &right_side) const;
 
 //----------------------------------------------------------------------
 // Private fields and methods
@@ -108,6 +108,9 @@ private:
   tMatrix<Trank, Trank, TElement, matrix::LowerTriangle> lower;
   tMatrix<Trank, Trank, TElement, matrix::UpperTriangle> upper;
   size_t pivot[Trank - 1];
+
+  template <size_t Trows, template <size_t, size_t, typename> class TData>
+  void FullMatrixDecomposition(const tMatrix<Trows, Trank, TElement, TData> &matrix);
 
 };
 

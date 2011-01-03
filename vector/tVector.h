@@ -73,7 +73,7 @@ namespace math
 /*!
  *
  */
-template < size_t Tdimension, typename TElement, template <size_t, typename> class TData = vector::Cartesian >
+template < size_t Tdimension, typename TElement = double, template <size_t, typename> class TData = vector::Cartesian >
 class tVector : public TData<Tdimension, TElement>,
     public vector::FunctionalityShared<Tdimension, TElement, TData>,
     public vector::FunctionalitySpecialized<Tdimension, TElement, TData>,

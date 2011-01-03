@@ -70,9 +70,9 @@ tCholeskyDecomposition<Trank, TElement>::tCholeskyDecomposition(const tMatrix<Tr
   for (size_t step = 0; step < Trank; ++step)
   {
     this->cholesky_matrix[step][step] = matrix[step][step];
-    for (size_t row = 0; row < step; ++row)
+    for (size_t column = 0; column < step; ++column)
     {
-      this->cholesky_matrix[step][step] -= this->cholesky_matrix[row][step] * this->cholesky_matrix[row][step];
+      this->cholesky_matrix[step][step] -= this->cholesky_matrix[step][column] * this->cholesky_matrix[step][column];
     }
 
     if (this->cholesky_matrix[step][step] <= 0)
@@ -84,6 +84,7 @@ tCholeskyDecomposition<Trank, TElement>::tCholeskyDecomposition(const tMatrix<Tr
 
     for (size_t row = step + 1; row < Trank; ++row)
     {
+      this->cholesky_matrix[row][step] = matrix[row][step];
       for (size_t column = 0; column < step; ++column)
       {
         this->cholesky_matrix[row][step] -= this->cholesky_matrix[row][column] * this->cholesky_matrix[step][column];
@@ -97,7 +98,7 @@ tCholeskyDecomposition<Trank, TElement>::tCholeskyDecomposition(const tMatrix<Tr
 // tCholeskyDecomposition Solve
 //----------------------------------------------------------------------
 template <size_t Trank, typename TElement>
-const tVector<Trank, TElement> tCholeskyDecomposition<Trank, TElement>::Solve(const tVector<Trank, TElement> &right_side)
+const tVector<Trank, TElement> tCholeskyDecomposition<Trank, TElement>::Solve(const tVector<Trank, TElement> &right_side) const
 {
   TElement temp[Trank];
   for (size_t row = 0; row < Trank; ++row)
@@ -116,7 +117,7 @@ const tVector<Trank, TElement> tCholeskyDecomposition<Trank, TElement>::Solve(co
     result[row] = temp[row];
     for (size_t column = row + 1; column < Trank; ++column)
     {
-      result[row] -= this->cholesky_matrix[row][column] * result[column];
+      result[row] -= this->cholesky_matrix[column][row] * result[column];
     }
     result[row] /= this->cholesky_matrix[row][row];
   }
