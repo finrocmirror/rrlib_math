@@ -89,7 +89,7 @@ int main(int argc, char **argv)
 
 #ifdef _LIB_OIV_PRESENT_
   std::cout << "=== Coin conversions ===" << std::endl;
-  std::cout << "SbMatrix converted from SbMatrix::identity(): " << tMatrix<4, 4, double>(SbMatrix::identity()) << std::endl;
+  std::cout << "tMatrix converted from SbMatrix::identity(): " << tMatrix<4, 4, double>(SbMatrix::identity()) << std::endl;
   tMatrix<4, 4, double> matrix_4_4(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16);
   SbMatrix m(matrix_4_4.GetCoinMatrix());
   std::cout << "SbMatrix converted from tMatrix: " << matrix_4_4 << std::endl;
