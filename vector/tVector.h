@@ -42,6 +42,11 @@
 // External includes (system with <>, local with "")
 //----------------------------------------------------------------------
 
+#ifdef _LIB_OIV_PRESENT_
+#include <Inventor/SbVec2f.h>
+#include <Inventor/SbVec3f.h>
+#include <boost/utility/enable_if.hpp>
+#endif
 //----------------------------------------------------------------------
 // Internal includes with ""
 //----------------------------------------------------------------------
@@ -109,6 +114,23 @@ public:
   }
 
   inline tVector(const ::math::tVector<Tdimension, TElement> &other) : FunctionalityShared(*reinterpret_cast<const tVectorType *>(&other)) {}
+
+#ifdef _LIB_OIV_PRESENT_
+  template <class T>
+  explicit inline tVector(
+    const T& v,
+    typename boost::enable_if_c < (boost::is_same<T, SbVec3f>::value && Tdimension == 3), void >::type* = 0)
+  {
+    FunctionalityShared::Set(v[0], v[1], v[2]);
+  }
+  template <class T>
+  explicit inline tVector(
+    const T& v,
+    typename boost::enable_if_c < (boost::is_same<T, SbVec2f>::value && Tdimension == 2), void >::type* = 0)
+  {
+    FunctionalityShared::Set(v[0], v[1]);
+  }
+#endif
 
   inline tVector &operator = (const tVector &other)
   {

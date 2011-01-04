@@ -21,7 +21,8 @@
     </sources>
   </rrlib>
   
-  <testprogram name="vectors">
+  <testprogram name="vectors"
+               optionallibs="oiv" >
     <sources>
       test/test_vectors.cpp
     </sources>

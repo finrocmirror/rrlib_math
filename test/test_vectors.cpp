@@ -121,6 +121,17 @@ int main(int argc, char **argv)
   std::cout << tVector<2, double>(2, 0).Normalized() << std::endl;
   std::cout << tVector<2, double>(2, 2).Normalized() << std::endl;
 
+#ifdef _LIB_OIV_PRESENT_
+  std::cout << "Coin conversions" << std::endl;
+  std::cout << tVector<3, double> (SbVec3f(1., 2., 3.)) << std::endl;
+  std::cout << tVector<2, float>(SbVec2f(4., 5.)) << std::endl;
+
+  SbVec3f sb_vec3f(b.GetCoinVector());
+  std::cout << "sb_vec3f: ";
+  sb_vec3f.print(stdout);
+  std::cout << std::endl;
+  assert(sb_vec3f[0] == b[0] && sb_vec3f[1] == b[1] && sb_vec3f[2] == b[2]);
+#endif
 
   std::cout << "OK" << std::endl;
 

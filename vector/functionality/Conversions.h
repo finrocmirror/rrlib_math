@@ -43,6 +43,10 @@
 //----------------------------------------------------------------------
 #include <cmath>
 
+#ifdef _LIB_OIV_PRESENT_
+#include <Inventor/SbVec2f.h>
+#include <Inventor/SbVec3f.h>
+#endif
 //----------------------------------------------------------------------
 // Internal includes with ""
 //----------------------------------------------------------------------
@@ -105,6 +109,14 @@ public:
     return tVector<2, TElement, Polar>(std::atan2(that->Y(), that->X()), that->Length());
   }
 
+#ifdef _LIB_OIV_PRESENT_
+  inline const SbVec2f GetCoinVector() const
+  {
+    const tVector<2, TElement, Cartesian> *that = reinterpret_cast<const tVector<3, TElement, Cartesian> *>(this);
+    return SbVec2f(that->X(), that->Y());
+  }
+#endif
+
 };
 
 /*!
@@ -129,6 +141,13 @@ public:
     return tVector<3, TElement, Polar>(std::atan2(that->Y(), that->X()), std::acos(that->Z() / length), length);
   }
 
+#ifdef _LIB_OIV_PRESENT_
+  inline const SbVec3f GetCoinVector() const
+  {
+    const tVector<3, TElement, Cartesian> *that = reinterpret_cast<const tVector<3, TElement, Cartesian> *>(this);
+    return SbVec3f(that->X(), that->Y(), that->Z());
+  }
+#endif
 };
 
 /*!
@@ -151,6 +170,14 @@ public:
     const tVector<2, TElement, Polar> *that = reinterpret_cast<const tVector<2, TElement, Polar> *>(this);
     return tVector<2, TElement, Cartesian>(that->Length() * std::cos(that->Alpha()), that->Length() * std::sin(that->Alpha()));
   }
+
+#ifdef _LIB_OIV_PRESENT_
+  inline const SbVec2f GetCoinVector() const
+  {
+    const tVector<2, TElement, Cartesian> *that = this->GetCartesianVector();
+    return SbVec2f(that->X(), that->Y());
+  }
+#endif
 
 };
 
@@ -178,6 +205,14 @@ public:
     TElement cos_beta = std::cos(that->Beta());
     return tVector<3, TElement, Cartesian>(that->Length() * cos_alpha * sin_beta, that->Length() * sin_alpha * sin_beta, that->Length() * cos_beta);
   }
+
+#ifdef _LIB_OIV_PRESENT_
+  inline const SbVec3f GetCoinVector() const
+  {
+    const tVector<2, TElement, Cartesian> *that = this->GetCartesianVector();
+    return SbVec3f(that->X(), that->Y(), that->Z());
+  }
+#endif
 
 };
 
