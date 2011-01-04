@@ -47,6 +47,10 @@
 //----------------------------------------------------------------------
 #include "rrlib/math/tVector.h"
 
+#ifdef _LIB_OIV_PRESENT_
+#include <Inventor/SbMatrix.h>
+#include <boost/utility/enable_if.hpp>
+#endif
 //----------------------------------------------------------------------
 // Debugging
 //----------------------------------------------------------------------
@@ -83,7 +87,8 @@ class tMatrix : public TData<Trows, Tcolumns, TElement>,
     public matrix::LegacySpecialized<Trows, Tcolumns, TElement, TData>,
 #endif
     public matrix::ConstantValuesShared<Trows, Tcolumns, TElement, TData>,
-    public matrix::ConstantValuesSpecialized<Trows, Tcolumns, TElement, TData>
+    public matrix::ConstantValuesSpecialized<Trows, Tcolumns, TElement, TData>,
+    public matrix::Conversions<Trows, Tcolumns, TElement, TData>
 {
   typedef matrix::FunctionalityShared<Trows, Tcolumns, TElement, TData> FunctionalityShared;
 
@@ -111,6 +116,22 @@ public:
   {
     FunctionalityShared::Set(value, values...);
   }
+
+#ifdef _LIB_OIV_PRESENT_
+  template <class T>
+  explicit inline tMatrix(
+    const T& m,
+    typename boost::enable_if_c < (boost::is_same<T, SbMatrix>::value && Trows == 4 && Tcolumns == 4), void >::type* = 0)
+  {
+    FunctionalityShared::Set(
+      m[0][0], m[1][0], m[2][0], m[3][0],
+      m[0][1], m[1][1], m[2][1], m[3][1],
+      m[0][2], m[1][2], m[2][2], m[3][2],
+      m[0][3], m[1][3], m[2][3], m[3][3]
+    );
+  }
+#endif
+
 
   inline tMatrix &operator = (const tMatrix &other)
   {

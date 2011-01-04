@@ -87,6 +87,17 @@ int main(int argc, char **argv)
 
   tVector<2, double> v(1, 2);
 
+#ifdef _LIB_OIV_PRESENT_
+  std::cout << "=== Coin conversions ===" << std::endl;
+  std::cout << "SbMatrix converted from SbMatrix::identity(): " << tMatrix<4, 4, double>(SbMatrix::identity()) << std::endl;
+  tMatrix<4, 4, double> matrix_4_4(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16);
+  SbMatrix m(matrix_4_4.GetCoinMatrix());
+  std::cout << "SbMatrix converted from tMatrix: " << matrix_4_4 << std::endl;
+  m.print(stdout);
+  std::cout << std::endl << "and back to tMatrix" << tMatrix<4, 4, double>(m) << std::endl;
+#endif
+
+
   std::cout << "=== default ===" << std::endl;
 
   std::cout << "--- + ---" << std::endl;
@@ -242,12 +253,6 @@ int main(int argc, char **argv)
     }
   }
   std::cout << hilbert_matrix << " -> " << hilbert_matrix.Inverted() << std::endl;
-
-
-
-
-
-
 
 
   std::cout << "OK" << std::endl;

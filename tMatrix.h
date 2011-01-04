@@ -92,6 +92,7 @@ class tMatrix;
 #include "rrlib/math/matrix/functionality/LegacyShared.h"
 #include "rrlib/math/matrix/functionality/LegacySpecialized.h"
 #endif
+#include "rrlib/math/matrix/functionality/Conversions.h"
 
 #include "rrlib/math/matrix/tMatrix.h"
 

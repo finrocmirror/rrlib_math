@@ -28,7 +28,8 @@
     </sources>
   </testprogram>
 
-  <testprogram name="matrices">
+  <testprogram name="matrices"
+               optionallibs="oiv" >
     <sources>
       test/test_matrices.cpp
     </sources>
