@@ -87,6 +87,8 @@ public:
   template <typename ... TCoefficients>
   explicit tPolynomial(const TCoefficients... coefficients);
 
+  virtual ~tPolynomial() {};
+
   tPolynomial &operator = (const tPolynomial &other);
 
   inline const double GetCoefficient(size_t index) const;

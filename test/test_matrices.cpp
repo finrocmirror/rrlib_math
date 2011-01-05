@@ -101,114 +101,114 @@ int main(int argc, char **argv)
   std::cout << "=== default ===" << std::endl;
 
   std::cout << "--- + ---" << std::endl;
-  std::cout << a + a << std::endl;
-  std::cout << a + l << std::endl;
-  std::cout << a + u << std::endl;
-  std::cout << a + s << std::endl;
+  std::cout << a << " + " << a << " = " << a + a << std::endl;
+  std::cout << a << " + " << l << " = " << a + l << std::endl;
+  std::cout << a << " + " << u << " = " << a + u << std::endl;
+  std::cout << a << " + " << s << " = " << a + s << std::endl;
 
   std::cout << "--- - ---" << std::endl;
-  std::cout << a - a << std::endl;
-  std::cout << a - l << std::endl;
-  std::cout << a - u << std::endl;
-  std::cout << a - s << std::endl;
+  std::cout << a << " - " << a << " = " << a - a << std::endl;
+  std::cout << a << " - " << l << " = " << a - l << std::endl;
+  std::cout << a << " - " << u << " = " << a - u << std::endl;
+  std::cout << a << " - " << s << " = " << a - s << std::endl;
 
   std::cout << "--- * ---" << std::endl;
-  std::cout << a * a << std::endl;
-  std::cout << a * l << std::endl;
-  std::cout << a * u << std::endl;
-  std::cout << a * s << std::endl;
+  std::cout << a << " * " << a << " = " << a * a << std::endl;
+  std::cout << a << " * " << l << " = " << a * l << std::endl;
+  std::cout << a << " * " << u << " = " << a * u << std::endl;
+  std::cout << a << " * " << s << " = " << a * s << std::endl;
 
   std::cout << "--- * vector ---" << std::endl;
-  std::cout << a * v << std::endl;
-  std::cout << v * a << std::endl;
+  std::cout << a << " * " << v << " = " << a * v << std::endl;
+  std::cout << v << " * " << a << " = " << v * a << std::endl;
 
   std::cout << "--- * scalar ---" << std::endl;
-  std::cout << a * 3 << std::endl;
-  std::cout << 3 * a << std::endl;
+  std::cout << a << " * " << 3 << " = " << a * 3 << std::endl;
+  std::cout << 3 << " * " << a << " = " << 3 * a << std::endl;
 
   std::cout << "=== lower ===" << std::endl;
 
   std::cout << "--- + ---" << std::endl;
-  std::cout << l + a << std::endl;
-  std::cout << l + l << std::endl;
-  std::cout << l + u << std::endl;
-  std::cout << l + s << std::endl;
+  std::cout << l << " + " << a << " = " << l + a << std::endl;
+  std::cout << l << " + " << l << " = " << l + l << std::endl;
+  std::cout << l << " + " << u << " = " << l + u << std::endl;
+  std::cout << l << " + " << s << " = " << l + s << std::endl;
 
   std::cout << "--- - ---" << std::endl;
-  std::cout << l - a << std::endl;
-  std::cout << l - l << std::endl;
-  std::cout << l - u << std::endl;
-  std::cout << l - s << std::endl;
+  std::cout << l << " - " << a << " = " << l - a << std::endl;
+  std::cout << l << " - " << l << " = " << l - l << std::endl;
+  std::cout << l << " - " << u << " = " << l - u << std::endl;
+  std::cout << l << " - " << s << " = " << l - s << std::endl;
 
   std::cout << "--- * ---" << std::endl;
-  std::cout << l * a << std::endl;
-  std::cout << l * l << std::endl;
-  std::cout << l * u << std::endl;
-  std::cout << l * s << std::endl;
+  std::cout << l << " * " << a << " = " << l * a << std::endl;
+  std::cout << l << " * " << l << " = " << l * l << std::endl;
+  std::cout << l << " * " << u << " = " << l * u << std::endl;
+  std::cout << l << " * " << s << " = " << l * s << std::endl;
 
   std::cout << "--- * vector ---" << std::endl;
-  std::cout << l * v << std::endl;
-  std::cout << v * l << std::endl;
+  std::cout << l << " * " << v << " = " << l * v << std::endl;
+  std::cout << v << " * " << l << " = " << v * l << std::endl;
 
   std::cout << "--- * scalar ---" << std::endl;
-  std::cout << l * 3 << std::endl;
-  std::cout << 3 * l << std::endl;
+  std::cout << l << " * " << 3 << " = " << l * 3 << std::endl;
+  std::cout << 3 << " * " << l << " = " << 3 * l << std::endl;
 
   std::cout << "=== upper ===" << std::endl;
 
   std::cout << "--- + ---" << std::endl;
-  std::cout << u + a << std::endl;
-  std::cout << u + l << std::endl;
-  std::cout << u + u << std::endl;
-  std::cout << u + s << std::endl;
+  std::cout << u << " + " << a << " = " << u + a << std::endl;
+  std::cout << u << " + " << l << " = " << u + l << std::endl;
+  std::cout << u << " + " << u << " = " << u + u << std::endl;
+  std::cout << u << " + " << s << " = " << u + s << std::endl;
 
   std::cout << "--- - ---" << std::endl;
-  std::cout << u - a << std::endl;
-  std::cout << u - l << std::endl;
-  std::cout << u - u << std::endl;
-  std::cout << u - s << std::endl;
+  std::cout << u << " - " << a << " = " << u - a << std::endl;
+  std::cout << u << " - " << l << " = " << u - l << std::endl;
+  std::cout << u << " - " << u << " = " << u - u << std::endl;
+  std::cout << u << " - " << s << " = " << u - s << std::endl;
 
   std::cout << "--- * ---" << std::endl;
-  std::cout << u * a << std::endl;
-  std::cout << u * l << std::endl;
-  std::cout << u * u << std::endl;
-  std::cout << u * s << std::endl;
+  std::cout << u << " * " << a << " = " << u * a << std::endl;
+  std::cout << u << " * " << l << " = " << u * l << std::endl;
+  std::cout << u << " * " << u << " = " << u * u << std::endl;
+  std::cout << u << " * " << s << " = " << u * s << std::endl;
 
   std::cout << "--- * vector ---" << std::endl;
-  std::cout << u * v << std::endl;
-  std::cout << v * u << std::endl;
+  std::cout << u << " * " << v << " = " << u * v << std::endl;
+  std::cout << v << " * " << u << " = " << v * u << std::endl;
 
   std::cout << "--- * scalar ---" << std::endl;
-  std::cout << u * 3 << std::endl;
-  std::cout << 3 * u << std::endl;
+  std::cout << u << " * " << 3 << " = " << u * 3 << std::endl;
+  std::cout << 3 << " * " << u << " = " << 3 * u << std::endl;
 
   std::cout << "=== symmetrical ===" << std::endl;
 
   std::cout << "--- + ---" << std::endl;
-  std::cout << s + a << std::endl;
-  std::cout << s + l << std::endl;
-  std::cout << s + u << std::endl;
-  std::cout << s + s << std::endl;
+  std::cout << s << " + " << a << " = " << s + a << std::endl;
+  std::cout << s << " + " << l << " = " << s + l << std::endl;
+  std::cout << s << " + " << u << " = " << s + u << std::endl;
+  std::cout << s << " + " << s << " = " << s + s << std::endl;
 
   std::cout << "--- - ---" << std::endl;
-  std::cout << s - a << std::endl;
-  std::cout << s - l << std::endl;
-  std::cout << s - u << std::endl;
-  std::cout << s - s << std::endl;
+  std::cout << s << " - " << a << " = " << s - a << std::endl;
+  std::cout << s << " - " << l << " = " << s - l << std::endl;
+  std::cout << s << " - " << u << " = " << s - u << std::endl;
+  std::cout << s << " - " << s << " = " << s - s << std::endl;
 
   std::cout << "--- * ---" << std::endl;
-  std::cout << s * a << std::endl;
-  std::cout << s * l << std::endl;
-  std::cout << s * u << std::endl;
-  std::cout << s * s << std::endl;
+  std::cout << s << " * " << a << " = " << s * a << std::endl;
+  std::cout << s << " * " << l << " = " << s * l << std::endl;
+  std::cout << s << " * " << u << " = " << s * u << std::endl;
+  std::cout << s << " * " << s << " = " << s * s << std::endl;
 
   std::cout << "--- * vector ---" << std::endl;
-  std::cout << s * v << std::endl;
-  std::cout << v * s << std::endl;
+  std::cout << s << " * " << v << " = " << s * v << std::endl;
+  std::cout << v << " * " << s << " = " << v * s << std::endl;
 
   std::cout << "--- * scalar ---" << std::endl;
-  std::cout << s * 3 << std::endl;
-  std::cout << 3 * s << std::endl;
+  std::cout << s << " * " << 3 << " = " << s * 3 << std::endl;
+  std::cout << 3 << " * " << s << " = " << 3 * s << std::endl;
 
   std::cout << "=== transpose ===" << std::endl;
 

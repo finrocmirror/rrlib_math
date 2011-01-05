@@ -127,7 +127,7 @@ template <size_t Trows, size_t Tconnection, size_t Tcolumns, typename TLeftEleme
 const tMatrix<Trows, Tcolumns, typename until_0x::Auto<TLeftElement, TRightElement>::type, LowerTriangle> operator *(const tMatrix<Trows, Tconnection, TLeftElement, LowerTriangle> &left, const tMatrix<Tconnection, Tcolumns, TRightElement, LowerTriangle> &right)
 {
   typedef tMatrix<Trows, Tcolumns, typename until_0x::Auto<TLeftElement, TRightElement>::type, LowerTriangle> tResultType;
-  typename tResultType::tElementType data[Trows * Tcolumns];
+  typename tResultType::tElementType data[sizeof(tResultType) / sizeof(typename tResultType::tElementType)];
   std::memset(data, 0, sizeof(data));
   for (size_t row = 0; row < Trows; ++row)
   {
@@ -141,7 +141,7 @@ const tMatrix<Trows, Tcolumns, typename until_0x::Auto<TLeftElement, TRightEleme
       }
     }
   }
-  return tResultType(data);
+  return *reinterpret_cast<tResultType *>(data);
 }
 
 template <size_t Trows, size_t Tconnection, size_t Tcolumns, typename TLeftElement, typename TRightElement, template <size_t, size_t, typename> class TRightData>

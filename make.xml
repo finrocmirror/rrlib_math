@@ -41,10 +41,4 @@
     </sources>
   </testprogram>
 
-  <testprogram name="polynomial">
-    <sources>
-      test/test_polynomial.cpp
-    </sources>
-  </testprogram>
-
 </targets>

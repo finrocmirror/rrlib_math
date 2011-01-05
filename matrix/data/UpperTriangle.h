@@ -43,6 +43,7 @@
 //----------------------------------------------------------------------
 #include <stdexcept>
 #include <sstream>
+#include <iomanip>
 
 //----------------------------------------------------------------------
 // Internal includes with ""
@@ -133,7 +134,7 @@ public:
           if (!IsEqual(data[row * Tcolumns + column], 0.0))
           {
             std::stringstream stream;
-            stream << "Trying to initialize upper triangle matrix from invalid data set " << tMatrix<Trows, Tcolumns, TElement, Full>(data) << ".";
+            stream << "Trying to initialize upper triangle matrix from invalid data set " << std::setprecision(20) << std::fixed << tMatrix<Trows, Tcolumns, TElement, Full>(data) << ".";
             throw std::runtime_error(stream.str());
           }
           continue;
