@@ -251,6 +251,19 @@ void tPose3D::GetTransformationMatrix(tMat4x4d &matrix) const
 }
 
 //----------------------------------------------------------------------
+// tPose3D GetTransformationMatrixZYXT
+//----------------------------------------------------------------------
+const tMat4x4d tPose3D::GetTransformationMatrixZYXT() const
+{
+  return Get4DTransformationMatrixZYXT(this->X(), this->Y(), this->Z(), this->Roll(), this->Pitch(), this->Yaw());
+}
+
+void tPose3D::GetTransformationMatrixZYXT(tMat4x4d &matrix) const
+{
+  matrix = this->GetTransformationMatrixZYXT();
+}
+
+//----------------------------------------------------------------------
 // tPose2D GetPoseInParentFrame
 //----------------------------------------------------------------------
 const tPose3D tPose3D::GetPoseInParentFrame(const tPose3D &reference) const

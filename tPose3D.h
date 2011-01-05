@@ -198,6 +198,10 @@ public:
 
   void GetTransformationMatrix(tMat4x4d &matrix) const;
 
+  const tMat4x4d GetTransformationMatrixZYXT() const;
+
+  void GetTransformationMatrixZYXT(tMat4x4d &matrix) const;
+
   const tPose3D GetPoseInParentFrame(const tPose3D &reference) const;
 
   const tPose3D GetPoseInLocalFrame(const tPose3D &reference) const;

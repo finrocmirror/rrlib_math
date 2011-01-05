@@ -113,6 +113,35 @@ const tMatrix<3, 3, TElement> Get3DRotationMatrixFromRollPitchYaw(tAngleRad roll
                                  -sin_pitch, sin_roll * cos_pitch, cos_roll * cos_pitch);
 }
 
+template <typename TElement>
+const tMatrix<4, 4, TElement> Get4DTransformationMatrixZYXT(TElement x, TElement y, TElement z, tAngleRad roll, tAngleRad pitch, tAngleRad yaw)
+{
+  double sin_roll, cos_roll;
+  roll.SinCos(sin_roll, cos_roll);
+  double sin_pitch, cos_pitch;
+  pitch.SinCos(sin_pitch, cos_pitch);
+  double sin_yaw, cos_yaw;
+  yaw.SinCos(sin_yaw, cos_yaw);
+  return tMatrix<4, 4, TElement>(
+           cos_pitch * cos_yaw,
+           cos_pitch * sin_yaw,
+           -sin_pitch,
+           0,
+           sin_roll * sin_pitch * cos_yaw - cos_roll * sin_yaw,
+           sin_roll * sin_pitch * sin_yaw + cos_roll * cos_yaw,
+           sin_roll * cos_pitch,
+           0,
+           cos_roll * sin_pitch * cos_yaw + sin_roll * sin_yaw,
+           cos_roll * sin_pitch * sin_yaw - sin_roll * cos_yaw,
+           cos_roll * cos_pitch,
+           0,
+           cos_pitch * cos_yaw * x + (sin_roll * sin_pitch * cos_yaw - cos_roll * sin_yaw) * y + (cos_roll * sin_pitch * cos_yaw + sin_roll * sin_yaw) * z,
+           cos_pitch * sin_yaw * x + (sin_roll * sin_pitch * sin_yaw + cos_roll * cos_yaw) * y + (cos_roll * sin_pitch * sin_yaw - sin_roll * cos_yaw) * z,
+           -sin_pitch * x + sin_roll * cos_pitch * y + cos_roll * cos_pitch * z,
+           1
+         );
+}
+
 //----------------------------------------------------------------------
 // End of namespace declaration
 //----------------------------------------------------------------------
