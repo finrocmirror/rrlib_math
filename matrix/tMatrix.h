@@ -82,10 +82,8 @@ class tMatrix : public TData<Trows, Tcolumns, TElement>,
     public matrix::SquareMatrixOperationsSpecialized<Trows, Tcolumns, TElement, TData>,
     public matrix::HomogeneousMultiplication<Trows, Tcolumns, TElement, TData>,
     public matrix::Rotation<Trows, Tcolumns, TElement, TData>,
-#ifdef _MCA2_MATH_LEGACY_
     public matrix::LegacyShared<Trows, Tcolumns, TElement, TData>,
     public matrix::LegacySpecialized<Trows, Tcolumns, TElement, TData>,
-#endif
     public matrix::ConstantValuesShared<Trows, Tcolumns, TElement, TData>,
     public matrix::ConstantValuesSpecialized<Trows, Tcolumns, TElement, TData>,
     public matrix::Conversions<Trows, Tcolumns, TElement, TData>

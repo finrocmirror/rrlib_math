@@ -84,10 +84,8 @@ class tVector : public TData<Tdimension, TElement>,
     public vector::FunctionalitySpecialized<Tdimension, TElement, TData>,
     public vector::Conversions<Tdimension, TElement, TData>,
     public vector::Rotation<Tdimension, TElement, TData>,
-#ifdef _MCA2_MATH_LEGACY_
     public vector::LegacyShared<Tdimension, TElement, TData>,
     public vector::LegacySpecialized<Tdimension, TElement, TData>,
-#endif
     public vector::ConstantValuesShared<Tdimension, TElement, TData>,
     public vector::ConstantValuesSpecialized<Tdimension, TElement, TData>
 {

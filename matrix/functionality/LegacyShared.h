@@ -86,22 +86,28 @@ protected:
 public:
 
   template <typename ... TValues>
-  void SetMatrix(TValues... values)
-  {
-    tMatrixType *that = reinterpret_cast<tMatrixType *>(this);
-    that->Set(values...);
-  }
+  void SetMatrix(TValues... values) __attribute__((deprecated));
 
-  double Det() const
-  {
-    const tMatrixType *that = reinterpret_cast<const tMatrixType *>(this);
-    return that->Determinant();
-  }
+  double Det() const __attribute__((deprecated));
 
 
 
 };
 
+template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, size_t, typename> class TData>
+template <typename ... TValues>
+void LegacyShared<Trows, Tcolumns, TElement, TData>::SetMatrix(TValues... values)
+{
+  tMatrixType *that = reinterpret_cast<tMatrixType *>(this);
+  that->Set(values...);
+}
+
+template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, size_t, typename> class TData>
+double LegacyShared<Trows, Tcolumns, TElement, TData>::Det() const
+{
+  const tMatrixType *that = reinterpret_cast<const tMatrixType *>(this);
+  return that->Determinant();
+}
 
 
 //----------------------------------------------------------------------

@@ -88,10 +88,8 @@ class tMatrix;
 #include "rrlib/math/matrix/functionality/SquareMatrixOperationsSpecialized.h"
 #include "rrlib/math/matrix/functionality/HomogeneousMultiplication.h"
 #include "rrlib/math/matrix/functionality/Rotation.h"
-#ifdef _MCA2_MATH_LEGACY_
 #include "rrlib/math/matrix/functionality/LegacyShared.h"
 #include "rrlib/math/matrix/functionality/LegacySpecialized.h"
-#endif
 #include "rrlib/math/matrix/functionality/Conversions.h"
 
 #include "rrlib/math/matrix/tMatrix.h"

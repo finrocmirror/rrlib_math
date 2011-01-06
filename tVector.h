@@ -79,10 +79,8 @@ class tVector;
 #include "rrlib/math/vector/functionality/FunctionalitySpecialized.h"
 #include "rrlib/math/vector/functionality/Conversions.h"
 #include "rrlib/math/vector/functionality/Rotation.h"
-#ifdef _MCA2_MATH_LEGACY_
 #include "rrlib/math/vector/functionality/LegacyShared.h"
 #include "rrlib/math/vector/functionality/LegacySpecialized.h"
-#endif
 
 #include "rrlib/math/vector/tVector.h"
 
