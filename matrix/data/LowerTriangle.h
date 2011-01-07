@@ -135,7 +135,7 @@ public:
           if (!IsEqual(data[row * Tcolumns + column], 0.0))
           {
             std::stringstream stream;
-            stream << "Trying to initialize lower triangle matrix from invalid data set " << std::setprecision(20) << std::fixed << tMatrix<Trows, Tcolumns, TElement, Full>(data) << ".";
+            stream << "Trying to initialize lower triangle matrix from invalid data set " << std::setprecision(20) << std::fixed << math::tMatrix<Trows, Tcolumns, TElement, Full>(data) << ".";
             throw std::runtime_error(stream.str());
           }
           continue;

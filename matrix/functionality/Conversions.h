@@ -106,7 +106,7 @@ public:
 #ifdef _LIB_OIV_PRESENT_
   inline const SbMatrix GetCoinMatrix() const
   {
-    const tMatrix<4, 4, TElement, matrix::Full>* that = reinterpret_cast<const tMatrix<4, 4, TElement, matrix::Full> *>(this);
+    const math::tMatrix<4, 4, TElement, matrix::Full>* that = reinterpret_cast<const math::tMatrix<4, 4, TElement, matrix::Full> *>(this);
     return SbMatrix(
              (*that)[0][0], (*that)[1][0], (*that)[2][0], (*that)[3][0],
              (*that)[0][1], (*that)[1][1], (*that)[2][1], (*that)[3][1],

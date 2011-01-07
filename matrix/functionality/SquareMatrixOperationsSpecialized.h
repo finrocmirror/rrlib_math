@@ -75,7 +75,7 @@ namespace matrix
 template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, size_t, typename> class TData>
 class SquareMatrixOperationsSpecialized
 {
-  typedef tMatrix<Trows, Tcolumns, TElement, TData> tMatrixType;
+  typedef math::tMatrix<Trows, Tcolumns, TElement, TData> tMatrix;
 
   SquareMatrixOperationsSpecialized(const SquareMatrixOperationsSpecialized &);
   SquareMatrixOperationsSpecialized &operator = (const SquareMatrixOperationsSpecialized &);
@@ -91,24 +91,24 @@ protected:
 template <size_t Tdimension, typename TElement, template <size_t, size_t, typename> class TData>
 class SquareMatrixOperationsSpecialized<Tdimension, Tdimension, TElement, TData>
 {
-  typedef tMatrix<Tdimension, Tdimension, TElement, TData> tMatrixType;
+  typedef math::tMatrix<Tdimension, Tdimension, TElement, TData> tMatrix;
 
   SquareMatrixOperationsSpecialized(const SquareMatrixOperationsSpecialized &);
   SquareMatrixOperationsSpecialized &operator = (const SquareMatrixOperationsSpecialized &);
 
-  const tMatrix < Tdimension - 1, Tdimension - 1, TElement, Full > ExtractSubMatrix(size_t cut_row, size_t cut_column) const
+  const math::tMatrix < Tdimension - 1, Tdimension - 1, TElement, Full > ExtractSubMatrix(size_t cut_row, size_t cut_column) const
   {
-    const tMatrixType *that = reinterpret_cast<const tMatrixType *>(this);
-    typedef tMatrix < Tdimension - 1, Tdimension - 1, TElement, Full > tResultType;
-    typename tResultType::tElementType data[tResultType::cROWS * tResultType::cCOLUMNS];
-    for (size_t row = 0; row < tResultType::cROWS; ++row)
+    const tMatrix *that = reinterpret_cast<const tMatrix *>(this);
+    typedef math::tMatrix < Tdimension - 1, Tdimension - 1, TElement, Full > tResult;
+    typename tResult::tElement data[tResult::cROWS * tResult::cCOLUMNS];
+    for (size_t row = 0; row < tResult::cROWS; ++row)
     {
-      for (size_t column = 0; column < tResultType::cCOLUMNS; ++column)
+      for (size_t column = 0; column < tResult::cCOLUMNS; ++column)
       {
-        data[row * tResultType::cCOLUMNS + column] = (*that)[row < cut_row ? row : row + 1][column < cut_column ? column : column + 1];
+        data[row * tResult::cCOLUMNS + column] = (*that)[row < cut_row ? row : row + 1][column < cut_column ? column : column + 1];
       }
     }
-    return tResultType(data);
+    return tResult(data);
   }
 
 protected:
@@ -119,7 +119,7 @@ public:
 
   inline const TElement Determinant() const
   {
-    const tMatrixType *that = reinterpret_cast<const tMatrixType *>(this);
+    const tMatrix *that = reinterpret_cast<const tMatrix *>(this);
     TElement determinant = 0;
     int sign = 1;
     for (size_t column = 0; column < Tdimension; ++column)
@@ -133,7 +133,7 @@ public:
     return determinant;
   }
 
-  inline const tMatrixType Inverted() const
+  inline const tMatrix Inverted() const
   {
     TElement determinant = this->Determinant();
     if (determinant == 0)
@@ -152,7 +152,7 @@ public:
       }
       row_sign = -row_sign;
     }
-    return tMatrixType(data) / determinant;
+    return tMatrix(data) / determinant;
   }
 
 };
@@ -163,7 +163,7 @@ public:
 template <typename TElement, template <size_t, size_t, typename> class TData>
 class SquareMatrixOperationsSpecialized<2, 2, TElement, TData>
 {
-  typedef tMatrix<2, 2, TElement, TData> tMatrixType;
+  typedef math::tMatrix<2, 2, TElement, TData> tMatrix;
 
   SquareMatrixOperationsSpecialized(const SquareMatrixOperationsSpecialized &);
   SquareMatrixOperationsSpecialized &operator = (const SquareMatrixOperationsSpecialized &);
@@ -176,19 +176,19 @@ public:
 
   inline const TElement Determinant() const
   {
-    const tMatrixType *that = reinterpret_cast<const tMatrixType *>(this);
+    const tMatrix *that = reinterpret_cast<const tMatrix *>(this);
     return (*that)[0][0] *(*that)[1][1] - (*that)[1][0] *(*that)[0][1];
   }
 
-  inline const tMatrixType Inverted() const
+  inline const tMatrix Inverted() const
   {
-    const tMatrixType *that = reinterpret_cast<const tMatrixType *>(this);
+    const tMatrix *that = reinterpret_cast<const tMatrix *>(this);
     TElement determinant = this->Determinant();
     if (determinant == 0)
     {
       throw std::logic_error("Inverse of singular matrix (determinant = 0) does not exist.");
     }
-    return tMatrixType((*that)[1][1], -(*that)[0][1], -(*that)[1][0], (*that)[0][0]) / determinant;
+    return tMatrix((*that)[1][1], -(*that)[0][1], -(*that)[1][0], (*that)[0][0]) / determinant;
   }
 
 };

@@ -74,7 +74,7 @@ namespace vector
 template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
 class LegacyShared
 {
-  typedef tVector<Tdimension, TElement, TData> tVectorType;
+  typedef math::tVector<Tdimension, TElement, TData> tVector;
 
   LegacyShared(const LegacyShared &);
   LegacyShared &operator = (const LegacyShared &);
@@ -88,7 +88,7 @@ protected:
 template <size_t Tdimension, typename TElement>
 class LegacyShared<Tdimension, TElement, Cartesian>
 {
-  typedef tVector<Tdimension, TElement, Cartesian> tVectorType;
+  typedef math::tVector<Tdimension, TElement, Cartesian> tVector;
 
   LegacyShared(const LegacyShared &);
   LegacyShared &operator = (const LegacyShared &);
@@ -103,19 +103,19 @@ public:
 
   inline const TElement length_square() const __attribute__((deprecated));
 
-  inline const tVectorType norm() const __attribute__((deprecated));
+  inline const tVector norm() const __attribute__((deprecated));
 
-  inline const tVectorType norm(TElement &length) const __attribute__((deprecated));
+  inline const tVector norm(TElement &length) const __attribute__((deprecated));
 
-  inline const tVectorType operator ^(const tVectorType &other) const __attribute__((deprecated));
+  inline const tVector operator ^(const tVector &other) const __attribute__((deprecated));
 
-  inline const tVectorType sp(const tVectorType &other) const __attribute__((deprecated));
+  inline const tVector sp(const tVector &other) const __attribute__((deprecated));
 
-  const tVectorType &cartesian() __attribute__((deprecated));
+  const tVector &cartesian() __attribute__((deprecated));
 
   void PolarToCartesian() __attribute__((deprecated));
 
-  const tVectorType polar() __attribute__((deprecated));
+  const tVector polar() __attribute__((deprecated));
 
   void CartesianToPolar() __attribute__((deprecated));
 
@@ -126,84 +126,84 @@ public:
 template <size_t Tdimension, typename TElement>
 inline const TElement LegacyShared<Tdimension, TElement, Cartesian>::length() const
 {
-  return reinterpret_cast<const tVectorType *>(this)->Length();
+  return reinterpret_cast<const tVector *>(this)->Length();
 }
 
 template <size_t Tdimension, typename TElement>
 inline const TElement LegacyShared<Tdimension, TElement, Cartesian>::length_square() const
 {
-  return reinterpret_cast<const tVectorType *>(this)->SquaredLength();
+  return reinterpret_cast<const tVector *>(this)->SquaredLength();
 }
 
 template <size_t Tdimension, typename TElement>
-inline const tVector<Tdimension, TElement, Cartesian> LegacyShared<Tdimension, TElement, Cartesian>::norm() const
+inline const math::tVector<Tdimension, TElement, Cartesian> LegacyShared<Tdimension, TElement, Cartesian>::norm() const
 {
-  return reinterpret_cast<const tVectorType *>(this)->Normalized();
+  return reinterpret_cast<const tVector *>(this)->Normalized();
 }
 
 template <size_t Tdimension, typename TElement>
-inline const tVector<Tdimension, TElement, Cartesian> LegacyShared<Tdimension, TElement, Cartesian>::norm(TElement &length) const
+inline const math::tVector<Tdimension, TElement, Cartesian> LegacyShared<Tdimension, TElement, Cartesian>::norm(TElement &length) const
 {
-  length = reinterpret_cast<const tVectorType *>(this)->Length();
-  return reinterpret_cast<const tVectorType *>(this)->Normalized();
+  length = reinterpret_cast<const tVector *>(this)->Length();
+  return reinterpret_cast<const tVector *>(this)->Normalized();
 }
 
 template <size_t Tdimension, typename TElement>
-inline const tVector<Tdimension, TElement, Cartesian> LegacyShared<Tdimension, TElement, Cartesian>::operator ^(const tVectorType &other) const
+inline const math::tVector<Tdimension, TElement, Cartesian> LegacyShared<Tdimension, TElement, Cartesian>::operator ^(const tVector &other) const
 {
-  return reinterpret_cast<const tVectorType *>(this)->Projected(other);
+  return reinterpret_cast<const tVector *>(this)->Projected(other);
 }
 
 template <size_t Tdimension, typename TElement>
-inline const tVector<Tdimension, TElement, Cartesian> LegacyShared<Tdimension, TElement, Cartesian>::sp(const tVectorType &other) const
+inline const math::tVector<Tdimension, TElement, Cartesian> LegacyShared<Tdimension, TElement, Cartesian>::sp(const tVector &other) const
 {
-  return reinterpret_cast<const tVectorType *>(this)->SchurMultiplied(other);
+  return reinterpret_cast<const tVector *>(this)->SchurMultiplied(other);
 }
 
 template <size_t Tdimension, typename TElement>
-const tVector<Tdimension, TElement, Cartesian> &LegacyShared<Tdimension, TElement, Cartesian>::cartesian()
+const math::tVector<Tdimension, TElement, Cartesian> &LegacyShared<Tdimension, TElement, Cartesian>::cartesian()
 {
-  reinterpret_cast<tVectorType &>(*this) = reinterpret_cast<tVector<Tdimension, TElement, vector::Polar> *>(this)->GetCartesianVector();
+  reinterpret_cast<tVector &>(*this) = reinterpret_cast<math::tVector<Tdimension, TElement, vector::Polar> *>(this)->GetCartesianVector();
   return *this;
 }
 
 template <size_t Tdimension, typename TElement>
 void LegacyShared<Tdimension, TElement, Cartesian>::PolarToCartesian()
 {
-  reinterpret_cast<tVectorType &>(*this) = reinterpret_cast<tVector<Tdimension, TElement, vector::Polar> *>(this)->GetCartesianVector();
+  reinterpret_cast<tVector &>(*this) = reinterpret_cast<math::tVector<Tdimension, TElement, vector::Polar> *>(this)->GetCartesianVector();
 }
 
 template <size_t Tdimension, typename TElement>
-const tVector<Tdimension, TElement, Cartesian> LegacyShared<Tdimension, TElement, Cartesian>::polar()
+const math::tVector<Tdimension, TElement, Cartesian> LegacyShared<Tdimension, TElement, Cartesian>::polar()
 {
-  reinterpret_cast<tVector<Tdimension, TElement, vector::Polar> &>(*this) = reinterpret_cast<tVectorType *>(this)->GetPolarVector();
-  return *reinterpret_cast<tVectorType *>(this);
+  reinterpret_cast<math::tVector<Tdimension, TElement, vector::Polar> &>(*this) = reinterpret_cast<tVector *>(this)->GetPolarVector();
+  return *reinterpret_cast<tVector *>(this);
 }
 
 template <size_t Tdimension, typename TElement>
 void LegacyShared<Tdimension, TElement, Cartesian>::CartesianToPolar()
 {
-  reinterpret_cast<tVector<Tdimension, TElement, vector::Polar> &>(*this) = reinterpret_cast<tVectorType *>(this)->GetPolarVector();
+  reinterpret_cast<math::tVector<Tdimension, TElement, vector::Polar> &>(*this) = reinterpret_cast<tVector *>(this)->GetPolarVector();
 }
 
 
 
 
 template <size_t Tdimension, typename TCartesianElement, typename TPolarElement>
-inline void GetCartesianFromPolar(tVector<Tdimension, TCartesianElement, vector::Cartesian> &cartesian, const tVector<Tdimension, TPolarElement, vector::Cartesian> &polar) __attribute__((deprecated));
+inline void GetCartesianFromPolar(math::tVector<Tdimension, TCartesianElement, vector::Cartesian> &cartesian, const math::tVector<Tdimension, TPolarElement, vector::Cartesian> &polar) __attribute__((deprecated));
 template <size_t Tdimension, typename TCartesianElement, typename TPolarElement>
-inline void GetCartesianFromPolar(tVector<Tdimension, TCartesianElement, vector::Cartesian> &cartesian, const tVector<Tdimension, TPolarElement, vector::Cartesian> &polar)
+inline void GetCartesianFromPolar(math::tVector<Tdimension, TCartesianElement, vector::Cartesian> &cartesian, const math::tVector<Tdimension, TPolarElement, vector::Cartesian> &polar)
 {
-  cartesian = reinterpret_cast<const tVector<Tdimension, TPolarElement, vector::Polar> *>(&polar)->GetCartesianVector();
+  cartesian = reinterpret_cast<const math::tVector<Tdimension, TPolarElement, vector::Polar> *>(&polar)->GetCartesianVector();
 }
 
 template <size_t Tdimension, typename TPolarElement, typename TCartesianElement>
-inline void GetPolarFromCartesian(tVector<Tdimension, TPolarElement, vector::Cartesian> &polar, const tVector<Tdimension, TCartesianElement, vector::Cartesian> &cartesian) __attribute__((deprecated));
+inline void GetPolarFromCartesian(math::tVector<Tdimension, TPolarElement, vector::Cartesian> &polar, const math::tVector<Tdimension, TCartesianElement, vector::Cartesian> &cartesian) __attribute__((deprecated));
 template <size_t Tdimension, typename TPolarElement, typename TCartesianElement>
-inline void GetPolarFromCartesian(tVector<Tdimension, TPolarElement, vector::Cartesian> &polar, const tVector<Tdimension, TCartesianElement, vector::Cartesian> &cartesian)
+inline void GetPolarFromCartesian(math::tVector<Tdimension, TPolarElement, vector::Cartesian> &polar, const math::tVector<Tdimension, TCartesianElement, vector::Cartesian> &cartesian)
 {
-  tVector<Tdimension, TCartesianElement, vector::Polar> temp = cartesian.GetPolarVector();
-  polar = *reinterpret_cast<tVector<Tdimension, TCartesianElement, vector::Cartesian> *>(&temp);
+  math::tVector<Tdimension, TCartesianElement, vector::Polar> temp = cartesian.GetPolarVector();
+  polar = *reinterpret_cast<math::tVector<Tdimension, TCartesianElement, vector::Cartesian> *>(&temp);
 }
 
 

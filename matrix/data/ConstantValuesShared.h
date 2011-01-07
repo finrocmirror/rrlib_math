@@ -74,7 +74,7 @@ namespace matrix
 template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, size_t, typename> class TData>
 class ConstantValuesShared
 {
-  typedef tMatrix<Trows, Tcolumns, TElement, TData> tMatrixType;
+  typedef math::tMatrix<Trows, Tcolumns, TElement, TData> tMatrix;
 
   ConstantValuesShared(const ConstantValuesShared &other);
   ConstantValuesShared &operator = (const ConstantValuesShared &);
@@ -88,11 +88,11 @@ public:
   static const size_t cROWS = Trows;
   static const size_t cCOLUMNS = Tcolumns;
 
-  typedef TElement tElementType;
+  typedef TElement tElement;
 
-  static inline const tMatrixType &Zero()
+  static inline const tMatrix &Zero()
   {
-    static tMatrixType matrix;
+    static tMatrix matrix;
     return matrix;
   }
 

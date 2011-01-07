@@ -74,7 +74,7 @@ namespace matrix
 template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, size_t, typename> class TData>
 class SquareMatrixOperationsShared
 {
-  typedef tMatrix<Trows, Tcolumns, TElement, TData> tMatrixType;
+  typedef math::tMatrix<Trows, Tcolumns, TElement, TData> tMatrix;
 
   SquareMatrixOperationsShared(const SquareMatrixOperationsShared &);
   SquareMatrixOperationsShared &operator = (const SquareMatrixOperationsShared &);
@@ -98,7 +98,7 @@ public:
 template <size_t Tdimension, typename TElement, template <size_t, size_t, typename> class TData>
 class SquareMatrixOperationsShared<Tdimension, Tdimension, TElement, TData>
 {
-  typedef tMatrix<Tdimension, Tdimension, TElement, TData> tMatrixType;
+  typedef math::tMatrix<Tdimension, Tdimension, TElement, TData> tMatrix;
 
   SquareMatrixOperationsShared(const SquareMatrixOperationsShared &);
   SquareMatrixOperationsShared &operator = (const SquareMatrixOperationsShared &);
@@ -111,19 +111,19 @@ public:
 
   inline void Transpose()
   {
-    tMatrixType *that = reinterpret_cast<tMatrixType *>(this);
+    tMatrix *that = reinterpret_cast<tMatrix *>(this);
     *that = that->Transposed();
   }
 
   inline void Invert()
   {
-    tMatrixType *that = reinterpret_cast<tMatrixType *>(this);
+    tMatrix *that = reinterpret_cast<tMatrix *>(this);
     *that = that->Inverted();
   }
 
-  inline const tMatrixType Inverse() const
+  inline const tMatrix Inverse() const
   {
-    const tMatrixType *that = reinterpret_cast<const tMatrixType *>(this);
+    const tMatrix *that = reinterpret_cast<const tMatrix *>(this);
     return that->Inverted();
   }
 

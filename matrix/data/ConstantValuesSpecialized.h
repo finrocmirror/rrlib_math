@@ -89,14 +89,14 @@ protected:
 template <size_t Tdimension, typename TElement, template <size_t, size_t, typename> class TData>
 class ConstantValuesSpecialized<Tdimension, Tdimension, TElement, TData>
 {
-  typedef tMatrix<Tdimension, Tdimension, TElement, TData> tMatrixType;
+  typedef math::tMatrix<Tdimension, Tdimension, TElement, TData> tMatrix;
 
   ConstantValuesSpecialized(const ConstantValuesSpecialized &other);
   ConstantValuesSpecialized &operator = (const ConstantValuesSpecialized &);
 
-  static const tMatrixType &InitializeIdentity()
+  static const tMatrix &InitializeIdentity()
   {
-    static tMatrixType matrix;
+    static tMatrix matrix;
     for (size_t i = 0; i < Tdimension; ++i)
     {
       matrix[i][i] = 1;
@@ -110,9 +110,9 @@ protected:
 
 public:
 
-  static inline const tMatrixType &Identity()
+  static inline const tMatrix &Identity()
   {
-    static tMatrixType identity(InitializeIdentity());
+    static tMatrix identity(InitializeIdentity());
     return identity;
   }
 

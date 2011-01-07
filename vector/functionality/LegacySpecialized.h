@@ -89,7 +89,7 @@ protected:
 template <typename TElement>
 class LegacySpecialized<2, TElement, Cartesian>
 {
-  typedef tVector<2, TElement, Cartesian> tVectorType;
+  typedef math::tVector<2, TElement, Cartesian> tVector;
 
   LegacySpecialized(const LegacySpecialized &);
   LegacySpecialized &operator = (const LegacySpecialized &);
@@ -100,100 +100,100 @@ protected:
 
 public:
 
-  inline const tVectorType rotate(TElement angle) const __attribute__((deprecated));
+  inline const tVector rotate(TElement angle) const __attribute__((deprecated));
 
-  inline const tVectorType rotate(TElement sine, TElement cosine) const __attribute__((deprecated));
+  inline const tVector rotate(TElement sine, TElement cosine) const __attribute__((deprecated));
 
   inline void rotateInPlace(TElement angle) __attribute__((deprecated));
 
-  inline const TElement operator % (const tVectorType &other) const __attribute__((deprecated));
+  inline const TElement operator % (const tVector &other) const __attribute__((deprecated));
 
-  inline const tVectorType polarSigned(TElement radius = 1) const __attribute__((deprecated));
+  inline const tVector polarSigned(TElement radius = 1) const __attribute__((deprecated));
 
-  inline const tVectorType &swap() __attribute__((deprecated));
+  inline const tVector &swap() __attribute__((deprecated));
 
-  inline const tVectorType FlipDirection() const __attribute__((deprecated));
+  inline const tVector FlipDirection() const __attribute__((deprecated));
 
-  float GetDistance2Line(float angle, const tVectorType &line_start, const tVectorType &line_end, float max) __attribute__((deprecated));
+  float GetDistance2Line(float angle, const tVector &line_start, const tVector &line_end, float max) __attribute__((deprecated));
 
 };
 
 
 template <typename TElement>
-inline const tVector<2, TElement, Cartesian> LegacySpecialized<2, TElement, Cartesian>::rotate(TElement angle) const
+inline const math::tVector<2, TElement, Cartesian> LegacySpecialized<2, TElement, Cartesian>::rotate(TElement angle) const
 {
-  return reinterpret_cast<const tVectorType *>(this)->Rotated(angle);
+  return reinterpret_cast<const tVector *>(this)->Rotated(angle);
 }
 
 template <typename TElement>
-inline const tVector<2, TElement, Cartesian> LegacySpecialized<2, TElement, Cartesian>::rotate(TElement sine, TElement cosine) const
+inline const math::tVector<2, TElement, Cartesian> LegacySpecialized<2, TElement, Cartesian>::rotate(TElement sine, TElement cosine) const
 {
-  return reinterpret_cast<const tVectorType *>(this)->Rotated(sine, cosine);
+  return reinterpret_cast<const tVector *>(this)->Rotated(sine, cosine);
 }
 
 template <typename TElement>
 inline void LegacySpecialized<2, TElement, Cartesian>::rotateInPlace(TElement angle)
 {
-  reinterpret_cast<tVectorType *>(this)->Rotate(angle);
+  reinterpret_cast<tVector *>(this)->Rotate(angle);
 }
 
 template <typename TElement>
-inline const TElement LegacySpecialized<2, TElement, Cartesian>::operator % (const tVectorType &other) const
+inline const TElement LegacySpecialized<2, TElement, Cartesian>::operator % (const tVector &other) const
 {
-  const tVectorType *that = reinterpret_cast<const tVectorType *>(this);
+  const tVector *that = reinterpret_cast<const tVector *>(this);
   return that->X() * other.Y() - that->Y() * other.X();
 }
 
 template <typename TElement>
-inline const tVector<2, TElement, Cartesian> LegacySpecialized<2, TElement, Cartesian>::polarSigned(TElement radius) const
+inline const math::tVector<2, TElement, Cartesian> LegacySpecialized<2, TElement, Cartesian>::polarSigned(TElement radius) const
 {
-  tVector<2, TElement, Polar> temp = GetPolarSignedFromCartesian(reinterpret_cast<const tVectorType &>(*this), radius);
-  return *reinterpret_cast<tVector<2, TElement, Cartesian> *>(&temp);
-//    const tVectorType *that = reinterpret_cast<const tVectorType *>(this);
-//    tVectorType temp(*that);
+  math::tVector<2, TElement, Polar> temp = GetPolarSignedFromCartesian(reinterpret_cast<const tVector &>(*this), radius);
+  return *reinterpret_cast<math::tVector<2, TElement, Cartesian> *>(&temp);
+//    const tVector *that = reinterpret_cast<const tVector *>(this);
+//    tVector temp(*that);
 //    temp.Normalize();
 //    temp.Set(temp.Y() >= 0 ? std::acos(temp.X()) : -std::acos(temp.X()), radius);
 //    return temp;
 }
 
 template <typename TElement>
-inline const tVector<2, TElement, Cartesian> &LegacySpecialized<2, TElement, Cartesian>::swap()
+inline const math::tVector<2, TElement, Cartesian> &LegacySpecialized<2, TElement, Cartesian>::swap()
 {
-  tVectorType *that = reinterpret_cast<tVectorType *>(this);
+  tVector *that = reinterpret_cast<tVector *>(this);
   that->Set(that->Y(), that->X());
   return *that;
 }
 
 template <typename TElement>
-inline const tVector<2, TElement, Cartesian> LegacySpecialized<2, TElement, Cartesian>::FlipDirection() const
+inline const math::tVector<2, TElement, Cartesian> LegacySpecialized<2, TElement, Cartesian>::FlipDirection() const
 {
-  return -*reinterpret_cast<const tVectorType *>(this);
+  return -*reinterpret_cast<const tVector *>(this);
 }
 
 template <typename TElement>
-float LegacySpecialized<2, TElement, Cartesian>::GetDistance2Line(float angle, const tVectorType &line_start, const tVectorType &line_end, float max)
+float LegacySpecialized<2, TElement, Cartesian>::GetDistance2Line(float angle, const tVector &line_start, const tVector &line_end, float max)
 {
-  tVectorType *that = reinterpret_cast<tVectorType *>(this);
+  tVector *that = reinterpret_cast<tVector *>(this);
 
-  tVectorType line_direction = (line_end - line_start).Normalized();
+  tVector line_direction = (line_end - line_start).Normalized();
   // direction to look into
-  tVectorType start_direction(std::cos(angle), std::sin(angle));
+  tVector start_direction(std::cos(angle), std::sin(angle));
 
   // parallelogram area of unit vectors of scan and line
   // b>0 : towards line
   // b=0 : parallel to line
   // b<0 : away from line
-  double b = CrossProduct(tVector<3, TElement, Cartesian>(start_direction), tVector<3, TElement, Cartesian>(line_direction)).Z();
+  double b = CrossProduct(math::tVector<3, TElement, Cartesian>(start_direction), math::tVector<3, TElement, Cartesian>(line_direction)).Z();
   if (b > 0)
   {
     // direction towards edge (not parallel or away from)
-    double a = CrossProduct(tVector<3, TElement, Cartesian>(line_direction), tVector<3, TElement, Cartesian>(*that - line_start)).Z();
+    double a = CrossProduct(math::tVector<3, TElement, Cartesian>(line_direction), math::tVector<3, TElement, Cartesian>(*that - line_start)).Z();
     if (a > 0)
     {
       // Division of parallelograms is equal to distance (paint it, if you don't believe it :)
       float dist = a / b;
       // vector of distance
-      tVectorType intersection = *that + dist * start_direction;
+      tVector intersection = *that + dist * start_direction;
 
       //check if really between start and endpoint of line
       if (dist < max &&
@@ -218,7 +218,7 @@ float LegacySpecialized<2, TElement, Cartesian>::GetDistance2Line(float angle, c
 template <typename TElement>
 class LegacySpecialized<3, TElement, Cartesian>
 {
-  typedef tVector<3, TElement, Cartesian> tVectorType;
+  typedef math::tVector<3, TElement, Cartesian> tVector;
 
   LegacySpecialized(const LegacySpecialized &);
   LegacySpecialized &operator = (const LegacySpecialized &);
@@ -229,22 +229,22 @@ protected:
 
 public:
 
-  inline const tVectorType rotate(TElement angle, const tVectorType &axis) const __attribute__((deprecated));
+  inline const tVector rotate(TElement angle, const tVector &axis) const __attribute__((deprecated));
 
-  inline const tVectorType operator % (const tVectorType &other) const __attribute__((deprecated));
+  inline const tVector operator % (const tVector &other) const __attribute__((deprecated));
 
 };
 
 template <typename TElement>
-inline const tVector<3, TElement, Cartesian> LegacySpecialized<3, TElement, Cartesian>::rotate(TElement angle, const tVectorType &axis) const
+inline const math::tVector<3, TElement, Cartesian> LegacySpecialized<3, TElement, Cartesian>::rotate(TElement angle, const tVector &axis) const
 {
-  return reinterpret_cast<const tVectorType *>(this)->Rotated(angle, axis);
+  return reinterpret_cast<const tVector *>(this)->Rotated(angle, axis);
 }
 
 template <typename TElement>
-inline const tVector<3, TElement, Cartesian> LegacySpecialized<3, TElement, Cartesian>::operator % (const tVectorType &other) const
+inline const math::tVector<3, TElement, Cartesian> LegacySpecialized<3, TElement, Cartesian>::operator % (const tVector &other) const
 {
-  return reinterpret_cast<const tVectorType *>(this)->CrossMultiplied(other);
+  return reinterpret_cast<const tVector *>(this)->CrossMultiplied(other);
 }
 
 /*!
@@ -253,7 +253,7 @@ inline const tVector<3, TElement, Cartesian> LegacySpecialized<3, TElement, Cart
 template <typename TElement>
 class LegacySpecialized<6, TElement, Cartesian>
 {
-  typedef tVector<6, TElement, Cartesian> tVectorType;
+  typedef math::tVector<6, TElement, Cartesian> tVector;
 
   LegacySpecialized(const LegacySpecialized &);
   LegacySpecialized &operator = (const LegacySpecialized &);

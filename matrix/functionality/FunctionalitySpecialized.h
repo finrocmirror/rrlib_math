@@ -74,7 +74,7 @@ namespace matrix
 template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, size_t, typename> class TData>
 class FunctionalitySpecialized
 {
-  typedef tMatrix<Trows, Tcolumns, TElement, TData> tMatrixType;
+  typedef math::tMatrix<Trows, Tcolumns, TElement, TData> tMatrix;
 
   FunctionalitySpecialized(const FunctionalitySpecialized &);
   FunctionalitySpecialized &operator = (const FunctionalitySpecialized &);
@@ -90,7 +90,7 @@ protected:
 template <size_t Trows, size_t Tcolumns, typename TElement>
 class FunctionalitySpecialized<Trows, Tcolumns, TElement, Full>
 {
-  typedef tMatrix<Trows, Tcolumns, TElement, Full> tMatrixType;
+  typedef math::tMatrix<Trows, Tcolumns, TElement, Full> tMatrix;
 
   FunctionalitySpecialized(const FunctionalitySpecialized &);
   FunctionalitySpecialized &operator = (const FunctionalitySpecialized &);
@@ -101,10 +101,10 @@ protected:
 
 public:
 
-  inline const tMatrix<Tcolumns, Trows, TElement, Full> Transposed() const
+  inline const math::tMatrix<Tcolumns, Trows, TElement, Full> Transposed() const
   {
-    const tMatrixType *that = reinterpret_cast<const tMatrixType *>(this);
-    tMatrix<Tcolumns, Trows, TElement, Full> result;
+    const tMatrix *that = reinterpret_cast<const tMatrix *>(this);
+    math::tMatrix<Tcolumns, Trows, TElement, Full> result;
     for (size_t row = 0; row < Trows; ++row)
     {
       for (size_t column = 0; column < Tcolumns; ++column)
@@ -123,7 +123,7 @@ public:
 template <size_t Trows, size_t Tcolumns, typename TElement>
 class FunctionalitySpecialized<Trows, Tcolumns, TElement, LowerTriangle>
 {
-  typedef tMatrix<Trows, Tcolumns, TElement, LowerTriangle> tMatrixType;
+  typedef math::tMatrix<Trows, Tcolumns, TElement, LowerTriangle> tMatrix;
 
   FunctionalitySpecialized(const FunctionalitySpecialized &);
   FunctionalitySpecialized &operator = (const FunctionalitySpecialized &);
@@ -134,10 +134,10 @@ protected:
 
 public:
 
-  inline const tMatrix<Tcolumns, Trows, TElement, UpperTriangle> Transposed() const
+  inline const math::tMatrix<Tcolumns, Trows, TElement, UpperTriangle> Transposed() const
   {
-    const tMatrixType *that = reinterpret_cast<const tMatrixType *>(this);
-    tMatrix<Tcolumns, Trows, TElement, UpperTriangle> result;
+    const tMatrix *that = reinterpret_cast<const tMatrix *>(this);
+    math::tMatrix<Tcolumns, Trows, TElement, UpperTriangle> result;
     for (size_t row = 0; row < Trows; ++row)
     {
       for (size_t column = 0; column <= row; ++column)
@@ -156,7 +156,7 @@ public:
 template <size_t Trows, size_t Tcolumns, typename TElement>
 class FunctionalitySpecialized<Trows, Tcolumns, TElement, UpperTriangle>
 {
-  typedef tMatrix<Trows, Tcolumns, TElement, UpperTriangle> tMatrixType;
+  typedef math::tMatrix<Trows, Tcolumns, TElement, UpperTriangle> tMatrix;
 
   FunctionalitySpecialized(const FunctionalitySpecialized &);
   FunctionalitySpecialized &operator = (const FunctionalitySpecialized &);
@@ -167,10 +167,10 @@ protected:
 
 public:
 
-  inline const tMatrix<Tcolumns, Trows, TElement, LowerTriangle> Transposed() const
+  inline const math::tMatrix<Tcolumns, Trows, TElement, LowerTriangle> Transposed() const
   {
-    const tMatrixType *that = reinterpret_cast<const tMatrixType *>(this);
-    tMatrix<Tcolumns, Trows, TElement, LowerTriangle> result;
+    const tMatrix *that = reinterpret_cast<const tMatrix *>(this);
+    math::tMatrix<Tcolumns, Trows, TElement, LowerTriangle> result;
     for (size_t row = 0; row < Trows; ++row)
     {
       for (size_t column = row; column < Tcolumns; ++column)
@@ -189,7 +189,7 @@ public:
 template <size_t Trows, size_t Tcolumns, typename TElement>
 class FunctionalitySpecialized<Trows, Tcolumns, TElement, Symmetrical>
 {
-  typedef tMatrix<Trows, Tcolumns, TElement, Symmetrical> tMatrixType;
+  typedef math::tMatrix<Trows, Tcolumns, TElement, Symmetrical> tMatrix;
 
   FunctionalitySpecialized(const FunctionalitySpecialized &);
   FunctionalitySpecialized &operator = (const FunctionalitySpecialized &);
@@ -200,9 +200,9 @@ protected:
 
 public:
 
-  inline const tMatrix<Tcolumns, Trows, TElement, Symmetrical> &Transposed() const
+  inline const math::tMatrix<Tcolumns, Trows, TElement, Symmetrical> &Transposed() const
   {
-    return reinterpret_cast<const tMatrixType &>(*this);
+    return reinterpret_cast<const tMatrix &>(*this);
   }
 
 };

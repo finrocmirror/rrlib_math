@@ -79,7 +79,7 @@ namespace vector
 template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
 class FunctionalityShared
 {
-  typedef tVector<Tdimension, TElement, TData> tVectorType;
+  typedef math::tVector<Tdimension, TElement, TData> tVector;
 
   FunctionalityShared(const FunctionalityShared &);
 
@@ -87,7 +87,7 @@ class FunctionalityShared
   inline void SetValues(TElement buffer[Tdimension])
   {
     static_assert(number_of_given_values == Tdimension, "Wrong number of values given to store in vector");
-    std::memcpy(this, buffer, sizeof(tVectorType));
+    std::memcpy(this, buffer, sizeof(tVector));
   }
   template <size_t number_of_given_values, typename ... TValues>
   inline void SetValues(TElement buffer[Tdimension], TElement value, TValues... values)
@@ -100,22 +100,22 @@ protected:
 
   inline FunctionalityShared()
   {
-    std::memset(this, 0, sizeof(tVectorType));
+    std::memset(this, 0, sizeof(tVector));
   }
-  inline FunctionalityShared(const tVectorType &other)
+  inline FunctionalityShared(const tVector &other)
   {
-    std::memcpy(this, &other, sizeof(tVectorType));
+    std::memcpy(this, &other, sizeof(tVector));
   }
 
   explicit inline FunctionalityShared(const TElement data[Tdimension])
   {
-    std::memcpy(this, data, sizeof(tVectorType));
+    std::memcpy(this, data, sizeof(tVector));
   }
 
   template <size_t Tother_dimension, typename TOtherElement>
-  explicit inline FunctionalityShared(const tVector<Tother_dimension, TOtherElement, TData> &other)
+  explicit inline FunctionalityShared(const math::tVector<Tother_dimension, TOtherElement, TData> &other)
   {
-    std::memset(this, 0, sizeof(tVectorType));
+    std::memset(this, 0, sizeof(tVector));
     size_t size = std::min(Tdimension, Tother_dimension);
     for (size_t i = 0; i < size; ++i)
     {
@@ -146,33 +146,33 @@ public:
     const uint8_t *other_addr = reinterpret_cast<const uint8_t *>(&other);
     if (this_addr != other_addr)
     {
-      if (std::abs(this_addr - other_addr) < sizeof(tVectorType))
+      if (std::abs(this_addr - other_addr) < sizeof(tVector))
       {
         std::stringstream stream;
         stream << "Overlapping memory areas in rrlib::math::tVector::operator = (this = " << this << ", other = " << &other << ")!";
         throw std::logic_error(stream.str());
       }
-      std::memcpy(this, &other, sizeof(tVectorType));
+      std::memcpy(this, &other, sizeof(tVector));
     }
     return *this;
   }
 
   template <size_t Tother_dimension, typename TOtherElement>
-  inline FunctionalityShared &operator = (const tVector<Tother_dimension, TOtherElement, TData> &other)
+  inline FunctionalityShared &operator = (const math::tVector<Tother_dimension, TOtherElement, TData> &other)
   {
     const uint8_t *this_addr = reinterpret_cast<uint8_t *>(this);
     const uint8_t *other_addr = reinterpret_cast<const uint8_t *>(&other);
 
     if (this_addr != other_addr)
     {
-      const size_t safety_area = this_addr < other_addr ? sizeof(tVectorType) : sizeof(tVector<Tother_dimension, TOtherElement, TData>);
+      const size_t safety_area = this_addr < other_addr ? sizeof(tVector) : sizeof(math::tVector<Tother_dimension, TOtherElement, TData>);
       if (static_cast<size_t>(std::abs(this_addr - other_addr)) < safety_area)
       {
         std::stringstream stream;
         stream << "Overlapping memory areas in rrlib::math::tVector::operator = (this = " << this << ", other = " << &other << ")!";
         throw std::logic_error(stream.str());
       }
-      std::memset(this, 0, sizeof(tVectorType));
+      std::memset(this, 0, sizeof(tVector));
       size_t size = std::min(Tdimension, Tother_dimension);
       for (size_t i = 0; i < size; ++i)
       {
@@ -190,59 +190,59 @@ public:
   }
 
   template <typename TOtherElement>
-  inline const tVectorType &operator += (const tVector<Tdimension, TOtherElement, TData> &other)
+  inline const tVector &operator += (const math::tVector<Tdimension, TOtherElement, TData> &other)
   {
-    tVectorType *that = reinterpret_cast<tVectorType *>(this);
+    tVector *that = reinterpret_cast<tVector *>(this);
     *that = *that + other;
     return *that;
   }
 
   template <typename TOtherElement>
-  inline const tVectorType &operator -= (const tVector<Tdimension, TOtherElement, TData> &other)
+  inline const tVector &operator -= (const math::tVector<Tdimension, TOtherElement, TData> &other)
   {
-    tVectorType *that = reinterpret_cast<tVectorType *>(this);
+    tVector *that = reinterpret_cast<tVector *>(this);
     *that = *that - other;
     return *that;
   }
 
   template <typename TScalar>
-  inline const typename boost::enable_if<boost::is_scalar<TScalar>, tVectorType>::type &operator *= (const TScalar &scalar)
+  inline const typename boost::enable_if<boost::is_scalar<TScalar>, tVector>::type &operator *= (const TScalar &scalar)
   {
-    tVectorType *that = reinterpret_cast<tVectorType *>(this);
+    tVector *that = reinterpret_cast<tVector *>(this);
     *that = *that * scalar;
     return *that;
   }
 
   template <typename TScalar>
-  inline const typename boost::enable_if<boost::is_scalar<TScalar>, tVectorType>::type &operator /= (const TScalar &scalar)
+  inline const typename boost::enable_if<boost::is_scalar<TScalar>, tVector>::type &operator /= (const TScalar &scalar)
   {
-    tVectorType *that = reinterpret_cast<tVectorType *>(this);
+    tVector *that = reinterpret_cast<tVector *>(this);
     *that *= 1.0 / scalar;
     return *that;
   }
 
   inline void Normalize()
   {
-    tVectorType *that = reinterpret_cast<tVectorType *>(this);
+    tVector *that = reinterpret_cast<tVector *>(this);
     *that *= 1.0 / that->Length();
   }
 
-  inline const tVectorType Normalized() const
+  inline const tVector Normalized() const
   {
-    const tVectorType *that = reinterpret_cast<const tVectorType *>(this);
-    tVectorType temp(*that);
+    const tVector *that = reinterpret_cast<const tVector *>(this);
+    tVector temp(*that);
     temp.Normalize();
     return temp;
   }
 
   template <typename TOtherElement>
-  inline void Project(const tVector<Tdimension, TOtherElement, TData> &other)
+  inline void Project(const math::tVector<Tdimension, TOtherElement, TData> &other)
   {
-    tVectorType *that = reinterpret_cast<tVectorType *>(this);
+    tVector *that = reinterpret_cast<tVector *>(this);
     TOtherElement others_norm = other.SquaredLength();
     if (others_norm == 0)
     {
-      *that = tVectorType::Zero();
+      *that = tVector::Zero();
     }
     else
     {
@@ -253,10 +253,10 @@ public:
   }
 
   template <typename TOtherElement>
-  inline const tVector<Tdimension, typename until_0x::Auto<TElement, TOtherElement>::type, TData> Projected(const tVector<Tdimension, TOtherElement, TData> &other) const
+  inline const math::tVector<Tdimension, typename until_0x::Auto<TElement, TOtherElement>::type, TData> Projected(const math::tVector<Tdimension, TOtherElement, TData> &other) const
   {
-    const tVectorType *that = reinterpret_cast<const tVectorType *>(this);
-    tVector<Tdimension, typename until_0x::Auto<TElement, TOtherElement>::type, TData> temp(*that);
+    const tVector *that = reinterpret_cast<const tVector *>(this);
+    math::tVector<Tdimension, typename until_0x::Auto<TElement, TOtherElement>::type, TData> temp(*that);
     temp.Project(other);
     return temp;
   }

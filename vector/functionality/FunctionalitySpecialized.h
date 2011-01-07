@@ -78,7 +78,7 @@ namespace vector
 template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
 class FunctionalitySpecialized
 {
-  typedef tVector<Tdimension, TElement, TData> tVectorType;
+  typedef math::tVector<Tdimension, TElement, TData> tVector;
 
   FunctionalitySpecialized(const FunctionalitySpecialized &);
   FunctionalitySpecialized &operator = (const FunctionalitySpecialized &);
@@ -94,7 +94,7 @@ protected:
 template <size_t Tdimension, typename TElement>
 class FunctionalitySpecialized<Tdimension, TElement, Cartesian>
 {
-  typedef tVector<Tdimension, TElement, Cartesian> tVectorType;
+  typedef math::tVector<Tdimension, TElement, Cartesian> tVector;
 
   FunctionalitySpecialized(const FunctionalitySpecialized &);
   FunctionalitySpecialized &operator = (const FunctionalitySpecialized &);
@@ -105,9 +105,9 @@ protected:
 
 public:
 
-  static inline const tVectorType Direction(size_t i)
+  static inline const tVector Direction(size_t i)
   {
-    tVectorType vector;
+    tVector vector;
     vector[i] = 1;
     return vector;
   }
@@ -119,7 +119,7 @@ public:
 
   inline const TElement SquaredLength() const
   {
-    const tVectorType *that = reinterpret_cast<const tVectorType *>(this);
+    const tVector *that = reinterpret_cast<const tVector *>(this);
     TElement result = 0;
     for (size_t i = 0; i < Tdimension; ++i)
     {
@@ -130,7 +130,7 @@ public:
 
   inline const bool IsZero(double epsilon = 0) const
   {
-    const tVectorType *that = reinterpret_cast<const tVectorType *>(this);
+    const tVector *that = reinterpret_cast<const tVector *>(this);
     for (size_t i = 0; i < Tdimension; ++i)
     {
       if (!IsEqual((*that)[i], 0, epsilon, eFCM_ABSOLUTE_ERROR))
@@ -142,9 +142,9 @@ public:
   }
 
   template <typename TOtherElement>
-  inline void SchurMultiply(const tVector<Tdimension, TOtherElement, Cartesian> &other)
+  inline void SchurMultiply(const math::tVector<Tdimension, TOtherElement, Cartesian> &other)
   {
-    tVectorType *that = reinterpret_cast<tVectorType *>(this);
+    tVector *that = reinterpret_cast<tVector *>(this);
     for (size_t i = 0; i < Tdimension; ++i)
     {
       (*that)[i] *= other[i];
@@ -152,28 +152,28 @@ public:
   }
 
   template <typename TOtherElement>
-  inline const tVector<Tdimension, typename until_0x::Auto<TElement, TOtherElement>::type, Cartesian> SchurMultiplied(const tVector<Tdimension, TOtherElement, Cartesian> &other) const
+  inline const math::tVector<Tdimension, typename until_0x::Auto<TElement, TOtherElement>::type, Cartesian> SchurMultiplied(const math::tVector<Tdimension, TOtherElement, Cartesian> &other) const
   {
-    const tVectorType *that = reinterpret_cast<const tVectorType *>(this);
-    tVector<Tdimension, typename until_0x::Auto<TElement, TOtherElement>::type, Cartesian> temp(*that);
+    const tVector *that = reinterpret_cast<const tVector *>(this);
+    math::tVector<Tdimension, typename until_0x::Auto<TElement, TOtherElement>::type, Cartesian> temp(*that);
     temp.SchurMultiply(other);
     return temp;
   }
 
   template <size_t Tother_dimension, typename TOtherElement>
-  inline typename boost::enable_if_c < Tdimension == 3 && Tother_dimension == 3, void >::type CrossMultiply(const tVector<Tother_dimension, TOtherElement, Cartesian> &other)
+  inline typename boost::enable_if_c < Tdimension == 3 && Tother_dimension == 3, void >::type CrossMultiply(const math::tVector<Tother_dimension, TOtherElement, Cartesian> &other)
   {
-    tVectorType *that = reinterpret_cast<tVectorType *>(this);
+    tVector *that = reinterpret_cast<tVector *>(this);
     that->Set(that->Y() * other.Z() - that->Z() * other.Y(),
               that->Z() * other.X() - that->X() * other.Z(),
               that->X() * other.Y() - that->Y() * other.X());
   }
 
   template <size_t Tother_dimension, typename TOtherElement>
-  inline const typename boost::enable_if_c < Tdimension == 3 && Tother_dimension == 3, tVector<3, typename until_0x::Auto<TElement, TOtherElement>::type, Cartesian> >::type CrossMultiplied(const tVector<Tother_dimension, TOtherElement, Cartesian> &other) const
+  inline const typename boost::enable_if_c < Tdimension == 3 && Tother_dimension == 3, math::tVector<3, typename until_0x::Auto<TElement, TOtherElement>::type, Cartesian> >::type CrossMultiplied(const math::tVector<Tother_dimension, TOtherElement, Cartesian> &other) const
   {
-    const tVectorType *that = reinterpret_cast<const tVectorType *>(this);
-    tVector<Tdimension, typename until_0x::Auto<TElement, TOtherElement>::type, Cartesian> temp(*that);
+    const tVector *that = reinterpret_cast<const tVector *>(this);
+    math::tVector<Tdimension, typename until_0x::Auto<TElement, TOtherElement>::type, Cartesian> temp(*that);
     temp.CrossMultiply(other);
     return temp;
   }
@@ -186,7 +186,7 @@ public:
 template <size_t Tdimension, typename TElement>
 class FunctionalitySpecialized<Tdimension, TElement, Polar>
 {
-  typedef tVector<Tdimension, TElement, Cartesian> tVectorType;
+  typedef math::tVector<Tdimension, TElement, Cartesian> tVector;
 
   FunctionalitySpecialized(const FunctionalitySpecialized &);
   FunctionalitySpecialized &operator = (const FunctionalitySpecialized &);
@@ -199,13 +199,13 @@ public:
 
   inline const TElement SquaredLength() const
   {
-    const tVectorType *that = reinterpret_cast<const tVectorType *>(this);
+    const tVector *that = reinterpret_cast<const tVector *>(this);
     return that->Length() * that->Length();
   }
 
   inline const bool IsZero(double epsilon = 0) const
   {
-    const tVectorType *that = reinterpret_cast<const tVectorType *>(this);
+    const tVector *that = reinterpret_cast<const tVector *>(this);
     return that->Length() < epsilon;
   }
 

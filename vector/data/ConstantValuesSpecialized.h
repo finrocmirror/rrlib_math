@@ -89,7 +89,7 @@ protected:
 template <typename TElement>
 class ConstantValuesSpecialized<2, TElement, Cartesian>
 {
-  typedef tVector<2, TElement, Cartesian> tVectorType;
+  typedef math::tVector<2, TElement, Cartesian> tVector;
 
   ConstantValuesSpecialized(const ConstantValuesSpecialized &other);
   ConstantValuesSpecialized &operator = (const ConstantValuesSpecialized &);
@@ -100,15 +100,15 @@ protected:
 
 public:
 
-  static const tVectorType &XDirection()
+  static const tVector &XDirection()
   {
-    static tVectorType vector(1, 0);
+    static tVector vector(1, 0);
     return vector;
   }
 
-  static const tVectorType &YDirection()
+  static const tVector &YDirection()
   {
-    static tVectorType vector(0, 1);
+    static tVector vector(0, 1);
     return vector;
   }
 
@@ -120,7 +120,7 @@ public:
 template <typename TElement>
 class ConstantValuesSpecialized<3, TElement, Cartesian>
 {
-  typedef tVector<3, TElement, Cartesian> tVectorType;
+  typedef math::tVector<3, TElement, Cartesian> tVector;
 
   ConstantValuesSpecialized(const ConstantValuesSpecialized &other);
   ConstantValuesSpecialized &operator = (const ConstantValuesSpecialized &);
@@ -131,21 +131,21 @@ protected:
 
 public:
 
-  static inline const tVectorType &XDirection()
+  static inline const tVector &XDirection()
   {
-    static tVectorType vector(1, 0, 0);
+    static tVector vector(1, 0, 0);
     return vector;
   }
 
-  static inline const tVectorType &YDirection()
+  static inline const tVector &YDirection()
   {
-    static tVectorType vector(0, 1, 0);
+    static tVector vector(0, 1, 0);
     return vector;
   }
 
-  static inline const tVectorType &ZDirection()
+  static inline const tVector &ZDirection()
   {
-    static tVectorType vector(0, 0, 1);
+    static tVector vector(0, 0, 1);
     return vector;
   }
 

@@ -102,14 +102,14 @@ const tVector<Tdimension, typename until_0x::Auto<TLeftElement, TRightElement>::
 template <size_t Tdimension, typename TElement, typename TScalar>
 const typename boost::enable_if<boost::is_scalar<TScalar>, tVector<Tdimension, typename until_0x::Auto<TElement, TScalar>::type, Polar> >::type operator *(const tVector<Tdimension, TElement, Polar> &vector, const TScalar scalar)
 {
-  typedef tVector<Tdimension, typename until_0x::Auto<TElement, TScalar>::type, Polar> tResultType;
-  typename tResultType::tElementType data[Tdimension];
+  typedef math::tVector<Tdimension, typename until_0x::Auto<TElement, TScalar>::type, Polar> tResult;
+  typename tResult::tElement data[Tdimension];
   for (size_t i = 0; i < Tdimension - 1; ++i)
   {
     data[i] = reinterpret_cast<const TElement *>(&vector)[i];
   }
   data[Tdimension - 1] = vector.Length() * scalar;
-  return tResultType(data);
+  return tResult(data);
 }
 template <size_t Tdimension, typename TElement, typename TScalar>
 const typename boost::enable_if<boost::is_scalar<TScalar>, tVector<Tdimension, typename until_0x::Auto<TElement, TScalar>::type, Polar> >::type operator *(const TScalar scalar, const tVector<Tdimension, TElement, Polar> &vector)

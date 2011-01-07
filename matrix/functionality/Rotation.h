@@ -78,7 +78,7 @@ namespace matrix
 template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, size_t, typename> class TData>
 class Rotation
 {
-  typedef tMatrix<Trows, Tcolumns, TElement, TData> tMatrixType;
+  typedef math::tMatrix<Trows, Tcolumns, TElement, TData> tMatrix;
 
   Rotation(const Rotation &);
   Rotation &operator = (const Rotation &);
@@ -94,7 +94,7 @@ protected:
 template <typename TElement>
 class Rotation<3, 3, TElement, Full>
 {
-  typedef tMatrix<3, 3, TElement, Full> tMatrixType;
+  typedef math::tMatrix<3, 3, TElement, Full> tMatrix;
 
   Rotation(const Rotation &);
   Rotation &operator = (const Rotation &);
@@ -112,7 +112,7 @@ public:
   template <typename TVectorElement, typename TAngle>
   typename boost::enable_if<boost::is_float<TAngle>, void>::type GetRotation(tVector<3, TVectorElement, vector::Cartesian> &axis, TAngle &angle) const
   {
-    const tMatrixType *that = reinterpret_cast<const tMatrixType *>(this);
+    const tMatrix *that = reinterpret_cast<const tMatrix *>(this);
 
     // first, convert matrix to quaternion
     double s;
@@ -179,7 +179,7 @@ public:
 template <typename TElement>
 class Rotation<4, 4, TElement, Full>
 {
-  typedef tMatrix<4, 4, TElement, Full> tMatrixType;
+  typedef math::tMatrix<4, 4, TElement, Full> tMatrix;
 
   Rotation(const Rotation &);
   Rotation &operator = (const Rotation &);
@@ -193,7 +193,7 @@ public:
   template <typename TVectorElement, typename TAngle>
   typename boost::enable_if<boost::is_float<TAngle>, void>::type GetRotation(tVector<3, TVectorElement, vector::Cartesian> &axis, TAngle &angle) const
   {
-    const tMatrixType *that = reinterpret_cast<const tMatrixType *>(this);
+    const tMatrix *that = reinterpret_cast<const tMatrix *>(this);
     TElement data[3 * 3];
     for (size_t row = 0; row < 3; ++row)
     {
@@ -202,7 +202,7 @@ public:
         data[row * 3 + column] = (*that)[row][column];
       }
     }
-    tMatrix<3, 3, TElement, Full>(data).GetRotation(axis, angle);
+    math::tMatrix<3, 3, TElement, Full>(data).GetRotation(axis, angle);
   }
 
   /*! Sets this matrix to represent a homogenious rotation matrix
@@ -213,9 +213,9 @@ public:
    *  \note: code taken from Coin 2.5.0 SbRotation.cpp
    */
   template <typename TVectorElement>
-  tMatrixType &SetRotation(const tVector<3, TVectorElement, vector::Cartesian> &axis, double angle)
+  tMatrix &SetRotation(const tVector<3, TVectorElement, vector::Cartesian> &axis, double angle)
   {
-    tMatrixType *that = reinterpret_cast<tMatrixType *>(this);
+    tMatrix *that = reinterpret_cast<tMatrix *>(this);
     if (axis.Length() == 0)
     {
       std::runtime_error("Invalid rotation axis (with zero length)");

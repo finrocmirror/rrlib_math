@@ -91,7 +91,7 @@ protected:
 template <typename TElement>
 class Rotation<2, TElement, Cartesian>
 {
-  typedef tVector<2, TElement, Cartesian> tVectorType;
+  typedef math::tVector<2, TElement, Cartesian> tVector;
 
   Rotation(const Rotation &);
   Rotation &operator = (const Rotation &);
@@ -109,23 +109,23 @@ public:
 
   inline void Rotate(double sine, double cosine)
   {
-    tVectorType *that = reinterpret_cast<tVectorType *>(this);
+    tVector *that = reinterpret_cast<tVector *>(this);
     that->Set(cosine * that->X() - sine * that->Y(),
               sine * that->X() + cosine * that->Y());
   }
 
-  inline const tVectorType Rotated(tAngleRad angle) const
+  inline const tVector Rotated(tAngleRad angle) const
   {
-    const tVectorType *that = reinterpret_cast<const tVectorType *>(this);
-    tVectorType temp(*that);
+    const tVector *that = reinterpret_cast<const tVector *>(this);
+    tVector temp(*that);
     temp.Rotate(angle);
     return temp;
   }
 
-  inline const tVectorType Rotated(double sine, double cosine) const
+  inline const tVector Rotated(double sine, double cosine) const
   {
-    const tVectorType *that = reinterpret_cast<const tVectorType *>(this);
-    tVectorType temp(*that);
+    const tVector *that = reinterpret_cast<const tVector *>(this);
+    tVector temp(*that);
     temp.Rotate(sine, cosine);
     return temp;
   }
@@ -138,7 +138,7 @@ public:
 template <typename TElement>
 class Rotation<3, TElement, Cartesian>
 {
-  typedef tVector<3, TElement, Cartesian> tVectorType;
+  typedef math::tVector<3, TElement, Cartesian> tVector;
 
   Rotation(const Rotation &);
   Rotation &operator = (const Rotation &);
@@ -150,14 +150,14 @@ protected:
 public:
 
   template <typename TAxisElement>
-  inline void Rotate(tAngleRad angle, const tVector<3, TAxisElement, Cartesian> &axis)
+  inline void Rotate(tAngleRad angle, const math::tVector<3, TAxisElement, Cartesian> &axis)
   {
-    tVectorType *that = reinterpret_cast<tVectorType *>(this);
+    tVector *that = reinterpret_cast<tVector *>(this);
 
     double si = angle.Sine();
     double co = angle.Cosine();
     double mco = 1.0 - co;
-    tVector<3, TAxisElement, Cartesian> normalized_axis(axis.Normalized());
+    math::tVector<3, TAxisElement, Cartesian> normalized_axis(axis.Normalized());
 
     that->Set(co * that->X() + (normalized_axis.X() * mco) * normalized_axis * *that + si *(normalized_axis.Y() * that->Z() - normalized_axis.Z() * that->Y()),
               co * that->Y() + (normalized_axis.Y() * mco) * normalized_axis * *that + si *(normalized_axis.Z() * that->X() - normalized_axis.X() * that->Z()),
@@ -165,10 +165,10 @@ public:
   }
 
   template <typename TAxisElement>
-  inline const tVectorType Rotated(tAngleRad angle, const tVector<3, TAxisElement, Cartesian> &axis) const
+  inline const tVector Rotated(tAngleRad angle, const math::tVector<3, TAxisElement, Cartesian> &axis) const
   {
-    const tVectorType *that = reinterpret_cast<const tVectorType *>(this);
-    tVectorType temp(*that);
+    const tVector *that = reinterpret_cast<const tVector *>(this);
+    tVector temp(*that);
     temp.Rotate(angle, axis);
     return temp;
   }
@@ -181,7 +181,7 @@ public:
 template <typename TElement>
 class Rotation<2, TElement, Polar>
 {
-  typedef tVector<2, TElement, Polar> tVectorType;
+  typedef math::tVector<2, TElement, Polar> tVector;
 
   Rotation(const Rotation &);
   Rotation &operator = (const Rotation &);
@@ -200,7 +200,7 @@ public:
 template <typename TElement>
 class Rotation<3, TElement, Polar>
 {
-  typedef tVector<3, TElement, Polar> tVectorType;
+  typedef math::tVector<3, TElement, Polar> tVector;
 
   Rotation(const Rotation &);
   Rotation &operator = (const Rotation &);

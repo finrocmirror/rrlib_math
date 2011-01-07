@@ -78,8 +78,8 @@ namespace matrix
 template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, size_t, typename> class TData>
 class FunctionalityShared
 {
-  typedef tMatrix<Trows, Tcolumns, TElement, TData> tMatrixType;
-  typedef TData<Trows, Tcolumns, TElement> tDataType;
+  typedef math::tMatrix<Trows, Tcolumns, TElement, TData> tMatrix;
+  typedef TData<Trows, Tcolumns, TElement> tData;
 
   FunctionalityShared(const FunctionalityShared &);
 
@@ -87,7 +87,7 @@ class FunctionalityShared
   inline void SetValues(TElement buffer[Trows * Tcolumns])
   {
     static_assert(number_of_given_values == Trows * Tcolumns, "Wrong number of values given to store in matrix");
-    reinterpret_cast<tMatrixType *>(this)->SetFromArray(buffer);
+    reinterpret_cast<tMatrix *>(this)->SetFromArray(buffer);
   }
   template <size_t number_of_given_values, typename ... TValues>
   inline void SetValues(TElement buffer[Trows * Tcolumns], TElement value, TValues... values)
@@ -100,30 +100,30 @@ protected:
 
   inline FunctionalityShared()
   {
-    std::memset(this, 0, sizeof(tMatrixType));
+    std::memset(this, 0, sizeof(tMatrix));
   }
-  inline FunctionalityShared(const tMatrixType &other)
+  inline FunctionalityShared(const tMatrix &other)
   {
-    std::memcpy(this, &other, sizeof(tMatrixType));
+    std::memcpy(this, &other, sizeof(tMatrix));
   }
 
   explicit inline FunctionalityShared(const TElement data[Trows * Tcolumns])
   {
-    reinterpret_cast<tMatrixType *>(this)->SetFromArray(data);
+    reinterpret_cast<tMatrix *>(this)->SetFromArray(data);
   }
 
   template <typename TOtherElement>
-  explicit inline FunctionalityShared(const tMatrix<Trows, Tcolumns, TOtherElement, TData> &other)
+  explicit inline FunctionalityShared(const math::tMatrix<Trows, Tcolumns, TOtherElement, TData> &other)
   {
-    std::memset(this, 0, sizeof(tMatrixType));
-    for (size_t i = 0; i < sizeof(tMatrixType) / sizeof(TElement); ++i)
+    std::memset(this, 0, sizeof(tMatrix));
+    for (size_t i = 0; i < sizeof(tMatrix) / sizeof(TElement); ++i)
     {
       reinterpret_cast<TElement *>(this)[i] = reinterpret_cast<const TOtherElement *>(&other)[i];
     }
   }
 
   template <typename TOtherElement, template <size_t, size_t, typename> class TOtherData>
-  explicit inline FunctionalityShared(const tMatrix<Trows, Tcolumns, TOtherElement, TOtherData> &other)
+  explicit inline FunctionalityShared(const math::tMatrix<Trows, Tcolumns, TOtherElement, TOtherData> &other)
   {
     this->SetFromMatrix(other);
   }
@@ -139,18 +139,18 @@ protected:
         data[row * Tcolumns + column] = left[row] * right[column];
       }
     }
-    reinterpret_cast<tMatrixType *>(this)->SetFromArray(data);
+    reinterpret_cast<tMatrix *>(this)->SetFromArray(data);
   }
 
 public:
 
-  inline const typename tDataType::Accessor operator [](size_t row) const
+  inline const typename tData::Accessor operator [](size_t row) const
   {
     return const_cast<FunctionalityShared &>(*this)[row];
   }
-  inline typename tDataType::Accessor operator [](size_t row)
+  inline typename tData::Accessor operator [](size_t row)
   {
-    return typename tDataType::Accessor(reinterpret_cast<TElement *>(this), row);
+    return typename tData::Accessor(reinterpret_cast<TElement *>(this), row);
   }
 
   inline FunctionalityShared &operator = (const FunctionalityShared &other)
@@ -159,33 +159,33 @@ public:
     const uint8_t *other_addr = reinterpret_cast<const uint8_t *>(&other);
     if (this_addr != other_addr)
     {
-      if (std::abs(this_addr - other_addr) < sizeof(tMatrixType))
+      if (std::abs(this_addr - other_addr) < sizeof(tMatrix))
       {
         std::stringstream stream;
         stream << "Overlapping memory areas in rrlib::math::tMatrix::operator = (this = " << this << ", other = " << &other << ")!";
         throw std::logic_error(stream.str());
       }
-      std::memcpy(this, &other, sizeof(tMatrixType));
+      std::memcpy(this, &other, sizeof(tMatrix));
     }
     return *this;
   }
 
   template <typename TOtherElement>
-  inline FunctionalityShared &operator = (const tMatrix<Trows, Tcolumns, TOtherElement, TData> &other)
+  inline FunctionalityShared &operator = (const math::tMatrix<Trows, Tcolumns, TOtherElement, TData> &other)
   {
     const uint8_t *this_addr = reinterpret_cast<uint8_t *>(this);
     const uint8_t *other_addr = reinterpret_cast<const uint8_t *>(&other);
 
     if (this_addr != other_addr)
     {
-      const size_t safety_area = this_addr < other_addr ? sizeof(tMatrixType) : sizeof(tMatrix<Trows, Tcolumns, TOtherElement, TData>);
+      const size_t safety_area = this_addr < other_addr ? sizeof(tMatrix) : sizeof(math::tMatrix<Trows, Tcolumns, TOtherElement, TData>);
       if (static_cast<size_t>(std::abs(this_addr - other_addr)) < safety_area)
       {
         std::stringstream stream;
         stream << "Overlapping memory areas in rrlib::math::tMatrix::operator = (this = " << this << ", other = " << &other << ")!";
         throw std::logic_error(stream.str());
       }
-      std::memset(this, 0, sizeof(tMatrixType));
+      std::memset(this, 0, sizeof(tMatrix));
       for (size_t i = 0; i < Trows * Tcolumns; ++i)
       {
         reinterpret_cast<TElement *>(this)[i] = reinterpret_cast<const TOtherElement *>(&other)[i];
@@ -202,7 +202,7 @@ public:
   }
 
   template <typename TOtherElement, template <size_t, size_t, typename> class TOtherData>
-  inline void SetFromMatrix(const tMatrix<Trows, Tcolumns, TOtherElement, TOtherData> &source)
+  inline void SetFromMatrix(const math::tMatrix<Trows, Tcolumns, TOtherElement, TOtherData> &source)
   {
     TElement buffer[Trows * Tcolumns];
     for (size_t row  = 0; row < Trows; ++row)
@@ -212,52 +212,52 @@ public:
         buffer[row * Tcolumns + column] = source[row][column];
       }
     }
-    reinterpret_cast<tMatrixType *>(this)->SetFromArray(buffer);
+    reinterpret_cast<tMatrix *>(this)->SetFromArray(buffer);
   }
 
   template <typename TOtherElement, template <size_t, size_t, typename> class TOtherData>
-  inline const tMatrixType &operator += (const tMatrix<Trows, Tcolumns, TOtherElement, TOtherData> &other)
+  inline const tMatrix &operator += (const math::tMatrix<Trows, Tcolumns, TOtherElement, TOtherData> &other)
   {
-    tMatrixType *that = reinterpret_cast<tMatrixType *>(this);
+    tMatrix *that = reinterpret_cast<tMatrix *>(this);
     *that = *that + other;
     return *that;
   }
 
   template <typename TOtherElement, template <size_t, size_t, typename> class TOtherData>
-  inline const tMatrixType &operator -= (const tMatrix<Trows, Tcolumns, TOtherElement, TOtherData> &other)
+  inline const tMatrix &operator -= (const math::tMatrix<Trows, Tcolumns, TOtherElement, TOtherData> &other)
   {
-    tMatrixType *that = reinterpret_cast<tMatrixType *>(this);
+    tMatrix *that = reinterpret_cast<tMatrix *>(this);
     *that = *that - other;
     return *that;
   }
 
   template <typename TOtherElement, template <size_t, size_t, typename> class TOtherData>
-  inline const tMatrixType &operator *= (const tMatrix<Tcolumns, Tcolumns, TOtherElement, TOtherData> &other)
+  inline const tMatrix &operator *= (const math::tMatrix<Tcolumns, Tcolumns, TOtherElement, TOtherData> &other)
   {
-    tMatrixType *that = reinterpret_cast<tMatrixType *>(this);
+    tMatrix *that = reinterpret_cast<tMatrix *>(this);
     *that = *that * other;
     return *that;
   }
 
   template <typename TScalar>
-  inline const typename boost::enable_if<boost::is_scalar<TScalar>, tMatrixType>::type &operator *= (const TScalar &scalar)
+  inline const typename boost::enable_if<boost::is_scalar<TScalar>, tMatrix>::type &operator *= (const TScalar &scalar)
   {
-    tMatrixType *that = reinterpret_cast<tMatrixType *>(this);
+    tMatrix *that = reinterpret_cast<tMatrix *>(this);
     *that = *that * scalar;
     return *that;
   }
 
   template <typename TScalar>
-  inline const typename boost::enable_if<boost::is_scalar<TScalar>, tMatrixType>::type &operator /= (const TScalar &scalar)
+  inline const typename boost::enable_if<boost::is_scalar<TScalar>, tMatrix>::type &operator /= (const TScalar &scalar)
   {
-    tMatrixType *that = reinterpret_cast<tMatrixType *>(this);
+    tMatrix *that = reinterpret_cast<tMatrix *>(this);
     *that *= 1.0 / scalar;
     return *that;
   }
 
   inline const bool IsZero(double epsilon = 0) const
   {
-    for (size_t i = 0; i < sizeof(tMatrixType) / sizeof(TElement); ++i)
+    for (size_t i = 0; i < sizeof(tMatrix) / sizeof(TElement); ++i)
     {
       if (std::abs(reinterpret_cast<const TElement *>(this)[i]) >= epsilon)
       {

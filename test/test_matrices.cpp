@@ -243,11 +243,11 @@ int main(int argc, char **argv)
   std::cout << s << std::endl;
 
   // test matrix inversion with hilbert-matrix
-  typedef tMatrix<5, 5, double, matrix::Full> tInversionTestType;
-  tInversionTestType hilbert_matrix;
-  for (size_t row = 0; row < tInversionTestType::cROWS; ++row)
+  typedef tMatrix<5, 5, double, matrix::Full> tInversionTest;
+  tInversionTest hilbert_matrix;
+  for (size_t row = 0; row < tInversionTest::cROWS; ++row)
   {
-    for (size_t column = 0; column < tInversionTestType::cCOLUMNS; ++column)
+    for (size_t column = 0; column < tInversionTest::cCOLUMNS; ++column)
     {
       hilbert_matrix[row][column] = 1.0 / (1.0 + row + column);
     }

@@ -109,49 +109,49 @@ std::istream &operator >> (std::istream &stream, tVector<Tdimension, TElement, C
 template <size_t Tdimension, typename TElement>
 const tVector<Tdimension, TElement, Cartesian> operator - (const tVector<Tdimension, TElement, Cartesian> &vector)
 {
-  typedef tVector<Tdimension, TElement, Cartesian> tResultType;
-  typename tResultType::tElementType data[Tdimension];
+  typedef math::tVector<Tdimension, TElement, Cartesian> tResult;
+  typename tResult::tElement data[Tdimension];
   for (size_t i = 0; i < Tdimension; ++i)
   {
     data[i] = -reinterpret_cast<const TElement *>(&vector)[i];
   }
-  return tResultType(data);
+  return tResult(data);
 }
 
 template <size_t Tdimension, typename TLeftElement, typename TRightElement>
 const tVector<Tdimension, typename until_0x::Auto<TLeftElement, TRightElement>::type, Cartesian> operator + (const tVector<Tdimension, TLeftElement, Cartesian> &left, const tVector<Tdimension, TRightElement, Cartesian> &right)
 {
-  typedef tVector<Tdimension, typename until_0x::Auto<TLeftElement, TRightElement>::type, Cartesian> tResultType;
-  typename tResultType::tElementType data[Tdimension];
+  typedef math::tVector<Tdimension, typename until_0x::Auto<TLeftElement, TRightElement>::type, Cartesian> tResult;
+  typename tResult::tElement data[Tdimension];
   for (size_t i = 0; i < Tdimension; ++i)
   {
     data[i] = reinterpret_cast<const TLeftElement *>(&left)[i] + reinterpret_cast<const TRightElement *>(&right)[i];
   }
-  return tResultType(data);
+  return tResult(data);
 }
 
 template <size_t Tdimension, typename TLeftElement, typename TRightElement>
 const tVector<Tdimension, typename until_0x::Auto<TLeftElement, TRightElement>::type, Cartesian> operator - (const tVector<Tdimension, TLeftElement, Cartesian> &left, const tVector<Tdimension, TRightElement, Cartesian> &right)
 {
-  typedef tVector<Tdimension, typename until_0x::Auto<TLeftElement, TRightElement>::type, Cartesian> tResultType;
-  typename tResultType::tElementType data[Tdimension];
+  typedef math::tVector<Tdimension, typename until_0x::Auto<TLeftElement, TRightElement>::type, Cartesian> tResult;
+  typename tResult::tElement data[Tdimension];
   for (size_t i = 0; i < Tdimension; ++i)
   {
     data[i] = reinterpret_cast<const TLeftElement *>(&left)[i] - reinterpret_cast<const TRightElement *>(&right)[i];
   }
-  return tResultType(data);
+  return tResult(data);
 }
 
 template <size_t Tdimension, typename TElement, typename TScalar>
 const typename boost::enable_if<boost::is_scalar<TScalar>, tVector<Tdimension, typename until_0x::Auto<TElement, TScalar>::type, Cartesian> >::type operator *(const tVector<Tdimension, TElement, Cartesian> &vector, const TScalar scalar)
 {
-  typedef tVector<Tdimension, typename until_0x::Auto<TElement, TScalar>::type, Cartesian> tResultType;
-  typename tResultType::tElementType data[Tdimension];
+  typedef math::tVector<Tdimension, typename until_0x::Auto<TElement, TScalar>::type, Cartesian> tResult;
+  typename tResult::tElement data[Tdimension];
   for (size_t i = 0; i < Tdimension; ++i)
   {
     data[i] = reinterpret_cast<const TElement *>(&vector)[i] * scalar;
   }
-  return tResultType(data);
+  return tResult(data);
 }
 template <size_t Tdimension, typename TElement, typename TScalar>
 const typename boost::enable_if<boost::is_scalar<TScalar>, tVector<Tdimension, typename until_0x::Auto<TElement, TScalar>::type, Cartesian> >::type operator *(const TScalar scalar, const tVector<Tdimension, TElement, Cartesian> &vector)

@@ -123,7 +123,7 @@ public:
         if (!IsEqual(data[row * Tcolumns + column], data[column * Trows + row], 0.0001, eFCM_RELATIVE_ERROR))
         {
           std::stringstream stream;
-          stream << "Trying to initialize symmetric matrix from invalid data set " << tMatrix<Trows, Tcolumns, TElement, Full>(data) << ".";
+          stream << "Trying to initialize symmetric matrix from invalid data set " << math::tMatrix<Trows, Tcolumns, TElement, Full>(data) << ".";
           throw std::runtime_error(stream.str());
         }
         this->values[column *(column + 1) / 2 + row] = data[row * Tcolumns + column];

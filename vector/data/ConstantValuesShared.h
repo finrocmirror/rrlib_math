@@ -74,7 +74,7 @@ namespace vector
 template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
 class ConstantValuesShared
 {
-  typedef tVector<Tdimension, TElement, TData> tVectorType;
+  typedef math::tVector<Tdimension, TElement, TData> tVector;
 
   ConstantValuesShared(const ConstantValuesShared &other);
   ConstantValuesShared &operator = (const ConstantValuesShared &);
@@ -87,11 +87,11 @@ public:
 
   static const size_t cDIMENSION = Tdimension;
 
-  typedef TElement tElementType;
+  typedef TElement tElement;
 
-  static inline const tVectorType &Zero()
+  static inline const tVector &Zero()
   {
-    static tVectorType vector;
+    static tVector vector;
     return vector;
   }
 
@@ -103,14 +103,14 @@ public:
 template <size_t Tdimension, typename TElement>
 class ConstantValuesShared<Tdimension, TElement, Cartesian>
 {
-  typedef tVector<Tdimension, TElement, Cartesian> tVectorType;
+  typedef math::tVector<Tdimension, TElement, Cartesian> tVector;
 
   ConstantValuesShared(const ConstantValuesShared &other);
   ConstantValuesShared &operator = (const ConstantValuesShared &);
 
-  static const tVectorType &InitializeIdentity()
+  static const tVector &InitializeIdentity()
   {
-    static tVectorType vector;
+    static tVector vector;
     for (size_t i = 0; i < Tdimension; ++i)
     {
       vector[i] = 1;
@@ -126,17 +126,17 @@ public:
 
   static const size_t cDIMENSION = Tdimension;
 
-  typedef TElement tElementType;
+  typedef TElement tElement;
 
-  static inline const tVectorType &Zero()
+  static inline const tVector &Zero()
   {
-    static tVectorType vector;
+    static tVector vector;
     return vector;
   }
 
-  static inline const tVectorType &Identity()
+  static inline const tVector &Identity()
   {
-    static tVectorType identity(InitializeIdentity());
+    static tVector identity(InitializeIdentity());
     return identity;
   }
 

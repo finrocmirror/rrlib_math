@@ -90,7 +90,7 @@ class tVector : public TData<Tdimension, TElement>,
     public vector::ConstantValuesSpecialized<Tdimension, TElement, TData>
 {
   typedef vector::FunctionalityShared<Tdimension, TElement, TData> FunctionalityShared;
-  typedef tVector<Tdimension, TElement, TData> tVectorType;
+//  typedef math::tVector<Tdimension, TElement, TData> tVector;
 
 //----------------------------------------------------------------------
 // Public methods
@@ -111,7 +111,7 @@ public:
     FunctionalityShared::Set(value, values...);
   }
 
-  inline tVector(const ::math::tVector<Tdimension, TElement> &other) : FunctionalityShared(*reinterpret_cast<const tVectorType *>(&other)) {}
+  inline tVector(const ::math::tVector<Tdimension, TElement> &other) : FunctionalityShared(*reinterpret_cast<const tVector *>(&other)) {}
 
 #ifdef _LIB_OIV_PRESENT_
   template <class T>

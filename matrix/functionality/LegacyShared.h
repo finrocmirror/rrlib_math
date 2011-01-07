@@ -74,7 +74,7 @@ namespace matrix
 template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, size_t, typename> class TData>
 class LegacyShared
 {
-  typedef tMatrix<Trows, Tcolumns, TElement, TData> tMatrixType;
+  typedef math::tMatrix<Trows, Tcolumns, TElement, TData> tMatrix;
 
   LegacyShared(const LegacyShared &);
   LegacyShared &operator = (const LegacyShared &);
@@ -98,14 +98,14 @@ template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, si
 template <typename ... TValues>
 void LegacyShared<Trows, Tcolumns, TElement, TData>::SetMatrix(TValues... values)
 {
-  tMatrixType *that = reinterpret_cast<tMatrixType *>(this);
+  tMatrix *that = reinterpret_cast<tMatrix *>(this);
   that->Set(values...);
 }
 
 template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, size_t, typename> class TData>
 double LegacyShared<Trows, Tcolumns, TElement, TData>::Det() const
 {
-  const tMatrixType *that = reinterpret_cast<const tMatrixType *>(this);
+  const tMatrix *that = reinterpret_cast<const tMatrix *>(this);
   return that->Determinant();
 }
 

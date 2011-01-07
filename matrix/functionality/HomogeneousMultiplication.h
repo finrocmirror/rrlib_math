@@ -75,7 +75,7 @@ namespace matrix
 template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, size_t, typename> class TData>
 class HomogeneousMultiplication
 {
-  typedef tMatrix<Trows, Tcolumns, TElement, TData> tMatrixType;
+  typedef math::tMatrix<Trows, Tcolumns, TElement, TData> tMatrix;
 
   HomogeneousMultiplication(const HomogeneousMultiplication &);
   HomogeneousMultiplication &operator = (const HomogeneousMultiplication &);
@@ -92,7 +92,7 @@ protected:
 template <size_t Tdimension, typename TElement, template <size_t, size_t, typename> class TData>
 class HomogeneousMultiplication<Tdimension, Tdimension, TElement, TData>
 {
-  typedef tMatrix<Tdimension, Tdimension, TElement, TData> tMatrixType;
+  typedef math::tMatrix<Tdimension, Tdimension, TElement, TData> tMatrix;
 
   HomogeneousMultiplication(const HomogeneousMultiplication &);
   HomogeneousMultiplication &operator = (const HomogeneousMultiplication &);
@@ -106,9 +106,9 @@ public:
   template <typename TVectorElement>
   inline const tVector < Tdimension - 1, typename until_0x::Auto<TElement, TVectorElement>::type, vector::Cartesian > MultiplyHomogeneously(const tVector < Tdimension - 1, TVectorElement, vector::Cartesian > &vector) const
   {
-    const tMatrixType *that = reinterpret_cast<const tMatrixType *>(this);
-    typedef tVector < Tdimension - 1, typename until_0x::Auto<TElement, TVectorElement>::type, vector::Cartesian > tResultType;
-    typename tResultType::tElementType data[Tdimension - 1];
+    const tMatrix *that = reinterpret_cast<const tMatrix *>(this);
+    typedef tVector < Tdimension - 1, typename until_0x::Auto<TElement, TVectorElement>::type, vector::Cartesian > tResult;
+    typename tResult::tElement data[Tdimension - 1];
     std::memset(data, 0, sizeof(data));
     for (size_t row = 0; row < Tdimension - 1; ++row)
     {
@@ -118,7 +118,7 @@ public:
       }
       data[row] += (*that)[row][Tdimension - 1];
     }
-    return tResultType(data);
+    return tResult(data);
   }
 
 };
