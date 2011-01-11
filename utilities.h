@@ -202,6 +202,20 @@ inline const T AbsoluteValue(T value)
  */
 const bool IsEqual(float a, float b, float max_error = 1.0E-6, tFloatComparisonMethod method = eFCM_ABSOLUTE_ERROR);
 
+
+/*! Function to extract the sign of an arbitrary number
+ *
+ * \param value the number
+ * \returns -1 if (value < 0), 1 if (value > 0) and 0 if (value == 0)
+ *
+ */
+template <typename T>
+inline int Sgn(T value)
+{
+  return (value > 0) - (value < 0);
+}
+
+
 //----------------------------------------------------------------------
 // End of namespace declaration
 //----------------------------------------------------------------------

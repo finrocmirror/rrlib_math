@@ -41,4 +41,10 @@
     </sources>
   </testprogram>
 
+  <testprogram name="utilities">
+    <sources>
+      test/test_utilities.cpp
+    </sources>
+  </testprogram>
+
 </targets>
