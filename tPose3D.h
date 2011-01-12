@@ -98,6 +98,8 @@ public:
 
   tPose3D(const tVec3d &position, tAngleRad roll, tAngleRad pitch, tAngleRad yaw);
 
+  explicit tPose3D(const tPose2D &pose_2d);
+
   explicit tPose3D(const tMat4x4d &matrix, bool use_second_solution = false);
 
   inline const char *GetDescription() const

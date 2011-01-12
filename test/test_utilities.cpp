@@ -65,9 +65,14 @@ using namespace rrlib::math;
 
 int main(int argc, char **argv)
 {
-  assert(Sgn(4711) == 1);
-  assert(Sgn(0) == 0);
-  assert(Sgn(-0.1) == -1);
+  assert(Signum(4711) == 1);
+  assert(Signum(0) == 0);
+  assert(Signum(-0.1) == -1);
+
+  assert(LimitedValue(123, 12, 1234) == 123);
+  assert(LimitedValue(12, 123, 1234) == 123);
+  assert(LimitedValue(1234, 12, 123) == 123);
+
 
 
   return EXIT_SUCCESS;

@@ -38,6 +38,7 @@
 // External includes (system with <>, local with "")
 //----------------------------------------------------------------------
 #include <cmath>
+#include <algorithm>
 #include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/is_float.hpp>
 #include <boost/type_traits/is_integral.hpp>
@@ -49,6 +50,7 @@
 //----------------------------------------------------------------------
 // Debugging
 //----------------------------------------------------------------------
+#include <cassert>
 
 //----------------------------------------------------------------------
 // Namespace declaration
@@ -210,10 +212,18 @@ const bool IsEqual(float a, float b, float max_error = 1.0E-6, tFloatComparisonM
  *
  */
 template <typename T>
-inline int Sgn(T value)
+inline int Signum(T value)
 {
-  return (value > 0) - (value < 0);
+  return (value > T(0)) - (value < T(0));
 }
+
+template <typename T>
+inline T LimitedValue(T value, T min_value, T max_value)
+{
+  assert(min_value < max_value);
+  return std::min(std::max(value, min_value), max_value);
+}
+
 
 
 //----------------------------------------------------------------------

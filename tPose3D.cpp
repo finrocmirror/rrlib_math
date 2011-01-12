@@ -97,6 +97,13 @@ tPose3D::tPose3D(const tVec3d &position, tAngleRad roll, tAngleRad pitch, tAngle
     yaw(yaw)
 {}
 
+tPose3D::tPose3D(const tPose2D &pose_2d)
+    : position(pose_2d.GetPosition()),
+    roll(0),
+    pitch(0),
+    yaw(pose_2d.Yaw())
+{}
+
 tPose3D::tPose3D(const tMat4x4d &matrix, bool use_second_solution)
     : roll(0),
     pitch(0),
