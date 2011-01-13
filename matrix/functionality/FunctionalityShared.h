@@ -215,6 +215,11 @@ public:
     reinterpret_cast<tMatrix *>(this)->SetFromArray(buffer);
   }
 
+  inline void SetIdentity()
+  {
+    *this = tMatrix::Identity();
+  }
+
   template <typename TOtherElement, template <size_t, size_t, typename> class TOtherData>
   inline const tMatrix &operator += (const math::tMatrix<Trows, Tcolumns, TOtherElement, TOtherData> &other)
   {

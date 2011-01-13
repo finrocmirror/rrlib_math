@@ -110,7 +110,7 @@ public:
   inline tMatrix(const tVector<Trows, TLeftElement, vector::Cartesian> &left, const tVector<Tcolumns, TRightElement, vector::Cartesian> &right) : FunctionalityShared(left, right) {}
 
   template <typename ... TValues>
-  inline tMatrix(TElement value, TValues... values)
+  explicit inline tMatrix(TElement value, TValues... values)
   {
     FunctionalityShared::Set(value, values...);
   }

@@ -164,8 +164,6 @@ public:
 
   void GetRotationAxis(tVector<3, TElement, vector::Cartesian> &axis, TElement &angle) const __attribute__((deprecated));
 
-  void SetIdentity() __attribute__((deprecated));
-
 };
 
 template <typename TElement, template <size_t, size_t, typename> class TData>
@@ -205,13 +203,6 @@ void LegacySpecialized<4, 4, TElement, TData>::GetRotationAxis(tVector<3, TEleme
 {
   const tMatrix *that = reinterpret_cast<const tMatrix *>(this);
   that->GetRotation(axis, angle);
-}
-
-template <typename TElement, template <size_t, size_t, typename> class TData>
-void LegacySpecialized<4, 4, TElement, TData>::SetIdentity()
-{
-  tMatrix *that = reinterpret_cast<tMatrix *>(this);
-  *that = tMatrix::Identity();
 }
 
 
