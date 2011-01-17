@@ -184,7 +184,7 @@ public:
 
   void Set(const tMat4x4d &matrix, bool use_second_solution = false);
 
-  inline void Reset();
+  void Reset();
 
   const tPose2D GetPose2D() const;
 
