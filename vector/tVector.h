@@ -102,6 +102,9 @@ public:
 
   explicit inline tVector(const TElement data[Tdimension]) : FunctionalityShared(data) {}
 
+  template <typename TOtherElement>
+  explicit inline tVector(const TOtherElement data[Tdimension]) : FunctionalityShared(data) {}
+
   template <size_t Tother_dimension, typename TOtherElement>
   explicit inline tVector(const tVector<Tother_dimension, TOtherElement, TData> &other) : FunctionalityShared(other) {}
 
@@ -114,20 +117,19 @@ public:
   inline tVector(const ::math::tVector<Tdimension, TElement> &other) : FunctionalityShared(*reinterpret_cast<const tVector *>(&other)) {}
 
 #ifdef _LIB_OIV_PRESENT_
-  template <class T>
-  explicit inline tVector(
-    const T& v,
-    typename boost::enable_if_c < (boost::is_same<T, SbVec3f>::value && Tdimension == 3), void >::type* = 0)
-  {
-    FunctionalityShared::Set(v[0], v[1], v[2]);
-  }
-  template <class T>
-  explicit inline tVector(
-    const T& v,
-    typename boost::enable_if_c < (boost::is_same<T, SbVec2f>::value && Tdimension == 2), void >::type* = 0)
+
+  template < typename T = int >
+  explicit inline tVector(const SbVec2f &v, typename boost::enable_if_c < (Tdimension == 2), T >::type = 0)
   {
     FunctionalityShared::Set(v[0], v[1]);
   }
+
+  template < typename T = int >
+  explicit inline tVector(const SbVec3f &v, typename boost::enable_if_c < (Tdimension == 3), T >::type = 0)
+  {
+    FunctionalityShared::Set(v[0], v[1], v[2]);
+  }
+
 #endif
 
   inline tVector &operator = (const tVector &other)

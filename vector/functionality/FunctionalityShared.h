@@ -112,6 +112,15 @@ protected:
     std::memcpy(this, data, sizeof(tVector));
   }
 
+  template <typename TOtherElement>
+  explicit inline FunctionalityShared(const TOtherElement data[Tdimension])
+  {
+    for (size_t i = 0; i < Tdimension; ++i)
+    {
+      (*this)[i] = data[i];
+    }
+  }
+
   template <size_t Tother_dimension, typename TOtherElement>
   explicit inline FunctionalityShared(const math::tVector<Tother_dimension, TOtherElement, TData> &other)
   {
