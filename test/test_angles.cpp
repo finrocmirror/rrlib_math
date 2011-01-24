@@ -66,19 +66,19 @@ int main(int argc, char **argv)
 {
 
   std::cout << tAngleRad() << std::endl;
-  std::cout << unsigned_tAngleRad() << std::endl;
+  std::cout << tAngleRadUnsigned() << std::endl;
   std::cout << tAngleDeg() << std::endl;
-  std::cout << unsigned_tAngleDeg() << std::endl;
+  std::cout << tAngleDegUnsigned() << std::endl;
 
   std::cout << tAngleRad(tAngleDeg(90)) << std::endl;
-  std::cout << unsigned_tAngleRad(tAngleDeg(90)) << std::endl;
+  std::cout << tAngleRadUnsigned(tAngleDeg(90)) << std::endl;
   std::cout << tAngleDeg(90) << std::endl;
-  std::cout << unsigned_tAngleDeg(90) << std::endl;
+  std::cout << tAngleDegUnsigned(90) << std::endl;
 
   std::cout << tAngleRad(tAngleDeg(-90)) << std::endl;
-  std::cout << unsigned_tAngleRad(tAngleDeg(-90)) << std::endl;
+  std::cout << tAngleRadUnsigned(tAngleDeg(-90)) << std::endl;
   std::cout << tAngleDeg(-90) << std::endl;
-  std::cout << unsigned_tAngleDeg(-90) << std::endl;
+  std::cout << tAngleDegUnsigned(-90) << std::endl;
 
   tAngleDeg a = 180;
   std::cout << a << std::endl;
@@ -92,7 +92,7 @@ int main(int argc, char **argv)
   a += 90;
   std::cout << a << std::endl;
 
-  unsigned_tAngleDeg b = 180;
+  tAngleDegUnsigned b = 180;
   std::cout << b << std::endl;
   std::cout << (b + 180) << std::endl;
   b += 90.0;
