@@ -375,6 +375,14 @@ const tPose3D rrlib::math::operator - (const tPose3D &left, const tPose3D &right
 }
 
 //----------------------------------------------------------------------
+// Numeric equality of tPose3D objects
+//----------------------------------------------------------------------
+bool rrlib::math::IsEqual(const tPose3D &left, const tPose3D &right, float max_error, tFloatComparisonMethod method)
+{
+  return IsEqual(left.GetPosition(), right.GetPosition()) && IsEqual(left.Roll(), right.Roll()) && IsEqual(left.Pitch(), right.Pitch()) && IsEqual(left.Yaw(), right.Yaw());
+}
+
+//----------------------------------------------------------------------
 // Equality of tPose3D objects
 //----------------------------------------------------------------------
 const bool rrlib::math::operator == (const tPose3D &left, const tPose3D &right)
@@ -395,7 +403,10 @@ const bool rrlib::math::operator != (const tPose3D &left, const tPose3D &right)
 //----------------------------------------------------------------------
 const bool rrlib::math::operator < (const tPose3D &left, const tPose3D &right)
 {
-  return left.GetPosition() < right.GetPosition() || left.Roll() < right.Roll() || left.Pitch() < right.Pitch() || left.Yaw() < right.Yaw();
+  return left.GetPosition() < right.GetPosition() ||
+         (left.GetPosition() == right.GetPosition() && left.Roll() < right.Roll()) ||
+         (left.GetPosition() == right.GetPosition() && left.Roll() == right.Roll() && left.Pitch() < right.Pitch()) ||
+         (left.GetPosition() == right.GetPosition() && left.Roll() == right.Roll() && left.Pitch() == right.Pitch() && left.Yaw() < right.Yaw());
 }
 
 //----------------------------------------------------------------------

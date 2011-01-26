@@ -293,6 +293,14 @@ const tPose2D rrlib::math::operator - (const tPose2D &left, const tPose2D &right
 }
 
 //----------------------------------------------------------------------
+// Numeric equality of tPose2D objects
+//----------------------------------------------------------------------
+bool rrlib::math::IsEqual(const tPose2D &left, const tPose2D &right, float max_error, tFloatComparisonMethod method)
+{
+  return IsEqual(left.GetPosition(), right.GetPosition()) && IsEqual(left.Yaw(), right.Yaw());
+}
+
+//----------------------------------------------------------------------
 // Equality of tPose2D objects
 //----------------------------------------------------------------------
 const bool rrlib::math::operator == (const tPose2D &left, const tPose2D &right)
@@ -313,7 +321,7 @@ const bool rrlib::math::operator != (const tPose2D &left, const tPose2D &right)
 //----------------------------------------------------------------------
 const bool rrlib::math::operator < (const tPose2D &left, const tPose2D &right)
 {
-  return left.GetPosition() < right.GetPosition() || left.Yaw() < right.Yaw();
+  return left.GetPosition() < right.GetPosition() || (left.GetPosition() == right.GetPosition() && left.Yaw() < right.Yaw());
 }
 
 //----------------------------------------------------------------------

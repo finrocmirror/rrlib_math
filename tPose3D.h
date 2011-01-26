@@ -232,6 +232,8 @@ const tPose3D operator + (const tPose3D &left, const tPose3D &right);
 
 const tPose3D operator - (const tPose3D &left, const tPose3D &right);
 
+bool IsEqual(const tPose3D &left, const tPose3D &right, float max_error = 1E-6, tFloatComparisonMethod method = eFCM_ABSOLUTE_ERROR);
+
 const bool operator == (const tPose3D &left, const tPose3D &right);
 
 const bool operator != (const tPose3D &left, const tPose3D &right);

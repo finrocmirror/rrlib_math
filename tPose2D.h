@@ -185,6 +185,8 @@ const tPose2D operator + (const tPose2D &left, const tPose2D &right);
 
 const tPose2D operator - (const tPose2D &left, const tPose2D &right);
 
+bool IsEqual(const tPose2D &left, const tPose2D &right, float max_error = 1E-6, tFloatComparisonMethod method = eFCM_ABSOLUTE_ERROR);
+
 const bool operator == (const tPose2D &left, const tPose2D &right);
 
 const bool operator != (const tPose2D &left, const tPose2D &right);

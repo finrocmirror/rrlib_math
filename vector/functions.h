@@ -93,7 +93,18 @@ inline const bool operator < (const tVector<Tdimension, TElement, TData> &left, 
   {
     return false;
   }
-  return std::memcmp(&left, &right, sizeof(tVector<Tdimension, TElement, TData>)) < 0;
+  for (size_t i = 0; i < Tdimension; ++i)
+  {
+    if (left[i] < right[i])
+    {
+      return true;
+    }
+    if (left[i] > right[i])
+    {
+      break;
+    }
+  }
+  return false;
 }
 
 template <size_t Tdimension, typename TLeftElement, typename TRightElement>
