@@ -31,7 +31,7 @@
  *
  */
 //----------------------------------------------------------------------
-#ifndef _rrlib_math_matrix_include_guard_
+#ifndef __rrlib__math__matrix__include_guard__
 #error Invalid include directive. Try #include "rrlib/math/tMatrix.h" instead.
 #endif
 
@@ -129,7 +129,6 @@ public:
     );
   }
 #endif
-
 
   inline tMatrix &operator = (const tMatrix &other)
   {

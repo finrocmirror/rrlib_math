@@ -31,12 +31,12 @@
  *
  */
 //----------------------------------------------------------------------
-#ifndef _rrlib_math_angle_include_guard_
+#ifndef __rrlib__math__angle__include_guard__
 #error Invalid include directive. Try #include "rrlib/math/tAngle.h" instead.
 #endif
 
-#ifndef _rrlib_math_angle_policies_unit_Radian_h_
-#define _rrlib_math_angle_policies_unit_Radian_h_
+#ifndef __rrlib__math__angle__policies__unit__Radian_h__
+#define __rrlib__math__angle__policies__unit__Radian_h__
 
 //----------------------------------------------------------------------
 // External includes (system with <>, local with "")
@@ -76,6 +76,7 @@ struct Degree;
  */
 struct Radian
 {
+
   static inline const double RangeLimit()
   {
     return 2 * M_PI;
@@ -108,8 +109,6 @@ struct Radian
   }
 
 };
-
-
 
 //----------------------------------------------------------------------
 // End of namespace declaration

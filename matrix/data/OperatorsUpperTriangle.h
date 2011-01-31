@@ -31,12 +31,12 @@
  *
  */
 //----------------------------------------------------------------------
-#ifndef _rrlib_math_matrix_include_guard_
+#ifndef __rrlib__math__matrix__include_guard__
 #error Invalid include directive. Try #include "rrlib/math/tMatrix.h" instead.
 #endif
 
-#ifndef _rrlib_math_matrix_data_OperatorsUpperTriangle_h_
-#define _rrlib_math_matrix_data_OperatorsUpperTriangle_h_
+#ifndef __rrlib__math__matrix__data__OperatorsUpperTriangle_h__
+#define __rrlib__math__matrix__data__OperatorsUpperTriangle_h__
 
 //----------------------------------------------------------------------
 // External includes (system with <>, local with "")
@@ -163,7 +163,6 @@ const typename boost::disable_if<boost::is_same<UpperTriangle<1, 1, int>, TRight
   }
   return tResult(data);
 }
-
 
 template <size_t Trows, size_t Tcolumns, typename TMatrixElement, typename TVectorElement>
 const tVector<Trows, typename until_0x::Auto<TMatrixElement, TVectorElement>::type, vector::Cartesian> operator *(const math::tMatrix<Trows, Tcolumns, TMatrixElement, UpperTriangle> &matrix, const tVector<Tcolumns, TVectorElement, vector::Cartesian> &vector)

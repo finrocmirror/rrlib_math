@@ -31,12 +31,12 @@
  *
  */
 //----------------------------------------------------------------------
-#ifndef _rrlib_math_vector_include_guard_
+#ifndef __rrlib__math__vector__include_guard__
 #error Invalid include directive. Try #include "rrlib/math/tVector.h" instead.
 #endif
 
-#ifndef _rrlib_math_vector_data_Polar_h_
-#define _rrlib_math_vector_data_Polar_h_
+#ifndef __rrlib__math__vector__data__Polar_h__
+#define __rrlib__math__vector__data__Polar_h__
 
 //----------------------------------------------------------------------
 // External includes (system with <>, local with "")
@@ -74,16 +74,10 @@ namespace vector
 template <size_t Tdimension, typename TElement>
 class Polar
 {
-  TElement angles[Tdimension - 1];
-  TElement length;
 
-  Polar(const Polar &);
-  Polar &operator = (const Polar &);
-
-protected:
-
-  inline Polar() {}
-
+//----------------------------------------------------------------------
+// Public methods and typedefs
+//----------------------------------------------------------------------
 public:
 
   inline TElement Length() const
@@ -95,6 +89,24 @@ public:
     return this->length;
   }
 
+//----------------------------------------------------------------------
+// Protected methods
+//----------------------------------------------------------------------
+protected:
+
+  inline Polar() {}
+
+//----------------------------------------------------------------------
+// Private fields and methods
+//----------------------------------------------------------------------
+private:
+
+  TElement angles[Tdimension - 1];
+  TElement length;
+
+  Polar(const Polar &);
+  Polar &operator = (const Polar &);
+
 };
 
 /*!
@@ -103,16 +115,10 @@ public:
 template <typename TElement>
 class Polar<2, TElement>
 {
-  TElement alpha;
-  TElement length;
 
-  Polar(const Polar &);
-  Polar &operator = (const Polar &);
-
-protected:
-
-  inline Polar() {}
-
+//----------------------------------------------------------------------
+// Public methods and typedefs
+//----------------------------------------------------------------------
 public:
 
   inline TElement Alpha() const
@@ -132,6 +138,24 @@ public:
     return this->length;
   }
 
+//----------------------------------------------------------------------
+// Protected methods
+//----------------------------------------------------------------------
+protected:
+
+  inline Polar() {}
+
+//----------------------------------------------------------------------
+// Private fields and methods
+//----------------------------------------------------------------------
+private:
+
+  TElement alpha;
+  TElement length;
+
+  Polar(const Polar &);
+  Polar &operator = (const Polar &);
+
 };
 
 /*!
@@ -140,17 +164,10 @@ public:
 template <typename TElement>
 class Polar<3, TElement>
 {
-  TElement alpha;
-  TElement beta;
-  TElement length;
 
-  Polar(const Polar &);
-  Polar &operator = (const Polar &);
-
-protected:
-
-  inline Polar() {}
-
+//----------------------------------------------------------------------
+// Public methods and typedefs
+//----------------------------------------------------------------------
 public:
 
   inline TElement Alpha() const
@@ -177,6 +194,25 @@ public:
   {
     return this->length;
   }
+
+//----------------------------------------------------------------------
+// Protected methods
+//----------------------------------------------------------------------
+protected:
+
+  inline Polar() {}
+
+//----------------------------------------------------------------------
+// Private fields and methods
+//----------------------------------------------------------------------
+private:
+
+  TElement alpha;
+  TElement beta;
+  TElement length;
+
+  Polar(const Polar &);
+  Polar &operator = (const Polar &);
 
 };
 

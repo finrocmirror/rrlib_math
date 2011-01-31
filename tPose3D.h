@@ -31,8 +31,8 @@
  *
  */
 //----------------------------------------------------------------------
-#ifndef _rrlib_math_tPose3D_h_
-#define _rrlib_math_tPose3D_h_
+#ifndef __rrlib__math__tPose3D_h__
+#define __rrlib__math__tPose3D_h__
 
 //----------------------------------------------------------------------
 // External includes (system with <>, local with "")
@@ -72,10 +72,6 @@ namespace math
  */
 class tPose3D
 {
-  tVec3d position;
-  tAngleRad roll;
-  tAngleRad pitch;
-  tAngleRad yaw;
 
 //----------------------------------------------------------------------
 // Public methods
@@ -224,6 +220,16 @@ public:
 
   void ApplyPose(const tPose3D &pose) __attribute__((deprecated));
 
+//----------------------------------------------------------------------
+// Private fields and methods
+//----------------------------------------------------------------------
+private:
+
+  tVec3d position;
+  tAngleRad roll;
+  tAngleRad pitch;
+  tAngleRad yaw;
+
 };
 
 const tPose3D operator - (const tPose3D &other);
@@ -239,10 +245,6 @@ const bool operator == (const tPose3D &left, const tPose3D &right);
 const bool operator != (const tPose3D &left, const tPose3D &right);
 
 const bool operator < (const tPose3D &left, const tPose3D &right);
-
-//const tPose3D Compound(const tPose3D &base, const tPose3D &diff) __attribute__((deprecated));
-
-//const tPose3D InverseCompound(const tPose3D &target, const tPose3D &base) __attribute__((deprecated));
 
 std::ostream &operator << (std::ostream &stream, const tPose3D &pose);
 

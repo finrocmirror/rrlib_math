@@ -31,12 +31,12 @@
  *
  */
 //----------------------------------------------------------------------
-#ifndef _rrlib_math_matrix_include_guard_
+#ifndef __rrlib__math__matrix__include_guard__
 #error Invalid include directive. Try #include "rrlib/math/tMatrix.h" instead.
 #endif
 
-#ifndef _rrlib_math_matrix_data_ConstantValuesSpecialized_h_
-#define _rrlib_math_matrix_data_ConstantValuesSpecialized_h_
+#ifndef __rrlib__math__matrix__data__ConstantValuesSpecialized_h__
+#define __rrlib__math__matrix__data__ConstantValuesSpecialized_h__
 
 //----------------------------------------------------------------------
 // External includes (system with <>, local with "")
@@ -74,12 +74,21 @@ namespace matrix
 template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, size_t, typename> class TData>
 class ConstantValuesSpecialized
 {
-  ConstantValuesSpecialized(const ConstantValuesSpecialized &other);
-  ConstantValuesSpecialized &operator = (const ConstantValuesSpecialized &);
 
+//----------------------------------------------------------------------
+// Protected methods
+//----------------------------------------------------------------------
 protected:
 
   inline ConstantValuesSpecialized() {};
+
+//----------------------------------------------------------------------
+// Private fields and methods
+//----------------------------------------------------------------------
+private:
+
+  ConstantValuesSpecialized(const ConstantValuesSpecialized &other);
+  ConstantValuesSpecialized &operator = (const ConstantValuesSpecialized &);
 
 };
 
@@ -90,6 +99,29 @@ template <size_t Tdimension, typename TElement, template <size_t, size_t, typena
 class ConstantValuesSpecialized<Tdimension, Tdimension, TElement, TData>
 {
   typedef math::tMatrix<Tdimension, Tdimension, TElement, TData> tMatrix;
+
+//----------------------------------------------------------------------
+// Public methods and typedefs
+//----------------------------------------------------------------------
+public:
+
+  static inline const tMatrix &Identity()
+  {
+    static tMatrix identity(InitializeIdentity());
+    return identity;
+  }
+
+//----------------------------------------------------------------------
+// Protected methods
+//----------------------------------------------------------------------
+protected:
+
+  inline ConstantValuesSpecialized() {}
+
+//----------------------------------------------------------------------
+// Private fields and methods
+//----------------------------------------------------------------------
+private:
 
   ConstantValuesSpecialized(const ConstantValuesSpecialized &other);
   ConstantValuesSpecialized &operator = (const ConstantValuesSpecialized &);
@@ -102,18 +134,6 @@ class ConstantValuesSpecialized<Tdimension, Tdimension, TElement, TData>
       matrix[i][i] = 1;
     }
     return matrix;
-  }
-
-protected:
-
-  inline ConstantValuesSpecialized() {}
-
-public:
-
-  static inline const tMatrix &Identity()
-  {
-    static tMatrix identity(InitializeIdentity());
-    return identity;
   }
 
 };

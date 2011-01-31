@@ -31,12 +31,12 @@
  *
  */
 //----------------------------------------------------------------------
-#ifndef _rrlib_math_matrix_include_guard_
+#ifndef __rrlib__math__matrix__include_guard__
 #error Invalid include directive. Try #include "rrlib/math/tMatrix.h" instead.
 #endif
 
-#ifndef _rrlib_math_matrix_functionality_LegacySpecialized_h_
-#define _rrlib_math_matrix_functionality_LegacySpecialized_h_
+#ifndef __rrlib__math__matrix__functionality__LegacySpecialized_h__
+#define __rrlib__math__matrix__functionality__LegacySpecialized_h__
 
 //----------------------------------------------------------------------
 // External includes (system with <>, local with "")
@@ -74,12 +74,20 @@ namespace matrix
 template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, size_t, typename> class TData>
 class LegacySpecialized
 {
-  LegacySpecialized(const LegacySpecialized &);
-  LegacySpecialized &operator = (const LegacySpecialized &);
 
+//----------------------------------------------------------------------
+// Protected methods
+//----------------------------------------------------------------------
 protected:
 
   inline LegacySpecialized() {}
+
+//----------------------------------------------------------------------
+// Private fields and methods
+//----------------------------------------------------------------------
+private:
+  LegacySpecialized(const LegacySpecialized &);
+  LegacySpecialized &operator = (const LegacySpecialized &);
 
 };
 
@@ -91,13 +99,9 @@ class LegacySpecialized<3, 3, TElement, TData>
 {
   typedef math::tMatrix<3, 3, TElement, TData> tMatrix;
 
-  LegacySpecialized(const LegacySpecialized &);
-  LegacySpecialized &operator = (const LegacySpecialized &);
-
-protected:
-
-  inline LegacySpecialized() {}
-
+//----------------------------------------------------------------------
+// Public methods and typedefs
+//----------------------------------------------------------------------
 public:
 
   template <typename TVectorElement>
@@ -107,6 +111,22 @@ public:
   void MultHomogeneousInPlace(tVector<2, TVectorElement, vector::Cartesian> &vector) const __attribute__((deprecated));
 
   void GetRotationAxis(tVector<3, TElement, vector::Cartesian> &axis, TElement &angle) const __attribute__((deprecated));
+
+//----------------------------------------------------------------------
+// Protected methods
+//----------------------------------------------------------------------
+protected:
+
+  inline LegacySpecialized() {}
+
+//----------------------------------------------------------------------
+// Private fields and methods
+//----------------------------------------------------------------------
+private:
+
+  LegacySpecialized(const LegacySpecialized &);
+  LegacySpecialized &operator = (const LegacySpecialized &);
+
 
 };
 
@@ -141,13 +161,9 @@ class LegacySpecialized<4, 4, TElement, TData>
 {
   typedef math::tMatrix<4, 4, TElement, TData> tMatrix;
 
-  LegacySpecialized(const LegacySpecialized &);
-  LegacySpecialized &operator = (const LegacySpecialized &);
-
-protected:
-
-  inline LegacySpecialized() {}
-
+//----------------------------------------------------------------------
+// Public methods and typedefs
+//----------------------------------------------------------------------
 public:
 
   template <typename TVectorElement>
@@ -163,6 +179,21 @@ public:
   void MultHomogeneousInPlace(tVector<3, TVectorElement, vector::Cartesian> &vector) const __attribute__((deprecated));
 
   void GetRotationAxis(tVector<3, TElement, vector::Cartesian> &axis, TElement &angle) const __attribute__((deprecated));
+
+//----------------------------------------------------------------------
+// Protected methods
+//----------------------------------------------------------------------
+protected:
+
+  inline LegacySpecialized() {}
+
+//----------------------------------------------------------------------
+// Private fields and methods
+//----------------------------------------------------------------------
+private:
+
+  LegacySpecialized(const LegacySpecialized &);
+  LegacySpecialized &operator = (const LegacySpecialized &);
 
 };
 

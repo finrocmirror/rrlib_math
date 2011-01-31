@@ -31,12 +31,12 @@
  *
  */
 //----------------------------------------------------------------------
-#ifndef _rrlib_math_matrix_include_guard_
+#ifndef __rrlib__math__matrix__include_guard__
 #error Invalid include directive. Try #include "rrlib/math/tMatrix.h" instead.
 #endif
 
-#ifndef _rrlib_math_matrix_data_UpperTriangle_h_
-#define _rrlib_math_matrix_data_UpperTriangle_h_
+#ifndef __rrlib__math__matrix__data__UpperTriangle_h__
+#define __rrlib__math__matrix__data__UpperTriangle_h__
 
 //----------------------------------------------------------------------
 // External includes (system with <>, local with "")
@@ -77,18 +77,10 @@ namespace matrix
 template <size_t Trows, size_t Tcolumns, typename TElement>
 class UpperTriangle
 {
-  TElement values[Trows *(Trows + 1) / 2];
 
-  UpperTriangle(const UpperTriangle &other);
-  UpperTriangle &operator = (const UpperTriangle &);
-
-protected:
-
-  inline UpperTriangle()
-  {
-    static_assert(Trows == Tcolumns, "Upper triangle matrices must be square (rows = columns)!");
-  };
-
+//----------------------------------------------------------------------
+// Public methods and typedefs
+//----------------------------------------------------------------------
 public:
 
   class Accessor
@@ -143,6 +135,26 @@ public:
       }
     }
   }
+
+//----------------------------------------------------------------------
+// Protected methods
+//----------------------------------------------------------------------
+protected:
+
+  inline UpperTriangle()
+  {
+    static_assert(Trows == Tcolumns, "Upper triangle matrices must be square (rows = columns)!");
+  };
+
+//----------------------------------------------------------------------
+// Private fields and methods
+//----------------------------------------------------------------------
+private:
+
+  TElement values[Trows *(Trows + 1) / 2];
+
+  UpperTriangle(const UpperTriangle &other);
+  UpperTriangle &operator = (const UpperTriangle &);
 
 };
 

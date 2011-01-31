@@ -37,8 +37,8 @@
  *
  */
 //----------------------------------------------------------------------
-#ifndef _rrlib_math_tMatrix_h_
-#define _rrlib_math_tMatrix_h_
+#ifndef __rrlib__math__tMatrix_h__
+#define __rrlib__math__tMatrix_h__
 
 //----------------------------------------------------------------------
 // External includes (system with <>, local with "")
@@ -50,7 +50,7 @@
 
 #include "rrlib/math/until_0x_helper.h"
 
-#define _rrlib_math_matrix_include_guard_
+#define __rrlib__math__matrix__include_guard__
 
 namespace rrlib
 {
@@ -96,7 +96,7 @@ class tMatrix;
 
 #include "rrlib/math/matrix/functions.h"
 
-#undef _rrlib_math_matrix_include_guard_
+#undef __rrlib__math__matrix__include_guard__
 
 //----------------------------------------------------------------------
 // Implementation

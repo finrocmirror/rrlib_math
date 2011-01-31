@@ -31,12 +31,12 @@
  *
  */
 //----------------------------------------------------------------------
-#ifndef _rrlib_math_matrix_include_guard_
+#ifndef __rrlib__math__matrix__include_guard__
 #error Invalid include directive. Try #include "rrlib/math/tMatrix.h" instead.
 #endif
 
-#ifndef _rrlib_math_matrix_data_Full_h_
-#define _rrlib_math_matrix_data_Full_h_
+#ifndef __rrlib__math__matrix__data__Full_h__
+#define __rrlib__math__matrix__data__Full_h__
 
 //----------------------------------------------------------------------
 // External includes (system with <>, local with "")
@@ -77,15 +77,10 @@ namespace matrix
 template <size_t Trows, size_t Tcolumns, typename TElement>
 class Full
 {
-  TElement values[Trows * Tcolumns];
 
-  Full(const Full &other);
-  Full &operator = (const Full &);
-
-protected:
-
-  inline Full() {};
-
+//----------------------------------------------------------------------
+// Public methods and typedefs
+//----------------------------------------------------------------------
 public:
 
   class Accessor
@@ -114,6 +109,23 @@ public:
   {
     std::memcpy(this->values, data, sizeof(Full));
   }
+
+//----------------------------------------------------------------------
+// Protected methods
+//----------------------------------------------------------------------
+protected:
+
+  inline Full() {};
+
+//----------------------------------------------------------------------
+// Private fields and methods
+//----------------------------------------------------------------------
+private:
+
+  TElement values[Trows * Tcolumns];
+
+  Full(const Full &other);
+  Full &operator = (const Full &);
 
 };
 

@@ -410,22 +410,6 @@ const bool rrlib::math::operator < (const tPose3D &left, const tPose3D &right)
 }
 
 //----------------------------------------------------------------------
-// Composition of tPose3D objects
-//----------------------------------------------------------------------
-//const tPose3D rrlib::math::Compound(const tPose3D &base, const tPose3D &diff)
-//{
-//  return diff.GetPoseInParentFrame(base);
-//}
-
-//----------------------------------------------------------------------
-// Decomposition of tPose3D objects
-//----------------------------------------------------------------------
-//const tPose3D rrlib::math::InverseCompound(const tPose3D &target, const tPose3D &base)
-//{
-//  return target.GetPoseInLocalFrame(base);
-//}
-
-//----------------------------------------------------------------------
 // Streaming
 //----------------------------------------------------------------------
 std::ostream &rrlib::math::operator << (std::ostream &stream, const tPose3D &pose)

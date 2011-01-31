@@ -31,12 +31,12 @@
  *
  */
 //----------------------------------------------------------------------
-#ifndef _rrlib_math_matrix_include_guard_
+#ifndef __rrlib__math__matrix__include_guard__
 #error Invalid include directive. Try #include "rrlib/math/tMatrix.h" instead.
 #endif
 
-#ifndef _rrlib_math_matrix_data_OperatorsFull_h_
-#define _rrlib_math_matrix_data_OperatorsFull_h_
+#ifndef __rrlib__math__matrix__data__OperatorsFull_h__
+#define __rrlib__math__matrix__data__OperatorsFull_h__
 
 //----------------------------------------------------------------------
 // External includes (system with <>, local with "")

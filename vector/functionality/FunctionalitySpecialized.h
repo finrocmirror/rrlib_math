@@ -31,12 +31,12 @@
  *
  */
 //----------------------------------------------------------------------
-#ifndef _rrlib_math_vector_include_guard_
+#ifndef __rrlib__math__vector__include_guard__
 #error Invalid include directive. Try #include "rrlib/math/tVector.h" instead.
 #endif
 
-#ifndef _rrlib_math_vector_functionality_FunctionalitySpecialized_h_
-#define _rrlib_math_vector_functionality_FunctionalitySpecialized_h_
+#ifndef __rrlib__math__vector__functionality__FunctionalitySpecialized_h__
+#define __rrlib__math__vector__functionality__FunctionalitySpecialized_h__
 
 //----------------------------------------------------------------------
 // External includes (system with <>, local with "")
@@ -80,12 +80,21 @@ class FunctionalitySpecialized
 {
   typedef math::tVector<Tdimension, TElement, TData> tVector;
 
-  FunctionalitySpecialized(const FunctionalitySpecialized &);
-  FunctionalitySpecialized &operator = (const FunctionalitySpecialized &);
-
+//----------------------------------------------------------------------
+// Protected methods
+//----------------------------------------------------------------------
 protected:
 
   inline FunctionalitySpecialized() {}
+
+//----------------------------------------------------------------------
+// Private fields and methods
+//----------------------------------------------------------------------
+private:
+
+  FunctionalitySpecialized(const FunctionalitySpecialized &);
+  FunctionalitySpecialized &operator = (const FunctionalitySpecialized &);
+
 };
 
 /*!
@@ -96,13 +105,9 @@ class FunctionalitySpecialized<Tdimension, TElement, Cartesian>
 {
   typedef math::tVector<Tdimension, TElement, Cartesian> tVector;
 
-  FunctionalitySpecialized(const FunctionalitySpecialized &);
-  FunctionalitySpecialized &operator = (const FunctionalitySpecialized &);
-
-protected:
-
-  inline FunctionalitySpecialized() {}
-
+//----------------------------------------------------------------------
+// Public methods and typedefs
+//----------------------------------------------------------------------
 public:
 
   static inline const tVector Direction(size_t i)
@@ -178,6 +183,21 @@ public:
     return temp;
   }
 
+//----------------------------------------------------------------------
+// Protected methods
+//----------------------------------------------------------------------
+protected:
+
+  inline FunctionalitySpecialized() {}
+
+//----------------------------------------------------------------------
+// Private fields and methods
+//----------------------------------------------------------------------
+private:
+
+  FunctionalitySpecialized(const FunctionalitySpecialized &);
+  FunctionalitySpecialized &operator = (const FunctionalitySpecialized &);
+
 };
 
 /*!
@@ -188,13 +208,9 @@ class FunctionalitySpecialized<Tdimension, TElement, Polar>
 {
   typedef math::tVector<Tdimension, TElement, Cartesian> tVector;
 
-  FunctionalitySpecialized(const FunctionalitySpecialized &);
-  FunctionalitySpecialized &operator = (const FunctionalitySpecialized &);
-
-protected:
-
-  inline FunctionalitySpecialized() {}
-
+//----------------------------------------------------------------------
+// Public methods and typedefs
+//----------------------------------------------------------------------
 public:
 
   inline const TElement SquaredLength() const
@@ -208,6 +224,21 @@ public:
     const tVector *that = reinterpret_cast<const tVector *>(this);
     return that->Length() < epsilon;
   }
+
+//----------------------------------------------------------------------
+// Protected methods
+//----------------------------------------------------------------------
+protected:
+
+  inline FunctionalitySpecialized() {}
+
+//----------------------------------------------------------------------
+// Private fields and methods
+//----------------------------------------------------------------------
+private:
+
+  FunctionalitySpecialized(const FunctionalitySpecialized &);
+  FunctionalitySpecialized &operator = (const FunctionalitySpecialized &);
 
 };
 

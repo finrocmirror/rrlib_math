@@ -33,8 +33,12 @@
  *
  */
 //----------------------------------------------------------------------
-#ifndef _rrlib_math_matrix_functions_h_
-#define _rrlib_math_matrix_functions_h_
+#ifndef __rrlib__math__matrix__include_guard__
+#error Invalid include directive. Try #include "rrlib/math/tMatrix.h" instead.
+#endif
+
+#ifndef __rrlib__math__matrix__functions_h__
+#define __rrlib__math__matrix__functions_h__
 
 //----------------------------------------------------------------------
 // External includes with <>

@@ -31,8 +31,8 @@
  *
  */
 //----------------------------------------------------------------------
-#ifndef _rrlib_math_tPose2D_h_
-#define _rrlib_math_tPose2D_h_
+#ifndef __rrlib__math__tPose2D_h__
+#define __rrlib__math__tPose2D_h__
 
 //----------------------------------------------------------------------
 // External includes (system with <>, local with "")
@@ -70,11 +70,9 @@ namespace math
  */
 class tPose2D
 {
-  tVec2d position;
-  tAngleRad yaw;
 
 //----------------------------------------------------------------------
-// Public methods
+// Public methods and typedefs
 //----------------------------------------------------------------------
 public:
 
@@ -176,6 +174,14 @@ public:
   void ApplyRelativePoseTransformation(const tPose2D &pose);
 
   void ApplyPose(const tPose2D &pose) __attribute__((deprecated));
+
+//----------------------------------------------------------------------
+// Private fields and methods
+//----------------------------------------------------------------------
+private:
+
+  tVec2d position;
+  tAngleRad yaw;
 
 };
 

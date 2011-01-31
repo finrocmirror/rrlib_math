@@ -31,12 +31,12 @@
  *
  */
 //----------------------------------------------------------------------
-#ifndef _rrlib_math_matrix_include_guard_
+#ifndef __rrlib__math__matrix__include_guard__
 #error Invalid include directive. Try #include "rrlib/math/tMatrix.h" instead.
 #endif
 
-#ifndef _rrlib_math_matrix_functionality_FunctionalitySpecialized_h_
-#define _rrlib_math_matrix_functionality_FunctionalitySpecialized_h_
+#ifndef __rrlib__math__matrix__functionality__FunctionalitySpecialized_h__
+#define __rrlib__math__matrix__functionality__FunctionalitySpecialized_h__
 
 //----------------------------------------------------------------------
 // External includes (system with <>, local with "")
@@ -76,12 +76,21 @@ class FunctionalitySpecialized
 {
   typedef math::tMatrix<Trows, Tcolumns, TElement, TData> tMatrix;
 
-  FunctionalitySpecialized(const FunctionalitySpecialized &);
-  FunctionalitySpecialized &operator = (const FunctionalitySpecialized &);
-
+//----------------------------------------------------------------------
+// Protected methods
+//----------------------------------------------------------------------
 protected:
 
   inline FunctionalitySpecialized() {}
+
+//----------------------------------------------------------------------
+// Private fields and methods
+//----------------------------------------------------------------------
+private:
+
+  FunctionalitySpecialized(const FunctionalitySpecialized &);
+  FunctionalitySpecialized &operator = (const FunctionalitySpecialized &);
+
 };
 
 /*!
@@ -92,13 +101,9 @@ class FunctionalitySpecialized<Trows, Tcolumns, TElement, Full>
 {
   typedef math::tMatrix<Trows, Tcolumns, TElement, Full> tMatrix;
 
-  FunctionalitySpecialized(const FunctionalitySpecialized &);
-  FunctionalitySpecialized &operator = (const FunctionalitySpecialized &);
-
-protected:
-
-  inline FunctionalitySpecialized() {}
-
+//----------------------------------------------------------------------
+// Public methods and typedefs
+//----------------------------------------------------------------------
 public:
 
   inline const math::tMatrix<Tcolumns, Trows, TElement, Full> Transposed() const
@@ -115,6 +120,21 @@ public:
     return result;
   }
 
+//----------------------------------------------------------------------
+// Protected methods
+//----------------------------------------------------------------------
+protected:
+
+  inline FunctionalitySpecialized() {}
+
+//----------------------------------------------------------------------
+// Private fields and methods
+//----------------------------------------------------------------------
+private:
+
+  FunctionalitySpecialized(const FunctionalitySpecialized &);
+  FunctionalitySpecialized &operator = (const FunctionalitySpecialized &);
+
 };
 
 /*!
@@ -125,13 +145,9 @@ class FunctionalitySpecialized<Trows, Tcolumns, TElement, LowerTriangle>
 {
   typedef math::tMatrix<Trows, Tcolumns, TElement, LowerTriangle> tMatrix;
 
-  FunctionalitySpecialized(const FunctionalitySpecialized &);
-  FunctionalitySpecialized &operator = (const FunctionalitySpecialized &);
-
-protected:
-
-  inline FunctionalitySpecialized() {}
-
+//----------------------------------------------------------------------
+// Public methods and typedefs
+//----------------------------------------------------------------------
 public:
 
   inline const math::tMatrix<Tcolumns, Trows, TElement, UpperTriangle> Transposed() const
@@ -148,6 +164,21 @@ public:
     return result;
   }
 
+//----------------------------------------------------------------------
+// Protected methods
+//----------------------------------------------------------------------
+protected:
+
+  inline FunctionalitySpecialized() {}
+
+//----------------------------------------------------------------------
+// Private fields and methods
+//----------------------------------------------------------------------
+private:
+
+  FunctionalitySpecialized(const FunctionalitySpecialized &);
+  FunctionalitySpecialized &operator = (const FunctionalitySpecialized &);
+
 };
 
 /*!
@@ -158,13 +189,9 @@ class FunctionalitySpecialized<Trows, Tcolumns, TElement, UpperTriangle>
 {
   typedef math::tMatrix<Trows, Tcolumns, TElement, UpperTriangle> tMatrix;
 
-  FunctionalitySpecialized(const FunctionalitySpecialized &);
-  FunctionalitySpecialized &operator = (const FunctionalitySpecialized &);
-
-protected:
-
-  inline FunctionalitySpecialized() {}
-
+//----------------------------------------------------------------------
+// Public methods and typedefs
+//----------------------------------------------------------------------
 public:
 
   inline const math::tMatrix<Tcolumns, Trows, TElement, LowerTriangle> Transposed() const
@@ -181,6 +208,21 @@ public:
     return result;
   }
 
+//----------------------------------------------------------------------
+// Protected methods
+//----------------------------------------------------------------------
+protected:
+
+  inline FunctionalitySpecialized() {}
+
+//----------------------------------------------------------------------
+// Private fields and methods
+//----------------------------------------------------------------------
+private:
+
+  FunctionalitySpecialized(const FunctionalitySpecialized &);
+  FunctionalitySpecialized &operator = (const FunctionalitySpecialized &);
+
 };
 
 /*!
@@ -191,19 +233,31 @@ class FunctionalitySpecialized<Trows, Tcolumns, TElement, Symmetrical>
 {
   typedef math::tMatrix<Trows, Tcolumns, TElement, Symmetrical> tMatrix;
 
-  FunctionalitySpecialized(const FunctionalitySpecialized &);
-  FunctionalitySpecialized &operator = (const FunctionalitySpecialized &);
-
-protected:
-
-  inline FunctionalitySpecialized() {}
-
+//----------------------------------------------------------------------
+// Public methods and typedefs
+//----------------------------------------------------------------------
 public:
 
   inline const math::tMatrix<Tcolumns, Trows, TElement, Symmetrical> &Transposed() const
   {
     return reinterpret_cast<const tMatrix &>(*this);
   }
+
+
+//----------------------------------------------------------------------
+// Protected methods
+//----------------------------------------------------------------------
+protected:
+
+  inline FunctionalitySpecialized() {}
+
+//----------------------------------------------------------------------
+// Private fields and methods
+//----------------------------------------------------------------------
+private:
+
+  FunctionalitySpecialized(const FunctionalitySpecialized &);
+  FunctionalitySpecialized &operator = (const FunctionalitySpecialized &);
 
 };
 

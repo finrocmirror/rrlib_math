@@ -31,8 +31,8 @@
  *
  */
 //----------------------------------------------------------------------
-#ifndef _rrlib_math_until_0x_helper_h_
-#define _rrlib_math_until_0x_helper_h_
+#ifndef __rrlib__math__until_0x_helper_h__
+#define __rrlib__math__until_0x_helper_h__
 
 //----------------------------------------------------------------------
 // External includes (system with <>, local with "")

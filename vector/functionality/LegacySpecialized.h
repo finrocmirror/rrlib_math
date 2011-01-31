@@ -31,12 +31,12 @@
  *
  */
 //----------------------------------------------------------------------
-#ifndef _rrlib_math_vector_include_guard_
+#ifndef __rrlib__math__vector__include_guard__
 #error Invalid include directive. Try #include "rrlib/math/tVector.h" instead.
 #endif
 
-#ifndef _rrlib_math_vector_functionality_LegacySpecialized_h_
-#define _rrlib_math_vector_functionality_LegacySpecialized_h_
+#ifndef __rrlib__math__vector__functionality__LegacySpecialized_h__
+#define __rrlib__math__vector__functionality__LegacySpecialized_h__
 
 //----------------------------------------------------------------------
 // External includes (system with <>, local with "")
@@ -74,12 +74,21 @@ namespace vector
 template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
 class LegacySpecialized
 {
-  LegacySpecialized(const LegacySpecialized &);
-  LegacySpecialized &operator = (const LegacySpecialized &);
 
+//----------------------------------------------------------------------
+// Protected methods
+//----------------------------------------------------------------------
 protected:
 
   inline LegacySpecialized() {}
+
+//----------------------------------------------------------------------
+// Private fields and methods
+//----------------------------------------------------------------------
+private:
+
+  LegacySpecialized(const LegacySpecialized &);
+  LegacySpecialized &operator = (const LegacySpecialized &);
 
 };
 
@@ -91,13 +100,9 @@ class LegacySpecialized<2, TElement, Cartesian>
 {
   typedef math::tVector<2, TElement, Cartesian> tVector;
 
-  LegacySpecialized(const LegacySpecialized &);
-  LegacySpecialized &operator = (const LegacySpecialized &);
-
-protected:
-
-  inline LegacySpecialized() {}
-
+//----------------------------------------------------------------------
+// Public methods and typedefs
+//----------------------------------------------------------------------
 public:
 
   inline const tVector rotate(TElement angle) const __attribute__((deprecated));
@@ -115,6 +120,21 @@ public:
   inline const tVector FlipDirection() const __attribute__((deprecated));
 
   float GetDistance2Line(float angle, const tVector &line_start, const tVector &line_end, float max) __attribute__((deprecated));
+
+//----------------------------------------------------------------------
+// Protected methods
+//----------------------------------------------------------------------
+protected:
+
+  inline LegacySpecialized() {}
+
+//----------------------------------------------------------------------
+// Private fields and methods
+//----------------------------------------------------------------------
+private:
+
+  LegacySpecialized(const LegacySpecialized &);
+  LegacySpecialized &operator = (const LegacySpecialized &);
 
 };
 
@@ -220,18 +240,29 @@ class LegacySpecialized<3, TElement, Cartesian>
 {
   typedef math::tVector<3, TElement, Cartesian> tVector;
 
-  LegacySpecialized(const LegacySpecialized &);
-  LegacySpecialized &operator = (const LegacySpecialized &);
-
-protected:
-
-  inline LegacySpecialized() {}
-
+//----------------------------------------------------------------------
+// Public methods and typedefs
+//----------------------------------------------------------------------
 public:
 
   inline const tVector rotate(TElement angle, const tVector &axis) const __attribute__((deprecated));
 
   inline const tVector operator % (const tVector &other) const __attribute__((deprecated));
+
+//----------------------------------------------------------------------
+// Protected methods
+//----------------------------------------------------------------------
+protected:
+
+  inline LegacySpecialized() {}
+
+//----------------------------------------------------------------------
+// Private fields and methods
+//----------------------------------------------------------------------
+private:
+
+  LegacySpecialized(const LegacySpecialized &);
+  LegacySpecialized &operator = (const LegacySpecialized &);
 
 };
 
@@ -255,13 +286,9 @@ class LegacySpecialized<6, TElement, Cartesian>
 {
   typedef math::tVector<6, TElement, Cartesian> tVector;
 
-  LegacySpecialized(const LegacySpecialized &);
-  LegacySpecialized &operator = (const LegacySpecialized &);
-
-protected:
-
-  inline LegacySpecialized() {}
-
+//----------------------------------------------------------------------
+// Public methods and typedefs
+//----------------------------------------------------------------------
 public:
 
   inline const TElement X() const
@@ -312,6 +339,21 @@ public:
   {
     return reinterpret_cast<TElement *>(this)[5];
   }
+
+//----------------------------------------------------------------------
+// Protected methods
+//----------------------------------------------------------------------
+protected:
+
+  inline LegacySpecialized() {}
+
+//----------------------------------------------------------------------
+// Private fields and methods
+//----------------------------------------------------------------------
+private:
+
+  LegacySpecialized(const LegacySpecialized &);
+  LegacySpecialized &operator = (const LegacySpecialized &);
 
 };
 

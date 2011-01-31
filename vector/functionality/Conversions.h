@@ -31,12 +31,12 @@
  *
  */
 //----------------------------------------------------------------------
-#ifndef _rrlib_math_vector_include_guard_
+#ifndef __rrlib__math__vector__include_guard__
 #error Invalid include directive. Try #include "rrlib/math/tVector.h" instead.
 #endif
 
-#ifndef _rrlib_math_vector_functionality_Conversions_h_
-#define _rrlib_math_vector_functionality_Conversions_h_
+#ifndef __rrlib__math__vector__functionality__Conversions_h__
+#define __rrlib__math__vector__functionality__Conversions_h__
 
 //----------------------------------------------------------------------
 // External includes (system with <>, local with "")
@@ -79,12 +79,21 @@ namespace vector
 template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
 class Conversions
 {
-  Conversions(const Conversions &);
-  Conversions &operator = (const Conversions &);
 
+//----------------------------------------------------------------------
+// Protected methods
+//----------------------------------------------------------------------
 protected:
 
   inline Conversions() {}
+
+//----------------------------------------------------------------------
+// Private fields and methods
+//----------------------------------------------------------------------
+private:
+
+  Conversions(const Conversions &);
+  Conversions &operator = (const Conversions &);
 
 };
 
@@ -94,13 +103,10 @@ protected:
 template <typename TElement>
 class Conversions<2, TElement, Cartesian>
 {
-  Conversions(const Conversions &);
-  Conversions &operator = (const Conversions &);
 
-protected:
-
-  inline Conversions() {}
-
+//----------------------------------------------------------------------
+// Public methods and typedefs
+//----------------------------------------------------------------------
 public:
 
   inline const tVector<2, TElement, Polar> GetPolarVector() const
@@ -117,6 +123,21 @@ public:
   }
 #endif
 
+//----------------------------------------------------------------------
+// Protected methods
+//----------------------------------------------------------------------
+protected:
+
+  inline Conversions() {}
+
+//----------------------------------------------------------------------
+// Private fields and methods
+//----------------------------------------------------------------------
+private:
+
+  Conversions(const Conversions &);
+  Conversions &operator = (const Conversions &);
+
 };
 
 /*!
@@ -125,13 +146,10 @@ public:
 template <typename TElement>
 class Conversions<3, TElement, Cartesian>
 {
-  Conversions(const Conversions &);
-  Conversions &operator = (const Conversions &);
 
-protected:
-
-  inline Conversions() {}
-
+//----------------------------------------------------------------------
+// Public methods and typedefs
+//----------------------------------------------------------------------
 public:
 
   inline const tVector<3, TElement, Polar> GetPolarVector() const
@@ -148,6 +166,22 @@ public:
     return SbVec3f(that->X(), that->Y(), that->Z());
   }
 #endif
+
+//----------------------------------------------------------------------
+// Protected methods
+//----------------------------------------------------------------------
+protected:
+
+  inline Conversions() {}
+
+//----------------------------------------------------------------------
+// Private fields and methods
+//----------------------------------------------------------------------
+private:
+
+  Conversions(const Conversions &);
+  Conversions &operator = (const Conversions &);
+
 };
 
 /*!
@@ -156,13 +190,10 @@ public:
 template <typename TElement>
 class Conversions<2, TElement, Polar>
 {
-  Conversions(const Conversions &);
-  Conversions &operator = (const Conversions &);
 
-protected:
-
-  inline Conversions() {}
-
+//----------------------------------------------------------------------
+// Public methods and typedefs
+//----------------------------------------------------------------------
 public:
 
   inline const tVector<2, TElement, Cartesian> GetCartesianVector() const
@@ -179,6 +210,21 @@ public:
   }
 #endif
 
+//----------------------------------------------------------------------
+// Protected methods
+//----------------------------------------------------------------------
+protected:
+
+  inline Conversions() {}
+
+//----------------------------------------------------------------------
+// Private fields and methods
+//----------------------------------------------------------------------
+private:
+
+  Conversions(const Conversions &);
+  Conversions &operator = (const Conversions &);
+
 };
 
 /*!
@@ -187,13 +233,10 @@ public:
 template <typename TElement>
 class Conversions<3, TElement, Polar>
 {
-  Conversions(const Conversions &);
-  Conversions &operator = (const Conversions &);
 
-protected:
-
-  inline Conversions() {}
-
+//----------------------------------------------------------------------
+// Public methods and typedefs
+//----------------------------------------------------------------------
 public:
 
   inline const tVector<3, TElement, Cartesian> GetCartesianVector() const
@@ -213,6 +256,21 @@ public:
     return SbVec3f(that->X(), that->Y(), that->Z());
   }
 #endif
+
+//----------------------------------------------------------------------
+// Protected methods
+//----------------------------------------------------------------------
+protected:
+
+  inline Conversions() {}
+
+//----------------------------------------------------------------------
+// Private fields and methods
+//----------------------------------------------------------------------
+private:
+
+  Conversions(const Conversions &);
+  Conversions &operator = (const Conversions &);
 
 };
 

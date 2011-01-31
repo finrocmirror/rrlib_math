@@ -31,12 +31,12 @@
  *
  */
 //----------------------------------------------------------------------
-#ifndef _rrlib_math_vector_include_guard_
+#ifndef __rrlib__math__vector__include_guard__
 #error Invalid include directive. Try #include "rrlib/math/tVector.h" instead.
 #endif
 
-#ifndef _rrlib_math_vector_tVector_h_
-#define _rrlib_math_vector_tVector_h_
+#ifndef __rrlib__math__vector__tVector_h__
+#define __rrlib__math__vector__tVector_h__
 
 //----------------------------------------------------------------------
 // External includes (system with <>, local with "")
@@ -90,7 +90,6 @@ class tVector : public TData<Tdimension, TElement>,
     public vector::ConstantValuesSpecialized<Tdimension, TElement, TData>
 {
   typedef vector::FunctionalityShared<Tdimension, TElement, TData> FunctionalityShared;
-//  typedef math::tVector<Tdimension, TElement, TData> tVector;
 
 //----------------------------------------------------------------------
 // Public methods

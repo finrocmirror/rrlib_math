@@ -32,12 +32,12 @@
  *
  */
 //----------------------------------------------------------------------
-#ifndef _rrlib_math_matrix_include_guard_
+#ifndef __rrlib__math__matrix__include_guard__
 #error Invalid include directive. Try #include "rrlib/math/tMatrix.h" instead.
 #endif
 
-#ifndef _rrlib_math_matrix_functionality_Conversions_h_
-#define _rrlib_math_matrix_functionality_Conversions_h_
+#ifndef __rrlib__math__matrix__functionality__Conversions_h__
+#define __rrlib__math__matrix__functionality__Conversions_h__
 
 //----------------------------------------------------------------------
 // External includes (system with <>, local with "")
@@ -79,13 +79,21 @@ namespace matrix
 template < size_t Trows, size_t Tcolumns, typename TElement = double, template <size_t, size_t, typename> class TData = matrix::Full >
 class Conversions
 {
-  Conversions(const Conversions &);
-  Conversions &operator = (const Conversions &);
 
+//----------------------------------------------------------------------
+// Protected methods
+//----------------------------------------------------------------------
 protected:
 
   inline Conversions() {}
 
+//----------------------------------------------------------------------
+// Private fields and methods
+//----------------------------------------------------------------------
+private:
+
+  Conversions(const Conversions &);
+  Conversions &operator = (const Conversions &);
 };
 
 /*!
@@ -94,13 +102,10 @@ protected:
 template <typename TElement>
 class Conversions<4, 4, TElement, matrix::Full>
 {
-  Conversions(const Conversions &);
-  Conversions &operator = (const Conversions &);
 
-protected:
-
-  inline Conversions() {}
-
+//----------------------------------------------------------------------
+// Public methods and typedefs
+//----------------------------------------------------------------------
 public:
 
 #ifdef _LIB_OIV_PRESENT_
@@ -115,6 +120,21 @@ public:
            );
   }
 #endif
+
+//----------------------------------------------------------------------
+// Protected methods
+//----------------------------------------------------------------------
+protected:
+
+  inline Conversions() {}
+
+//----------------------------------------------------------------------
+// Private fields and methods
+//----------------------------------------------------------------------
+private:
+
+  Conversions(const Conversions &);
+  Conversions &operator = (const Conversions &);
 
 };
 

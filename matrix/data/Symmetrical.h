@@ -31,12 +31,12 @@
  *
  */
 //----------------------------------------------------------------------
-#ifndef _rrlib_math_matrix_include_guard_
+#ifndef __rrlib__math__matrix__include_guard__
 #error Invalid include directive. Try #include "rrlib/math/tMatrix.h" instead.
 #endif
 
-#ifndef _rrlib_math_matrix_data_Symmetrical_h_
-#define _rrlib_math_matrix_data_Symmetrical_h_
+#ifndef __rrlib__math__matrix__data__Symmetrical_h__
+#define __rrlib__math__matrix__data__Symmetrical_h__
 
 //----------------------------------------------------------------------
 // External includes (system with <>, local with "")
@@ -77,18 +77,10 @@ namespace matrix
 template <size_t Trows, size_t Tcolumns, typename TElement>
 class Symmetrical
 {
-  TElement values[Trows *(Trows + 1) / 2];
 
-  Symmetrical(const Symmetrical &other);
-  Symmetrical &operator = (const Symmetrical &);
-
-protected:
-
-  inline Symmetrical()
-  {
-    static_assert(Trows == Tcolumns, "Symmetrical matrices must be square (rows = columns)!");
-  };
-
+//----------------------------------------------------------------------
+// Public methods and typedefs
+//----------------------------------------------------------------------
 public:
 
   class Accessor
@@ -130,6 +122,26 @@ public:
       }
     }
   }
+
+//----------------------------------------------------------------------
+// Protected methods
+//----------------------------------------------------------------------
+protected:
+
+  inline Symmetrical()
+  {
+    static_assert(Trows == Tcolumns, "Symmetrical matrices must be square (rows = columns)!");
+  };
+
+//----------------------------------------------------------------------
+// Private fields and methods
+//----------------------------------------------------------------------
+private:
+
+  TElement values[Trows *(Trows + 1) / 2];
+
+  Symmetrical(const Symmetrical &other);
+  Symmetrical &operator = (const Symmetrical &);
 
 };
 

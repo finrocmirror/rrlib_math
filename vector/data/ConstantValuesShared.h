@@ -31,12 +31,12 @@
  *
  */
 //----------------------------------------------------------------------
-#ifndef _rrlib_math_vector_include_guard_
+#ifndef __rrlib__math__vector__include_guard__
 #error Invalid include directive. Try #include "rrlib/math/tVector.h" instead.
 #endif
 
-#ifndef _rrlib_math_vector_data_ConstantValuesShared_h_
-#define _rrlib_math_vector_data_ConstantValuesShared_h_
+#ifndef __rrlib__math__vector__data__ConstantValuesShared_h__
+#define __rrlib__math__vector__data__ConstantValuesShared_h__
 
 //----------------------------------------------------------------------
 // External includes (system with <>, local with "")
@@ -76,13 +76,9 @@ class ConstantValuesShared
 {
   typedef math::tVector<Tdimension, TElement, TData> tVector;
 
-  ConstantValuesShared(const ConstantValuesShared &other);
-  ConstantValuesShared &operator = (const ConstantValuesShared &);
-
-protected:
-
-  inline ConstantValuesShared() {};
-
+//----------------------------------------------------------------------
+// Public methods and typedefs
+//----------------------------------------------------------------------
 public:
 
   static const size_t cDIMENSION = Tdimension;
@@ -95,6 +91,21 @@ public:
     return vector;
   }
 
+//----------------------------------------------------------------------
+// Protected methods
+//----------------------------------------------------------------------
+protected:
+
+  inline ConstantValuesShared() {};
+
+//----------------------------------------------------------------------
+// Private fields and methods
+//----------------------------------------------------------------------
+private:
+
+  ConstantValuesShared(const ConstantValuesShared &other);
+  ConstantValuesShared &operator = (const ConstantValuesShared &);
+
 };
 
 /*!
@@ -105,23 +116,9 @@ class ConstantValuesShared<Tdimension, TElement, Cartesian>
 {
   typedef math::tVector<Tdimension, TElement, Cartesian> tVector;
 
-  ConstantValuesShared(const ConstantValuesShared &other);
-  ConstantValuesShared &operator = (const ConstantValuesShared &);
-
-  static const tVector &InitializeIdentity()
-  {
-    static tVector vector;
-    for (size_t i = 0; i < Tdimension; ++i)
-    {
-      vector[i] = 1;
-    }
-    return vector;
-  }
-
-protected:
-
-  inline ConstantValuesShared() {};
-
+//----------------------------------------------------------------------
+// Public methods and typedefs
+//----------------------------------------------------------------------
 public:
 
   static const size_t cDIMENSION = Tdimension;
@@ -138,6 +135,31 @@ public:
   {
     static tVector identity(InitializeIdentity());
     return identity;
+  }
+
+//----------------------------------------------------------------------
+// Protected methods
+//----------------------------------------------------------------------
+protected:
+
+  inline ConstantValuesShared() {};
+
+//----------------------------------------------------------------------
+// Private fields and methods
+//----------------------------------------------------------------------
+private:
+
+  ConstantValuesShared(const ConstantValuesShared &other);
+  ConstantValuesShared &operator = (const ConstantValuesShared &);
+
+  static const tVector &InitializeIdentity()
+  {
+    static tVector vector;
+    for (size_t i = 0; i < Tdimension; ++i)
+    {
+      vector[i] = 1;
+    }
+    return vector;
   }
 
 };

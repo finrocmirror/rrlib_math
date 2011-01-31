@@ -31,12 +31,12 @@
  *
  */
 //----------------------------------------------------------------------
-#ifndef _rrlib_math_angle_include_guard_
+#ifndef __rrlib__math__angle__include_guard__
 #error Invalid include directive. Try #include "rrlib/math/tAngle.h" instead.
 #endif
 
-#ifndef _rrlib_math_angle_tAngle_h_
-#define _rrlib_math_angle_tAngle_h_
+#ifndef __rrlib__math__angle__tAngle_h__
+#define __rrlib__math__angle__tAngle_h__
 
 //----------------------------------------------------------------------
 // External includes (system with <>, local with "")
@@ -79,10 +79,9 @@ typename TSignPolicy = angle::Signed
 >
 class tAngle
 {
-  TElement value;
 
 //----------------------------------------------------------------------
-// Public methods
+// Public methods and typedefs
 //----------------------------------------------------------------------
 public:
 
@@ -98,9 +97,9 @@ public:
       : value(other.value)
   {}
 
-  template <typename TOtherUnitPolicy, typename TOtherSignPolicy>
-  inline tAngle(const tAngle<TElement, TOtherUnitPolicy, TOtherSignPolicy> &other)
-      : value(TSignPolicy::FitIntoRange(TUnitPolicy::ConvertFromUnit(static_cast<TElement>(other), TOtherUnitPolicy()), TUnitPolicy::RangeLimit()))
+  template <typename TOtherElement, typename TOtherUnitPolicy, typename TOtherSignPolicy>
+  inline tAngle(const tAngle<TOtherElement, TOtherUnitPolicy, TOtherSignPolicy> &other)
+      : value(TSignPolicy::FitIntoRange(TUnitPolicy::ConvertFromUnit(static_cast<TOtherElement>(other), TOtherUnitPolicy()), TUnitPolicy::RangeLimit()))
   {}
 
   inline tAngle &operator = (const tAngle &other)
@@ -109,10 +108,10 @@ public:
     return *this;
   }
 
-  template <typename TOtherUnitPolicy, typename TOtherSignPolicy>
-  inline tAngle &operator = (const tAngle<TOtherUnitPolicy, TOtherSignPolicy> &other)
+  template <typename TOtherElement, typename TOtherUnitPolicy, typename TOtherSignPolicy>
+  inline tAngle &operator = (const tAngle<TOtherElement, TOtherUnitPolicy, TOtherSignPolicy> &other)
   {
-    this->value = TSignPolicy::FitIntoRange(TUnitPolicy::ConvertFromUnit(static_cast<double>(other), TOtherUnitPolicy()), TUnitPolicy::RangeLimit());
+    this->value = TSignPolicy::FitIntoRange(TUnitPolicy::ConvertFromUnit(static_cast<TOtherElement>(other), TOtherUnitPolicy()), TUnitPolicy::RangeLimit());
     return *this;
   }
 
@@ -183,6 +182,14 @@ public:
   {
     sincosf(angle::Radian::ConvertFromUnit(this->value, TUnitPolicy()), &sine, &cosine);
   }
+
+//----------------------------------------------------------------------
+// Private fields and methods
+//----------------------------------------------------------------------
+private:
+
+  TElement value;
+
 };
 
 template <typename TElement, typename TUnitPolicy, typename TSignPolicy>

@@ -31,12 +31,12 @@
  *
  */
 //----------------------------------------------------------------------
-#ifndef _rrlib_math_matrix_include_guard_
+#ifndef __rrlib__math__matrix__include_guard__
 #error Invalid include directive. Try #include "rrlib/math/tMatrix.h" instead.
 #endif
 
-#ifndef _rrlib_math_matrix_functionality_Rotation_h_
-#define _rrlib_math_matrix_functionality_Rotation_h_
+#ifndef __rrlib__math__matrix__functionality__Rotation_h__
+#define __rrlib__math__matrix__functionality__Rotation_h__
 
 //----------------------------------------------------------------------
 // External includes (system with <>, local with "")
@@ -80,12 +80,21 @@ class Rotation
 {
   typedef math::tMatrix<Trows, Tcolumns, TElement, TData> tMatrix;
 
-  Rotation(const Rotation &);
-  Rotation &operator = (const Rotation &);
-
+//----------------------------------------------------------------------
+// Protected methods
+//----------------------------------------------------------------------
 protected:
 
   inline Rotation() {}
+
+//----------------------------------------------------------------------
+// Private fields and methods
+//----------------------------------------------------------------------
+private:
+
+  Rotation(const Rotation &);
+  Rotation &operator = (const Rotation &);
+
 };
 
 /*!
@@ -96,13 +105,9 @@ class Rotation<3, 3, TElement, Full>
 {
   typedef math::tMatrix<3, 3, TElement, Full> tMatrix;
 
-  Rotation(const Rotation &);
-  Rotation &operator = (const Rotation &);
-
-protected:
-
-  inline Rotation() {}
-
+//----------------------------------------------------------------------
+// Public methods and typedefs
+//----------------------------------------------------------------------
 public:
 
   /*! Assumes that the matrix is an orthogonal rotation matrix with det = 1 and calculates the corresponding
@@ -171,6 +176,21 @@ public:
     }
   }
 
+//----------------------------------------------------------------------
+// Protected methods
+//----------------------------------------------------------------------
+protected:
+
+  inline Rotation() {}
+
+//----------------------------------------------------------------------
+// Private fields and methods
+//----------------------------------------------------------------------
+private:
+
+  Rotation(const Rotation &);
+  Rotation &operator = (const Rotation &);
+
 };
 
 /*!
@@ -181,13 +201,9 @@ class Rotation<4, 4, TElement, Full>
 {
   typedef math::tMatrix<4, 4, TElement, Full> tMatrix;
 
-  Rotation(const Rotation &);
-  Rotation &operator = (const Rotation &);
-
-protected:
-
-  inline Rotation() {}
-
+//----------------------------------------------------------------------
+// Public methods and typedefs
+//----------------------------------------------------------------------
 public:
 
   template <typename TVectorElement, typename TAngle>
@@ -254,6 +270,21 @@ public:
              );
     return *that;
   }
+
+//----------------------------------------------------------------------
+// Protected methods
+//----------------------------------------------------------------------
+protected:
+
+  inline Rotation() {}
+
+//----------------------------------------------------------------------
+// Private fields and methods
+//----------------------------------------------------------------------
+private:
+
+  Rotation(const Rotation &);
+  Rotation &operator = (const Rotation &);
 
 };
 

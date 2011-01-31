@@ -31,12 +31,12 @@
  *
  */
 //----------------------------------------------------------------------
-#ifndef _rrlib_math_matrix_include_guard_
+#ifndef __rrlib__math__matrix__include_guard__
 #error Invalid include directive. Try #include "rrlib/math/tMatrix.h" instead.
 #endif
 
-#ifndef _rrlib_math_matrix_functionality_HomogeneousMultiplication_h_
-#define _rrlib_math_matrix_functionality_HomogeneousMultiplication_h_
+#ifndef __rrlib__math__matrix__functionality__HomogeneousMultiplication_h__
+#define __rrlib__math__matrix__functionality__HomogeneousMultiplication_h__
 
 //----------------------------------------------------------------------
 // External includes (system with <>, local with "")
@@ -77,12 +77,20 @@ class HomogeneousMultiplication
 {
   typedef math::tMatrix<Trows, Tcolumns, TElement, TData> tMatrix;
 
-  HomogeneousMultiplication(const HomogeneousMultiplication &);
-  HomogeneousMultiplication &operator = (const HomogeneousMultiplication &);
-
+//----------------------------------------------------------------------
+// Protected methods
+//----------------------------------------------------------------------
 protected:
 
   inline HomogeneousMultiplication() {}
+
+//----------------------------------------------------------------------
+// Private fields and methods
+//----------------------------------------------------------------------
+private:
+
+  HomogeneousMultiplication(const HomogeneousMultiplication &);
+  HomogeneousMultiplication &operator = (const HomogeneousMultiplication &);
 
 };
 
@@ -94,13 +102,9 @@ class HomogeneousMultiplication<Tdimension, Tdimension, TElement, TData>
 {
   typedef math::tMatrix<Tdimension, Tdimension, TElement, TData> tMatrix;
 
-  HomogeneousMultiplication(const HomogeneousMultiplication &);
-  HomogeneousMultiplication &operator = (const HomogeneousMultiplication &);
-
-protected:
-
-  inline HomogeneousMultiplication() {}
-
+//----------------------------------------------------------------------
+// Public methods and typedefs
+//----------------------------------------------------------------------
 public:
 
   template <typename TVectorElement>
@@ -120,6 +124,21 @@ public:
     }
     return tResult(data);
   }
+
+//----------------------------------------------------------------------
+// Protected methods
+//----------------------------------------------------------------------
+protected:
+
+  inline HomogeneousMultiplication() {}
+
+//----------------------------------------------------------------------
+// Private fields and methods
+//----------------------------------------------------------------------
+private:
+
+  HomogeneousMultiplication(const HomogeneousMultiplication &);
+  HomogeneousMultiplication &operator = (const HomogeneousMultiplication &);
 
 };
 

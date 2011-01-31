@@ -105,6 +105,10 @@ int main(int argc, char **argv)
   std::cout << b << std::endl;
 
 
+  tAngleRad assignment_target(0);
+  assignment_target = tAngleDeg(90);
+  std::cout << assignment_target << std::endl;
+
 
   std::cout << "OK" << std::endl;
 

@@ -31,12 +31,12 @@
  *
  */
 //----------------------------------------------------------------------
-#ifndef _rrlib_math_vector_include_guard_
+#ifndef __rrlib__math__vector__include_guard__
 #error Invalid include directive. Try #include "rrlib/math/tVector.h" instead.
 #endif
 
-#ifndef _rrlib_math_vector_data_Cartesian_h_
-#define _rrlib_math_vector_data_Cartesian_h_
+#ifndef __rrlib__math__vector__data__Cartesian_h__
+#define __rrlib__math__vector__data__Cartesian_h__
 
 //----------------------------------------------------------------------
 // External includes (system with <>, local with "")
@@ -74,14 +74,23 @@ namespace vector
 template <size_t Tdimension, typename TElement>
 class Cartesian
 {
+
+//----------------------------------------------------------------------
+// Protected methods
+//----------------------------------------------------------------------
+protected:
+
+  inline Cartesian() {};
+
+//----------------------------------------------------------------------
+// Private fields and methods
+//----------------------------------------------------------------------
+private:
+
   TElement values[Tdimension];
 
   Cartesian(const Cartesian &other);
   Cartesian &operator = (const Cartesian &);
-
-protected:
-
-  inline Cartesian() {};
 
 };
 
@@ -91,16 +100,10 @@ protected:
 template <typename TElement>
 class Cartesian<2, TElement>
 {
-  TElement x;
-  TElement y;
 
-  Cartesian(const Cartesian &other);
-  Cartesian &operator = (const Cartesian &);
-
-protected:
-
-  inline Cartesian() {}
-
+//----------------------------------------------------------------------
+// Public methods and typedefs
+//----------------------------------------------------------------------
 public:
 
   inline TElement X() const
@@ -120,6 +123,24 @@ public:
     return this->y;
   }
 
+//----------------------------------------------------------------------
+// Protected methods
+//----------------------------------------------------------------------
+protected:
+
+  inline Cartesian() {}
+
+//----------------------------------------------------------------------
+// Private fields and methods
+//----------------------------------------------------------------------
+private:
+
+  TElement x;
+  TElement y;
+
+  Cartesian(const Cartesian &other);
+  Cartesian &operator = (const Cartesian &);
+
 };
 
 /*!
@@ -128,17 +149,10 @@ public:
 template <typename TElement>
 class Cartesian<3, TElement>
 {
-  TElement x;
-  TElement y;
-  TElement z;
 
-  Cartesian(const Cartesian &other);
-  Cartesian &operator = (const Cartesian &);
-
-protected:
-
-  inline Cartesian() {}
-
+//----------------------------------------------------------------------
+// Public methods and typedefs
+//----------------------------------------------------------------------
 public:
 
   inline TElement X() const
@@ -165,6 +179,25 @@ public:
   {
     return this->z;
   }
+
+//----------------------------------------------------------------------
+// Protected methods
+//----------------------------------------------------------------------
+protected:
+
+  inline Cartesian() {}
+
+//----------------------------------------------------------------------
+// Private fields and methods
+//----------------------------------------------------------------------
+private:
+
+  TElement x;
+  TElement y;
+  TElement z;
+
+  Cartesian(const Cartesian &other);
+  Cartesian &operator = (const Cartesian &);
 
 };
 

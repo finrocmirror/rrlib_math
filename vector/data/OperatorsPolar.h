@@ -31,12 +31,12 @@
  *
  */
 //----------------------------------------------------------------------
-#ifndef _rrlib_math_vector_include_guard_
+#ifndef __rrlib__math__vector__include_guard__
 #error Invalid include directive. Try #include "rrlib/math/tVector.h" instead.
 #endif
 
-#ifndef _rrlib_math_vector_data_OperatorsPolar_h_
-#define _rrlib_math_vector_data_OperatorsPolar_h_
+#ifndef __rrlib__math__vector__data__OperatorsPolar_h__
+#define __rrlib__math__vector__data__OperatorsPolar_h__
 
 //----------------------------------------------------------------------
 // External includes (system with <>, local with "")

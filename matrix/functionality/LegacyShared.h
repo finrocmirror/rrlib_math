@@ -31,12 +31,12 @@
  *
  */
 //----------------------------------------------------------------------
-#ifndef _rrlib_math_matrix_include_guard_
+#ifndef __rrlib__math__matrix__include_guard__
 #error Invalid include directive. Try #include "rrlib/math/tMatrix.h" instead.
 #endif
 
-#ifndef _rrlib_math_matrix_functionality_LegacyShared_h_
-#define _rrlib_math_matrix_functionality_LegacyShared_h_
+#ifndef __rrlib__math__matrix__functionality__LegacyShared_h__
+#define __rrlib__math__matrix__functionality__LegacyShared_h__
 
 //----------------------------------------------------------------------
 // External includes (system with <>, local with "")
@@ -76,13 +76,9 @@ class LegacyShared
 {
   typedef math::tMatrix<Trows, Tcolumns, TElement, TData> tMatrix;
 
-  LegacyShared(const LegacyShared &);
-  LegacyShared &operator = (const LegacyShared &);
-
-protected:
-
-  inline LegacyShared() {}
-
+//----------------------------------------------------------------------
+// Public methods and typedefs
+//----------------------------------------------------------------------
 public:
 
   template <typename ... TValues>
@@ -90,7 +86,20 @@ public:
 
   double Det() const __attribute__((deprecated));
 
+//----------------------------------------------------------------------
+// Protected methods
+//----------------------------------------------------------------------
+protected:
 
+  inline LegacyShared() {}
+
+//----------------------------------------------------------------------
+// Private fields and methods
+//----------------------------------------------------------------------
+private:
+
+  LegacyShared(const LegacyShared &);
+  LegacyShared &operator = (const LegacyShared &);
 
 };
 

@@ -31,12 +31,12 @@
  *
  */
 //----------------------------------------------------------------------
-#ifndef _rrlib_math_vector_include_guard_
+#ifndef __rrlib__math__vector__include_guard__
 #error Invalid include directive. Try #include "rrlib/math/tVector.h" instead.
 #endif
 
-#ifndef _rrlib_math_vector_functionality_LegacyShared_h_
-#define _rrlib_math_vector_functionality_LegacyShared_h_
+#ifndef __rrlib__math__vector__functionality__LegacyShared_h__
+#define __rrlib__math__vector__functionality__LegacyShared_h__
 
 //----------------------------------------------------------------------
 // External includes (system with <>, local with "")
@@ -76,12 +76,20 @@ class LegacyShared
 {
   typedef math::tVector<Tdimension, TElement, TData> tVector;
 
-  LegacyShared(const LegacyShared &);
-  LegacyShared &operator = (const LegacyShared &);
-
+//----------------------------------------------------------------------
+// Protected methods
+//----------------------------------------------------------------------
 protected:
 
   inline LegacyShared() {}
+
+//----------------------------------------------------------------------
+// Private fields and methods
+//----------------------------------------------------------------------
+private:
+
+  LegacyShared(const LegacyShared &);
+  LegacyShared &operator = (const LegacyShared &);
 
 };
 
@@ -90,13 +98,9 @@ class LegacyShared<Tdimension, TElement, Cartesian>
 {
   typedef math::tVector<Tdimension, TElement, Cartesian> tVector;
 
-  LegacyShared(const LegacyShared &);
-  LegacyShared &operator = (const LegacyShared &);
-
-protected:
-
-  inline LegacyShared() {}
-
+//----------------------------------------------------------------------
+// Public methods and typedefs
+//----------------------------------------------------------------------
 public:
 
   inline const TElement length() const __attribute__((deprecated));
@@ -118,6 +122,21 @@ public:
   const tVector polar() __attribute__((deprecated));
 
   void CartesianToPolar() __attribute__((deprecated));
+
+//----------------------------------------------------------------------
+// Protected methods
+//----------------------------------------------------------------------
+protected:
+
+  inline LegacyShared() {}
+
+//----------------------------------------------------------------------
+// Private fields and methods
+//----------------------------------------------------------------------
+private:
+
+  LegacyShared(const LegacyShared &);
+  LegacyShared &operator = (const LegacyShared &);
 
 };
 

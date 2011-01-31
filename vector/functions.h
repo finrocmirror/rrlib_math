@@ -33,8 +33,12 @@
  *
  */
 //----------------------------------------------------------------------
-#ifndef _rrlib_math_vector_functions_h_
-#define _rrlib_math_vector_functions_h_
+#ifndef __rrlib__math__vector__include_guard__
+#error Invalid include directive. Try #include "rrlib/math/tVector.h" instead.
+#endif
+
+#ifndef __rrlib__math__vector__functions_h__
+#define __rrlib__math__vector__functions_h__
 
 //----------------------------------------------------------------------
 // External includes with <>
@@ -137,6 +141,7 @@ inline const tAngleRad EnclosedAngle(const tVector<Tdimension, TLeftElement, TDa
   }
   return std::acos(cos_angle);
 }
+
 template <typename TLeftElement, typename TRightElement, template <size_t, typename> class TData>
 const tAngleRad EnclosedAngle(const tVector<2, TLeftElement, TData> &left, const tVector<2, TRightElement, TData> &right)
 {

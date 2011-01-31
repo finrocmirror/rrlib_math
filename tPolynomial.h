@@ -33,8 +33,8 @@
  *
  */
 //----------------------------------------------------------------------
-#ifndef _rrlib_math_tPolynomial_h_
-#define _rrlib_math_tPolynomial_h_
+#ifndef __rrlib__math__tPolynomial_h__
+#define __rrlib__math__tPolynomial_h__
 
 //----------------------------------------------------------------------
 // External includes (system with <>, local with "")

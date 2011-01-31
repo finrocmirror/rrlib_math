@@ -31,8 +31,8 @@
  *
  */
 //----------------------------------------------------------------------
-#ifndef _rrlib_math_tAngle_h_
-#define _rrlib_math_tAngle_h_
+#ifndef __rrlib__math__tAngle_h__
+#define __rrlib__math__tAngle_h__
 
 //----------------------------------------------------------------------
 // External includes (system with <>, local with "")
@@ -42,7 +42,7 @@
 // Internal includes with ""
 //----------------------------------------------------------------------
 
-#define _rrlib_math_angle_include_guard_
+#define __rrlib__math__angle__include_guard__
 
 #include "rrlib/math/angle/policies/unit/Radian.h"
 #include "rrlib/math/angle/policies/unit/Degree.h"
@@ -52,7 +52,7 @@
 
 #include "rrlib/math/angle/tAngle.h"
 
-#undef _rrlib_math_angle_include_guard_
+#undef __rrlib__math__angle__include_guard__
 
 //----------------------------------------------------------------------
 // Implementation

@@ -31,12 +31,12 @@
  *
  */
 //----------------------------------------------------------------------
-#ifndef _rrlib_math_vector_include_guard_
+#ifndef __rrlib__math__vector__include_guard__
 #error Invalid include directive. Try #include "rrlib/math/tVector.h" instead.
 #endif
 
-#ifndef _rrlib_math_vector_data_ConstantValuesSpecialized_h_
-#define _rrlib_math_vector_data_ConstantValuesSpecialized_h_
+#ifndef __rrlib__math__vector__data__ConstantValuesSpecialized_h__
+#define __rrlib__math__vector__data__ConstantValuesSpecialized_h__
 
 //----------------------------------------------------------------------
 // External includes (system with <>, local with "")
@@ -74,12 +74,21 @@ namespace vector
 template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
 class ConstantValuesSpecialized
 {
-  ConstantValuesSpecialized(const ConstantValuesSpecialized &other);
-  ConstantValuesSpecialized &operator = (const ConstantValuesSpecialized &);
 
+//----------------------------------------------------------------------
+// Protected methods
+//----------------------------------------------------------------------
 protected:
 
   inline ConstantValuesSpecialized() {};
+
+//----------------------------------------------------------------------
+// Private fields and methods
+//----------------------------------------------------------------------
+private:
+
+  ConstantValuesSpecialized(const ConstantValuesSpecialized &other);
+  ConstantValuesSpecialized &operator = (const ConstantValuesSpecialized &);
 
 };
 
@@ -91,13 +100,9 @@ class ConstantValuesSpecialized<2, TElement, Cartesian>
 {
   typedef math::tVector<2, TElement, Cartesian> tVector;
 
-  ConstantValuesSpecialized(const ConstantValuesSpecialized &other);
-  ConstantValuesSpecialized &operator = (const ConstantValuesSpecialized &);
-
-protected:
-
-  inline ConstantValuesSpecialized() {}
-
+//----------------------------------------------------------------------
+// Public methods and typedefs
+//----------------------------------------------------------------------
 public:
 
   static const tVector &XDirection()
@@ -112,6 +117,21 @@ public:
     return vector;
   }
 
+//----------------------------------------------------------------------
+// Protected methods
+//----------------------------------------------------------------------
+protected:
+
+  inline ConstantValuesSpecialized() {}
+
+//----------------------------------------------------------------------
+// Private fields and methods
+//----------------------------------------------------------------------
+private:
+
+  ConstantValuesSpecialized(const ConstantValuesSpecialized &other);
+  ConstantValuesSpecialized &operator = (const ConstantValuesSpecialized &);
+
 };
 
 /*!
@@ -122,13 +142,9 @@ class ConstantValuesSpecialized<3, TElement, Cartesian>
 {
   typedef math::tVector<3, TElement, Cartesian> tVector;
 
-  ConstantValuesSpecialized(const ConstantValuesSpecialized &other);
-  ConstantValuesSpecialized &operator = (const ConstantValuesSpecialized &);
-
-protected:
-
-  inline ConstantValuesSpecialized() {}
-
+//----------------------------------------------------------------------
+// Public methods and typedefs
+//----------------------------------------------------------------------
 public:
 
   static inline const tVector &XDirection()
@@ -148,6 +164,21 @@ public:
     static tVector vector(0, 0, 1);
     return vector;
   }
+
+//----------------------------------------------------------------------
+// Protected methods
+//----------------------------------------------------------------------
+protected:
+
+  inline ConstantValuesSpecialized() {}
+
+//----------------------------------------------------------------------
+// Private fields and methods
+//----------------------------------------------------------------------
+private:
+
+  ConstantValuesSpecialized(const ConstantValuesSpecialized &other);
+  ConstantValuesSpecialized &operator = (const ConstantValuesSpecialized &);
 
 };
 

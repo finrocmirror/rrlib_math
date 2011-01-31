@@ -33,8 +33,8 @@
  *
  */
 //----------------------------------------------------------------------
-#ifndef _rrlib_math_tCholeskyDecomposition_h_
-#define _rrlib_math_tCholeskyDecomposition_h_
+#ifndef __rrlib__math__tCholeskyDecomposition_h__
+#define __rrlib__math__tCholeskyDecomposition_h__
 
 //----------------------------------------------------------------------
 // External includes (system with <>, local with "")

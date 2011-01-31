@@ -31,12 +31,12 @@
  *
  */
 //----------------------------------------------------------------------
-#ifndef _rrlib_math_vector_include_guard_
+#ifndef __rrlib__math__vector__include_guard__
 #error Invalid include directive. Try #include "rrlib/math/tVector.h" instead.
 #endif
 
-#ifndef _rrlib_math_vector_functionality_Rotation_h_
-#define _rrlib_math_vector_functionality_Rotation_h_
+#ifndef __rrlib__math__vector__functionality__Rotation_h__
+#define __rrlib__math__vector__functionality__Rotation_h__
 
 //----------------------------------------------------------------------
 // External includes (system with <>, local with "")
@@ -76,12 +76,21 @@ namespace vector
 template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
 class Rotation
 {
-  Rotation(const Rotation &);
-  Rotation &operator = (const Rotation &);
 
+//----------------------------------------------------------------------
+// Protected methods
+//----------------------------------------------------------------------
 protected:
 
   inline Rotation() {}
+
+//----------------------------------------------------------------------
+// Private fields and methods
+//----------------------------------------------------------------------
+private:
+
+  Rotation(const Rotation &);
+  Rotation &operator = (const Rotation &);
 
 };
 
@@ -93,13 +102,9 @@ class Rotation<2, TElement, Cartesian>
 {
   typedef math::tVector<2, TElement, Cartesian> tVector;
 
-  Rotation(const Rotation &);
-  Rotation &operator = (const Rotation &);
-
-protected:
-
-  inline Rotation() {}
-
+//----------------------------------------------------------------------
+// Public methods and typedefs
+//----------------------------------------------------------------------
 public:
 
   inline void Rotate(tAngleRad angle)
@@ -130,6 +135,21 @@ public:
     return temp;
   }
 
+//----------------------------------------------------------------------
+// Protected methods
+//----------------------------------------------------------------------
+protected:
+
+  inline Rotation() {}
+
+//----------------------------------------------------------------------
+// Private fields and methods
+//----------------------------------------------------------------------
+private:
+
+  Rotation(const Rotation &);
+  Rotation &operator = (const Rotation &);
+
 };
 
 /*!
@@ -140,13 +160,9 @@ class Rotation<3, TElement, Cartesian>
 {
   typedef math::tVector<3, TElement, Cartesian> tVector;
 
-  Rotation(const Rotation &);
-  Rotation &operator = (const Rotation &);
-
-protected:
-
-  inline Rotation() {}
-
+//----------------------------------------------------------------------
+// Public methods and typedefs
+//----------------------------------------------------------------------
 public:
 
   template <typename TAxisElement>
@@ -173,6 +189,21 @@ public:
     return temp;
   }
 
+//----------------------------------------------------------------------
+// Protected methods
+//----------------------------------------------------------------------
+protected:
+
+  inline Rotation() {}
+
+//----------------------------------------------------------------------
+// Private fields and methods
+//----------------------------------------------------------------------
+private:
+
+  Rotation(const Rotation &);
+  Rotation &operator = (const Rotation &);
+
 };
 
 /*!
@@ -183,14 +214,20 @@ class Rotation<2, TElement, Polar>
 {
   typedef math::tVector<2, TElement, Polar> tVector;
 
-  Rotation(const Rotation &);
-  Rotation &operator = (const Rotation &);
-
+//----------------------------------------------------------------------
+// Protected methods
+//----------------------------------------------------------------------
 protected:
 
   inline Rotation() {}
 
-public:
+//----------------------------------------------------------------------
+// Private fields and methods
+//----------------------------------------------------------------------
+private:
+
+  Rotation(const Rotation &);
+  Rotation &operator = (const Rotation &);
 
 };
 
@@ -202,14 +239,20 @@ class Rotation<3, TElement, Polar>
 {
   typedef math::tVector<3, TElement, Polar> tVector;
 
-  Rotation(const Rotation &);
-  Rotation &operator = (const Rotation &);
-
+//----------------------------------------------------------------------
+// Protected methods
+//----------------------------------------------------------------------
 protected:
 
   inline Rotation() {}
 
-public:
+//----------------------------------------------------------------------
+// Private fields and methods
+//----------------------------------------------------------------------
+private:
+
+  Rotation(const Rotation &);
+  Rotation &operator = (const Rotation &);
 
 };
 

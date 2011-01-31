@@ -31,12 +31,12 @@
  *
  */
 //----------------------------------------------------------------------
-#ifndef _rrlib_math_matrix_include_guard_
+#ifndef __rrlib__math__matrix__include_guard__
 #error Invalid include directive. Try #include "rrlib/math/tMatrix.h" instead.
 #endif
 
-#ifndef _rrlib_math_matrix_functionality_FunctionalityShared_h_
-#define _rrlib_math_matrix_functionality_FunctionalityShared_h_
+#ifndef __rrlib__math__matrix__functionality__FunctionalityShared_h__
+#define __rrlib__math__matrix__functionality__FunctionalityShared_h__
 
 //----------------------------------------------------------------------
 // External includes (system with <>, local with "")
@@ -81,67 +81,9 @@ class FunctionalityShared
   typedef math::tMatrix<Trows, Tcolumns, TElement, TData> tMatrix;
   typedef TData<Trows, Tcolumns, TElement> tData;
 
-  FunctionalityShared(const FunctionalityShared &);
-
-  template <size_t number_of_given_values>
-  inline void SetValues(TElement buffer[Trows * Tcolumns])
-  {
-    static_assert(number_of_given_values == Trows * Tcolumns, "Wrong number of values given to store in matrix");
-    reinterpret_cast<tMatrix *>(this)->SetFromArray(buffer);
-  }
-  template <size_t number_of_given_values, typename ... TValues>
-  inline void SetValues(TElement buffer[Trows * Tcolumns], TElement value, TValues... values)
-  {
-    buffer[number_of_given_values] = value;
-    this->SetValues < number_of_given_values + 1 > (buffer, values...);
-  }
-
-protected:
-
-  inline FunctionalityShared()
-  {
-    std::memset(this, 0, sizeof(tMatrix));
-  }
-  inline FunctionalityShared(const tMatrix &other)
-  {
-    std::memcpy(this, &other, sizeof(tMatrix));
-  }
-
-  explicit inline FunctionalityShared(const TElement data[Trows * Tcolumns])
-  {
-    reinterpret_cast<tMatrix *>(this)->SetFromArray(data);
-  }
-
-  template <typename TOtherElement>
-  explicit inline FunctionalityShared(const math::tMatrix<Trows, Tcolumns, TOtherElement, TData> &other)
-  {
-    std::memset(this, 0, sizeof(tMatrix));
-    for (size_t i = 0; i < sizeof(tMatrix) / sizeof(TElement); ++i)
-    {
-      reinterpret_cast<TElement *>(this)[i] = reinterpret_cast<const TOtherElement *>(&other)[i];
-    }
-  }
-
-  template <typename TOtherElement, template <size_t, size_t, typename> class TOtherData>
-  explicit inline FunctionalityShared(const math::tMatrix<Trows, Tcolumns, TOtherElement, TOtherData> &other)
-  {
-    this->SetFromMatrix(other);
-  }
-
-  template <typename TLeftElement, typename TRightElement>
-  inline FunctionalityShared(const tVector<Trows, TLeftElement, vector::Cartesian> &left, const tVector<Tcolumns, TRightElement, vector::Cartesian> &right)
-  {
-    TElement data[Trows * Tcolumns];
-    for (size_t row = 0; row < Trows; ++row)
-    {
-      for (size_t column = 0; column < Tcolumns; ++column)
-      {
-        data[row * Tcolumns + column] = left[row] * right[column];
-      }
-    }
-    reinterpret_cast<tMatrix *>(this)->SetFromArray(data);
-  }
-
+//----------------------------------------------------------------------
+// Public methods and typedefs
+//----------------------------------------------------------------------
 public:
 
   inline const typename tData::Accessor operator [](size_t row) const
@@ -270,6 +212,75 @@ public:
       }
     }
     return true;
+  }
+
+//----------------------------------------------------------------------
+// Protected methods
+//----------------------------------------------------------------------
+protected:
+
+  inline FunctionalityShared()
+  {
+    std::memset(this, 0, sizeof(tMatrix));
+  }
+  inline FunctionalityShared(const tMatrix &other)
+  {
+    std::memcpy(this, &other, sizeof(tMatrix));
+  }
+
+  explicit inline FunctionalityShared(const TElement data[Trows * Tcolumns])
+  {
+    reinterpret_cast<tMatrix *>(this)->SetFromArray(data);
+  }
+
+  template <typename TOtherElement>
+  explicit inline FunctionalityShared(const math::tMatrix<Trows, Tcolumns, TOtherElement, TData> &other)
+  {
+    std::memset(this, 0, sizeof(tMatrix));
+    for (size_t i = 0; i < sizeof(tMatrix) / sizeof(TElement); ++i)
+    {
+      reinterpret_cast<TElement *>(this)[i] = reinterpret_cast<const TOtherElement *>(&other)[i];
+    }
+  }
+
+  template <typename TOtherElement, template <size_t, size_t, typename> class TOtherData>
+  explicit inline FunctionalityShared(const math::tMatrix<Trows, Tcolumns, TOtherElement, TOtherData> &other)
+  {
+    this->SetFromMatrix(other);
+  }
+
+  template <typename TLeftElement, typename TRightElement>
+  inline FunctionalityShared(const tVector<Trows, TLeftElement, vector::Cartesian> &left, const tVector<Tcolumns, TRightElement, vector::Cartesian> &right)
+  {
+    TElement data[Trows * Tcolumns];
+    for (size_t row = 0; row < Trows; ++row)
+    {
+      for (size_t column = 0; column < Tcolumns; ++column)
+      {
+        data[row * Tcolumns + column] = left[row] * right[column];
+      }
+    }
+    reinterpret_cast<tMatrix *>(this)->SetFromArray(data);
+  }
+
+//----------------------------------------------------------------------
+// Private fields and methods
+//----------------------------------------------------------------------
+private:
+
+  FunctionalityShared(const FunctionalityShared &);
+
+  template <size_t number_of_given_values>
+  inline void SetValues(TElement buffer[Trows * Tcolumns])
+  {
+    static_assert(number_of_given_values == Trows * Tcolumns, "Wrong number of values given to store in matrix");
+    reinterpret_cast<tMatrix *>(this)->SetFromArray(buffer);
+  }
+  template <size_t number_of_given_values, typename ... TValues>
+  inline void SetValues(TElement buffer[Trows * Tcolumns], TElement value, TValues... values)
+  {
+    buffer[number_of_given_values] = value;
+    this->SetValues < number_of_given_values + 1 > (buffer, values...);
   }
 
 };

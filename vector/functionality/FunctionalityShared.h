@@ -31,12 +31,12 @@
  *
  */
 //----------------------------------------------------------------------
-#ifndef _rrlib_math_vector_include_guard_
+#ifndef __rrlib__math__vector__include_guard__
 #error Invalid include directive. Try #include "rrlib/math/tVector.h" instead.
 #endif
 
-#ifndef _rrlib_math_vector_functionality_FunctionalityShared_h_
-#define _rrlib_math_vector_functionality_FunctionalityShared_h_
+#ifndef __rrlib__math__vector__functionality__FunctionalityShared_h__
+#define __rrlib__math__vector__functionality__FunctionalityShared_h__
 
 //----------------------------------------------------------------------
 // External includes (system with <>, local with "")
@@ -81,57 +81,9 @@ class FunctionalityShared
 {
   typedef math::tVector<Tdimension, TElement, TData> tVector;
 
-  FunctionalityShared(const FunctionalityShared &);
-
-  template <size_t number_of_given_values>
-  inline void SetValues(TElement buffer[Tdimension])
-  {
-    static_assert(number_of_given_values == Tdimension, "Wrong number of values given to store in vector");
-    std::memcpy(this, buffer, sizeof(tVector));
-  }
-  template <size_t number_of_given_values, typename ... TValues>
-  inline void SetValues(TElement buffer[Tdimension], TElement value, TValues... values)
-  {
-    buffer[number_of_given_values] = value;
-    this->SetValues < number_of_given_values + 1 > (buffer, values...);
-  }
-
-protected:
-
-  inline FunctionalityShared()
-  {
-    std::memset(this, 0, sizeof(tVector));
-  }
-  inline FunctionalityShared(const tVector &other)
-  {
-    std::memcpy(this, &other, sizeof(tVector));
-  }
-
-  explicit inline FunctionalityShared(const TElement data[Tdimension])
-  {
-    std::memcpy(this, data, sizeof(tVector));
-  }
-
-  template <typename TOtherElement>
-  explicit inline FunctionalityShared(const TOtherElement data[Tdimension])
-  {
-    for (size_t i = 0; i < Tdimension; ++i)
-    {
-      (*this)[i] = data[i];
-    }
-  }
-
-  template <size_t Tother_dimension, typename TOtherElement>
-  explicit inline FunctionalityShared(const math::tVector<Tother_dimension, TOtherElement, TData> &other)
-  {
-    std::memset(this, 0, sizeof(tVector));
-    size_t size = std::min(Tdimension, Tother_dimension);
-    for (size_t i = 0; i < size; ++i)
-    {
-      reinterpret_cast<TElement *>(this)[i] = reinterpret_cast<const TOtherElement *>(&other)[i];
-    }
-  }
-
+//----------------------------------------------------------------------
+// Public methods and typedefs
+//----------------------------------------------------------------------
 public:
 
   inline const TElement operator [](size_t i) const
@@ -268,6 +220,65 @@ public:
     math::tVector<Tdimension, typename until_0x::Auto<TElement, TOtherElement>::type, TData> temp(*that);
     temp.Project(other);
     return temp;
+  }
+
+//----------------------------------------------------------------------
+// Protected methods
+//----------------------------------------------------------------------
+protected:
+
+  inline FunctionalityShared()
+  {
+    std::memset(this, 0, sizeof(tVector));
+  }
+  inline FunctionalityShared(const tVector &other)
+  {
+    std::memcpy(this, &other, sizeof(tVector));
+  }
+
+  explicit inline FunctionalityShared(const TElement data[Tdimension])
+  {
+    std::memcpy(this, data, sizeof(tVector));
+  }
+
+  template <typename TOtherElement>
+  explicit inline FunctionalityShared(const TOtherElement data[Tdimension])
+  {
+    for (size_t i = 0; i < Tdimension; ++i)
+    {
+      (*this)[i] = data[i];
+    }
+  }
+
+  template <size_t Tother_dimension, typename TOtherElement>
+  explicit inline FunctionalityShared(const math::tVector<Tother_dimension, TOtherElement, TData> &other)
+  {
+    std::memset(this, 0, sizeof(tVector));
+    size_t size = std::min(Tdimension, Tother_dimension);
+    for (size_t i = 0; i < size; ++i)
+    {
+      reinterpret_cast<TElement *>(this)[i] = reinterpret_cast<const TOtherElement *>(&other)[i];
+    }
+  }
+
+//----------------------------------------------------------------------
+// Private fields and methods
+//----------------------------------------------------------------------
+private:
+
+  FunctionalityShared(const FunctionalityShared &);
+
+  template <size_t number_of_given_values>
+  inline void SetValues(TElement buffer[Tdimension])
+  {
+    static_assert(number_of_given_values == Tdimension, "Wrong number of values given to store in vector");
+    std::memcpy(this, buffer, sizeof(tVector));
+  }
+  template <size_t number_of_given_values, typename ... TValues>
+  inline void SetValues(TElement buffer[Tdimension], TElement value, TValues... values)
+  {
+    buffer[number_of_given_values] = value;
+    this->SetValues < number_of_given_values + 1 > (buffer, values...);
   }
 
 };

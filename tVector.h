@@ -38,8 +38,8 @@
  *
  */
 //----------------------------------------------------------------------
-#ifndef _rrlib_math_tVector_h_
-#define _rrlib_math_tVector_h_
+#ifndef __rrlib__math__tVector_h__
+#define __rrlib__math__tVector_h__
 
 //----------------------------------------------------------------------
 // External includes (system with <>, local with "")
@@ -50,7 +50,7 @@
 //----------------------------------------------------------------------
 #include "rrlib/math/until_0x_helper.h"
 
-#define _rrlib_math_vector_include_guard_
+#define __rrlib__math__vector__include_guard__
 
 namespace rrlib
 {
@@ -86,7 +86,7 @@ class tVector;
 
 #include "rrlib/math/vector/functions.h"
 
-#undef _rrlib_math_vector_include_guard_
+#undef __rrlib_math__vector__include_guard__
 
 //----------------------------------------------------------------------
 // Implementation

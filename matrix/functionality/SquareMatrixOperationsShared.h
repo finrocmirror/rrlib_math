@@ -31,12 +31,12 @@
  *
  */
 //----------------------------------------------------------------------
-#ifndef _rrlib_math_matrix_include_guard_
+#ifndef __rrlib__math__matrix__include_guard__
 #error Invalid include directive. Try #include "rrlib/math/tMatrix.h" instead.
 #endif
 
-#ifndef _rrlib_math_matrix_functionality_SquareMatrixOperationsShared_h_
-#define _rrlib_math_matrix_functionality_SquareMatrixOperationsShared_h_
+#ifndef __rrlib__math__matrix__functionality__SquareMatrixOperationsShared_h__
+#define __rrlib__math__matrix__functionality__SquareMatrixOperationsShared_h__
 
 //----------------------------------------------------------------------
 // External includes (system with <>, local with "")
@@ -76,19 +76,30 @@ class SquareMatrixOperationsShared
 {
   typedef math::tMatrix<Trows, Tcolumns, TElement, TData> tMatrix;
 
-  SquareMatrixOperationsShared(const SquareMatrixOperationsShared &);
-  SquareMatrixOperationsShared &operator = (const SquareMatrixOperationsShared &);
-
-protected:
-
-  inline SquareMatrixOperationsShared() {}
-
+//----------------------------------------------------------------------
+// Public methods and typedefs
+//----------------------------------------------------------------------
 public:
 
   inline const TElement Determinant() const
   {
     return 0;
   }
+
+//----------------------------------------------------------------------
+// Protected methods
+//----------------------------------------------------------------------
+protected:
+
+  inline SquareMatrixOperationsShared() {}
+
+//----------------------------------------------------------------------
+// Private fields and methods
+//----------------------------------------------------------------------
+private:
+
+  SquareMatrixOperationsShared(const SquareMatrixOperationsShared &);
+  SquareMatrixOperationsShared &operator = (const SquareMatrixOperationsShared &);
 
 };
 
@@ -100,13 +111,9 @@ class SquareMatrixOperationsShared<Tdimension, Tdimension, TElement, TData>
 {
   typedef math::tMatrix<Tdimension, Tdimension, TElement, TData> tMatrix;
 
-  SquareMatrixOperationsShared(const SquareMatrixOperationsShared &);
-  SquareMatrixOperationsShared &operator = (const SquareMatrixOperationsShared &);
-
-protected:
-
-  inline SquareMatrixOperationsShared() {}
-
+//----------------------------------------------------------------------
+// Public methods and typedefs
+//----------------------------------------------------------------------
 public:
 
   inline void Transpose()
@@ -126,6 +133,21 @@ public:
     const tMatrix *that = reinterpret_cast<const tMatrix *>(this);
     return that->Inverted();
   }
+
+//----------------------------------------------------------------------
+// Protected methods
+//----------------------------------------------------------------------
+protected:
+
+  inline SquareMatrixOperationsShared() {}
+
+//----------------------------------------------------------------------
+// Private fields and methods
+//----------------------------------------------------------------------
+private:
+
+  SquareMatrixOperationsShared(const SquareMatrixOperationsShared &);
+  SquareMatrixOperationsShared &operator = (const SquareMatrixOperationsShared &);
 
 };
 

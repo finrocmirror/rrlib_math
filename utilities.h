@@ -31,8 +31,8 @@
  *
  */
 //----------------------------------------------------------------------
-#ifndef _rrlib_math_utilities_h_
-#define _rrlib_math_utilities_h_
+#ifndef __rrlib__math__utilities_h__
+#define __rrlib__math__utilities_h__
 
 //----------------------------------------------------------------------
 // External includes (system with <>, local with "")

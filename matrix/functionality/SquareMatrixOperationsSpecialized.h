@@ -31,12 +31,12 @@
  *
  */
 //----------------------------------------------------------------------
-#ifndef _rrlib_math_matrix_include_guard_
+#ifndef __rrlib__math__matrix__include_guard__
 #error Invalid include directive. Try #include "rrlib/math/tMatrix.h" instead.
 #endif
 
-#ifndef _rrlib_math_matrix_functionality_SquareMatrixOperationsSpecialized_h_
-#define _rrlib_math_matrix_functionality_SquareMatrixOperationsSpecialized_h_
+#ifndef __rrlib__math__matrix__functionality__SquareMatrixOperationsSpecialized_h__
+#define __rrlib__math__matrix__functionality__SquareMatrixOperationsSpecialized_h__
 
 //----------------------------------------------------------------------
 // External includes (system with <>, local with "")
@@ -77,12 +77,21 @@ class SquareMatrixOperationsSpecialized
 {
   typedef math::tMatrix<Trows, Tcolumns, TElement, TData> tMatrix;
 
-  SquareMatrixOperationsSpecialized(const SquareMatrixOperationsSpecialized &);
-  SquareMatrixOperationsSpecialized &operator = (const SquareMatrixOperationsSpecialized &);
-
+//----------------------------------------------------------------------
+// Protected methods
+//----------------------------------------------------------------------
 protected:
 
   inline SquareMatrixOperationsSpecialized() {}
+
+//----------------------------------------------------------------------
+// Private fields and methods
+//----------------------------------------------------------------------
+private:
+
+  SquareMatrixOperationsSpecialized(const SquareMatrixOperationsSpecialized &);
+  SquareMatrixOperationsSpecialized &operator = (const SquareMatrixOperationsSpecialized &);
+
 };
 
 /*!
@@ -93,28 +102,9 @@ class SquareMatrixOperationsSpecialized<Tdimension, Tdimension, TElement, TData>
 {
   typedef math::tMatrix<Tdimension, Tdimension, TElement, TData> tMatrix;
 
-  SquareMatrixOperationsSpecialized(const SquareMatrixOperationsSpecialized &);
-  SquareMatrixOperationsSpecialized &operator = (const SquareMatrixOperationsSpecialized &);
-
-  const math::tMatrix < Tdimension - 1, Tdimension - 1, TElement, Full > ExtractSubMatrix(size_t cut_row, size_t cut_column) const
-  {
-    const tMatrix *that = reinterpret_cast<const tMatrix *>(this);
-    typedef math::tMatrix < Tdimension - 1, Tdimension - 1, TElement, Full > tResult;
-    typename tResult::tElement data[tResult::cROWS * tResult::cCOLUMNS];
-    for (size_t row = 0; row < tResult::cROWS; ++row)
-    {
-      for (size_t column = 0; column < tResult::cCOLUMNS; ++column)
-      {
-        data[row * tResult::cCOLUMNS + column] = (*that)[row < cut_row ? row : row + 1][column < cut_column ? column : column + 1];
-      }
-    }
-    return tResult(data);
-  }
-
-protected:
-
-  inline SquareMatrixOperationsSpecialized() {}
-
+//----------------------------------------------------------------------
+// Public methods and typedefs
+//----------------------------------------------------------------------
 public:
 
   inline const TElement Determinant() const
@@ -155,6 +145,36 @@ public:
     return tMatrix(data) / determinant;
   }
 
+//----------------------------------------------------------------------
+// Protected methods
+//----------------------------------------------------------------------
+protected:
+
+  inline SquareMatrixOperationsSpecialized() {}
+
+//----------------------------------------------------------------------
+// Private fields and methods
+//----------------------------------------------------------------------
+private:
+
+  SquareMatrixOperationsSpecialized(const SquareMatrixOperationsSpecialized &);
+  SquareMatrixOperationsSpecialized &operator = (const SquareMatrixOperationsSpecialized &);
+
+  const math::tMatrix < Tdimension - 1, Tdimension - 1, TElement, Full > ExtractSubMatrix(size_t cut_row, size_t cut_column) const
+  {
+    const tMatrix *that = reinterpret_cast<const tMatrix *>(this);
+    typedef math::tMatrix < Tdimension - 1, Tdimension - 1, TElement, Full > tResult;
+    typename tResult::tElement data[tResult::cROWS * tResult::cCOLUMNS];
+    for (size_t row = 0; row < tResult::cROWS; ++row)
+    {
+      for (size_t column = 0; column < tResult::cCOLUMNS; ++column)
+      {
+        data[row * tResult::cCOLUMNS + column] = (*that)[row < cut_row ? row : row + 1][column < cut_column ? column : column + 1];
+      }
+    }
+    return tResult(data);
+  }
+
 };
 
 /*!
@@ -165,13 +185,9 @@ class SquareMatrixOperationsSpecialized<2, 2, TElement, TData>
 {
   typedef math::tMatrix<2, 2, TElement, TData> tMatrix;
 
-  SquareMatrixOperationsSpecialized(const SquareMatrixOperationsSpecialized &);
-  SquareMatrixOperationsSpecialized &operator = (const SquareMatrixOperationsSpecialized &);
-
-protected:
-
-  inline SquareMatrixOperationsSpecialized() {}
-
+//----------------------------------------------------------------------
+// Public methods and typedefs
+//----------------------------------------------------------------------
 public:
 
   inline const TElement Determinant() const
@@ -190,6 +206,21 @@ public:
     }
     return tMatrix((*that)[1][1], -(*that)[0][1], -(*that)[1][0], (*that)[0][0]) / determinant;
   }
+
+//----------------------------------------------------------------------
+// Protected methods
+//----------------------------------------------------------------------
+protected:
+
+  inline SquareMatrixOperationsSpecialized() {}
+
+//----------------------------------------------------------------------
+// Private fields and methods
+//----------------------------------------------------------------------
+private:
+
+  SquareMatrixOperationsSpecialized(const SquareMatrixOperationsSpecialized &);
+  SquareMatrixOperationsSpecialized &operator = (const SquareMatrixOperationsSpecialized &);
 
 };
 

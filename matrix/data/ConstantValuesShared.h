@@ -31,12 +31,12 @@
  *
  */
 //----------------------------------------------------------------------
-#ifndef _rrlib_math_matrix_include_guard_
+#ifndef __rrlib__math__matrix__include_guard__
 #error Invalid include directive. Try #include "rrlib/math/tMatrix.h" instead.
 #endif
 
-#ifndef _rrlib_math_matrix_data_ConstantValuesShared_h_
-#define _rrlib_math_matrix_data_ConstantValuesShared_h_
+#ifndef __rrlib__math__matrix__data__ConstantValuesShared_h__
+#define __rrlib__math__matrix__data__ConstantValuesShared_h__
 
 //----------------------------------------------------------------------
 // External includes (system with <>, local with "")
@@ -76,13 +76,9 @@ class ConstantValuesShared
 {
   typedef math::tMatrix<Trows, Tcolumns, TElement, TData> tMatrix;
 
-  ConstantValuesShared(const ConstantValuesShared &other);
-  ConstantValuesShared &operator = (const ConstantValuesShared &);
-
-protected:
-
-  inline ConstantValuesShared() {};
-
+//----------------------------------------------------------------------
+// Public methods and typedefs
+//----------------------------------------------------------------------
 public:
 
   static const size_t cROWS = Trows;
@@ -95,6 +91,21 @@ public:
     static tMatrix matrix;
     return matrix;
   }
+
+//----------------------------------------------------------------------
+// Protected methods
+//----------------------------------------------------------------------
+protected:
+
+  inline ConstantValuesShared() {};
+
+//----------------------------------------------------------------------
+// Private fields and methods
+//----------------------------------------------------------------------
+private:
+
+  ConstantValuesShared(const ConstantValuesShared &other);
+  ConstantValuesShared &operator = (const ConstantValuesShared &);
 
 };
 
