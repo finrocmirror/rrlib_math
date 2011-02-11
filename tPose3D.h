@@ -157,14 +157,19 @@ public:
     return this->yaw;
   }
 
-  inline const tVec3d &GetPosition() const
+  inline const tVec3d &Position() const
   {
     return this->position;
   }
 
-  void SetPosition(double x, double y, double z);
+  inline tVec3d &Position()
+  {
+    return this->position;
+  }
 
   void SetPosition(const tVec3d &position);
+
+  void SetPosition(double x, double y, double z);
 
   void SetOrientation(tAngleRad roll, tAngleRad pitch, tAngleRad yaw);
 
@@ -204,21 +209,33 @@ public:
 
   const tPose3D GetPoseInLocalFrame(const tPose3D &reference) const;
 
-//  const tPose3D ToGlobal(const tPose3D &reference) const __attribute__((deprecated));
+  const tPose3D ToGlobal(const tPose3D &reference) const __attribute__((deprecated));
 
-//  const tPose3D ToLocal(const tPose3D &reference) const __attribute__((deprecated));
+  const tPose3D ToLocal(const tPose3D &reference) const __attribute__((deprecated));
 
-  void Translate(const tVec3d &translation);
+  tPose3D &Translate(const tVec3d &translation);
 
-  void Rotate(tAngleRad roll, tAngleRad pitch, tAngleRad yaw);
+  tPose3D Translated(const tVec3d &translation) const;
 
-  void Rotate(const tMat3x3d &matrix);
+  tPose3D &Rotate(tAngleRad roll, tAngleRad pitch, tAngleRad yaw);
 
-  void Scale(double factor);
+  tPose3D &Rotate(const tMat3x3d &matrix);
 
-  void ApplyRelativePoseTransformation(const tPose3D &pose);
+  tPose3D Rotated(tAngleRad roll, tAngleRad pitch, tAngleRad yaw) const;
+
+  tPose3D Rotated(const tMat3x3d &matrix) const;
+
+  tPose3D &Scale(double factor);
+
+  tPose3D Scaled(double factor) const;
+
+  tPose3D &ApplyRelativePoseTransformation(const tPose3D &pose);
 
   void ApplyPose(const tPose3D &pose) __attribute__((deprecated));
+
+  const double GetEuclideanNorm() const;
+
+  const bool IsZero() const;
 
 //----------------------------------------------------------------------
 // Private fields and methods

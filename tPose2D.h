@@ -60,6 +60,7 @@ namespace math
 //----------------------------------------------------------------------
 // Forward declarations / typedefs / enums
 //----------------------------------------------------------------------
+class tPose3D;
 
 //----------------------------------------------------------------------
 // Class declaration
@@ -90,7 +91,9 @@ public:
 
   tPose2D(const tMat3x3d &matrix);
 
-  inline const char *GetDescription() const
+  tPose2D(const tPose3D &other);
+
+  inline const char *Description() const
   {
     return "tPose2D";
   }
@@ -122,7 +125,11 @@ public:
     return this->yaw;
   }
 
-  inline const tVec2d &GetPosition() const
+  inline const tVec2d &Position() const
+  {
+    return this->position;
+  }
+  inline tVec2d &Position()
   {
     return this->position;
   }
@@ -163,17 +170,29 @@ public:
 
   const tPose2D ToLocal(const tPose2D &reference) const __attribute__((deprecated));
 
-  void Translate(const tVec2d &translation);
+  tPose2D &Translate(const tVec2d &translation);
 
-  void Rotate(tAngleRad angle);
+  tPose2D Translated(const tVec2d &translation) const;
 
-  void Rotate(const tMat2x2d &matrix);
+  tPose2D &Rotate(tAngleRad angle);
 
-  void Scale(double factor);
+  tPose2D &Rotate(const tMat2x2d &matrix);
 
-  void ApplyRelativePoseTransformation(const tPose2D &pose);
+  tPose2D Rotated(tAngleRad angle) const;
+
+  tPose2D Rotated(const tMat2x2d &matrix) const;
+
+  tPose2D &Scale(double factor);
+
+  tPose2D Scaled(double factor) const;
+
+  tPose2D &ApplyRelativePoseTransformation(const tPose2D &pose);
 
   void ApplyPose(const tPose2D &pose) __attribute__((deprecated));
+
+  const double GetEuclideanNorm() const;
+
+  const bool IsZero() const;
 
 //----------------------------------------------------------------------
 // Private fields and methods

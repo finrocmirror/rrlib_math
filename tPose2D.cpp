@@ -37,6 +37,7 @@
 // Internal includes with ""
 //----------------------------------------------------------------------
 #include "rrlib/math/utilities.h"
+#include "rrlib/math/tPose3D.h"
 
 //----------------------------------------------------------------------
 // Debugging
@@ -82,6 +83,11 @@ tPose2D::tPose2D(const tMat3x3d &matrix)
 {
   this->Set(matrix);
 }
+
+tPose2D::tPose2D(const tPose3D &other)
+    : position(other.Position()),
+    yaw(other.Yaw())
+{}
 
 //----------------------------------------------------------------------
 // tPose2D SetPosition
@@ -225,39 +231,75 @@ const tPose2D tPose2D::ToLocal(const tPose2D &reference) const
 //----------------------------------------------------------------------
 // tPose2D Translate
 //----------------------------------------------------------------------
-void tPose2D::Translate(const tVec2d &translation)
+tPose2D &tPose2D::Translate(const tVec2d &translation)
 {
   this->position += translation;
+  return *this;
+}
+
+//----------------------------------------------------------------------
+// tPose2D Translated
+//----------------------------------------------------------------------
+tPose2D tPose2D::Translated(const tVec2d &translation) const
+{
+  return tPose2D(this->position + translation, this->yaw);
 }
 
 //----------------------------------------------------------------------
 // tPose2D Rotate
 //----------------------------------------------------------------------
-void tPose2D::Rotate(tAngleRad angle)
+tPose2D &tPose2D::Rotate(tAngleRad angle)
 {
   this->yaw += angle;
+  return *this;
 }
 
-void tPose2D::Rotate(const tMat2x2d &matrix)
+tPose2D &tPose2D::Rotate(const tMat2x2d &matrix)
 {
   this->SetOrientation(matrix * this->GetRotationMatrix());
+  return *this;
+}
+
+//----------------------------------------------------------------------
+// tPose2D Rotated
+//----------------------------------------------------------------------
+tPose2D tPose2D::Rotated(tAngleRad angle) const
+{
+  return tPose2D(this->position, this->yaw + angle);
+}
+
+tPose2D tPose2D::Rotated(const tMat2x2d &matrix) const
+{
+  tPose2D temp(*this);
+  temp.Rotate(matrix);
+  return temp;
 }
 
 //----------------------------------------------------------------------
 // tPose2D Scale
 //----------------------------------------------------------------------
-void tPose2D::Scale(double factor)
+tPose2D &tPose2D::Scale(double factor)
 {
   this->position *= factor;
+  return *this;
+}
+
+//----------------------------------------------------------------------
+// tPose2D Scaled
+//----------------------------------------------------------------------
+tPose2D tPose2D::Scaled(double factor) const
+{
+  return tPose2D(this->position * factor, this->yaw);
 }
 
 //----------------------------------------------------------------------
 // tPose2D ApplyRelativePoseTransformation
 //----------------------------------------------------------------------
-void tPose2D::ApplyRelativePoseTransformation(const tPose2D &relative_transformation)
+tPose2D &tPose2D::ApplyRelativePoseTransformation(const tPose2D &relative_transformation)
 {
   this->Translate(relative_transformation.position.Rotated(this->yaw));
   this->Rotate(relative_transformation.yaw);
+  return *this;
 }
 
 //----------------------------------------------------------------------
@@ -269,11 +311,27 @@ void tPose2D::ApplyPose(const tPose2D &relative_transformation)
 }
 
 //----------------------------------------------------------------------
+// tPose2D GetEuclideanNorm
+//----------------------------------------------------------------------
+const double tPose2D::GetEuclideanNorm() const
+{
+  return tVector<3, double>(this->position.X(), this->position.Y(), this->yaw).Length();
+}
+
+//----------------------------------------------------------------------
+// tPose2D IsZero
+//----------------------------------------------------------------------
+const bool tPose2D::IsZero() const
+{
+  return IsEqual(*this, tPose2D::Zero());
+}
+
+//----------------------------------------------------------------------
 // Unary Minus for tPose2D objects
 //----------------------------------------------------------------------
 const tPose2D rrlib::math::operator - (const tPose2D &pose)
 {
-  return tPose2D(-pose.GetPosition(), -pose.Yaw());
+  return tPose2D(-pose.Position(), -pose.Yaw());
 }
 
 //----------------------------------------------------------------------
@@ -281,7 +339,7 @@ const tPose2D rrlib::math::operator - (const tPose2D &pose)
 //----------------------------------------------------------------------
 const tPose2D rrlib::math::operator + (const tPose2D &left, const tPose2D &right)
 {
-  return tPose2D(left.GetPosition() + right.GetPosition(), left.Yaw() + right.Yaw());
+  return tPose2D(left.Position() + right.Position(), left.Yaw() + right.Yaw());
 }
 
 //----------------------------------------------------------------------
@@ -289,7 +347,7 @@ const tPose2D rrlib::math::operator + (const tPose2D &left, const tPose2D &right
 //----------------------------------------------------------------------
 const tPose2D rrlib::math::operator - (const tPose2D &left, const tPose2D &right)
 {
-  return tPose2D(left.GetPosition() - right.GetPosition(), left.Yaw() - right.Yaw());
+  return tPose2D(left.Position() - right.Position(), left.Yaw() - right.Yaw());
 }
 
 //----------------------------------------------------------------------
@@ -297,7 +355,7 @@ const tPose2D rrlib::math::operator - (const tPose2D &left, const tPose2D &right
 //----------------------------------------------------------------------
 bool rrlib::math::IsEqual(const tPose2D &left, const tPose2D &right, float max_error, tFloatComparisonMethod method)
 {
-  return IsEqual(left.GetPosition(), right.GetPosition()) && IsEqual(left.Yaw(), right.Yaw());
+  return IsEqual(left.Position(), right.Position()) && IsEqual(left.Yaw(), right.Yaw());
 }
 
 //----------------------------------------------------------------------
@@ -305,7 +363,7 @@ bool rrlib::math::IsEqual(const tPose2D &left, const tPose2D &right, float max_e
 //----------------------------------------------------------------------
 const bool rrlib::math::operator == (const tPose2D &left, const tPose2D &right)
 {
-  return left.GetPosition() == right.GetPosition() && left.Yaw() == right.Yaw();
+  return left.Position() == right.Position() && left.Yaw() == right.Yaw();
 }
 
 //----------------------------------------------------------------------
@@ -321,7 +379,7 @@ const bool rrlib::math::operator != (const tPose2D &left, const tPose2D &right)
 //----------------------------------------------------------------------
 const bool rrlib::math::operator < (const tPose2D &left, const tPose2D &right)
 {
-  return left.GetPosition() < right.GetPosition() || (left.GetPosition() == right.GetPosition() && left.Yaw() < right.Yaw());
+  return left.Position() < right.Position() || (left.Position() == right.Position() && left.Yaw() < right.Yaw());
 }
 
 //----------------------------------------------------------------------

@@ -98,7 +98,7 @@ tPose3D::tPose3D(const tVec3d &position, tAngleRad roll, tAngleRad pitch, tAngle
 {}
 
 tPose3D::tPose3D(const tPose2D &pose_2d)
-    : position(pose_2d.GetPosition()),
+    : position(pose_2d.Position()),
     roll(0),
     pitch(0),
     yaw(pose_2d.Yaw())
@@ -289,57 +289,93 @@ const tPose3D tPose3D::GetPoseInLocalFrame(const tPose3D &reference) const
 //----------------------------------------------------------------------
 // tPose3D ToGlobal
 //----------------------------------------------------------------------
-//const tPose3D tPose3D::ToGlobal(const tPose3D &reference) const
-//{
-//  return this->GetPoseInParentFrame(reference);
-//}
+const tPose3D tPose3D::ToGlobal(const tPose3D &reference) const
+{
+  return this->GetPoseInParentFrame(reference);
+}
 
 //----------------------------------------------------------------------
 // tPose3D ToLocal
 //----------------------------------------------------------------------
-//const tPose3D tPose3D::ToLocal(const tPose3D &reference) const
-//{
-//  return this->GetPoseInLocalFrame(reference);
-//}
+const tPose3D tPose3D::ToLocal(const tPose3D &reference) const
+{
+  return this->GetPoseInLocalFrame(reference);
+}
 
 //----------------------------------------------------------------------
 // tPose3D Translate
 //----------------------------------------------------------------------
-void tPose3D::Translate(const tVec3d &translation)
+tPose3D &tPose3D::Translate(const tVec3d &translation)
 {
   this->position += translation;
+  return *this;
+}
+
+//----------------------------------------------------------------------
+// tPose3D Translated
+//----------------------------------------------------------------------
+tPose3D tPose3D::Translated(const tVec3d &translation) const
+{
+  return tPose3D(this->position + translation, this->roll, this->pitch, this->yaw);
 }
 
 //----------------------------------------------------------------------
 // tPose3D Rotate
 //----------------------------------------------------------------------
-void tPose3D::Rotate(tAngleRad roll, tAngleRad pitch, tAngleRad yaw)
+tPose3D &tPose3D::Rotate(tAngleRad roll, tAngleRad pitch, tAngleRad yaw)
 {
   this->roll += roll;
   this->pitch += pitch;
   this->yaw += yaw;
+  return *this;
 }
 
-void tPose3D::Rotate(const tMat3x3d &matrix)
+tPose3D &tPose3D::Rotate(const tMat3x3d &matrix)
 {
   assert(matrix.Determinant() == 1);
   this->SetOrientation(matrix * this->GetRotationMatrix());
+  return *this;
+}
+
+//----------------------------------------------------------------------
+// tPose3D Rotated
+//----------------------------------------------------------------------
+tPose3D tPose3D::Rotated(tAngleRad roll, tAngleRad pitch, tAngleRad yaw) const
+{
+  return tPose3D(this->position, this->roll + roll, this->pitch + pitch, this->yaw + yaw);
+}
+
+tPose3D tPose3D::Rotated(const tMat3x3d &matrix) const
+{
+  tPose3D temp(*this);
+  temp.Rotate(matrix);
+  return temp;
 }
 
 //----------------------------------------------------------------------
 // tPose3D Scale
 //----------------------------------------------------------------------
-void tPose3D::Scale(double factor)
+tPose3D &tPose3D::Scale(double factor)
 {
   this->position *= factor;
+  return *this;
+}
+
+//----------------------------------------------------------------------
+// tPose3D Scaled
+//----------------------------------------------------------------------
+tPose3D tPose3D::Scaled(double factor) const
+{
+  return tPose3D(this->position * factor, this->roll, this->pitch, this->yaw);
 }
 
 //----------------------------------------------------------------------
 // tPose3D ApplyRelativePoseTransformation
 //----------------------------------------------------------------------
-void tPose3D::ApplyRelativePoseTransformation(const tPose3D &relative_transformation)
+tPose3D &tPose3D::ApplyRelativePoseTransformation(const tPose3D &relative_transformation)
 {
   this->Set(this->GetTransformationMatrix() * relative_transformation.GetTransformationMatrix());
+  return *this;
 }
 
 //----------------------------------------------------------------------
@@ -351,11 +387,27 @@ void tPose3D::ApplyPose(const tPose3D &relative_transformation)
 }
 
 //----------------------------------------------------------------------
+// tPose3D GetEuclideanNorm
+//----------------------------------------------------------------------
+const double tPose3D::GetEuclideanNorm() const
+{
+  return tVector<6, double>(this->position.X(), this->position.Y(), this->position.Z(), this->roll, this->pitch, this->yaw).Length();
+}
+
+//----------------------------------------------------------------------
+// tPose3D IsZero
+//----------------------------------------------------------------------
+const bool tPose3D::IsZero() const
+{
+  return IsEqual(*this, tPose3D::Zero());
+}
+
+//----------------------------------------------------------------------
 // Unary Minus for tPose3D objects
 //----------------------------------------------------------------------
 const tPose3D operator - (const tPose3D &pose)
 {
-  return tPose3D(-pose.GetPosition(), -pose.Roll(), -pose.Pitch(), -pose.Yaw());
+  return tPose3D(-pose.Position(), -pose.Roll(), -pose.Pitch(), -pose.Yaw());
 }
 
 //----------------------------------------------------------------------
@@ -363,7 +415,7 @@ const tPose3D operator - (const tPose3D &pose)
 //----------------------------------------------------------------------
 const tPose3D rrlib::math::operator + (const tPose3D &left, const tPose3D &right)
 {
-  return tPose3D(left.GetPosition() + right.GetPosition(), left.Roll() + right.Roll(), left.Pitch() + right.Pitch(), left.Yaw() + right.Yaw());
+  return tPose3D(left.Position() + right.Position(), left.Roll() + right.Roll(), left.Pitch() + right.Pitch(), left.Yaw() + right.Yaw());
 }
 
 //----------------------------------------------------------------------
@@ -371,7 +423,7 @@ const tPose3D rrlib::math::operator + (const tPose3D &left, const tPose3D &right
 //----------------------------------------------------------------------
 const tPose3D rrlib::math::operator - (const tPose3D &left, const tPose3D &right)
 {
-  return tPose3D(left.GetPosition() - right.GetPosition(), left.Roll() - right.Roll(), left.Pitch() - right.Pitch(), left.Yaw() - right.Yaw());
+  return tPose3D(left.Position() - right.Position(), left.Roll() - right.Roll(), left.Pitch() - right.Pitch(), left.Yaw() - right.Yaw());
 }
 
 //----------------------------------------------------------------------
@@ -379,7 +431,7 @@ const tPose3D rrlib::math::operator - (const tPose3D &left, const tPose3D &right
 //----------------------------------------------------------------------
 bool rrlib::math::IsEqual(const tPose3D &left, const tPose3D &right, float max_error, tFloatComparisonMethod method)
 {
-  return IsEqual(left.GetPosition(), right.GetPosition()) && IsEqual(left.Roll(), right.Roll()) && IsEqual(left.Pitch(), right.Pitch()) && IsEqual(left.Yaw(), right.Yaw());
+  return IsEqual(left.Position(), right.Position()) && IsEqual(left.Roll(), right.Roll()) && IsEqual(left.Pitch(), right.Pitch()) && IsEqual(left.Yaw(), right.Yaw());
 }
 
 //----------------------------------------------------------------------
@@ -387,7 +439,7 @@ bool rrlib::math::IsEqual(const tPose3D &left, const tPose3D &right, float max_e
 //----------------------------------------------------------------------
 const bool rrlib::math::operator == (const tPose3D &left, const tPose3D &right)
 {
-  return left.GetPosition() == right.GetPosition() && left.Roll() == right.Roll() && left.Pitch() == right.Pitch() && left.Yaw() == right.Yaw();
+  return left.Position() == right.Position() && left.Roll() == right.Roll() && left.Pitch() == right.Pitch() && left.Yaw() == right.Yaw();
 }
 
 //----------------------------------------------------------------------
@@ -403,10 +455,10 @@ const bool rrlib::math::operator != (const tPose3D &left, const tPose3D &right)
 //----------------------------------------------------------------------
 const bool rrlib::math::operator < (const tPose3D &left, const tPose3D &right)
 {
-  return left.GetPosition() < right.GetPosition() ||
-         (left.GetPosition() == right.GetPosition() && left.Roll() < right.Roll()) ||
-         (left.GetPosition() == right.GetPosition() && left.Roll() == right.Roll() && left.Pitch() < right.Pitch()) ||
-         (left.GetPosition() == right.GetPosition() && left.Roll() == right.Roll() && left.Pitch() == right.Pitch() && left.Yaw() < right.Yaw());
+  return left.Position() < right.Position() ||
+         (left.Position() == right.Position() && left.Roll() < right.Roll()) ||
+         (left.Position() == right.Position() && left.Roll() == right.Roll() && left.Pitch() < right.Pitch()) ||
+         (left.Position() == right.Position() && left.Roll() == right.Roll() && left.Pitch() == right.Pitch() && left.Yaw() < right.Yaw());
 }
 
 //----------------------------------------------------------------------
