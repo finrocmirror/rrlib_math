@@ -79,10 +79,10 @@ tPolynomial<Tdegree>::tPolynomial(const double coefficients[Tdegree + 1])
 
 template <size_t Tdegree>
 template <typename ... TCoefficients>
-tPolynomial<Tdegree>::tPolynomial(const TCoefficients... coefficients)
+tPolynomial<Tdegree>::tPolynomial(double coefficient, TCoefficients... coefficients)
 {
-  static_assert(sizeof...(coefficients) <= Tdegree + 1, "Too many coefficients specified");
-  this->SetCoefficients<Tdegree>(coefficients...);
+  static_assert(sizeof...(coefficients) <= Tdegree, "Too many coefficients specified");
+  this->SetCoefficients<Tdegree>(coefficient, coefficients...);
 }
 
 template <size_t Tdegree>

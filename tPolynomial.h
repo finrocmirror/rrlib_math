@@ -80,12 +80,12 @@ public:
 
   tPolynomial();
 
-  tPolynomial(const double coefficients[Tdegree + 1]);
+  explicit tPolynomial(const double coefficients[Tdegree + 1]);
 
   tPolynomial(const tPolynomial &other);
 
   template <typename ... TCoefficients>
-  explicit tPolynomial(const TCoefficients... coefficients);
+  explicit tPolynomial(double coefficient, TCoefficients... coefficients);
 
   virtual ~tPolynomial() {};
 
