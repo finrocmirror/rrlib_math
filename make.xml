@@ -2,9 +2,8 @@
 <targets>
 
   <rrlib name="math"
-        libs="boost gsl">
+        libs="boost">
     <sources>
-      sGslRandomNumberGenerator.cpp
       tAngle.cpp
       tCholeskyDecomposition.cpp
       tLUDecomposition.cpp
@@ -20,6 +19,20 @@
       vector/**
     </sources>
   </rrlib>
+  
+  <rrlib name="math_gsl"
+        libs="gsl">
+    <sources>
+      sGslRandomNumberGenerator.cpp
+    </sources>
+  </rrlib>
+
+  <testprogram name="gsl_rng"
+        libs="gsl">
+    <sources>
+      test/test_gsl_rng.cpp
+    </sources>
+  </testprogram>
   
   <testprogram name="vectors"
                optionallibs="oiv" >
