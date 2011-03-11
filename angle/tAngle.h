@@ -45,6 +45,12 @@
 #include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/is_same.hpp>
 
+#ifdef _LIB_RRLIB_SERIALIZATION_PRESENT_
+#include "rrlib/serialization/tStringInputStream.h"
+#include "rrlib/serialization/tStringOutputStream.h"
+#include <sstream>
+#endif
+
 //----------------------------------------------------------------------
 // Internal includes with ""
 //----------------------------------------------------------------------
@@ -257,6 +263,46 @@ std::istream &operator >> (std::istream &stream, tAngle<TElement, TUnitPolicy, T
   }
   return stream;
 }
+
+#ifdef _LIB_RRLIB_SERIALIZATION_PRESENT_
+
+template <typename TElement, typename TUnitPolicy, typename TSignPolicy>
+serialization::tOutputStream &operator << (serialization::tOutputStream &stream, const tAngle<TElement, TUnitPolicy, TSignPolicy> &angle)
+{
+  tAngle<double, angle::Radian, angle::Unsigned> tmp = angle;
+  double d = tmp;
+  stream << d;
+  return stream;
+}
+
+template <typename TElement, typename TUnitPolicy, typename TSignPolicy>
+serialization::tInputStream &operator >> (serialization::tInputStream &stream, tAngle<TElement, TUnitPolicy, TSignPolicy> &angle)
+{
+  double d;
+  stream >> d;
+  tAngle<double, angle::Radian, angle::Unsigned> tmp = d;
+  angle = tmp;
+  return stream;
+}
+
+template <typename TElement, typename TUnitPolicy, typename TSignPolicy>
+serialization::tStringOutputStream &operator << (serialization::tStringOutputStream &stream, const tAngle<TElement, TUnitPolicy, TSignPolicy> &angle)
+{
+  std::stringstream s;
+  s << angle;
+  stream << s.str();
+  return stream;
+}
+
+template <typename TElement, typename TUnitPolicy, typename TSignPolicy>
+serialization::tStringInputStream &operator >> (serialization::tStringInputStream &stream, tAngle<TElement, TUnitPolicy, TSignPolicy> &angle)
+{
+  std::istringstream s(stream.ReadLine());
+  s >> angle;
+  return stream;
+}
+
+#endif
 
 //----------------------------------------------------------------------
 // End of namespace declaration

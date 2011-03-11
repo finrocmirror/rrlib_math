@@ -421,3 +421,34 @@ std::istream &rrlib::math::operator >> (std::istream &stream, tPose2D &pose)
   }
   return stream;
 }
+
+#ifdef _LIB_RRLIB_SERIALIZATION_PRESENT_
+
+rrlib::serialization::tOutputStream &rrlib::math::operator << (rrlib::serialization::tOutputStream &stream, const tPose2D &pose)
+{
+  stream << pose.X() << pose.Y() << pose.Yaw();
+  return stream;
+}
+
+rrlib::serialization::tInputStream &rrlib::math::operator >> (rrlib::serialization::tInputStream &stream, tPose2D &pose)
+{
+  stream >> pose.X() >> pose.Y() >> pose.Yaw();
+  return stream;
+}
+
+rrlib::serialization::tStringOutputStream &rrlib::math::operator << (rrlib::serialization::tStringOutputStream &stream, const tPose2D &pose)
+{
+  std::stringstream s;
+  s << pose;
+  stream << s.str();
+  return stream;
+}
+
+rrlib::serialization::tStringInputStream &rrlib::math::operator >> (rrlib::serialization::tStringInputStream &stream, tPose2D &pose)
+{
+  std::istringstream s(stream.ReadLine());
+  s >> pose;
+  return stream;
+}
+
+#endif

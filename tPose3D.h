@@ -267,6 +267,17 @@ std::ostream &operator << (std::ostream &stream, const tPose3D &pose);
 
 std::istream &operator >> (std::istream &stream, tPose3D &pose);
 
+#ifdef _LIB_RRLIB_SERIALIZATION_PRESENT_
+
+serialization::tOutputStream &operator << (serialization::tOutputStream &stream, const tPose3D &pose);
+
+serialization::tInputStream &operator >> (serialization::tInputStream &stream, tPose3D &pose);
+
+serialization::tStringOutputStream &operator << (serialization::tStringOutputStream &stream, const tPose3D &pose);
+
+serialization::tStringInputStream &operator >> (serialization::tStringInputStream &stream, tPose3D &pose);
+
+#endif
 
 //----------------------------------------------------------------------
 // End of namespace declaration
