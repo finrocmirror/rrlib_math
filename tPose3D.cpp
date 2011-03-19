@@ -466,7 +466,7 @@ const bool rrlib::math::operator < (const tPose3D &left, const tPose3D &right)
 //----------------------------------------------------------------------
 std::ostream &rrlib::math::operator << (std::ostream &stream, const tPose3D &pose)
 {
-  return stream << "(" << pose.X() << ", " << pose.Y() << ", " << pose.Z() << ", " << pose.Roll() << ", " << pose.Pitch() << ", " << pose.Yaw() << ")";
+  return stream << "(" << pose.X() << ", " << pose.Y() << ", " << pose.Z() << ", " << tAngleDeg(pose.Roll()) << ", " << tAngleDeg(pose.Pitch()) << ", " << tAngleDeg(pose.Yaw()) << ")";
 }
 
 std::istream &rrlib::math::operator >> (std::istream &stream, tPose3D &pose)
@@ -475,12 +475,20 @@ std::istream &rrlib::math::operator >> (std::istream &stream, tPose3D &pose)
   stream >> temp;
   if (temp == '(')
   {
-    stream >> pose.X() >> temp >> pose.Y() >> temp >> pose.Z() >> temp >> pose.Roll() >> temp >> pose.Pitch() >> temp >> pose.Yaw() >> temp;
+    tAngleDeg roll, pitch, yaw;
+    stream >> pose.X() >> temp >> pose.Y() >> temp >> pose.Z() >> temp >> roll >> temp >> pitch >> temp >> yaw >> temp;
+    pose.Roll() = roll;
+    pose.Pitch() = pitch;
+    pose.Yaw() = yaw;
   }
   else
   {
     stream.putback(temp);
-    stream >> pose.X() >> pose.Y() >> pose.Z() >> pose.Roll() >> pose.Pitch() >> pose.Yaw();
+    double roll, pitch, yaw;
+    stream >> pose.X() >> pose.Y() >> pose.Z() >> roll >> pitch >> yaw;
+    pose.Roll() = tAngleDeg(roll);
+    pose.Pitch() = tAngleDeg(pitch);
+    pose.Yaw() = tAngleDeg(yaw);
   }
   return stream;
 }

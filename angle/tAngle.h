@@ -255,10 +255,17 @@ std::istream &operator >> (std::istream &stream, tAngle<TElement, TUnitPolicy, T
   angle = value * TUnitPolicy::UnitDivider();
   if (TUnitPolicy::UnitString().length() > 0)
   {
-    char temp;
+    char temp[TUnitPolicy::UnitString().length() + 1];
     for (std::string::size_type i = 0; i < TUnitPolicy::UnitString().length(); ++i)
     {
-      stream >> temp;
+      stream >> temp[i];
+    }
+    temp[TUnitPolicy::UnitString().length()] = 0;
+    if (TUnitPolicy::UnitString() != temp)
+    {
+      std::stringstream error_message;
+      error_message << "Could not read expected unit string '" << TUnitPolicy::UnitString() << "'! Read '" << temp << "'.";
+      throw std::runtime_error(error_message.str());
     }
   }
   return stream;

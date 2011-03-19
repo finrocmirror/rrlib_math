@@ -403,7 +403,7 @@ const tPose2D rrlib::math::InverseCompound(const tPose2D &target, const tPose2D 
 //----------------------------------------------------------------------
 std::ostream &rrlib::math::operator << (std::ostream &stream, const tPose2D &pose)
 {
-  return stream << "(" << pose.X() << ", " << pose.Y() << ", " << pose.Yaw() << ")";
+  return stream << "(" << pose.X() << ", " << pose.Y() << ", " << tAngleDeg(pose.Yaw()) << ")";
 }
 
 std::istream &rrlib::math::operator >> (std::istream &stream, tPose2D &pose)
@@ -412,12 +412,16 @@ std::istream &rrlib::math::operator >> (std::istream &stream, tPose2D &pose)
   stream >> temp;
   if (temp == '(')
   {
-    stream >> pose.X() >> temp >> pose.Y() >> temp >> pose.Yaw() >> temp;
+    tAngleDeg yaw;
+    stream >> pose.X() >> temp >> pose.Y() >> temp >> yaw >> temp;
+    pose.Yaw() = yaw;
   }
   else
   {
     stream.putback(temp);
-    stream >> pose.X() >> pose.Y() >> pose.Yaw();
+    double yaw;
+    stream >> pose.X() >> pose.Y() >> yaw;
+    pose.Yaw() = tAngleDeg(yaw);
   }
   return stream;
 }
