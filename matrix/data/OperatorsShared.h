@@ -149,7 +149,7 @@ serialization::tOutputStream &operator << (serialization::tOutputStream &stream,
 {
   for (size_t i = 0; i < Trows * Tcolumns; ++i)
   {
-    stream << vector[i];
+    stream << matrix[i];
   }
   return stream;
 }

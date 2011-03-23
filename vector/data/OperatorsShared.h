@@ -84,7 +84,7 @@ serialization::tStringOutputStream &operator << (serialization::tStringOutputStr
   return stream;
 }
 
-template <size_t Tdimension, typename TElement>
+template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
 serialization::tStringInputStream &operator >> (serialization::tStringInputStream &stream, tVector<Tdimension, TElement, TData> &vector)
 {
   std::istringstream string_stream(stream.ReadLine());
