@@ -46,6 +46,12 @@
 #include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/is_scalar.hpp>
 
+#ifdef _LIB_RRLIB_SERIALIZATION_PRESENT_
+#include "rrlib/serialization/tStringInputStream.h"
+#include "rrlib/serialization/tStringOutputStream.h"
+#include <sstream>
+#endif
+
 //----------------------------------------------------------------------
 // Internal includes with ""
 //----------------------------------------------------------------------
@@ -105,6 +111,31 @@ std::istream &operator >> (std::istream &stream, tVector<Tdimension, TElement, C
   }
   return stream;
 }
+
+#ifdef _LIB_RRLIB_SERIALIZATION_PRESENT_
+
+template <size_t Tdimension, typename TElement>
+serialization::tOutputStream &operator << (serialization::tOutputStream &stream, const tVector<Tdimension, TElement, Cartesian> &vector)
+{
+  for (size_t i = 0; i < Tdimension; ++i)
+  {
+    stream << vector[i];
+  }
+  return stream;
+}
+
+template <size_t Tdimension, typename TElement>
+serialization::tInputStream &operator >> (serialization::tInputStream &stream, tVector<Tdimension, TElement, Cartesian> &vector)
+{
+  for (size_t i = 0; i < Tdimension; ++i)
+  {
+    stream >> vector[i];
+  }
+  return stream;
+}
+
+#endif
+
 
 template <size_t Tdimension, typename TElement>
 const tVector<Tdimension, TElement, Cartesian> operator - (const tVector<Tdimension, TElement, Cartesian> &vector)

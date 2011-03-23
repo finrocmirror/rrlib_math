@@ -278,8 +278,7 @@ std::istream &operator >> (std::istream &stream, tAngle<TElement, TUnitPolicy, T
 template <typename TElement, typename TUnitPolicy, typename TSignPolicy>
 serialization::tOutputStream &operator << (serialization::tOutputStream &stream, const tAngle<TElement, TUnitPolicy, TSignPolicy> &angle)
 {
-  tAngle<double, angle::Radian, angle::Unsigned> tmp = angle;
-  double d = tmp;
+  double unsigned_radian_value = tAngle<double, angle::Radian, angle::Unsigned>(angle);
   stream << d;
   return stream;
 }
@@ -287,10 +286,9 @@ serialization::tOutputStream &operator << (serialization::tOutputStream &stream,
 template <typename TElement, typename TUnitPolicy, typename TSignPolicy>
 serialization::tInputStream &operator >> (serialization::tInputStream &stream, tAngle<TElement, TUnitPolicy, TSignPolicy> &angle)
 {
-  double d;
-  stream >> d;
-  tAngle<double, angle::Radian, angle::Unsigned> tmp = d;
-  angle = tmp;
+  double unsigned_radian_value;
+  stream >> unsigned_radian_value;
+  angle = tAngle<double, angle::Radian, angle::Unsigned>(unsigned_radian_value);
   return stream;
 }
 

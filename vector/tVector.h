@@ -90,6 +90,7 @@ class tVector : public TData<Tdimension, TElement>,
     public vector::ConstantValuesSpecialized<Tdimension, TElement, TData>
 {
   typedef vector::FunctionalityShared<Tdimension, TElement, TData> FunctionalityShared;
+  typedef vector::FunctionalitySpecialized<Tdimension, TElement, TData> FunctionalitySpecialized;
 
 //----------------------------------------------------------------------
 // Public methods
@@ -99,34 +100,24 @@ public:
   inline tVector() {}
   inline tVector(const tVector &other) : FunctionalityShared(other) {}
 
-  explicit inline tVector(const TElement data[Tdimension]) : FunctionalityShared(data) {}
-
-  template <typename TOtherElement>
-  explicit inline tVector(const TOtherElement data[Tdimension]) : FunctionalityShared(data) {}
-
   template <size_t Tother_dimension, typename TOtherElement>
-  explicit inline tVector(const tVector<Tother_dimension, TOtherElement, TData> &other) : FunctionalityShared(other) {}
+  inline tVector(const tVector<Tother_dimension, TOtherElement> &other) : FunctionalitySpecialized(other) {}
 
   template <typename ... TValues>
-  explicit inline tVector(TElement value, TValues... values)
-  {
-    FunctionalityShared::Set(value, values...);
-  }
-
-  inline tVector(const ::math::tVector<Tdimension, TElement> &other) : FunctionalityShared(*reinterpret_cast<const tVector *>(&other)) {}
+  explicit inline tVector(TValues... values) : FunctionalitySpecialized(values...) {}
 
 #ifdef _LIB_OIV_PRESENT_
 
   template < typename T = int >
   explicit inline tVector(const SbVec2f &v, typename boost::enable_if_c < (Tdimension == 2), T >::type = 0)
   {
-    FunctionalityShared::Set(v[0], v[1]);
+    FunctionalitySpecialized::Set(v[0], v[1]);
   }
 
   template < typename T = int >
   explicit inline tVector(const SbVec3f &v, typename boost::enable_if_c < (Tdimension == 3), T >::type = 0)
   {
-    FunctionalityShared::Set(v[0], v[1], v[2]);
+    FunctionalitySpecialized::Set(v[0], v[1], v[2]);
   }
 
 #endif

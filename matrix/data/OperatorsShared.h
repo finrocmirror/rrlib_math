@@ -45,6 +45,12 @@
 #include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/is_scalar.hpp>
 
+#ifdef _LIB_RRLIB_SERIALIZATION_PRESENT_
+#include "rrlib/serialization/tStringInputStream.h"
+#include "rrlib/serialization/tStringOutputStream.h"
+#include <sstream>
+#endif
+
 //----------------------------------------------------------------------
 // Internal includes with ""
 //----------------------------------------------------------------------
@@ -135,6 +141,47 @@ std::istream &operator >> (std::istream &stream, math::tMatrix<Trows, Tcolumns, 
   matrix.SetFromArray(data);
   return stream;
 }
+
+#ifdef _LIB_RRLIB_SERIALIZATION_PRESENT_
+
+template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, size_t, typename> class TData>
+serialization::tOutputStream &operator << (serialization::tOutputStream &stream, const math::tMatrix<Trows, Tcolumns, TElement, TData> &matrix)
+{
+  for (size_t i = 0; i < Trows * Tcolumns; ++i)
+  {
+    stream << vector[i];
+  }
+  return stream;
+}
+
+template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, size_t, typename> class TData>
+serialization::tInputStream &operator >> (serialization::tInputStream &stream, math::tMatrix<Trows, Tcolumns, TElement, TData> &matrix)
+{
+  for (size_t i = 0; i < Trows * Tcolumns; ++i)
+  {
+    stream >> matrix[i];
+  }
+  return stream;
+}
+
+template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, size_t, typename> class TData>
+serialization::tStringOutputStream &operator << (serialization::tStringOutputStream &stream, const math::tMatrix<Trows, Tcolumns, TElement, TData> &matrix)
+{
+  std::stringstream string_stream;
+  string_stream << matrix;
+  stream << string_stream.str();
+  return stream;
+}
+
+template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, size_t, typename> class TData>
+serialization::tStringInputStream &operator >> (serialization::tStringInputStream &stream, math::tMatrix<Trows, Tcolumns, TElement, TData> &matrix)
+{
+  std::istringstream string_stream(stream.ReadLine());
+  string_stream >> matrix;
+  return stream;
+}
+
+#endif
 
 template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, size_t, typename> class TData>
 const math::tMatrix<Trows, Tcolumns, TElement, TData> operator - (const math::tMatrix<Trows, Tcolumns, TElement, TData> &matrix)

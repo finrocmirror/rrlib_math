@@ -49,6 +49,7 @@
 // Internal includes with ""
 //----------------------------------------------------------------------
 #include "rrlib/math/utilities.h"
+#include "rrlib/math/tAngle.h"
 
 //----------------------------------------------------------------------
 // Debugging
@@ -109,6 +110,28 @@ class FunctionalitySpecialized<Tdimension, TElement, Cartesian>
 // Public methods and typedefs
 //----------------------------------------------------------------------
 public:
+
+  inline const TElement operator [](size_t i) const
+  {
+    return const_cast<FunctionalitySpecialized &>(*this)[i];
+  }
+  inline TElement &operator [](size_t i)
+  {
+    if (i > Tdimension - 1)
+    {
+      std::stringstream stream;
+      stream << "Vector index (" << i << ") out of bounds [0.." << Tdimension - 1 << "].";
+      throw std::logic_error(stream.str());
+    }
+    return reinterpret_cast<TElement *>(this)[i];
+  }
+
+  template <typename ... TValues>
+  inline void Set(TValues... values)
+  {
+    TElement buffer[Tdimension];
+    this->SetValues<0>(buffer, values...);
+  }
 
   static inline const tVector Direction(size_t i)
   {
@@ -190,6 +213,37 @@ protected:
 
   inline FunctionalitySpecialized() {}
 
+  explicit inline FunctionalitySpecialized(const TElement data[Tdimension])
+  {
+    std::memcpy(this, data, sizeof(tVector));
+  }
+
+  template <typename TOtherElement>
+  explicit inline FunctionalitySpecialized(const TOtherElement data[Tdimension])
+  {
+    for (size_t i = 0; i < Tdimension; ++i)
+    {
+      (*this)[i] = data[i];
+    }
+  }
+
+  template <size_t Tother_dimension, typename TOtherElement>
+  explicit inline FunctionalitySpecialized(const math::tVector<Tother_dimension, TOtherElement, Cartesian> &other)
+  {
+    std::memset(this, 0, sizeof(tVector));
+    size_t size = std::min(Tdimension, Tother_dimension);
+    for (size_t i = 0; i < size; ++i)
+    {
+      reinterpret_cast<TElement *>(this)[i] = reinterpret_cast<const TOtherElement *>(&other)[i];
+    }
+  }
+
+  template <typename ... TValues>
+  explicit inline FunctionalitySpecialized(TElement value, TValues... values)
+  {
+    FunctionalitySpecialized::Set(value, values...);
+  }
+
 //----------------------------------------------------------------------
 // Private fields and methods
 //----------------------------------------------------------------------
@@ -197,6 +251,19 @@ private:
 
   FunctionalitySpecialized(const FunctionalitySpecialized &);
   FunctionalitySpecialized &operator = (const FunctionalitySpecialized &);
+
+  template <size_t number_of_given_values>
+  inline void SetValues(TElement buffer[Tdimension])
+  {
+    static_assert(number_of_given_values == Tdimension, "Wrong number of values given to store in vector");
+    std::memcpy(this, buffer, sizeof(tVector));
+  }
+  template <size_t number_of_given_values, typename ... TValues>
+  inline void SetValues(TElement buffer[Tdimension], TElement value, TValues... values)
+  {
+    buffer[number_of_given_values] = value;
+    this->SetValues < number_of_given_values + 1 > (buffer, values...);
+  }
 
 };
 
@@ -206,12 +273,34 @@ private:
 template <size_t Tdimension, typename TElement>
 class FunctionalitySpecialized<Tdimension, TElement, Polar>
 {
-  typedef math::tVector<Tdimension, TElement, Cartesian> tVector;
+  typedef math::tVector<Tdimension, TElement, Polar> tVector;
 
 //----------------------------------------------------------------------
 // Public methods and typedefs
 //----------------------------------------------------------------------
 public:
+
+  inline const tAngleRad operator [](size_t i) const
+  {
+    return const_cast<FunctionalitySpecialized &>(*this)[i];
+  }
+  inline tAngleRad &operator [](size_t i)
+  {
+    if (i > Tdimension - 2)
+    {
+      std::stringstream stream;
+      stream << "Vector index (" << i << ") out of bounds [0.." << Tdimension - 2 << "].";
+      throw std::logic_error(stream.str());
+    }
+    return reinterpret_cast<tAngleRad *>(this)[i];
+  }
+
+  template <typename ... TValues>
+  inline void Set(TValues... values)
+  {
+    tAngleRad buffer[Tdimension - 1];
+    this->SetValues<0>(buffer, values...);
+  }
 
   inline const TElement SquaredLength() const
   {
@@ -232,6 +321,34 @@ protected:
 
   inline FunctionalitySpecialized() {}
 
+  template <typename TOtherElement>
+  explicit inline FunctionalitySpecialized(const tAngleRad angles[Tdimension - 1], TOtherElement length)
+  {
+    tVector *that = reinterpret_cast<tVector *>(this);
+    std::memcpy(this, angles, sizeof(tVector) - sizeof(TElement));
+    that->Length() = length;
+  }
+
+  template <size_t Tother_dimension, typename TOtherElement>
+  explicit inline FunctionalitySpecialized(const math::tVector<Tother_dimension, TOtherElement, Polar> &other)
+  {
+    tVector *that = reinterpret_cast<tVector *>(this);
+    std::memset(this, 0, sizeof(tVector));
+    size_t size = std::min(Tdimension - 1, Tother_dimension - 1);
+    for (size_t i = 0; i < size; ++i)
+    {
+      (*that)[i] = other[i];
+    }
+    that->Length() = other.Length();
+  }
+
+  template <typename ... TValues>
+  explicit inline FunctionalitySpecialized(tAngleRad value, TValues... values)
+  {
+    FunctionalitySpecialized::Set(value, values...);
+  }
+
+
 //----------------------------------------------------------------------
 // Private fields and methods
 //----------------------------------------------------------------------
@@ -239,6 +356,21 @@ private:
 
   FunctionalitySpecialized(const FunctionalitySpecialized &);
   FunctionalitySpecialized &operator = (const FunctionalitySpecialized &);
+
+  template <size_t number_of_given_values>
+  inline void SetValues(tAngleRad buffer[Tdimension - 1], TElement length)
+  {
+    static_assert(number_of_given_values == Tdimension - 1, "Wrong number of values given to store in vector");
+    tVector *that = reinterpret_cast<tVector *>(this);
+    std::memcpy(this, buffer, sizeof(tVector));
+    that->Length() = length;
+  }
+  template <size_t number_of_given_values, typename ... TValues>
+  inline void SetValues(tAngleRad buffer[Tdimension - 1], tAngleRad value, TValues... values)
+  {
+    buffer[number_of_given_values] = value;
+    this->SetValues < number_of_given_values + 1 > (buffer, values...);
+  }
 
 };
 

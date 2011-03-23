@@ -41,11 +41,22 @@
 //----------------------------------------------------------------------
 // External includes (system with <>, local with "")
 //----------------------------------------------------------------------
-#include <cmath>
+#include <ostream>
+#include <istream>
+#include <boost/utility/enable_if.hpp>
+#include <boost/type_traits/is_scalar.hpp>
+
+#ifdef _LIB_RRLIB_SERIALIZATION_PRESENT_
+#include "rrlib/serialization/tStringInputStream.h"
+#include "rrlib/serialization/tStringOutputStream.h"
+#include <sstream>
+#endif
 
 //----------------------------------------------------------------------
 // Internal includes with ""
 //----------------------------------------------------------------------
+
+#include "rrlib/math/tAngle.h"
 
 //----------------------------------------------------------------------
 // Debugging
@@ -75,11 +86,65 @@ std::ostream &operator << (std::ostream &stream, const tVector<Tdimension, TElem
   stream << "(";
   for (size_t i = 0; i < Tdimension - 1; ++i)
   {
-    stream << vector[i] * 180.0 / M_PI << "°, ";
+    stream << tAngleDeg(vector[i]) << ", ";
   }
-  stream << vector[Tdimension - 1] << ")";
+  stream << vector.Length() << ")";
   return stream;
 }
+
+template <size_t Tdimension, typename TElement>
+std::istream &operator >> (std::istream &stream, tVector<Tdimension, TElement, Polar> &vector)
+{
+  char temp;
+  stream >> temp;
+
+  if (temp == '(')
+  {
+    for (size_t i = 0; i < Tdimension - 1; ++i)
+    {
+      tAngleDeg signed_degree_angle;
+      stream >> signed_degree_angle >> temp;
+      vector[i] = signed_degree_angle;
+    }
+    stream >> vector.Length() >> temp;
+    return stream;
+  }
+  stream.putback(temp);
+  for (size_t i = 0; i < Tdimension - 1; ++i)
+  {
+    double signed_degree_value;
+    stream >> signed_degree_value;
+    vector[i] = tAngleDeg(signed_degree_value);
+  }
+  stream >> vector.Length() >> temp;
+  return stream;
+}
+
+#ifdef _LIB_RRLIB_SERIALIZATION_PRESENT_
+
+template <size_t Tdimension, typename TElement>
+serialization::tOutputStream &operator << (serialization::tOutputStream &stream, const tVector<Tdimension, TElement, Polar> &vector)
+{
+  for (size_t i = 0; i < Tdimension - 1; ++i)
+  {
+    stream << vector[i];
+  }
+  stream << vector.Length();
+  return stream;
+}
+
+template <size_t Tdimension, typename TElement>
+serialization::tInputStream &operator >> (serialization::tInputStream &stream, tVector<Tdimension, TElement, Polar> &vector)
+{
+  for (size_t i = 0; i < Tdimension - 1; ++i)
+  {
+    stream >> vector[i];
+  }
+  stream >> vector.Length();
+  return stream;
+}
+
+#endif
 
 template <size_t Tdimension, typename TElement>
 const tVector<Tdimension, TElement, Polar> operator - (const tVector<Tdimension, TElement, Polar> &vector)
@@ -103,13 +168,12 @@ template <size_t Tdimension, typename TElement, typename TScalar>
 const typename boost::enable_if<boost::is_scalar<TScalar>, tVector<Tdimension, typename until_0x::Auto<TElement, TScalar>::type, Polar> >::type operator *(const tVector<Tdimension, TElement, Polar> &vector, const TScalar scalar)
 {
   typedef math::tVector<Tdimension, typename until_0x::Auto<TElement, TScalar>::type, Polar> tResult;
-  typename tResult::tElement data[Tdimension];
+  tAngleRad angles[Tdimension];
   for (size_t i = 0; i < Tdimension - 1; ++i)
   {
-    data[i] = reinterpret_cast<const TElement *>(&vector)[i];
+    angles[i] = vector[i];
   }
-  data[Tdimension - 1] = vector.Length() * scalar;
-  return tResult(data);
+  return tResult(angles, vector.Length() * scalar);
 }
 template <size_t Tdimension, typename TElement, typename TScalar>
 const typename boost::enable_if<boost::is_scalar<TScalar>, tVector<Tdimension, typename until_0x::Auto<TElement, TScalar>::type, Polar> >::type operator *(const TScalar scalar, const tVector<Tdimension, TElement, Polar> &vector)

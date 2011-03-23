@@ -45,6 +45,7 @@
 //----------------------------------------------------------------------
 // Internal includes with ""
 //----------------------------------------------------------------------
+#include "rrlib/math/tAngle.h"
 
 //----------------------------------------------------------------------
 // Debugging
@@ -101,7 +102,7 @@ protected:
 //----------------------------------------------------------------------
 private:
 
-  TElement angles[Tdimension - 1];
+  tAngleRad angles[Tdimension - 1];
   TElement length;
 
   Polar(const Polar &);
@@ -121,11 +122,11 @@ class Polar<2, TElement>
 //----------------------------------------------------------------------
 public:
 
-  inline TElement Alpha() const
+  inline tAngleRad Alpha() const
   {
     return this->alpha;
   }
-  inline TElement &Alpha()
+  inline tAngleRad &Alpha()
   {
     return this->alpha;
   }
@@ -150,7 +151,7 @@ protected:
 //----------------------------------------------------------------------
 private:
 
-  TElement alpha;
+  tAngleRad alpha;
   TElement length;
 
   Polar(const Polar &);
@@ -170,19 +171,19 @@ class Polar<3, TElement>
 //----------------------------------------------------------------------
 public:
 
-  inline TElement Alpha() const
+  inline tAngleRad Alpha() const
   {
     return this->alpha;
   }
-  inline TElement &Alpha()
+  inline tAngleRad &Alpha()
   {
     return this->alpha;
   }
-  inline TElement Beta() const
+  inline tAngleRad Beta() const
   {
     return this->beta;
   }
-  inline TElement &Beta()
+  inline tAngleRad &Beta()
   {
     return this->beta;
   }
@@ -207,8 +208,8 @@ protected:
 //----------------------------------------------------------------------
 private:
 
-  TElement alpha;
-  TElement beta;
+  tAngleRad alpha;
+  tAngleRad beta;
   TElement length;
 
   Polar(const Polar &);

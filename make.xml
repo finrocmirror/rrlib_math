@@ -23,7 +23,7 @@
   <rrlib name="math_gsl"
         libs="gsl">
     <sources>
-      sGslRandomNumberGenerator.cpp
+      tGSLRandomNumberGenerator.h
     </sources>
   </rrlib>
 

@@ -45,6 +45,12 @@
 #include "rrlib/math/tMatrix.h"
 #include "rrlib/math/tAngle.h"
 
+#ifdef _LIB_RRLIB_SERIALIZATION_PRESENT_
+#include "rrlib/serialization/tStringInputStream.h"
+#include "rrlib/serialization/tStringOutputStream.h"
+#include <sstream>
+#endif
+
 //----------------------------------------------------------------------
 // Debugging
 //----------------------------------------------------------------------

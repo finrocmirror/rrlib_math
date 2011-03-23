@@ -86,21 +86,6 @@ class FunctionalityShared
 //----------------------------------------------------------------------
 public:
 
-  inline const TElement operator [](size_t i) const
-  {
-    return const_cast<FunctionalityShared &>(*this)[i];
-  }
-  inline TElement &operator [](size_t i)
-  {
-    if (i >= Tdimension)
-    {
-      std::stringstream stream;
-      stream << "Vector index (" << i << " out of bounds [0.." << Tdimension << "].";
-      throw std::logic_error(stream.str());
-    }
-    return reinterpret_cast<TElement *>(this)[i];
-  }
-
   inline FunctionalityShared &operator = (const FunctionalityShared &other)
   {
     const uint8_t *this_addr = reinterpret_cast<uint8_t *>(this);
@@ -121,7 +106,7 @@ public:
   template <size_t Tother_dimension, typename TOtherElement>
   inline FunctionalityShared &operator = (const math::tVector<Tother_dimension, TOtherElement, TData> &other)
   {
-    const uint8_t *this_addr = reinterpret_cast<uint8_t *>(this);
+    uint8_t *this_addr = reinterpret_cast<uint8_t *>(this);
     const uint8_t *other_addr = reinterpret_cast<const uint8_t *>(&other);
 
     if (this_addr != other_addr)
@@ -135,19 +120,20 @@ public:
       }
       std::memset(this, 0, sizeof(tVector));
       size_t size = std::min(Tdimension, Tother_dimension);
-      for (size_t i = 0; i < size; ++i)
+      if (boost::is_same<TData<2, int>, Cartesian<2, int>>::value)
       {
-        reinterpret_cast<TElement *>(this)[i] = reinterpret_cast<const TOtherElement *>(&other)[i];
+        for (size_t i = 0; i < size; ++i)
+        {
+          reinterpret_cast<TElement *>(this)[i] = reinterpret_cast<const TOtherElement *>(&other)[i];
+        }
+      }
+      else
+      {
+        std::memcpy(this, &other, sizeof(tVector) - sizeof(TElement));
+        *reinterpret_cast<TElement *>(this_addr + sizeof(tAngleRad[Tdimension - 1])) = *reinterpret_cast<const TOtherElement *>(other_addr + sizeof(tAngleRad[Tdimension - 1]));
       }
     }
     return *this;
-  }
-
-  template <typename ... TValues>
-  inline void Set(TValues... values)
-  {
-    TElement buffer[Tdimension];
-    this->SetValues<0>(buffer, values...);
   }
 
   template <typename TOtherElement>
@@ -236,50 +222,11 @@ protected:
     std::memcpy(this, &other, sizeof(tVector));
   }
 
-  explicit inline FunctionalityShared(const TElement data[Tdimension])
-  {
-    std::memcpy(this, data, sizeof(tVector));
-  }
-
-  template <typename TOtherElement>
-  explicit inline FunctionalityShared(const TOtherElement data[Tdimension])
-  {
-    for (size_t i = 0; i < Tdimension; ++i)
-    {
-      (*this)[i] = data[i];
-    }
-  }
-
-  template <size_t Tother_dimension, typename TOtherElement>
-  explicit inline FunctionalityShared(const math::tVector<Tother_dimension, TOtherElement, TData> &other)
-  {
-    std::memset(this, 0, sizeof(tVector));
-    size_t size = std::min(Tdimension, Tother_dimension);
-    for (size_t i = 0; i < size; ++i)
-    {
-      reinterpret_cast<TElement *>(this)[i] = reinterpret_cast<const TOtherElement *>(&other)[i];
-    }
-  }
-
 //----------------------------------------------------------------------
 // Private fields and methods
 //----------------------------------------------------------------------
 private:
 
-  FunctionalityShared(const FunctionalityShared &);
-
-  template <size_t number_of_given_values>
-  inline void SetValues(TElement buffer[Tdimension])
-  {
-    static_assert(number_of_given_values == Tdimension, "Wrong number of values given to store in vector");
-    std::memcpy(this, buffer, sizeof(tVector));
-  }
-  template <size_t number_of_given_values, typename ... TValues>
-  inline void SetValues(TElement buffer[Tdimension], TElement value, TValues... values)
-  {
-    buffer[number_of_given_values] = value;
-    this->SetValues < number_of_given_values + 1 > (buffer, values...);
-  }
 
 };
 

@@ -116,18 +116,16 @@ public:
   }
 
 #ifdef _LIB_OIV_PRESENT_
-  template <class T>
-  explicit inline tMatrix(
-    const T& m,
-    typename boost::enable_if_c < (boost::is_same<T, SbMatrix>::value && Trows == 4 && Tcolumns == 4), void >::type* = 0)
+
+  template < class T = int >
+  explicit inline tMatrix(const SbMatrix &m, typename boost::enable_if_c < (Trows == 4 && Tcolumns == 4), T >::type = 0)
   {
-    FunctionalityShared::Set(
-      m[0][0], m[1][0], m[2][0], m[3][0],
-      m[0][1], m[1][1], m[2][1], m[3][1],
-      m[0][2], m[1][2], m[2][2], m[3][2],
-      m[0][3], m[1][3], m[2][3], m[3][3]
-    );
+    FunctionalityShared::Set(m[0][0], m[1][0], m[2][0], m[3][0],
+                             m[0][1], m[1][1], m[2][1], m[3][1],
+                             m[0][2], m[1][2], m[2][2], m[3][2],
+                             m[0][3], m[1][3], m[2][3], m[3][3]);
   }
+
 #endif
 
   inline tMatrix &operator = (const tMatrix &other)

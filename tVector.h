@@ -71,6 +71,7 @@ class tVector;
 
 #include "rrlib/math/vector/data/OperatorsCartesian.h"
 #include "rrlib/math/vector/data/OperatorsPolar.h"
+#include "rrlib/math/vector/data/OperatorsShared.h"
 
 #include "rrlib/math/vector/data/ConstantValuesShared.h"
 #include "rrlib/math/vector/data/ConstantValuesSpecialized.h"
