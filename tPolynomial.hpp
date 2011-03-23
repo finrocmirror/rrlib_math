@@ -99,9 +99,10 @@ tPolynomial<Tdegree> &tPolynomial<Tdegree>::operator = (const tPolynomial &other
 {
   if (this == &other)
   {
-    return;
+    return *this;
   }
   std::memcpy(this->coefficients, other.coefficients, sizeof(this->coefficients));
+  return *this;
 }
 
 //----------------------------------------------------------------------
