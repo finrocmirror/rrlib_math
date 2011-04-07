@@ -121,6 +121,8 @@ const bool IsEqual(float a, float b, float max_error, tFloatComparisonMethod met
   case eFCM_DISTANCE_IN_FLOAT_REPRESENTATION:
     return IsEqualUsingDistanceInFloatRepresentation(a, b, static_cast<unsigned int>(max_error));
   }
+  assert(false && "Invalid float comparison method.");
+  return false;
 }
 
 //----------------------------------------------------------------------
