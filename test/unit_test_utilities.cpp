@@ -34,7 +34,8 @@
 //----------------------------------------------------------------------
 #include <cstdlib>
 #include <iostream>
-#include <cmath>
+
+#include "rrlib/util/tUnitTestSuite.h"
 
 //----------------------------------------------------------------------
 // Internal includes with ""
@@ -63,17 +64,32 @@ using namespace rrlib::math;
 // Implementation
 //----------------------------------------------------------------------
 
-int main(int argc, char **argv)
+class tTestUtilities : public rrlib::util::tUnitTestSuite
 {
-  assert(Signum(4711) == 1);
-  assert(Signum(0) == 0);
-  assert(Signum(-0.1) == -1);
+  RRLIB_UNIT_TESTS_BEGIN_SUITE(tTestUtilities);
+  RRLIB_UNIT_TESTS_ADD_TEST(TestSignum);
+  RRLIB_UNIT_TESTS_ADD_TEST(TestLimitedValue);
+  RRLIB_UNIT_TESTS_END_SUITE;
 
-  assert(LimitedValue(123, 12, 1234) == 123);
-  assert(LimitedValue(12, 123, 1234) == 123);
-  assert(LimitedValue(1234, 12, 123) == 123);
+private:
 
+  virtual void InitializeTests() {}
+  virtual void CleanUp() {}
 
+  void TestSignum()
+  {
+    RRLIB_UNIT_TESTS_EQUALITY(Signum(4711), 1);
+    RRLIB_UNIT_TESTS_EQUALITY(Signum(0), 0);
+    RRLIB_UNIT_TESTS_EQUALITY(Signum(-0.1), -1);
+  }
 
-  return EXIT_SUCCESS;
-}
+  void TestLimitedValue()
+  {
+    RRLIB_UNIT_TESTS_EQUALITY(LimitedValue(123, 12, 1234), 123);
+    RRLIB_UNIT_TESTS_EQUALITY(LimitedValue(12, 123, 1234), 123);
+    RRLIB_UNIT_TESTS_EQUALITY(LimitedValue(1234, 12, 123), 123);
+  }
+
+};
+
+RRLIB_UNIT_TESTS_REGISTER_SUITE(tTestUtilities);

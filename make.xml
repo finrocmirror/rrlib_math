@@ -35,14 +35,14 @@
   </testprogram>
   
   <testprogram name="vectors"
-               optionallibs="oiv" >
+        optionallibs="oiv" >
     <sources>
       test/test_vectors.cpp
     </sources>
   </testprogram>
 
   <testprogram name="matrices"
-               optionallibs="oiv" >
+        optionallibs="oiv" >
     <sources>
       test/test_matrices.cpp
     </sources>
@@ -54,10 +54,10 @@
     </sources>
   </testprogram>
 
-  <testprogram name="utilities">
+  <unittest name="utilities">
     <sources>
-      test/test_utilities.cpp
+      test/unit_test_utilities.cpp
     </sources>
-  </testprogram>
+  </unittest>
 
 </targets>
