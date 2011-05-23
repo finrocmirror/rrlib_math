@@ -102,7 +102,7 @@ protected:
 //----------------------------------------------------------------------
 private:
 
-  tAngleRad angles[Tdimension - 1];
+  tAngle<TElement, angle::Radian, angle::Signed> angles[Tdimension - 1];
   TElement length;
 
   Polar(const Polar &);
@@ -122,11 +122,11 @@ class Polar<2, TElement>
 //----------------------------------------------------------------------
 public:
 
-  inline tAngleRad Alpha() const
+  inline tAngle<TElement, angle::Radian, angle::Signed> Alpha() const
   {
     return this->alpha;
   }
-  inline tAngleRad &Alpha()
+  inline tAngle<TElement, angle::Radian, angle::Signed> &Alpha()
   {
     return this->alpha;
   }
@@ -151,7 +151,7 @@ protected:
 //----------------------------------------------------------------------
 private:
 
-  tAngleRad alpha;
+  tAngle<TElement, angle::Radian, angle::Signed> alpha;
   TElement length;
 
   Polar(const Polar &);
@@ -171,19 +171,19 @@ class Polar<3, TElement>
 //----------------------------------------------------------------------
 public:
 
-  inline tAngleRad Alpha() const
+  inline tAngle<TElement, angle::Radian, angle::Signed> Alpha() const
   {
     return this->alpha;
   }
-  inline tAngleRad &Alpha()
+  inline tAngle<TElement, angle::Radian, angle::Signed> &Alpha()
   {
     return this->alpha;
   }
-  inline tAngleRad Beta() const
+  inline tAngle<TElement, angle::Radian, angle::Signed> Beta() const
   {
     return this->beta;
   }
-  inline tAngleRad &Beta()
+  inline tAngle<TElement, angle::Radian, angle::Signed> &Beta()
   {
     return this->beta;
   }
@@ -208,8 +208,8 @@ protected:
 //----------------------------------------------------------------------
 private:
 
-  tAngleRad alpha;
-  tAngleRad beta;
+  tAngle<TElement, angle::Radian, angle::Signed> alpha;
+  tAngle<TElement, angle::Radian, angle::Signed> beta;
   TElement length;
 
   Polar(const Polar &);
