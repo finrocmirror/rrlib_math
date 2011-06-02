@@ -61,11 +61,6 @@ class tMatrix;
 }
 }
 
-// FIXME: suppress bogus warning when compiling with gcc 4.3
-#if (__GNUC__ == 4 && __GNUC_MINOR__ == 3)
-#pragma GCC diagnostic ignored "-Warray-bounds"
-#endif
-
 #include "rrlib/math/matrix/data/Full.h"
 #include "rrlib/math/matrix/data/Symmetrical.h"
 #include "rrlib/math/matrix/data/LowerTriangle.h"

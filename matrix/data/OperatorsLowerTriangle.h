@@ -114,7 +114,7 @@ const math::tMatrix<Trows, Tcolumns, typename until_0x::Auto<TLeftElement, TRigh
       index++;
     }
   }
-  for (size_t i = 0; i <= Trows; ++i)
+  for (size_t i = 0; i < Trows; ++i)
   {
     const size_t index = i * Tcolumns + i;
     const size_t source_index = i * (i + 1) / 2 + i;
