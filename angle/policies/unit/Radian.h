@@ -87,10 +87,9 @@ struct Radian
     return M_PI;
   }
 
-  static inline const std::string &UnitString()
+  static inline const char* UnitString()
   {
-    static std::string unit_string("pi");
-    return unit_string;
+    return "pi";
   }
 
   static inline const bool PadUnitString()

@@ -86,10 +86,9 @@ struct Degree
     return 1.0;
   }
 
-  static inline const std::string &UnitString()
+  static inline const char* UnitString()
   {
-    static std::string unit_string("°");
-    return unit_string;
+    return "°";
   }
 
   static inline const bool PadUnitString()
