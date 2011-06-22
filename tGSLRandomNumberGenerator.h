@@ -95,6 +95,8 @@ private:
     this->r = gsl_rng_alloc(gsl_rng_default);
   }
 
+  tGSLRandomNumberGeneratorImplementation(const tGSLRandomNumberGeneratorImplementation &);
+
   ~tGSLRandomNumberGeneratorImplementation()
   {
     if (r)
@@ -102,6 +104,8 @@ private:
       gsl_rng_free(this->r);
     }
   }
+
+  tGSLRandomNumberGeneratorImplementation &operator = (const tGSLRandomNumberGeneratorImplementation &);
 
 };
 
