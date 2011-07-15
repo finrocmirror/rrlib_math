@@ -164,6 +164,10 @@ public:
   inline const typename boost::enable_if<boost::is_scalar<TScalar>, tVector>::type &operator /= (const TScalar &scalar)
   {
     tVector *that = reinterpret_cast<tVector *>(this);
+    if (scalar == 0)
+    {
+      throw std::runtime_error("Division by zero");
+    }
     *that *= 1.0 / scalar;
     return *that;
   }
@@ -171,7 +175,9 @@ public:
   inline void Normalize()
   {
     tVector *that = reinterpret_cast<tVector *>(this);
-    *that *= 1.0 / that->Length();
+
+    TElement length = that->Length();
+    *that *= length != 0 ? 1.0 / length : 0.0;
   }
 
   inline const tVector Normalized() const
