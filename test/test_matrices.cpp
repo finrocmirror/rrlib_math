@@ -39,6 +39,7 @@
 // Internal includes with ""
 //----------------------------------------------------------------------
 #include "rrlib/math/tMatrix.h"
+#include "rrlib/math/tCholeskyDecomposition.h"
 
 //----------------------------------------------------------------------
 // Debugging
@@ -253,6 +254,34 @@ int main(int argc, char **argv)
     }
   }
   std::cout << hilbert_matrix << " -> " << hilbert_matrix.Inverted() << std::endl;
+
+
+  tMatrix<7, 3, double> C
+  (
+    1, 0.04, 0.0016,
+    1, 0.32, 0.1024,
+    1, 0.51, 0.2601,
+    1, 0.73, 0.5329,
+    1, 1.03, 1.0609,
+    1, 1.42, 2.0164,
+    1, 1.60, 2.5600
+  );
+
+  tMatrix<3, 3, double, matrix::Symmetrical> A = (tMatrix<3, 3, double, matrix::Symmetrical>)
+      (C.Transposed() * C);
+  std::cout << "A:" << A << std::endl;
+
+  tVector<7, double> d(-2.63, -1.18, -1.16, -1.54, -2.65, -5.41, -7.67);
+  tVector<3, double> _b = C.Transposed() * d;
+  std::cout << "b:" << _b << std::endl;
+
+  tMatrix<3, 3, double, matrix::LowerTriangle> L;
+  tCholeskyDecomposition<3, double> chol(A);
+  L = chol.C();
+  std::cout << "----------------------------------------" << std::endl
+            << "L:" << L << std::endl;
+  tVector<3, double> x = chol.Solve(-_b);
+  std::cout << "x:" << x << std::endl;
 
 
   std::cout << "OK" << std::endl;

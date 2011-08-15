@@ -131,7 +131,7 @@ private:
     static tMatrix matrix;
     for (size_t i = 0; i < Tdimension; ++i)
     {
-      matrix[i][i] = 1;
+      matrix[i][i] = static_cast<TElement>(1);
     }
     return matrix;
   }

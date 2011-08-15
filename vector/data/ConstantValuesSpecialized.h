@@ -107,13 +107,13 @@ public:
 
   static const tVector &XDirection()
   {
-    static tVector vector(1, 0);
+    static tVector vector(static_cast<TElement>(1), 0);
     return vector;
   }
 
   static const tVector &YDirection()
   {
-    static tVector vector(0, 1);
+    static tVector vector(0, static_cast<TElement>(1));
     return vector;
   }
 
@@ -149,19 +149,19 @@ public:
 
   static inline const tVector &XDirection()
   {
-    static tVector vector(1, 0, 0);
+    static tVector vector(static_cast<TElement>(1), 0, 0);
     return vector;
   }
 
   static inline const tVector &YDirection()
   {
-    static tVector vector(0, 1, 0);
+    static tVector vector(0, static_cast<TElement>(1), 0);
     return vector;
   }
 
   static inline const tVector &ZDirection()
   {
-    static tVector vector(0, 0, 1);
+    static tVector vector(0, 0, static_cast<TElement>(1));
     return vector;
   }
 
