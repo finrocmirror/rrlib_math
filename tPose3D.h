@@ -215,10 +215,6 @@ public:
 
   const tPose3D GetPoseInLocalFrame(const tPose3D &reference) const;
 
-  const tPose3D ToGlobal(const tPose3D &reference) const __attribute__((deprecated));
-
-  const tPose3D ToLocal(const tPose3D &reference) const __attribute__((deprecated));
-
   tPose3D &Translate(const tVec3d &translation);
 
   tPose3D Translated(const tVec3d &translation) const;

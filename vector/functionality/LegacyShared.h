@@ -103,12 +103,6 @@ class LegacyShared<Tdimension, TElement, Cartesian>
 //----------------------------------------------------------------------
 public:
 
-  inline const TElement length() const __attribute__((deprecated));
-
-  inline const TElement length_square() const __attribute__((deprecated));
-
-  inline const tVector norm() const __attribute__((deprecated));
-
   inline const tVector norm(TElement &length) const __attribute__((deprecated));
 
   inline const tVector operator ^(const tVector &other) const __attribute__((deprecated));
@@ -141,24 +135,6 @@ private:
 };
 
 
-
-template <size_t Tdimension, typename TElement>
-inline const TElement LegacyShared<Tdimension, TElement, Cartesian>::length() const
-{
-  return reinterpret_cast<const tVector *>(this)->Length();
-}
-
-template <size_t Tdimension, typename TElement>
-inline const TElement LegacyShared<Tdimension, TElement, Cartesian>::length_square() const
-{
-  return reinterpret_cast<const tVector *>(this)->SquaredLength();
-}
-
-template <size_t Tdimension, typename TElement>
-inline const math::tVector<Tdimension, TElement, Cartesian> LegacyShared<Tdimension, TElement, Cartesian>::norm() const
-{
-  return reinterpret_cast<const tVector *>(this)->Normalized();
-}
 
 template <size_t Tdimension, typename TElement>
 inline const math::tVector<Tdimension, TElement, Cartesian> LegacyShared<Tdimension, TElement, Cartesian>::norm(TElement &length) const

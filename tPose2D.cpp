@@ -213,22 +213,6 @@ const tPose2D tPose2D::GetPoseInLocalFrame(const tPose2D &reference) const
 }
 
 //----------------------------------------------------------------------
-// tPose2D ToGlobal
-//----------------------------------------------------------------------
-const tPose2D tPose2D::ToGlobal(const tPose2D &reference) const
-{
-  return this->GetPoseInParentFrame(reference);
-}
-
-//----------------------------------------------------------------------
-// tPose2D ToLocal
-//----------------------------------------------------------------------
-const tPose2D tPose2D::ToLocal(const tPose2D &reference) const
-{
-  return this->GetPoseInLocalFrame(reference);
-}
-
-//----------------------------------------------------------------------
 // tPose2D Translate
 //----------------------------------------------------------------------
 tPose2D &tPose2D::Translate(const tVec2d &translation)
