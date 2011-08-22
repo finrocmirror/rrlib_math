@@ -135,9 +135,9 @@ void tPose3D::SetOrientation(tAngleRad roll, tAngleRad pitch, tAngleRad yaw)
   this->yaw = yaw;
 }
 
-void tPose3D::SetOrientation(const tMat3x3d &matrix, bool use_second_solution)
+void tPose3D::SetOrientation(const tMat3x3d &matrix, bool use_second_solution, double max_error_for_matrix_check)
 {
-  assert(IsEqual(matrix.Determinant(), 1.0));
+  assert(IsEqual(matrix.Determinant(), 1.0, max_error_for_matrix_check));
   if (!use_second_solution)
   {
     this->roll = std::atan2(matrix[2][1], matrix[2][2]);

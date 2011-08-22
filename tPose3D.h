@@ -179,7 +179,7 @@ public:
 
   void SetOrientation(tAngleRad roll, tAngleRad pitch, tAngleRad yaw);
 
-  void SetOrientation(const tMat3x3d &matrix, bool use_second_solution = false);
+  void SetOrientation(const tMat3x3d &matrix, bool use_second_solution = false, double max_error_for_matrix_check = 1E-6);
 
   void Set(const tVec3d &position, tAngleRad roll, tAngleRad pitch, tAngleRad yaw);
 
