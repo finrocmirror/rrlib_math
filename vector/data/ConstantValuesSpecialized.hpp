@@ -19,11 +19,11 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 //
 //----------------------------------------------------------------------
-/*!\file    UpperTriangle.h
+/*!\file    ConstantValuesSpecialized.hpp
  *
  * \author  Tobias Foehst
  *
- * \date    2010-11-21
+ * \date    2011-08-25
  *
  * \brief
  *
@@ -31,19 +31,16 @@
  *
  */
 //----------------------------------------------------------------------
-#ifndef __rrlib__math__matrix__include_guard__
-#error Invalid include directive. Try #include "rrlib/math/tMatrix.h" instead.
+#ifndef __rrlib__math__vector__include_guard__
+#error Invalid include directive. Try #include "rrlib/math/tVector.h" instead.
 #endif
 
-#ifndef __rrlib__math__matrix__data__UpperTriangle_h__
-#define __rrlib__math__matrix__data__UpperTriangle_h__
+#ifndef __rrlib__math__vector__data__ConstantValuesSpecialized_hpp__
+#define __rrlib__math__vector__data__ConstantValuesSpecialized_hpp__
 
 //----------------------------------------------------------------------
 // External includes (system with <>, local with "")
 //----------------------------------------------------------------------
-#include <stdexcept>
-#include <sstream>
-#include <iomanip>
 
 //----------------------------------------------------------------------
 // Internal includes with ""
@@ -60,7 +57,7 @@ namespace rrlib
 {
 namespace math
 {
-namespace matrix
+namespace vector
 {
 
 //----------------------------------------------------------------------
@@ -68,56 +65,58 @@ namespace matrix
 //----------------------------------------------------------------------
 
 //----------------------------------------------------------------------
-// Class declaration
+// Implementation
 //----------------------------------------------------------------------
-//!
-/*!
- *
- */
-template <size_t Trows, size_t Tcolumns, typename TElement>
-class UpperTriangle
+
+//----------------------------------------------------------------------
+// ConstantValues 2 XDirection
+//----------------------------------------------------------------------
+template <typename TElement>
+const tVector<2, TElement, Cartesian> &ConstantValuesSpecialized<2, TElement, Cartesian>::XDirection()
 {
+  static tVector vector(static_cast<TElement>(1), 0);
+  return vector;
+}
 
 //----------------------------------------------------------------------
-// Public methods and typedefs
+// ConstantValues 2 YDirection
 //----------------------------------------------------------------------
-public:
-
-  class Accessor
-  {
-    TElement *values;
-    size_t row;
-  public:
-    inline Accessor(TElement *values, size_t row) __attribute__((always_inline));
-
-    inline const TElement operator [](size_t column) const __attribute__((always_inline,flatten));
-
-    inline TElement &operator [](size_t column) __attribute__((always_inline,flatten));
-  };
-
-  inline void SetFromArray(const TElement data[Trows * Tcolumns]) __attribute__((always_inline,flatten));
+template <typename TElement>
+const tVector<2, TElement, Cartesian> &ConstantValuesSpecialized<2, TElement, Cartesian>::YDirection()
+{
+  static tVector vector(0, static_cast<TElement>(1));
+  return vector;
+}
 
 //----------------------------------------------------------------------
-// Protected methods
+// ConstantValues 3 XDirection
 //----------------------------------------------------------------------
-protected:
-
-  inline UpperTriangle()
-  {
-    static_assert(Trows == Tcolumns, "Upper triangle matrices must be square (rows = columns)!");
-  };
+template <typename TElement>
+const tVector<3, TElement, Cartesian> &ConstantValuesSpecialized<3, TElement, Cartesian>::XDirection()
+{
+  static tVector vector(static_cast<TElement>(1), 0, 0);
+  return vector;
+}
 
 //----------------------------------------------------------------------
-// Private fields and methods
+// ConstantValues 3 YDirection
 //----------------------------------------------------------------------
-private:
+template <typename TElement>
+const tVector<3, TElement, Cartesian> &ConstantValuesSpecialized<3, TElement, Cartesian>::YDirection()
+{
+  static tVector vector(0, static_cast<TElement>(1), 0);
+  return vector;
+}
 
-  TElement values[Trows *(Trows + 1) / 2];
-
-  UpperTriangle(const UpperTriangle &other);
-  UpperTriangle &operator = (const UpperTriangle &);
-
-};
+//----------------------------------------------------------------------
+// ConstantValues 3 ZDirection
+//----------------------------------------------------------------------
+template <typename TElement>
+const tVector<3, TElement, Cartesian> &ConstantValuesSpecialized<3, TElement, Cartesian>::ZDirection()
+{
+  static tVector vector(0, 0, static_cast<TElement>(1));
+  return vector;
+}
 
 
 
@@ -127,7 +126,5 @@ private:
 }
 }
 }
-
-#include "rrlib/math/matrix/data/UpperTriangle.hpp"
 
 #endif

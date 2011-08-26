@@ -80,7 +80,8 @@ class ConstantValuesSpecialized
 //----------------------------------------------------------------------
 protected:
 
-  inline ConstantValuesSpecialized() {};
+  inline ConstantValuesSpecialized()
+  {};
 
 //----------------------------------------------------------------------
 // Private fields and methods
@@ -105,24 +106,17 @@ class ConstantValuesSpecialized<2, TElement, Cartesian>
 //----------------------------------------------------------------------
 public:
 
-  static const tVector &XDirection()
-  {
-    static tVector vector(static_cast<TElement>(1), 0);
-    return vector;
-  }
+  static const tVector &XDirection() __attribute__((always_inline,flatten));
 
-  static const tVector &YDirection()
-  {
-    static tVector vector(0, static_cast<TElement>(1));
-    return vector;
-  }
+  static const tVector &YDirection() __attribute__((always_inline,flatten));
 
 //----------------------------------------------------------------------
 // Protected methods
 //----------------------------------------------------------------------
 protected:
 
-  inline ConstantValuesSpecialized() {}
+  inline ConstantValuesSpecialized()
+  {}
 
 //----------------------------------------------------------------------
 // Private fields and methods
@@ -147,30 +141,19 @@ class ConstantValuesSpecialized<3, TElement, Cartesian>
 //----------------------------------------------------------------------
 public:
 
-  static inline const tVector &XDirection()
-  {
-    static tVector vector(static_cast<TElement>(1), 0, 0);
-    return vector;
-  }
+  static inline const tVector &XDirection() __attribute__((always_inline,flatten));
 
-  static inline const tVector &YDirection()
-  {
-    static tVector vector(0, static_cast<TElement>(1), 0);
-    return vector;
-  }
+  static inline const tVector &YDirection() __attribute__((always_inline,flatten));
 
-  static inline const tVector &ZDirection()
-  {
-    static tVector vector(0, 0, static_cast<TElement>(1));
-    return vector;
-  }
+  static inline const tVector &ZDirection() __attribute__((always_inline,flatten));
 
 //----------------------------------------------------------------------
 // Protected methods
 //----------------------------------------------------------------------
 protected:
 
-  inline ConstantValuesSpecialized() {}
+  inline ConstantValuesSpecialized()
+  {}
 
 //----------------------------------------------------------------------
 // Private fields and methods
@@ -190,5 +173,7 @@ private:
 }
 }
 }
+
+#include "rrlib/math/vector/data/ConstantValuesSpecialized.hpp"
 
 #endif

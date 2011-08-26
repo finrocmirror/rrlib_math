@@ -19,11 +19,11 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 //
 //----------------------------------------------------------------------
-/*!\file    UpperTriangle.h
+/*!\file    Polar.hpp
  *
  * \author  Tobias Foehst
  *
- * \date    2010-11-21
+ * \date    2011-08-25
  *
  * \brief
  *
@@ -31,23 +31,21 @@
  *
  */
 //----------------------------------------------------------------------
-#ifndef __rrlib__math__matrix__include_guard__
-#error Invalid include directive. Try #include "rrlib/math/tMatrix.h" instead.
+#ifndef __rrlib__math__vector__include_guard__
+#error Invalid include directive. Try #include "rrlib/math/tVector.h" instead.
 #endif
 
-#ifndef __rrlib__math__matrix__data__UpperTriangle_h__
-#define __rrlib__math__matrix__data__UpperTriangle_h__
+#ifndef __rrlib__math__vector__data__Polar_hpp__
+#define __rrlib__math__vector__data__Polar_hpp__
 
 //----------------------------------------------------------------------
 // External includes (system with <>, local with "")
 //----------------------------------------------------------------------
-#include <stdexcept>
-#include <sstream>
-#include <iomanip>
 
 //----------------------------------------------------------------------
 // Internal includes with ""
 //----------------------------------------------------------------------
+#include "rrlib/math/tAngle.h"
 
 //----------------------------------------------------------------------
 // Debugging
@@ -60,7 +58,7 @@ namespace rrlib
 {
 namespace math
 {
-namespace matrix
+namespace vector
 {
 
 //----------------------------------------------------------------------
@@ -68,56 +66,98 @@ namespace matrix
 //----------------------------------------------------------------------
 
 //----------------------------------------------------------------------
-// Class declaration
+// Implementation
 //----------------------------------------------------------------------
-//!
-/*!
- *
- */
-template <size_t Trows, size_t Tcolumns, typename TElement>
-class UpperTriangle
+
+//----------------------------------------------------------------------
+// Polar Length
+//----------------------------------------------------------------------
+template <size_t Tdimension, typename TElement>
+TElement &Polar<Tdimension, TElement>::Length() const
 {
+  return this->length;
+}
+
+template <size_t Tdimension, typename TElement>
+TElement &Polar<Tdimension, TElement>::Length()
+{
+  return this->length;
+}
 
 //----------------------------------------------------------------------
-// Public methods and typedefs
+// Polar 2 Alpha
 //----------------------------------------------------------------------
-public:
+template <typename TElement>
+tAngle<TElement, angle::Radian, angle::Signed> Polar<2, TElement>::Alpha() const
+{
+  return this->alpha;
+}
 
-  class Accessor
-  {
-    TElement *values;
-    size_t row;
-  public:
-    inline Accessor(TElement *values, size_t row) __attribute__((always_inline));
-
-    inline const TElement operator [](size_t column) const __attribute__((always_inline,flatten));
-
-    inline TElement &operator [](size_t column) __attribute__((always_inline,flatten));
-  };
-
-  inline void SetFromArray(const TElement data[Trows * Tcolumns]) __attribute__((always_inline,flatten));
+template <typename TElement>
+tAngle<TElement, angle::Radian, angle::Signed> &Polar<2, TElement>::Alpha()
+{
+  return this->alpha;
+}
 
 //----------------------------------------------------------------------
-// Protected methods
+// Polar 2 Length
 //----------------------------------------------------------------------
-protected:
+template <typename TElement>
+const TElement &Polar<2, TElement>::Length() const
+{
+  return this->length;
+}
 
-  inline UpperTriangle()
-  {
-    static_assert(Trows == Tcolumns, "Upper triangle matrices must be square (rows = columns)!");
-  };
+template <typename TElement>
+TElement &Polar<2, TElement>::Length()
+{
+  return this->length;
+}
 
 //----------------------------------------------------------------------
-// Private fields and methods
+// Polar 3 Alpha
 //----------------------------------------------------------------------
-private:
+template <typename TElement>
+tAngle<TElement, angle::Radian, angle::Signed> Polar<3, TElement>::Alpha() const
+{
+  return this->alpha;
+}
 
-  TElement values[Trows *(Trows + 1) / 2];
+template <typename TElement>
+tAngle<TElement, angle::Radian, angle::Signed> &Polar<3, TElement>::Alpha()
+{
+  return this->alpha;
+}
 
-  UpperTriangle(const UpperTriangle &other);
-  UpperTriangle &operator = (const UpperTriangle &);
+//----------------------------------------------------------------------
+// Polar 3 Beta
+//----------------------------------------------------------------------
+template <typename TElement>
+tAngle<TElement, angle::Radian, angle::Signed> Polar<3, TElement>::Beta() const
+{
+  return this->beta;
+}
 
-};
+template <typename TElement>
+tAngle<TElement, angle::Radian, angle::Signed> &Polar<3, TElement>::Beta()
+{
+  return this->beta;
+}
+
+//----------------------------------------------------------------------
+// Polar 3 Length
+//----------------------------------------------------------------------
+template <typename TElement>
+const TElement &Polar<3, TElement>::Length() const
+{
+  return this->length;
+}
+
+template <typename TElement>
+TElement &Polar<3, TElement>::Length()
+{
+  return this->length;
+}
 
 
 
@@ -127,7 +167,5 @@ private:
 }
 }
 }
-
-#include "rrlib/math/matrix/data/UpperTriangle.hpp"
 
 #endif

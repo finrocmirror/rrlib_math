@@ -85,7 +85,8 @@ class Rotation
 //----------------------------------------------------------------------
 protected:
 
-  inline Rotation() {}
+  inline Rotation() __attribute__((always_inline))
+  {}
 
 //----------------------------------------------------------------------
 // Private fields and methods
@@ -181,7 +182,8 @@ public:
 //----------------------------------------------------------------------
 protected:
 
-  inline Rotation() {}
+  inline Rotation() __attribute__((always_inline))
+  {}
 
 //----------------------------------------------------------------------
 // Private fields and methods
@@ -276,7 +278,8 @@ public:
 //----------------------------------------------------------------------
 protected:
 
-  inline Rotation() {}
+  inline Rotation() __attribute__((always_inline))
+  {}
 
 //----------------------------------------------------------------------
 // Private fields and methods

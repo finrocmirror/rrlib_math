@@ -137,56 +137,20 @@ public:
   }
 
   template <typename TOtherElement>
-  inline const tVector &operator += (const math::tVector<Tdimension, TOtherElement, TData> &other)
-  {
-    tVector *that = reinterpret_cast<tVector *>(this);
-    *that = *that + other;
-    return *that;
-  }
+  inline const tVector &operator += (const math::tVector<Tdimension, TOtherElement, TData> &other) __attribute__((always_inline,flatten));
 
   template <typename TOtherElement>
-  inline const tVector &operator -= (const math::tVector<Tdimension, TOtherElement, TData> &other)
-  {
-    tVector *that = reinterpret_cast<tVector *>(this);
-    *that = *that - other;
-    return *that;
-  }
+  inline const tVector &operator -= (const math::tVector<Tdimension, TOtherElement, TData> &other) __attribute__((always_inline,flatten));
 
   template <typename TScalar>
-  inline const typename boost::enable_if<boost::is_scalar<TScalar>, tVector>::type &operator *= (const TScalar &scalar)
-  {
-    tVector *that = reinterpret_cast<tVector *>(this);
-    *that = *that * scalar;
-    return *that;
-  }
+  inline const typename boost::enable_if<boost::is_scalar<TScalar>, tVector>::type &operator *= (const TScalar &scalar) __attribute__((always_inline,flatten));
 
   template <typename TScalar>
-  inline const typename boost::enable_if<boost::is_scalar<TScalar>, tVector>::type &operator /= (const TScalar &scalar)
-  {
-    tVector *that = reinterpret_cast<tVector *>(this);
-    if (scalar == 0)
-    {
-      throw std::runtime_error("Division by zero");
-    }
-    *that *= 1.0 / scalar;
-    return *that;
-  }
+  inline const typename boost::enable_if<boost::is_scalar<TScalar>, tVector>::type &operator /= (const TScalar &scalar) __attribute__((always_inline,flatten));
 
-  inline void Normalize()
-  {
-    tVector *that = reinterpret_cast<tVector *>(this);
+  inline void Normalize() __attribute__((always_inline,flatten));
 
-    TElement length = that->Length();
-    *that *= length != 0 ? 1.0 / length : 0.0;
-  }
-
-  inline const tVector Normalized() const
-  {
-    const tVector *that = reinterpret_cast<const tVector *>(this);
-    tVector temp(*that);
-    temp.Normalize();
-    return temp;
-  }
+  inline const tVector Normalized() const __attribute__((always_inline,flatten));
 
   template <typename TOtherElement>
   inline void Project(const math::tVector<Tdimension, TOtherElement, TData> &other)
@@ -206,27 +170,16 @@ public:
   }
 
   template <typename TOtherElement>
-  inline const math::tVector<Tdimension, typename until_0x::Auto<TElement, TOtherElement>::type, TData> Projected(const math::tVector<Tdimension, TOtherElement, TData> &other) const
-  {
-    const tVector *that = reinterpret_cast<const tVector *>(this);
-    math::tVector<Tdimension, typename until_0x::Auto<TElement, TOtherElement>::type, TData> temp(*that);
-    temp.Project(other);
-    return temp;
-  }
+  inline const math::tVector<Tdimension, typename until_0x::Auto<TElement, TOtherElement>::type, TData> Projected(const math::tVector<Tdimension, TOtherElement, TData> &other) const __attribute__((always_inline,flatten));
 
 //----------------------------------------------------------------------
 // Protected methods
 //----------------------------------------------------------------------
 protected:
 
-  inline FunctionalityShared()
-  {
-    std::memset(this, 0, sizeof(tVector));
-  }
-  inline FunctionalityShared(const tVector &other)
-  {
-    std::memcpy(this, &other, sizeof(tVector));
-  }
+  inline FunctionalityShared() __attribute__((always_inline,flatten));
+
+  inline FunctionalityShared(const tVector &other) __attribute__((always_inline,flatten));
 
 //----------------------------------------------------------------------
 // Private fields and methods
@@ -244,5 +197,7 @@ private:
 }
 }
 }
+
+#include "rrlib/math/vector/functionality/FunctionalityShared.hpp"
 
 #endif

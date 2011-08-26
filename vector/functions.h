@@ -66,91 +66,28 @@ namespace math
 
 
 template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
-inline bool IsEqual(const tVector<Tdimension, TElement, TData> &left, const tVector<Tdimension, TElement, TData> &right, float max_error = 1.0E-6, tFloatComparisonMethod method = eFCM_ABSOLUTE_ERROR)
-{
-  for (size_t i = 0; i < Tdimension; ++i)
-  {
-    if (!IsEqual(left[i], right[i], max_error, method))
-    {
-      return false;
-    }
-  }
-  return true;
-}
+inline bool IsEqual(const tVector<Tdimension, TElement, TData> &left, const tVector<Tdimension, TElement, TData> &right, float max_error = 1.0E-6, tFloatComparisonMethod method = eFCM_ABSOLUTE_ERROR) __attribute__((always_inline,flatten));
 
 template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
-inline const bool operator == (const tVector<Tdimension, TElement, TData> &left, const tVector<Tdimension, TElement, TData> &right)
-{
-  return IsEqual(left, right, 0.0);
-}
+inline const bool operator == (const tVector<Tdimension, TElement, TData> &left, const tVector<Tdimension, TElement, TData> &right) __attribute__((always_inline,flatten));
 
 template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
-inline const bool operator != (const tVector<Tdimension, TElement, TData> &left, const tVector<Tdimension, TElement, TData> &right)
-{
-  return !(left == right);
-}
+inline const bool operator != (const tVector<Tdimension, TElement, TData> &left, const tVector<Tdimension, TElement, TData> &right) __attribute__((always_inline,flatten));
 
 template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
-inline const bool operator < (const tVector<Tdimension, TElement, TData> &left, const tVector<Tdimension, TElement, TData> &right)
-{
-  if (&left == &right)
-  {
-    return false;
-  }
-  for (size_t i = 0; i < Tdimension; ++i)
-  {
-    if (left[i] < right[i])
-    {
-      return true;
-    }
-    if (left[i] > right[i])
-    {
-      break;
-    }
-  }
-  return false;
-}
+inline const bool operator < (const tVector<Tdimension, TElement, TData> &left, const tVector<Tdimension, TElement, TData> &right);
 
 template <size_t Tdimension, typename TLeftElement, typename TRightElement>
-inline const tVector<Tdimension, typename until_0x::Auto<TLeftElement, TRightElement>::type, vector::Cartesian> SchurProduct(const tVector<Tdimension, TLeftElement, vector::Cartesian> &left, const tVector<Tdimension, TRightElement, vector::Cartesian> &right)
-{
-  return left.SchurMultiplied(right);
-}
+inline const tVector<Tdimension, typename until_0x::Auto<TLeftElement, TRightElement>::type, vector::Cartesian> SchurProduct(const tVector<Tdimension, TLeftElement, vector::Cartesian> &left, const tVector<Tdimension, TRightElement, vector::Cartesian> &right) __attribute__((always_inline,flatten));
 
 template <typename TLeftElement, typename TRightElement>
-inline const tVector<3, typename until_0x::Auto<TLeftElement, TRightElement>::type, vector::Cartesian> CrossProduct(const tVector<3, TLeftElement, vector::Cartesian> &left, const tVector<3, TRightElement, vector::Cartesian> &right)
-{
-  return left.CrossMultiplied(right);
-}
+inline const tVector<3, typename until_0x::Auto<TLeftElement, TRightElement>::type, vector::Cartesian> CrossProduct(const tVector<3, TLeftElement, vector::Cartesian> &left, const tVector<3, TRightElement, vector::Cartesian> &right) __attribute__((always_inline,flatten));
 
 template <size_t Tdimension, typename TLeftElement, typename TRightElement, template <size_t, typename> class TData>
-inline const tAngleRad EnclosedAngle(const tVector<Tdimension, TLeftElement, TData> &left, const tVector<Tdimension, TRightElement, TData> &right)
-{
-  if (left.IsZero() || right.IsZero())
-  {
-    return M_PI_2;
-  }
-  double cos_angle = (left * right) / (left.Length() * right.Length());
-  if (cos_angle >= 1.0)
-  {
-    return 0;
-  }
-  if (cos_angle <= -1)
-  {
-    return M_PI;
-  }
-  return std::acos(cos_angle);
-}
+inline const tAngleRad EnclosedAngle(const tVector<Tdimension, TLeftElement, TData> &left, const tVector<Tdimension, TRightElement, TData> &right);
 
 template <typename TLeftElement, typename TRightElement, template <size_t, typename> class TData>
-const tAngleRad EnclosedAngle(const tVector<2, TLeftElement, TData> &left, const tVector<2, TRightElement, TData> &right)
-{
-  if (CrossProduct(tVector<3, TLeftElement, TData>(left), tVector<3, TRightElement, TData>(right)).Z() < 0)
-  {
-    return 2 * M_PI - EnclosedAngle(tVector<3, TLeftElement, TData>(left), tVector<3, TRightElement, TData>(right));
-  }
-  return EnclosedAngle(tVector<3, TLeftElement, TData>(left), tVector<3, TRightElement, TData>(right));
-}
+const tAngleRad EnclosedAngle(const tVector<2, TLeftElement, TData> &left, const tVector<2, TRightElement, TData> &right);
 
 /*!
  * \brief Convert Cartesian coordinates into polar coordinates
@@ -159,10 +96,7 @@ const tAngleRad EnclosedAngle(const tVector<2, TLeftElement, TData> &left, const
  * \param cartesian   The vector that holds the Cartesian coordinates
  */
 template <size_t Tdimension, typename TPolarElement, typename TCartesianElement>
-inline void GetPolarVectorFromCartesian(tVector<Tdimension, TPolarElement, vector::Polar> &polar, const tVector<Tdimension, TCartesianElement, vector::Cartesian> &cartesian)
-{
-  polar = cartesian.GetPolarVector();
-}
+inline void GetPolarVectorFromCartesian(tVector<Tdimension, TPolarElement, vector::Polar> &polar, const tVector<Tdimension, TCartesianElement, vector::Cartesian> &cartesian) __attribute__((always_inline,flatten));
 
 /*!
  * \brief Convert polar coordinates into Cartesian coordinates
@@ -171,22 +105,17 @@ inline void GetPolarVectorFromCartesian(tVector<Tdimension, TPolarElement, vecto
  * \param polar       The vector that holds the polar coordinates (angle, radius)
  */
 template <size_t Tdimension, typename TCartesianElement, typename TPolarElement>
-inline void GetCartesianVectorFromPolar(tVector<Tdimension, TCartesianElement, vector::Cartesian> &cartesian, const tVector<Tdimension, TPolarElement, vector::Polar> &polar)
-{
-  cartesian = polar.GetCartesianVector();
-}
+inline void GetCartesianVectorFromPolar(tVector<Tdimension, TCartesianElement, vector::Cartesian> &cartesian, const tVector<Tdimension, TPolarElement, vector::Polar> &polar) __attribute__((always_inline,flatten));
 
 template <typename TElement>
-inline tVector<2, TElement, vector::Polar> GetPolarSignedFromCartesian(tVector<2, TElement, vector::Cartesian> cartesian, double radius = 1)
-{
-  cartesian.Normalize();
-  return tVector<2, TElement, vector::Polar>(cartesian.Y() >= 0 ? std::acos(cartesian.X()) : -std::acos(cartesian.X()), radius);
-}
+inline tVector<2, TElement, vector::Polar> GetPolarSignedFromCartesian(tVector<2, TElement, vector::Cartesian> cartesian, double radius = 1) __attribute__((always_inline,flatten));
 
 //----------------------------------------------------------------------
 // End of namespace declaration
 //----------------------------------------------------------------------
 }
 }
+
+#include "rrlib/math/vector/functions.hpp"
 
 #endif

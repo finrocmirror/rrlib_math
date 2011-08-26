@@ -82,7 +82,8 @@ class SquareMatrixOperationsSpecialized
 //----------------------------------------------------------------------
 protected:
 
-  inline SquareMatrixOperationsSpecialized() {}
+  inline SquareMatrixOperationsSpecialized() __attribute__((always_inline))
+  {}
 
 //----------------------------------------------------------------------
 // Private fields and methods
@@ -107,7 +108,7 @@ class SquareMatrixOperationsSpecialized<Tdimension, Tdimension, TElement, TData>
 //----------------------------------------------------------------------
 public:
 
-  inline const TElement Determinant() const
+  inline const TElement Determinant() const __attribute__((always_inline,flatten))
   {
     const tMatrix *that = reinterpret_cast<const tMatrix *>(this);
     TElement determinant = 0;
@@ -123,7 +124,7 @@ public:
     return determinant;
   }
 
-  inline const tMatrix Inverted() const
+  inline const tMatrix Inverted() const __attribute__((always_inline,flatten))
   {
     TElement determinant = this->Determinant();
     if (determinant == 0)
@@ -150,7 +151,8 @@ public:
 //----------------------------------------------------------------------
 protected:
 
-  inline SquareMatrixOperationsSpecialized() {}
+  inline SquareMatrixOperationsSpecialized() __attribute__((always_inline))
+  {}
 
 //----------------------------------------------------------------------
 // Private fields and methods
@@ -190,13 +192,13 @@ class SquareMatrixOperationsSpecialized<2, 2, TElement, TData>
 //----------------------------------------------------------------------
 public:
 
-  inline const TElement Determinant() const
+  inline const TElement Determinant() const __attribute__((always_inline,flatten))
   {
     const tMatrix *that = reinterpret_cast<const tMatrix *>(this);
     return (*that)[0][0] *(*that)[1][1] - (*that)[1][0] *(*that)[0][1];
   }
 
-  inline const tMatrix Inverted() const
+  inline const tMatrix Inverted() const __attribute__((always_inline,flatten))
   {
     const tMatrix *that = reinterpret_cast<const tMatrix *>(this);
     TElement determinant = this->Determinant();
@@ -212,7 +214,8 @@ public:
 //----------------------------------------------------------------------
 protected:
 
-  inline SquareMatrixOperationsSpecialized() {}
+  inline SquareMatrixOperationsSpecialized() __attribute__((always_inline))
+  {}
 
 //----------------------------------------------------------------------
 // Private fields and methods

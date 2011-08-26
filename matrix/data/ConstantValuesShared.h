@@ -86,18 +86,15 @@ public:
 
   typedef TElement tElement;
 
-  static inline const tMatrix &Zero()
-  {
-    static tMatrix matrix;
-    return matrix;
-  }
+  static inline const tMatrix &Zero() __attribute__((always_inline,flatten));
 
 //----------------------------------------------------------------------
 // Protected methods
 //----------------------------------------------------------------------
 protected:
 
-  inline ConstantValuesShared() {};
+  inline ConstantValuesShared()
+  {};
 
 //----------------------------------------------------------------------
 // Private fields and methods
@@ -117,5 +114,7 @@ private:
 }
 }
 }
+
+#include "rrlib/math/matrix/data/ConstantValuesShared.hpp"
 
 #endif

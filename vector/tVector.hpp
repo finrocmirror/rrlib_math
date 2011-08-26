@@ -19,11 +19,11 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 //
 //----------------------------------------------------------------------
-/*!\file    UpperTriangle.h
+/*!\file    tVector.hpp
  *
  * \author  Tobias Foehst
  *
- * \date    2010-11-21
+ * \date    2011-08-25
  *
  * \brief
  *
@@ -31,23 +31,29 @@
  *
  */
 //----------------------------------------------------------------------
-#ifndef __rrlib__math__matrix__include_guard__
-#error Invalid include directive. Try #include "rrlib/math/tMatrix.h" instead.
+#ifndef __rrlib__math__vector__include_guard__
+#error Invalid include directive. Try #include "rrlib/math/tVector.h" instead.
 #endif
 
-#ifndef __rrlib__math__matrix__data__UpperTriangle_h__
-#define __rrlib__math__matrix__data__UpperTriangle_h__
+#ifndef __rrlib__math__vector__tVector_hpp__
+#define __rrlib__math__vector__tVector_hpp__
 
 //----------------------------------------------------------------------
 // External includes (system with <>, local with "")
 //----------------------------------------------------------------------
-#include <stdexcept>
-#include <sstream>
-#include <iomanip>
 
+#ifdef _LIB_OIV_PRESENT_
+#include <Inventor/SbVec2f.h>
+#include <Inventor/SbVec3f.h>
+#include <boost/utility/enable_if.hpp>
+#endif
 //----------------------------------------------------------------------
 // Internal includes with ""
 //----------------------------------------------------------------------
+namespace math
+{
+template <size_t, typename> class tVector;
+}
 
 //----------------------------------------------------------------------
 // Debugging
@@ -60,65 +66,72 @@ namespace rrlib
 {
 namespace math
 {
-namespace matrix
-{
 
 //----------------------------------------------------------------------
 // Forward declarations / typedefs / enums
 //----------------------------------------------------------------------
 
 //----------------------------------------------------------------------
-// Class declaration
+// Implementation
 //----------------------------------------------------------------------
-//!
-/*!
- *
- */
-template <size_t Trows, size_t Tcolumns, typename TElement>
-class UpperTriangle
+
+//----------------------------------------------------------------------
+// tVector constructors
+//----------------------------------------------------------------------
+template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
+tVector<Tdimension, TElement, TData>::tVector()
+{}
+
+template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
+tVector<Tdimension, TElement, TData>::tVector(const tVector &other)
+: FunctionalityShared(other)
+{}
+
+template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
+template <size_t Tother_dimension, typename TOtherElement>
+tVector<Tdimension, TElement, TData>::tVector(const tVector<Tother_dimension, TOtherElement> &other)
+: FunctionalitySpecialized(other)
+{}
+
+template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
+template <typename ... TValues>
+tVector<Tdimension, TElement, TData>::tVector(TValues... values)
+: FunctionalitySpecialized(values...)
+{}
+
+#ifdef _LIB_OIV_PRESENT_
+
+template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
+template < typename T>
+tVector<Tdimension, TElement, TData>::tVector(const SbVec2f &v, typename boost::enable_if_c < (Tdimension == 2), T >::type)
 {
+  FunctionalitySpecialized::Set(v[0], v[1]);
+}
+
+template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
+template < typename T>
+tVector<Tdimension, TElement, TData>::tVector(const SbVec3f &v, typename boost::enable_if_c < (Tdimension == 3), T >::type)
+{
+  FunctionalitySpecialized::Set(v[0], v[1], v[2]);
+}
+
+#endif
 
 //----------------------------------------------------------------------
-// Public methods and typedefs
+// tVector operator =
 //----------------------------------------------------------------------
-public:
+template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
+tVector<Tdimension, TElement, TData> &tVector<Tdimension, TElement, TData>::operator = (const tVector &other)
+{
+  return reinterpret_cast<tVector &>(FunctionalityShared::operator=(other));
+}
 
-  class Accessor
-  {
-    TElement *values;
-    size_t row;
-  public:
-    inline Accessor(TElement *values, size_t row) __attribute__((always_inline));
-
-    inline const TElement operator [](size_t column) const __attribute__((always_inline,flatten));
-
-    inline TElement &operator [](size_t column) __attribute__((always_inline,flatten));
-  };
-
-  inline void SetFromArray(const TElement data[Trows * Tcolumns]) __attribute__((always_inline,flatten));
-
-//----------------------------------------------------------------------
-// Protected methods
-//----------------------------------------------------------------------
-protected:
-
-  inline UpperTriangle()
-  {
-    static_assert(Trows == Tcolumns, "Upper triangle matrices must be square (rows = columns)!");
-  };
-
-//----------------------------------------------------------------------
-// Private fields and methods
-//----------------------------------------------------------------------
-private:
-
-  TElement values[Trows *(Trows + 1) / 2];
-
-  UpperTriangle(const UpperTriangle &other);
-  UpperTriangle &operator = (const UpperTriangle &);
-
-};
-
+template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
+template <size_t Tother_dimension, typename TOtherElement>
+tVector<Tdimension, TElement, TData> &tVector<Tdimension, TElement, TData>::operator = (const tVector<Tother_dimension, TOtherElement, TData> &other)
+{
+  return reinterpret_cast<tVector &>(FunctionalityShared::operator=(other));
+}
 
 
 //----------------------------------------------------------------------
@@ -126,8 +139,5 @@ private:
 //----------------------------------------------------------------------
 }
 }
-}
-
-#include "rrlib/math/matrix/data/UpperTriangle.hpp"
 
 #endif

@@ -89,53 +89,14 @@ public:
     TElement *values;
     size_t row;
   public:
-    inline Accessor(TElement *values, size_t row) : values(values), row(row) {}
-    inline const TElement operator [](size_t column) const
-    {
-      if (column > this->row)
-      {
-        return 0;
-      }
-      return const_cast<Accessor &>(*this)[column];
-    }
-    inline TElement &operator [](size_t column)
-    {
-      if (this->row >= Trows || column >= Tcolumns)
-      {
-        std::stringstream stream;
-        stream << "Array index (" << this->row << ", " << column << " out of bounds [0.." << Trows << "][0.." << Tcolumns << "].";
-        throw std::logic_error(stream.str());
-      }
-      if (column > this->row)
-      {
-        std::stringstream stream;
-        stream << "Non-const access to fixed zero value in lower triangle matrix (" << this->row << ", " << column << ").";
-        throw std::logic_error(stream.str());
-      }
-      return this->values[this->row *(this->row + 1) / 2  + column];
-    }
+    inline Accessor(TElement *values, size_t row) __attribute__((always_inline));
+
+    inline const TElement operator [](size_t column) const __attribute__((always_inline,flatten));
+
+    inline TElement &operator [](size_t column) __attribute__((always_inline,flatten));
   };
 
-  inline void SetFromArray(const TElement data[Trows * Tcolumns])
-  {
-    for (size_t row = 0; row < Trows; ++row)
-    {
-      for (size_t column = 0; column < Tcolumns; ++column)
-      {
-        if (column > row)
-        {
-          if (!IsEqual(data[row * Tcolumns + column], 0.0))
-          {
-            std::stringstream stream;
-            stream << "Trying to initialize lower triangle matrix from invalid data set " << std::setprecision(20) << std::fixed << math::tMatrix<Trows, Tcolumns, TElement, Full>(data) << ".";
-            throw std::runtime_error(stream.str());
-          }
-          continue;
-        }
-        this->values[row *(row + 1) / 2 + column] = data[row * Tcolumns + column];
-      }
-    }
-  }
+  inline void SetFromArray(const TElement data[Trows * Tcolumns]) __attribute__((always_inline,flatten));
 
 //----------------------------------------------------------------------
 // Protected methods
@@ -167,5 +128,7 @@ private:
 }
 }
 }
+
+#include "rrlib/math/matrix/data/LowerTriangle.hpp"
 
 #endif

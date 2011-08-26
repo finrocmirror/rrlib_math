@@ -19,11 +19,11 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 //
 //----------------------------------------------------------------------
-/*!\file    UpperTriangle.h
+/*!\file    ConstantValuesShared.hpp
  *
  * \author  Tobias Foehst
  *
- * \date    2010-11-21
+ * \date    2011-08-25
  *
  * \brief
  *
@@ -31,19 +31,16 @@
  *
  */
 //----------------------------------------------------------------------
-#ifndef __rrlib__math__matrix__include_guard__
-#error Invalid include directive. Try #include "rrlib/math/tMatrix.h" instead.
+#ifndef __rrlib__math__vector__include_guard__
+#error Invalid include directive. Try #include "rrlib/math/tVector.h" instead.
 #endif
 
-#ifndef __rrlib__math__matrix__data__UpperTriangle_h__
-#define __rrlib__math__matrix__data__UpperTriangle_h__
+#ifndef __rrlib__math__vector__data__ConstantValuesShared_hpp__
+#define __rrlib__math__vector__data__ConstantValuesShared_hpp__
 
 //----------------------------------------------------------------------
 // External includes (system with <>, local with "")
 //----------------------------------------------------------------------
-#include <stdexcept>
-#include <sstream>
-#include <iomanip>
 
 //----------------------------------------------------------------------
 // Internal includes with ""
@@ -60,7 +57,7 @@ namespace rrlib
 {
 namespace math
 {
-namespace matrix
+namespace vector
 {
 
 //----------------------------------------------------------------------
@@ -68,57 +65,52 @@ namespace matrix
 //----------------------------------------------------------------------
 
 //----------------------------------------------------------------------
-// Class declaration
+// Implementation
 //----------------------------------------------------------------------
-//!
-/*!
- *
- */
-template <size_t Trows, size_t Tcolumns, typename TElement>
-class UpperTriangle
+
+//----------------------------------------------------------------------
+// ConstantValuesShared Zero
+//----------------------------------------------------------------------
+template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
+const tVector<Tdimension, TElement, TData> &ConstantValuesShared<Tdimension, TElement, TData>::Zero()
 {
+  static tVector vector;
+  return vector;
+}
 
 //----------------------------------------------------------------------
-// Public methods and typedefs
+// ConstantValuesShared Cartesian Zero
 //----------------------------------------------------------------------
-public:
+template <size_t Tdimension, typename TElement>
+const tVector<Tdimension, TElement, Cartesian> &ConstantValuesShared<Tdimension, TElement, Cartesian>::Zero()
+{
+  static tVector vector;
+  return vector;
+}
 
-  class Accessor
+//----------------------------------------------------------------------
+// ConstantValuesShared Cartesian Identity
+//----------------------------------------------------------------------
+template <size_t Tdimension, typename TElement>
+const tVector<Tdimension, TElement, Cartesian> &ConstantValuesShared<Tdimension, TElement, Cartesian>::Identity()
+{
+  static tVector identity(InitializeIdentity());
+  return identity;
+}
+
+//----------------------------------------------------------------------
+// ConstantValuesShared Cartesian InitializeIdentity
+//----------------------------------------------------------------------
+template <size_t Tdimension, typename TElement>
+const tVector<Tdimension, TElement, Cartesian> &ConstantValuesShared<Tdimension, TElement, Cartesian>::InitializeIdentity()
+{
+  static tVector vector;
+  for (size_t i = 0; i < Tdimension; ++i)
   {
-    TElement *values;
-    size_t row;
-  public:
-    inline Accessor(TElement *values, size_t row) __attribute__((always_inline));
-
-    inline const TElement operator [](size_t column) const __attribute__((always_inline,flatten));
-
-    inline TElement &operator [](size_t column) __attribute__((always_inline,flatten));
-  };
-
-  inline void SetFromArray(const TElement data[Trows * Tcolumns]) __attribute__((always_inline,flatten));
-
-//----------------------------------------------------------------------
-// Protected methods
-//----------------------------------------------------------------------
-protected:
-
-  inline UpperTriangle()
-  {
-    static_assert(Trows == Tcolumns, "Upper triangle matrices must be square (rows = columns)!");
-  };
-
-//----------------------------------------------------------------------
-// Private fields and methods
-//----------------------------------------------------------------------
-private:
-
-  TElement values[Trows *(Trows + 1) / 2];
-
-  UpperTriangle(const UpperTriangle &other);
-  UpperTriangle &operator = (const UpperTriangle &);
-
-};
-
+    vector[i] = 1;
+  }
+  return vector;
+}
 
 
 //----------------------------------------------------------------------
@@ -127,7 +119,5 @@ private:
 }
 }
 }
-
-#include "rrlib/math/matrix/data/UpperTriangle.hpp"
 
 #endif

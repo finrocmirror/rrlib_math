@@ -95,49 +95,35 @@ class tMatrix : public TData<Trows, Tcolumns, TElement>,
 //----------------------------------------------------------------------
 public:
 
-  inline tMatrix() {}
-  inline tMatrix(const tMatrix &other) : FunctionalityShared(other) {}
+  inline tMatrix() __attribute__((always_inline));
 
-  explicit inline tMatrix(const TElement data[Trows * Tcolumns]) : FunctionalityShared(data) {}
+  inline tMatrix(const tMatrix &other) __attribute__((always_inline));
+
+  explicit inline tMatrix(const TElement data[Trows * Tcolumns]) __attribute__((always_inline));
 
   template <typename TOtherElement>
-  explicit inline tMatrix(const tMatrix<Trows, Tcolumns, TOtherElement, TData> &other) : FunctionalityShared(other) {}
+  explicit inline tMatrix(const tMatrix<Trows, Tcolumns, TOtherElement, TData> &other) __attribute__((always_inline));
 
   template <typename TOtherElement, template <size_t, size_t, typename> class TOtherData>
-  explicit inline tMatrix(const tMatrix<Trows, Tcolumns, TOtherElement, TOtherData> &other) : FunctionalityShared(other) {}
+  explicit inline tMatrix(const tMatrix<Trows, Tcolumns, TOtherElement, TOtherData> &other) __attribute__((always_inline));
 
   template <typename TLeftElement, typename TRightElement>
-  inline tMatrix(const tVector<Trows, TLeftElement, vector::Cartesian> &left, const tVector<Tcolumns, TRightElement, vector::Cartesian> &right) : FunctionalityShared(left, right) {}
+  inline tMatrix(const tVector<Trows, TLeftElement, vector::Cartesian> &left, const tVector<Tcolumns, TRightElement, vector::Cartesian> &right) __attribute__((always_inline));
 
   template <typename ... TValues>
-  explicit inline tMatrix(TElement value, TValues... values)
-  {
-    FunctionalityShared::Set(value, values...);
-  }
+  explicit inline tMatrix(TElement value, TValues... values) __attribute__((always_inline,flatten));
 
 #ifdef _LIB_OIV_PRESENT_
 
   template < class T = int >
-  explicit inline tMatrix(const SbMatrix &m, typename boost::enable_if_c < (Trows == 4 && Tcolumns == 4), T >::type = 0)
-  {
-    FunctionalityShared::Set(m[0][0], m[1][0], m[2][0], m[3][0],
-                             m[0][1], m[1][1], m[2][1], m[3][1],
-                             m[0][2], m[1][2], m[2][2], m[3][2],
-                             m[0][3], m[1][3], m[2][3], m[3][3]);
-  }
+  explicit inline tMatrix(const SbMatrix &m, typename boost::enable_if_c < (Trows == 4 && Tcolumns == 4), T >::type = 0) __attribute__((always_inline,flatten));
 
 #endif
 
-  inline tMatrix &operator = (const tMatrix &other)
-  {
-    return reinterpret_cast<tMatrix &>(FunctionalityShared::operator=(other));
-  }
+  inline tMatrix &operator = (const tMatrix &other) __attribute__((always_inline,flatten));
 
   template <typename TOtherElement>
-  inline tMatrix &operator = (const tMatrix<Trows, Tcolumns, TOtherElement, TData> &other)
-  {
-    return reinterpret_cast<tMatrix &>(FunctionalityShared::operator=(other));
-  }
+  inline tMatrix &operator = (const tMatrix<Trows, Tcolumns, TOtherElement, TData> &other) __attribute__((always_inline,flatten));
 
 };
 
@@ -148,5 +134,7 @@ public:
 //----------------------------------------------------------------------
 }
 }
+
+#include "rrlib/math/matrix/tMatrix.hpp"
 
 #endif

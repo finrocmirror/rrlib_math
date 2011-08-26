@@ -97,41 +97,30 @@ class tVector : public TData<Tdimension, TElement>,
 //----------------------------------------------------------------------
 public:
 
-  inline tVector() {}
-  inline tVector(const tVector &other) : FunctionalityShared(other) {}
+  inline tVector() __attribute__((always_inline,flatten));
+
+  inline tVector(const tVector &other) __attribute__((always_inline));
 
   template <size_t Tother_dimension, typename TOtherElement>
-  inline tVector(const tVector<Tother_dimension, TOtherElement> &other) : FunctionalitySpecialized(other) {}
+  inline tVector(const tVector<Tother_dimension, TOtherElement> &other) __attribute__((always_inline,flatten));
 
   template <typename ... TValues>
-  explicit inline tVector(TValues... values) : FunctionalitySpecialized(values...) {}
+  explicit inline tVector(TValues... values) __attribute__((always_inline,flatten));
 
 #ifdef _LIB_OIV_PRESENT_
 
   template < typename T = int >
-  explicit inline tVector(const SbVec2f &v, typename boost::enable_if_c < (Tdimension == 2), T >::type = 0)
-  {
-    FunctionalitySpecialized::Set(v[0], v[1]);
-  }
+  explicit inline tVector(const SbVec2f &v, typename boost::enable_if_c < (Tdimension == 2), T >::type = 0) __attribute__((always_inline,flatten));
 
   template < typename T = int >
-  explicit inline tVector(const SbVec3f &v, typename boost::enable_if_c < (Tdimension == 3), T >::type = 0)
-  {
-    FunctionalitySpecialized::Set(v[0], v[1], v[2]);
-  }
+  explicit inline tVector(const SbVec3f &v, typename boost::enable_if_c < (Tdimension == 3), T >::type = 0) __attribute__((always_inline,flatten));
 
 #endif
 
-  inline tVector &operator = (const tVector &other)
-  {
-    return reinterpret_cast<tVector &>(FunctionalityShared::operator=(other));
-  }
+  inline tVector &operator = (const tVector &other) __attribute__((always_inline,flatten));
 
   template <size_t Tother_dimension, typename TOtherElement>
-  inline tVector &operator = (const tVector<Tother_dimension, TOtherElement, TData> &other)
-  {
-    return reinterpret_cast<tVector &>(FunctionalityShared::operator=(other));
-  }
+  inline tVector &operator = (const tVector<Tother_dimension, TOtherElement, TData> &other) __attribute__((always_inline,flatten));
 
 };
 
@@ -142,5 +131,7 @@ public:
 //----------------------------------------------------------------------
 }
 }
+
+#include "rrlib/math/vector/tVector.hpp"
 
 #endif

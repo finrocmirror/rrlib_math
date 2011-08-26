@@ -85,7 +85,8 @@ class Conversions
 //----------------------------------------------------------------------
 protected:
 
-  inline Conversions() {}
+  inline Conversions()  __attribute__((always_inline))
+  {}
 
 //----------------------------------------------------------------------
 // Private fields and methods
@@ -109,7 +110,7 @@ class Conversions<4, 4, TElement, matrix::Full>
 public:
 
 #ifdef _LIB_OIV_PRESENT_
-  inline const SbMatrix GetCoinMatrix() const
+  inline const SbMatrix GetCoinMatrix() const __attribute__((always_inline,flatten))
   {
     const math::tMatrix<4, 4, TElement, matrix::Full>* that = reinterpret_cast<const math::tMatrix<4, 4, TElement, matrix::Full> *>(this);
     return SbMatrix(
@@ -126,7 +127,8 @@ public:
 //----------------------------------------------------------------------
 protected:
 
-  inline Conversions() {}
+  inline Conversions() __attribute__((always_inline))
+  {}
 
 //----------------------------------------------------------------------
 // Private fields and methods

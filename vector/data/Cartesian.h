@@ -80,7 +80,8 @@ class Cartesian
 //----------------------------------------------------------------------
 protected:
 
-  inline Cartesian() {};
+  inline Cartesian()
+  {};
 
 //----------------------------------------------------------------------
 // Private fields and methods
@@ -106,29 +107,21 @@ class Cartesian<2, TElement>
 //----------------------------------------------------------------------
 public:
 
-  inline TElement X() const
-  {
-    return this->x;
-  }
-  inline TElement &X()
-  {
-    return this->x;
-  }
-  inline TElement Y() const
-  {
-    return this->y;
-  }
-  inline TElement &Y()
-  {
-    return this->y;
-  }
+  inline TElement X() const __attribute__((always_inline,flatten));
+
+  inline TElement &X() __attribute__((always_inline,flatten));
+
+  inline TElement Y() const __attribute__((always_inline,flatten));
+
+  inline TElement &Y() __attribute__((always_inline,flatten));
 
 //----------------------------------------------------------------------
 // Protected methods
 //----------------------------------------------------------------------
 protected:
 
-  inline Cartesian() {}
+  inline Cartesian()
+  {}
 
 //----------------------------------------------------------------------
 // Private fields and methods
@@ -155,37 +148,25 @@ class Cartesian<3, TElement>
 //----------------------------------------------------------------------
 public:
 
-  inline TElement X() const
-  {
-    return this->x;
-  }
-  inline TElement &X()
-  {
-    return this->x;
-  }
-  inline TElement Y() const
-  {
-    return this->y;
-  }
-  inline TElement &Y()
-  {
-    return this->y;
-  }
-  inline TElement Z() const
-  {
-    return this->z;
-  }
-  inline TElement &Z()
-  {
-    return this->z;
-  }
+  inline TElement X() const __attribute__((always_inline,flatten));
+
+  inline TElement &X() __attribute__((always_inline,flatten));
+
+  inline TElement Y() const __attribute__((always_inline,flatten));
+
+  inline TElement &Y() __attribute__((always_inline,flatten));
+
+  inline TElement Z() const __attribute__((always_inline,flatten));
+
+  inline TElement &Z() __attribute__((always_inline,flatten));
 
 //----------------------------------------------------------------------
 // Protected methods
 //----------------------------------------------------------------------
 protected:
 
-  inline Cartesian() {}
+  inline Cartesian()
+  {}
 
 //----------------------------------------------------------------------
 // Private fields and methods
@@ -209,5 +190,7 @@ private:
 }
 }
 }
+
+#include "rrlib/math/vector/data/Cartesian.hpp"
 
 #endif

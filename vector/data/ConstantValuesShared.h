@@ -85,18 +85,15 @@ public:
 
   typedef TElement tElement;
 
-  static inline const tVector &Zero()
-  {
-    static tVector vector;
-    return vector;
-  }
+  static inline const tVector &Zero() __attribute__((always_inline,flatten));
 
 //----------------------------------------------------------------------
 // Protected methods
 //----------------------------------------------------------------------
 protected:
 
-  inline ConstantValuesShared() {};
+  inline ConstantValuesShared()
+  {};
 
 //----------------------------------------------------------------------
 // Private fields and methods
@@ -125,24 +122,17 @@ public:
 
   typedef TElement tElement;
 
-  static inline const tVector &Zero()
-  {
-    static tVector vector;
-    return vector;
-  }
+  static inline const tVector &Zero() __attribute__((always_inline,flatten));
 
-  static inline const tVector &Identity()
-  {
-    static tVector identity(InitializeIdentity());
-    return identity;
-  }
+  static inline const tVector &Identity() __attribute__((always_inline,flatten));
 
 //----------------------------------------------------------------------
 // Protected methods
 //----------------------------------------------------------------------
 protected:
 
-  inline ConstantValuesShared() {};
+  inline ConstantValuesShared()
+  {};
 
 //----------------------------------------------------------------------
 // Private fields and methods
@@ -152,15 +142,7 @@ private:
   ConstantValuesShared(const ConstantValuesShared &other);
   ConstantValuesShared &operator = (const ConstantValuesShared &);
 
-  static const tVector &InitializeIdentity()
-  {
-    static tVector vector;
-    for (size_t i = 0; i < Tdimension; ++i)
-    {
-      vector[i] = 1;
-    }
-    return vector;
-  }
+  static inline const tVector &InitializeIdentity() __attribute__((always_inline,flatten));
 
 };
 
@@ -172,5 +154,7 @@ private:
 }
 }
 }
+
+#include "rrlib/math/vector/data/ConstantValuesShared.hpp"
 
 #endif

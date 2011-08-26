@@ -86,7 +86,8 @@ class FunctionalitySpecialized
 //----------------------------------------------------------------------
 protected:
 
-  inline FunctionalitySpecialized() {}
+  inline FunctionalitySpecialized()
+  {}
 
 //----------------------------------------------------------------------
 // Private fields and methods
@@ -111,138 +112,50 @@ class FunctionalitySpecialized<Tdimension, TElement, Cartesian>
 //----------------------------------------------------------------------
 public:
 
-  inline const TElement operator [](size_t i) const
-  {
-    return const_cast<FunctionalitySpecialized &>(*this)[i];
-  }
-  inline TElement &operator [](size_t i)
-  {
-    if (i > Tdimension - 1)
-    {
-      std::stringstream stream;
-      stream << "Vector index (" << i << ") out of bounds [0.." << Tdimension - 1 << "].";
-      throw std::logic_error(stream.str());
-    }
-    return reinterpret_cast<TElement *>(this)[i];
-  }
+  inline const TElement operator [](size_t i) const __attribute__((always_inline,flatten));
+  inline TElement &operator [](size_t i) __attribute__((always_inline,flatten));
 
   template <typename ... TValues>
-  inline void Set(TValues... values)
-  {
-    TElement buffer[Tdimension];
-    this->SetValues<0>(buffer, values...);
-  }
+  inline void Set(TValues... values) __attribute__((always_inline,flatten));
 
-  static inline const tVector Direction(size_t i)
-  {
-    tVector vector;
-    vector[i] = 1;
-    return vector;
-  }
+  static inline const tVector Direction(size_t i) __attribute__((always_inline,flatten));
 
-  inline const TElement Length() const
-  {
-    return std::sqrt(this->SquaredLength());
-  }
+  inline const TElement Length() const __attribute__((always_inline,flatten));
 
-  inline const TElement SquaredLength() const
-  {
-    const tVector *that = reinterpret_cast<const tVector *>(this);
-    TElement result = 0;
-    for (size_t i = 0; i < Tdimension; ++i)
-    {
-      result += (*that)[i] * (*that)[i];
-    }
-    return result;
-  }
+  inline const TElement SquaredLength() const __attribute__((always_inline,flatten));
 
-  inline const bool IsZero(double epsilon = 0) const
-  {
-    const tVector *that = reinterpret_cast<const tVector *>(this);
-    for (size_t i = 0; i < Tdimension; ++i)
-    {
-      if (!IsEqual((*that)[i], 0, epsilon, eFCM_ABSOLUTE_ERROR))
-      {
-        return false;
-      }
-    }
-    return true;
-  }
+  inline const bool IsZero(double epsilon = 0) const __attribute__((always_inline,flatten));
 
   template <typename TOtherElement>
-  inline void SchurMultiply(const math::tVector<Tdimension, TOtherElement, Cartesian> &other)
-  {
-    tVector *that = reinterpret_cast<tVector *>(this);
-    for (size_t i = 0; i < Tdimension; ++i)
-    {
-      (*that)[i] *= other[i];
-    }
-  }
+  inline void SchurMultiply(const math::tVector<Tdimension, TOtherElement, Cartesian> &other) __attribute__((always_inline,flatten));
 
   template <typename TOtherElement>
-  inline const math::tVector<Tdimension, typename until_0x::Auto<TElement, TOtherElement>::type, Cartesian> SchurMultiplied(const math::tVector<Tdimension, TOtherElement, Cartesian> &other) const
-  {
-    const tVector *that = reinterpret_cast<const tVector *>(this);
-    math::tVector<Tdimension, typename until_0x::Auto<TElement, TOtherElement>::type, Cartesian> temp(*that);
-    temp.SchurMultiply(other);
-    return temp;
-  }
+  inline const math::tVector<Tdimension, typename until_0x::Auto<TElement, TOtherElement>::type, Cartesian> SchurMultiplied(const math::tVector<Tdimension, TOtherElement, Cartesian> &other) const __attribute__((always_inline,flatten));
 
   template <size_t Tother_dimension, typename TOtherElement>
-  inline typename boost::enable_if_c < Tdimension == 3 && Tother_dimension == 3, void >::type CrossMultiply(const math::tVector<Tother_dimension, TOtherElement, Cartesian> &other)
-  {
-    tVector *that = reinterpret_cast<tVector *>(this);
-    that->Set(that->Y() * other.Z() - that->Z() * other.Y(),
-              that->Z() * other.X() - that->X() * other.Z(),
-              that->X() * other.Y() - that->Y() * other.X());
-  }
+  inline typename boost::enable_if_c < Tdimension == 3 && Tother_dimension == 3, void >::type CrossMultiply(const math::tVector<Tother_dimension, TOtherElement, Cartesian> &other) __attribute__((always_inline,flatten));
 
   template <size_t Tother_dimension, typename TOtherElement>
-  inline const typename boost::enable_if_c < Tdimension == 3 && Tother_dimension == 3, math::tVector<3, typename until_0x::Auto<TElement, TOtherElement>::type, Cartesian> >::type CrossMultiplied(const math::tVector<Tother_dimension, TOtherElement, Cartesian> &other) const
-  {
-    const tVector *that = reinterpret_cast<const tVector *>(this);
-    math::tVector<Tdimension, typename until_0x::Auto<TElement, TOtherElement>::type, Cartesian> temp(*that);
-    temp.CrossMultiply(other);
-    return temp;
-  }
+  inline const typename boost::enable_if_c < Tdimension == 3 && Tother_dimension == 3, math::tVector<3, typename until_0x::Auto<TElement, TOtherElement>::type, Cartesian> >::type CrossMultiplied(const math::tVector<Tother_dimension, TOtherElement, Cartesian> &other) const __attribute__((always_inline,flatten));
 
 //----------------------------------------------------------------------
 // Protected methods
 //----------------------------------------------------------------------
 protected:
 
-  inline FunctionalitySpecialized() {}
+  inline FunctionalitySpecialized()
+  {}
 
-  explicit inline FunctionalitySpecialized(const TElement data[Tdimension])
-  {
-    std::memcpy(this, data, sizeof(tVector));
-  }
+  explicit inline FunctionalitySpecialized(const TElement data[Tdimension]) __attribute__((always_inline,flatten));
 
   template <typename TOtherElement>
-  explicit inline FunctionalitySpecialized(const TOtherElement data[Tdimension])
-  {
-    for (size_t i = 0; i < Tdimension; ++i)
-    {
-      (*this)[i] = data[i];
-    }
-  }
+  explicit inline FunctionalitySpecialized(const TOtherElement data[Tdimension]) __attribute__((always_inline,flatten));
 
   template <size_t Tother_dimension, typename TOtherElement>
-  explicit inline FunctionalitySpecialized(const math::tVector<Tother_dimension, TOtherElement, Cartesian> &other)
-  {
-    std::memset(this, 0, sizeof(tVector));
-    size_t size = std::min(Tdimension, Tother_dimension);
-    for (size_t i = 0; i < size; ++i)
-    {
-      reinterpret_cast<TElement *>(this)[i] = reinterpret_cast<const TOtherElement *>(&other)[i];
-    }
-  }
+  explicit inline FunctionalitySpecialized(const math::tVector<Tother_dimension, TOtherElement, Cartesian> &other) __attribute__((always_inline,flatten));
 
   template <typename ... TValues>
-  explicit inline FunctionalitySpecialized(TElement value, TValues... values)
-  {
-    FunctionalitySpecialized::Set(value, values...);
-  }
+  explicit inline FunctionalitySpecialized(TElement value, TValues... values) __attribute__((always_inline,flatten));
 
 //----------------------------------------------------------------------
 // Private fields and methods
@@ -280,74 +193,32 @@ class FunctionalitySpecialized<Tdimension, TElement, Polar>
 //----------------------------------------------------------------------
 public:
 
-  inline const tAngleRad operator [](size_t i) const
-  {
-    return const_cast<FunctionalitySpecialized &>(*this)[i];
-  }
-  inline tAngleRad &operator [](size_t i)
-  {
-    if (i > Tdimension - 2)
-    {
-      std::stringstream stream;
-      stream << "Vector index (" << i << ") out of bounds [0.." << Tdimension - 2 << "].";
-      throw std::logic_error(stream.str());
-    }
-    return reinterpret_cast<tAngleRad *>(this)[i];
-  }
+  inline const tAngleRad operator [](size_t i) const __attribute__((always_inline,flatten));
+  inline tAngleRad &operator [](size_t i) __attribute__((always_inline,flatten));
 
   template <typename ... TValues>
-  inline void Set(TValues... values)
-  {
-    tAngleRad buffer[Tdimension - 1];
-    this->SetValues<0>(buffer, values...);
-  }
+  inline void Set(TValues... values) __attribute__((always_inline,flatten));
 
-  inline const TElement SquaredLength() const
-  {
-    const tVector *that = reinterpret_cast<const tVector *>(this);
-    return that->Length() * that->Length();
-  }
+  inline const TElement SquaredLength() const __attribute__((always_inline,flatten));
 
-  inline const bool IsZero(double epsilon = 0) const
-  {
-    const tVector *that = reinterpret_cast<const tVector *>(this);
-    return that->Length() < epsilon;
-  }
+  inline const bool IsZero(double epsilon = 0) const __attribute__((always_inline,flatten));
 
 //----------------------------------------------------------------------
 // Protected methods
 //----------------------------------------------------------------------
 protected:
 
-  inline FunctionalitySpecialized() {}
+  inline FunctionalitySpecialized()
+  {}
 
   template <typename TOtherElement>
-  explicit inline FunctionalitySpecialized(const tAngleRad angles[Tdimension - 1], TOtherElement length)
-  {
-    tVector *that = reinterpret_cast<tVector *>(this);
-    std::memcpy(this, angles, sizeof(tVector) - sizeof(TElement));
-    that->Length() = length;
-  }
+  explicit inline FunctionalitySpecialized(const tAngleRad angles[Tdimension - 1], TOtherElement length) __attribute__((always_inline,flatten));
 
   template <size_t Tother_dimension, typename TOtherElement>
-  explicit inline FunctionalitySpecialized(const math::tVector<Tother_dimension, TOtherElement, Polar> &other)
-  {
-    tVector *that = reinterpret_cast<tVector *>(this);
-    std::memset(this, 0, sizeof(tVector));
-    size_t size = std::min(Tdimension - 1, Tother_dimension - 1);
-    for (size_t i = 0; i < size; ++i)
-    {
-      (*that)[i] = other[i];
-    }
-    that->Length() = other.Length();
-  }
+  explicit inline FunctionalitySpecialized(const math::tVector<Tother_dimension, TOtherElement, Polar> &other) __attribute__((always_inline,flatten));
 
   template <typename ... TValues>
-  explicit inline FunctionalitySpecialized(tAngleRad value, TValues... values)
-  {
-    FunctionalitySpecialized::Set(value, values...);
-  }
-
+  explicit inline FunctionalitySpecialized(tAngleRad value, TValues... values) __attribute__((always_inline,flatten));
 
 //----------------------------------------------------------------------
 // Private fields and methods
@@ -382,5 +253,7 @@ private:
 }
 }
 }
+
+#include "rrlib/math/vector/functionality/FunctionalitySpecialized.hpp"
 
 #endif

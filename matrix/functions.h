@@ -67,89 +67,29 @@ namespace math
 
 
 template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, size_t, typename> class TLeftData, template <size_t, size_t, typename> class TRightData>
-inline bool IsEqual(const tMatrix<Trows, Tcolumns, TElement, TLeftData> &left, const tMatrix<Trows, Tcolumns, TElement, TRightData> &right, float max_error = 1.0E-6, tFloatComparisonMethod method = eFCM_ABSOLUTE_ERROR)
-{
-  for (size_t row = 0; row < Trows; ++row)
-  {
-    for (size_t column = 0; column < Tcolumns; ++column)
-    {
-      if (!IsEqual(left[row][column], right[row][column], max_error, method))
-      {
-        return false;
-      }
-    }
-  }
-  return true;
-}
+inline bool IsEqual(const tMatrix<Trows, Tcolumns, TElement, TLeftData> &left, const tMatrix<Trows, Tcolumns, TElement, TRightData> &right, float max_error = 1.0E-6, tFloatComparisonMethod method = eFCM_ABSOLUTE_ERROR) __attribute__((always_inline,flatten));
 
 template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, size_t, typename> class TLeftData, template <size_t, size_t, typename> class TRightData>
-inline const bool operator == (const tMatrix<Trows, Tcolumns, TElement, TLeftData> &left, const tMatrix<Trows, Tcolumns, TElement, TRightData> &right)
-{
-  return IsEqual(left, right, 0.0);
-}
+inline const bool operator == (const tMatrix<Trows, Tcolumns, TElement, TLeftData> &left, const tMatrix<Trows, Tcolumns, TElement, TRightData> &right) __attribute__((always_inline,flatten));
 
 template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, size_t, typename> class TLeftData, template <size_t, size_t, typename> class TRightData>
-inline const bool operator != (const tMatrix<Trows, Tcolumns, TElement, TLeftData> &left, const tMatrix<Trows, Tcolumns, TElement, TRightData> &right)
-{
-  return !(left == right);
-}
+inline const bool operator != (const tMatrix<Trows, Tcolumns, TElement, TLeftData> &left, const tMatrix<Trows, Tcolumns, TElement, TRightData> &right) __attribute__((always_inline,flatten));
 
 template <typename TElement>
-const tMatrix<2, 2, TElement> Get2DRotationMatrix(tAngleRad angle)
-{
-  static_assert(boost::is_floating_point<TElement>::value, "Instantiation of this method only valid for float or double!");
-  TElement sin_angle, cos_angle;
-  angle.SinCos(sin_angle, cos_angle);
-  return tMatrix<2, 2, TElement>(cos_angle, -sin_angle, sin_angle, cos_angle);
-}
+const tMatrix<2, 2, TElement> Get2DRotationMatrix(tAngleRad angle);
 
 template <typename TElement>
-const tMatrix<3, 3, TElement> Get3DRotationMatrixFromRollPitchYaw(tAngleRad roll, tAngleRad pitch, tAngleRad yaw)
-{
-  double sin_roll, cos_roll;
-  roll.SinCos(sin_roll, cos_roll);
-  double sin_pitch, cos_pitch;
-  pitch.SinCos(sin_pitch, cos_pitch);
-  double sin_yaw, cos_yaw;
-  yaw.SinCos(sin_yaw, cos_yaw);
-  return tMatrix<3, 3, TElement>(cos_pitch * cos_yaw, -cos_roll * sin_yaw + sin_roll * sin_pitch * cos_yaw, sin_roll * sin_yaw + cos_roll * sin_pitch * cos_yaw,
-                                 cos_pitch * sin_yaw , cos_roll * cos_yaw + sin_roll * sin_pitch * sin_yaw, -sin_roll * cos_yaw + cos_roll * sin_pitch * sin_yaw,
-                                 -sin_pitch, sin_roll * cos_pitch, cos_roll * cos_pitch);
-}
+const tMatrix<3, 3, TElement> Get3DRotationMatrixFromRollPitchYaw(tAngleRad roll, tAngleRad pitch, tAngleRad yaw);
 
 template <typename TElement>
-const tMatrix<4, 4, TElement> Get4DTransformationMatrixZYXT(TElement x, TElement y, TElement z, tAngleRad roll, tAngleRad pitch, tAngleRad yaw)
-{
-  double sin_roll, cos_roll;
-  roll.SinCos(sin_roll, cos_roll);
-  double sin_pitch, cos_pitch;
-  pitch.SinCos(sin_pitch, cos_pitch);
-  double sin_yaw, cos_yaw;
-  yaw.SinCos(sin_yaw, cos_yaw);
-  return tMatrix<4, 4, TElement>(
-           cos_pitch * cos_yaw,
-           cos_pitch * sin_yaw,
-           -sin_pitch,
-           0,
-           sin_roll * sin_pitch * cos_yaw - cos_roll * sin_yaw,
-           sin_roll * sin_pitch * sin_yaw + cos_roll * cos_yaw,
-           sin_roll * cos_pitch,
-           0,
-           cos_roll * sin_pitch * cos_yaw + sin_roll * sin_yaw,
-           cos_roll * sin_pitch * sin_yaw - sin_roll * cos_yaw,
-           cos_roll * cos_pitch,
-           0,
-           cos_pitch * cos_yaw * x + (sin_roll * sin_pitch * cos_yaw - cos_roll * sin_yaw) * y + (cos_roll * sin_pitch * cos_yaw + sin_roll * sin_yaw) * z,
-           cos_pitch * sin_yaw * x + (sin_roll * sin_pitch * sin_yaw + cos_roll * cos_yaw) * y + (cos_roll * sin_pitch * sin_yaw - sin_roll * cos_yaw) * z,
-           -sin_pitch * x + sin_roll * cos_pitch * y + cos_roll * cos_pitch * z,
-           1
-         );
-}
+const tMatrix<4, 4, TElement> Get4DTransformationMatrixZYXT(TElement x, TElement y, TElement z, tAngleRad roll, tAngleRad pitch, tAngleRad yaw);
 
 //----------------------------------------------------------------------
 // End of namespace declaration
 //----------------------------------------------------------------------
 }
 }
+
+#include "rrlib/math/matrix/functions.hpp"
 
 #endif

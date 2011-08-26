@@ -85,7 +85,8 @@ class Conversions
 //----------------------------------------------------------------------
 protected:
 
-  inline Conversions() {}
+  inline Conversions() __attribute__((always_inline))
+  {}
 
 //----------------------------------------------------------------------
 // Private fields and methods
@@ -109,14 +110,14 @@ class Conversions<2, TElement, Cartesian>
 //----------------------------------------------------------------------
 public:
 
-  inline const tVector<2, TElement, Polar> GetPolarVector() const
+  inline const tVector<2, TElement, Polar> GetPolarVector() const __attribute__((always_inline,flatten))
   {
     const tVector<2, TElement, Cartesian> *that = reinterpret_cast<const tVector<2, TElement, Cartesian> *>(this);
     return tVector<2, TElement, Polar>(std::atan2(that->Y(), that->X()), that->Length());
   }
 
 #ifdef _LIB_OIV_PRESENT_
-  inline const SbVec2f GetCoinVector() const
+  inline const SbVec2f GetCoinVector() const __attribute__((always_inline,flatten))
   {
     const tVector<2, TElement, Cartesian> *that = reinterpret_cast<const tVector<3, TElement, Cartesian> *>(this);
     return SbVec2f(that->X(), that->Y());
@@ -128,7 +129,8 @@ public:
 //----------------------------------------------------------------------
 protected:
 
-  inline Conversions() {}
+  inline Conversions() __attribute__((always_inline))
+  {}
 
 //----------------------------------------------------------------------
 // Private fields and methods
@@ -152,7 +154,7 @@ class Conversions<3, TElement, Cartesian>
 //----------------------------------------------------------------------
 public:
 
-  inline const tVector<3, TElement, Polar> GetPolarVector() const
+  inline const tVector<3, TElement, Polar> GetPolarVector() const __attribute__((always_inline,flatten))
   {
     const tVector<3, TElement, Cartesian> *that = reinterpret_cast<const tVector<3, TElement, Cartesian> *>(this);
     TElement length = that->Length();
@@ -160,7 +162,7 @@ public:
   }
 
 #ifdef _LIB_OIV_PRESENT_
-  inline const SbVec3f GetCoinVector() const
+  inline const SbVec3f GetCoinVector() const __attribute__((always_inline,flatten))
   {
     const tVector<3, TElement, Cartesian> *that = reinterpret_cast<const tVector<3, TElement, Cartesian> *>(this);
     return SbVec3f(that->X(), that->Y(), that->Z());
@@ -172,7 +174,8 @@ public:
 //----------------------------------------------------------------------
 protected:
 
-  inline Conversions() {}
+  inline Conversions() __attribute__((always_inline))
+  {}
 
 //----------------------------------------------------------------------
 // Private fields and methods
@@ -196,14 +199,14 @@ class Conversions<2, TElement, Polar>
 //----------------------------------------------------------------------
 public:
 
-  inline const tVector<2, TElement, Cartesian> GetCartesianVector() const
+  inline const tVector<2, TElement, Cartesian> GetCartesianVector() const __attribute__((always_inline,flatten))
   {
     const tVector<2, TElement, Polar> *that = reinterpret_cast<const tVector<2, TElement, Polar> *>(this);
     return tVector<2, TElement, Cartesian>(that->Length() * std::cos(that->Alpha()), that->Length() * std::sin(that->Alpha()));
   }
 
 #ifdef _LIB_OIV_PRESENT_
-  inline const SbVec2f GetCoinVector() const
+  inline const SbVec2f GetCoinVector() const __attribute__((always_inline,flatten))
   {
     const tVector<2, TElement, Cartesian> *that = this->GetCartesianVector();
     return SbVec2f(that->X(), that->Y());
@@ -215,7 +218,8 @@ public:
 //----------------------------------------------------------------------
 protected:
 
-  inline Conversions() {}
+  inline Conversions() __attribute__((always_inline))
+  {}
 
 //----------------------------------------------------------------------
 // Private fields and methods
@@ -239,7 +243,7 @@ class Conversions<3, TElement, Polar>
 //----------------------------------------------------------------------
 public:
 
-  inline const tVector<3, TElement, Cartesian> GetCartesianVector() const
+  inline const tVector<3, TElement, Cartesian> GetCartesianVector() const __attribute__((always_inline,flatten))
   {
     const tVector<3, TElement, Polar> *that = reinterpret_cast<const tVector<3, TElement, Polar> *>(this);
     TElement sin_alpha = std::sin(that->Alpha());
@@ -250,7 +254,7 @@ public:
   }
 
 #ifdef _LIB_OIV_PRESENT_
-  inline const SbVec3f GetCoinVector() const
+  inline const SbVec3f GetCoinVector() const __attribute__((always_inline,flatten))
   {
     const tVector<2, TElement, Cartesian> *that = this->GetCartesianVector();
     return SbVec3f(that->X(), that->Y(), that->Z());
@@ -262,7 +266,8 @@ public:
 //----------------------------------------------------------------------
 protected:
 
-  inline Conversions() {}
+  inline Conversions() __attribute__((always_inline))
+  {}
 
 //----------------------------------------------------------------------
 // Private fields and methods

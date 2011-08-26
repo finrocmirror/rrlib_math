@@ -86,14 +86,9 @@ class FunctionalityShared
 //----------------------------------------------------------------------
 public:
 
-  inline const typename tData::Accessor operator [](size_t row) const
-  {
-    return const_cast<FunctionalityShared &>(*this)[row];
-  }
-  inline typename tData::Accessor operator [](size_t row)
-  {
-    return typename tData::Accessor(reinterpret_cast<TElement *>(this), row);
-  }
+  inline const typename tData::Accessor operator [](size_t row) const __attribute__((always_inline,flatten));
+
+  inline typename tData::Accessor operator [](size_t row) __attribute__((always_inline,flatten));
 
   inline FunctionalityShared &operator = (const FunctionalityShared &other)
   {
@@ -137,131 +132,49 @@ public:
   }
 
   template <typename ... TValues>
-  inline void Set(TValues... values)
-  {
-    TElement buffer[Trows * Tcolumns];
-    this->SetValues<0>(buffer, values...);
-  }
+  inline void Set(TValues... values) __attribute__((always_inline,flatten));
 
   template <typename TOtherElement, template <size_t, size_t, typename> class TOtherData>
-  inline void SetFromMatrix(const math::tMatrix<Trows, Tcolumns, TOtherElement, TOtherData> &source)
-  {
-    TElement buffer[Trows * Tcolumns];
-    for (size_t row  = 0; row < Trows; ++row)
-    {
-      for (size_t column  = 0; column < Tcolumns; ++column)
-      {
-        buffer[row * Tcolumns + column] = source[row][column];
-      }
-    }
-    reinterpret_cast<tMatrix *>(this)->SetFromArray(buffer);
-  }
+  inline void SetFromMatrix(const math::tMatrix<Trows, Tcolumns, TOtherElement, TOtherData> &source) __attribute__((always_inline,flatten));
 
-  inline void SetIdentity()
-  {
-    *this = tMatrix::Identity();
-  }
+  inline void SetIdentity() __attribute__((always_inline,flatten));
 
   template <typename TOtherElement, template <size_t, size_t, typename> class TOtherData>
-  inline const tMatrix &operator += (const math::tMatrix<Trows, Tcolumns, TOtherElement, TOtherData> &other)
-  {
-    tMatrix *that = reinterpret_cast<tMatrix *>(this);
-    *that = *that + other;
-    return *that;
-  }
+  inline const tMatrix &operator += (const math::tMatrix<Trows, Tcolumns, TOtherElement, TOtherData> &other) __attribute__((always_inline,flatten));
 
   template <typename TOtherElement, template <size_t, size_t, typename> class TOtherData>
-  inline const tMatrix &operator -= (const math::tMatrix<Trows, Tcolumns, TOtherElement, TOtherData> &other)
-  {
-    tMatrix *that = reinterpret_cast<tMatrix *>(this);
-    *that = *that - other;
-    return *that;
-  }
+  inline const tMatrix &operator -= (const math::tMatrix<Trows, Tcolumns, TOtherElement, TOtherData> &other) __attribute__((always_inline,flatten));
 
   template <typename TOtherElement, template <size_t, size_t, typename> class TOtherData>
-  inline const tMatrix &operator *= (const math::tMatrix<Tcolumns, Tcolumns, TOtherElement, TOtherData> &other)
-  {
-    tMatrix *that = reinterpret_cast<tMatrix *>(this);
-    *that = *that * other;
-    return *that;
-  }
+  inline const tMatrix &operator *= (const math::tMatrix<Tcolumns, Tcolumns, TOtherElement, TOtherData> &other) __attribute__((always_inline,flatten));
 
   template <typename TScalar>
-  inline const typename boost::enable_if<boost::is_scalar<TScalar>, tMatrix>::type &operator *= (const TScalar &scalar)
-  {
-    tMatrix *that = reinterpret_cast<tMatrix *>(this);
-    *that = *that * scalar;
-    return *that;
-  }
+  inline const typename boost::enable_if<boost::is_scalar<TScalar>, tMatrix>::type &operator *= (const TScalar &scalar) __attribute__((always_inline,flatten));
 
   template <typename TScalar>
-  inline const typename boost::enable_if<boost::is_scalar<TScalar>, tMatrix>::type &operator /= (const TScalar &scalar)
-  {
-    tMatrix *that = reinterpret_cast<tMatrix *>(this);
-    *that *= 1.0 / scalar;
-    return *that;
-  }
+  inline const typename boost::enable_if<boost::is_scalar<TScalar>, tMatrix>::type &operator /= (const TScalar &scalar) __attribute__((always_inline,flatten));
 
-  inline const bool IsZero(double epsilon = 0) const
-  {
-    for (size_t i = 0; i < sizeof(tMatrix) / sizeof(TElement); ++i)
-    {
-      if (std::abs(reinterpret_cast<const TElement *>(this)[i]) >= epsilon)
-      {
-        return false;
-      }
-    }
-    return true;
-  }
+  inline const bool IsZero(double epsilon = 0) const __attribute__((always_inline,flatten));
 
 //----------------------------------------------------------------------
 // Protected methods
 //----------------------------------------------------------------------
 protected:
 
-  inline FunctionalityShared()
-  {
-    std::memset(this, 0, sizeof(tMatrix));
-  }
-  inline FunctionalityShared(const tMatrix &other)
-  {
-    std::memcpy(this, &other, sizeof(tMatrix));
-  }
+  inline FunctionalityShared() __attribute__((always_inline,flatten));
 
-  explicit inline FunctionalityShared(const TElement data[Trows * Tcolumns])
-  {
-    reinterpret_cast<tMatrix *>(this)->SetFromArray(data);
-  }
+  inline FunctionalityShared(const tMatrix &other) __attribute__((always_inline,flatten));
+
+  explicit inline FunctionalityShared(const TElement data[Trows * Tcolumns]) __attribute__((always_inline,flatten));
 
   template <typename TOtherElement>
-  explicit inline FunctionalityShared(const math::tMatrix<Trows, Tcolumns, TOtherElement, TData> &other)
-  {
-    std::memset(this, 0, sizeof(tMatrix));
-    for (size_t i = 0; i < sizeof(tMatrix) / sizeof(TElement); ++i)
-    {
-      reinterpret_cast<TElement *>(this)[i] = reinterpret_cast<const TOtherElement *>(&other)[i];
-    }
-  }
+  explicit inline FunctionalityShared(const math::tMatrix<Trows, Tcolumns, TOtherElement, TData> &other) __attribute__((always_inline,flatten));
 
   template <typename TOtherElement, template <size_t, size_t, typename> class TOtherData>
-  explicit inline FunctionalityShared(const math::tMatrix<Trows, Tcolumns, TOtherElement, TOtherData> &other)
-  {
-    this->SetFromMatrix(other);
-  }
+  explicit inline FunctionalityShared(const math::tMatrix<Trows, Tcolumns, TOtherElement, TOtherData> &other) __attribute__((always_inline,flatten));
 
   template <typename TLeftElement, typename TRightElement>
-  inline FunctionalityShared(const tVector<Trows, TLeftElement, vector::Cartesian> &left, const tVector<Tcolumns, TRightElement, vector::Cartesian> &right)
-  {
-    TElement data[Trows * Tcolumns];
-    for (size_t row = 0; row < Trows; ++row)
-    {
-      for (size_t column = 0; column < Tcolumns; ++column)
-      {
-        data[row * Tcolumns + column] = left[row] * right[column];
-      }
-    }
-    reinterpret_cast<tMatrix *>(this)->SetFromArray(data);
-  }
+  inline FunctionalityShared(const tVector<Trows, TLeftElement, vector::Cartesian> &left, const tVector<Tcolumns, TRightElement, vector::Cartesian> &right) __attribute__((always_inline,flatten));
 
 //----------------------------------------------------------------------
 // Private fields and methods
@@ -293,5 +206,7 @@ private:
 }
 }
 }
+
+#include "rrlib/math/matrix/functionality/FunctionalityShared.hpp"
 
 #endif

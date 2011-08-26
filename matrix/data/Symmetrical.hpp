@@ -19,11 +19,11 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 //
 //----------------------------------------------------------------------
-/*!\file    UpperTriangle.h
+/*!\file    Symmetrical.hpp
  *
  * \author  Tobias Foehst
  *
- * \date    2010-11-21
+ * \date    2011-08-25
  *
  * \brief
  *
@@ -35,19 +35,19 @@
 #error Invalid include directive. Try #include "rrlib/math/tMatrix.h" instead.
 #endif
 
-#ifndef __rrlib__math__matrix__data__UpperTriangle_h__
-#define __rrlib__math__matrix__data__UpperTriangle_h__
+#ifndef __rrlib__math__matrix__data__Symmetrical_hpp__
+#define __rrlib__math__matrix__data__Symmetrical_hpp__
 
 //----------------------------------------------------------------------
 // External includes (system with <>, local with "")
 //----------------------------------------------------------------------
 #include <stdexcept>
 #include <sstream>
-#include <iomanip>
 
 //----------------------------------------------------------------------
 // Internal includes with ""
 //----------------------------------------------------------------------
+#include "rrlib/math/utilities.h"
 
 //----------------------------------------------------------------------
 // Debugging
@@ -68,56 +68,59 @@ namespace matrix
 //----------------------------------------------------------------------
 
 //----------------------------------------------------------------------
-// Class declaration
+// Implementation
 //----------------------------------------------------------------------
-//!
-/*!
- *
- */
+
+//----------------------------------------------------------------------
+// Symmetrical::Accessor constructors
+//----------------------------------------------------------------------
 template <size_t Trows, size_t Tcolumns, typename TElement>
-class UpperTriangle
+Symmetrical<Trows, Tcolumns, TElement>::Accessor::Accessor(TElement *values, size_t row)
+: values(values), row(row)
+{}
+
+//----------------------------------------------------------------------
+// Symmetrical::Accessor operator []
+//----------------------------------------------------------------------
+template <size_t Trows, size_t Tcolumns, typename TElement>
+const TElement Symmetrical<Trows, Tcolumns, TElement>::Accessor::operator [](size_t column) const
 {
+  return const_cast<Accessor &>(*this)[column];
+}
 
-//----------------------------------------------------------------------
-// Public methods and typedefs
-//----------------------------------------------------------------------
-public:
-
-  class Accessor
+template <size_t Trows, size_t Tcolumns, typename TElement>
+TElement &Symmetrical<Trows, Tcolumns, TElement>::Accessor::operator [](size_t column)
+{
+  if (this->row >= Trows || column >= Tcolumns)
   {
-    TElement *values;
-    size_t row;
-  public:
-    inline Accessor(TElement *values, size_t row) __attribute__((always_inline));
-
-    inline const TElement operator [](size_t column) const __attribute__((always_inline,flatten));
-
-    inline TElement &operator [](size_t column) __attribute__((always_inline,flatten));
-  };
-
-  inline void SetFromArray(const TElement data[Trows * Tcolumns]) __attribute__((always_inline,flatten));
+    std::stringstream stream;
+    stream << "Array index (" << this->row << ", " << column << " out of bounds [0.." << Trows << "][0.." << Tcolumns << "].";
+    throw std::logic_error(stream.str());
+  }
+  size_t index = column > this->row ? column * (column + 1) / 2 + this->row : this->row * (this->row + 1) / 2  + column;
+  return this->values[index];
+}
 
 //----------------------------------------------------------------------
-// Protected methods
+// Symmetrical SetFromArray
 //----------------------------------------------------------------------
-protected:
-
-  inline UpperTriangle()
+template <size_t Trows, size_t Tcolumns, typename TElement>
+void Symmetrical<Trows, Tcolumns, TElement>::SetFromArray(const TElement data[Trows * Tcolumns])
+{
+  for (size_t row = 0; row < Trows; ++row)
   {
-    static_assert(Trows == Tcolumns, "Upper triangle matrices must be square (rows = columns)!");
-  };
-
-//----------------------------------------------------------------------
-// Private fields and methods
-//----------------------------------------------------------------------
-private:
-
-  TElement values[Trows *(Trows + 1) / 2];
-
-  UpperTriangle(const UpperTriangle &other);
-  UpperTriangle &operator = (const UpperTriangle &);
-
-};
+    for (size_t column = row; column < Tcolumns; ++column)
+    {
+      if (!IsEqual(data[row * Tcolumns + column], data[column * Trows + row], 0.0001, eFCM_RELATIVE_ERROR))
+      {
+        std::stringstream stream;
+        stream << "Trying to initialize symmetric matrix from invalid data set " << math::tMatrix<Trows, Tcolumns, TElement, Full>(data) << ".";
+        throw std::runtime_error(stream.str());
+      }
+      this->values[column *(column + 1) / 2 + row] = data[row * Tcolumns + column];
+    }
+  }
+}
 
 
 
@@ -127,7 +130,5 @@ private:
 }
 }
 }
-
-#include "rrlib/math/matrix/data/UpperTriangle.hpp"
 
 #endif

@@ -81,7 +81,7 @@ class SquareMatrixOperationsShared
 //----------------------------------------------------------------------
 public:
 
-  inline const TElement Determinant() const
+  inline const TElement Determinant() const __attribute__((always_inline,flatten))
   {
     return 0;
   }
@@ -91,7 +91,8 @@ public:
 //----------------------------------------------------------------------
 protected:
 
-  inline SquareMatrixOperationsShared() {}
+  inline SquareMatrixOperationsShared() __attribute__((always_inline))
+  {}
 
 //----------------------------------------------------------------------
 // Private fields and methods
@@ -116,19 +117,19 @@ class SquareMatrixOperationsShared<Tdimension, Tdimension, TElement, TData>
 //----------------------------------------------------------------------
 public:
 
-  inline void Transpose()
+  inline void Transpose() __attribute__((always_inline,flatten))
   {
     tMatrix *that = reinterpret_cast<tMatrix *>(this);
     *that = that->Transposed();
   }
 
-  inline void Invert()
+  inline void Invert() __attribute__((always_inline,flatten))
   {
     tMatrix *that = reinterpret_cast<tMatrix *>(this);
     *that = that->Inverted();
   }
 
-  inline const tMatrix Inverse() const
+  inline const tMatrix Inverse() const __attribute__((always_inline,flatten))
   {
     const tMatrix *that = reinterpret_cast<const tMatrix *>(this);
     return that->Inverted();
@@ -139,7 +140,8 @@ public:
 //----------------------------------------------------------------------
 protected:
 
-  inline SquareMatrixOperationsShared() {}
+  inline SquareMatrixOperationsShared() __attribute__((always_inline))
+  {}
 
 //----------------------------------------------------------------------
 // Private fields and methods

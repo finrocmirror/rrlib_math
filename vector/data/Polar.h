@@ -81,21 +81,17 @@ class Polar
 //----------------------------------------------------------------------
 public:
 
-  inline TElement Length() const
-  {
-    return this->length;
-  }
-  inline TElement &Length()
-  {
-    return this->length;
-  }
+  inline TElement &Length() const __attribute__((always_inline,flatten));
+
+  inline TElement &Length() __attribute__((always_inline,flatten));
 
 //----------------------------------------------------------------------
 // Protected methods
 //----------------------------------------------------------------------
 protected:
 
-  inline Polar() {}
+  inline Polar()
+  {}
 
 //----------------------------------------------------------------------
 // Private fields and methods
@@ -122,29 +118,21 @@ class Polar<2, TElement>
 //----------------------------------------------------------------------
 public:
 
-  inline tAngle<TElement, angle::Radian, angle::Signed> Alpha() const
-  {
-    return this->alpha;
-  }
-  inline tAngle<TElement, angle::Radian, angle::Signed> &Alpha()
-  {
-    return this->alpha;
-  }
-  inline TElement Length() const
-  {
-    return this->length;
-  }
-  inline TElement &Length()
-  {
-    return this->length;
-  }
+  inline tAngle<TElement, angle::Radian, angle::Signed> Alpha() const __attribute__((always_inline,flatten));
+
+  inline tAngle<TElement, angle::Radian, angle::Signed> &Alpha() __attribute__((always_inline,flatten));
+
+  inline const TElement &Length() const __attribute__((always_inline,flatten));
+
+  inline TElement &Length() __attribute__((always_inline,flatten));
 
 //----------------------------------------------------------------------
 // Protected methods
 //----------------------------------------------------------------------
 protected:
 
-  inline Polar() {}
+  inline Polar()
+  {}
 
 //----------------------------------------------------------------------
 // Private fields and methods
@@ -171,37 +159,25 @@ class Polar<3, TElement>
 //----------------------------------------------------------------------
 public:
 
-  inline tAngle<TElement, angle::Radian, angle::Signed> Alpha() const
-  {
-    return this->alpha;
-  }
-  inline tAngle<TElement, angle::Radian, angle::Signed> &Alpha()
-  {
-    return this->alpha;
-  }
-  inline tAngle<TElement, angle::Radian, angle::Signed> Beta() const
-  {
-    return this->beta;
-  }
-  inline tAngle<TElement, angle::Radian, angle::Signed> &Beta()
-  {
-    return this->beta;
-  }
-  inline TElement Length() const
-  {
-    return this->length;
-  }
-  inline TElement &Length()
-  {
-    return this->length;
-  }
+  inline tAngle<TElement, angle::Radian, angle::Signed> Alpha() const __attribute__((always_inline,flatten));
+
+  inline tAngle<TElement, angle::Radian, angle::Signed> &Alpha() __attribute__((always_inline,flatten));
+
+  inline tAngle<TElement, angle::Radian, angle::Signed> Beta() const __attribute__((always_inline,flatten));
+
+  inline tAngle<TElement, angle::Radian, angle::Signed> &Beta() __attribute__((always_inline,flatten));
+
+  inline const TElement &Length() const __attribute__((always_inline,flatten));
+
+  inline TElement &Length() __attribute__((always_inline,flatten));
 
 //----------------------------------------------------------------------
 // Protected methods
 //----------------------------------------------------------------------
 protected:
 
-  inline Polar() {}
+  inline Polar()
+  {}
 
 //----------------------------------------------------------------------
 // Private fields and methods
@@ -225,5 +201,7 @@ private:
 }
 }
 }
+
+#include "rrlib/math/vector/data/Polar.hpp"
 
 #endif

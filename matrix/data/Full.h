@@ -88,34 +88,22 @@ public:
     TElement *values;
     size_t row;
   public:
-    inline Accessor(TElement *values, size_t row) : values(values), row(row) {}
-    inline const TElement operator [](size_t column) const
-    {
-      return const_cast<Accessor &>(*this)[column];
-    }
-    inline TElement &operator [](size_t column)
-    {
-      if (this->row >= Trows || column >= Tcolumns)
-      {
-        std::stringstream stream;
-        stream << "Array index (" << this->row << ", " << column << " out of bounds [0.." << Trows << "][0.." << Tcolumns << "].";
-        throw std::logic_error(stream.str());
-      }
-      return this->values[this->row * Tcolumns + column];
-    }
+    inline Accessor(TElement *values, size_t row) __attribute__((always_inline));
+
+    inline const TElement operator [](size_t column) const __attribute__((always_inline,flatten));
+
+    inline TElement &operator [](size_t column) __attribute__((always_inline,flatten));
   };
 
-  inline void SetFromArray(const TElement data[Trows * Tcolumns])
-  {
-    std::memcpy(this->values, data, sizeof(Full));
-  }
+  inline void SetFromArray(const TElement data[Trows * Tcolumns]) __attribute__((always_inline,flatten));
 
 //----------------------------------------------------------------------
 // Protected methods
 //----------------------------------------------------------------------
 protected:
 
-  inline Full() {};
+  inline Full()
+  {};
 
 //----------------------------------------------------------------------
 // Private fields and methods
@@ -137,5 +125,7 @@ private:
 }
 }
 }
+
+#include "rrlib/math/matrix/data/Full.hpp"
 
 #endif

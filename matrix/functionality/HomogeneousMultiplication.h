@@ -82,7 +82,8 @@ class HomogeneousMultiplication
 //----------------------------------------------------------------------
 protected:
 
-  inline HomogeneousMultiplication() {}
+  inline HomogeneousMultiplication() __attribute__((always_inline))
+  {}
 
 //----------------------------------------------------------------------
 // Private fields and methods
@@ -130,7 +131,8 @@ public:
 //----------------------------------------------------------------------
 protected:
 
-  inline HomogeneousMultiplication() {}
+  inline HomogeneousMultiplication() __attribute__((always_inline))
+  {}
 
 //----------------------------------------------------------------------
 // Private fields and methods

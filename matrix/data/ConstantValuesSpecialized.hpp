@@ -19,11 +19,11 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 //
 //----------------------------------------------------------------------
-/*!\file    UpperTriangle.h
+/*!\file    ConstantValuesSpecialized.hpp
  *
  * \author  Tobias Foehst
  *
- * \date    2010-11-21
+ * \date    2011-08-25
  *
  * \brief
  *
@@ -35,15 +35,12 @@
 #error Invalid include directive. Try #include "rrlib/math/tMatrix.h" instead.
 #endif
 
-#ifndef __rrlib__math__matrix__data__UpperTriangle_h__
-#define __rrlib__math__matrix__data__UpperTriangle_h__
+#ifndef __rrlib__math__matrix__data__ConstantValuesSpecialized_hpp__
+#define __rrlib__math__matrix__data__ConstantValuesSpecialized_hpp__
 
 //----------------------------------------------------------------------
 // External includes (system with <>, local with "")
 //----------------------------------------------------------------------
-#include <stdexcept>
-#include <sstream>
-#include <iomanip>
 
 //----------------------------------------------------------------------
 // Internal includes with ""
@@ -68,56 +65,32 @@ namespace matrix
 //----------------------------------------------------------------------
 
 //----------------------------------------------------------------------
-// Class declaration
+// Implementation
 //----------------------------------------------------------------------
-//!
-/*!
- *
- */
-template <size_t Trows, size_t Tcolumns, typename TElement>
-class UpperTriangle
+
+//----------------------------------------------------------------------
+// ConstantValuesSpecialized Identity
+//----------------------------------------------------------------------
+template <size_t Tdimension, typename TElement, template <size_t, size_t, typename> class TData>
+const tMatrix<Tdimension, Tdimension, TElement, TData> &ConstantValuesSpecialized<Tdimension, Tdimension, TElement, TData>::Identity()
 {
+  static tMatrix identity(InitializeIdentity());
+  return identity;
+}
 
 //----------------------------------------------------------------------
-// Public methods and typedefs
+// ConstantValuesSpecialized InitializeIdentity
 //----------------------------------------------------------------------
-public:
-
-  class Accessor
+template <size_t Tdimension, typename TElement, template <size_t, size_t, typename> class TData>
+const tMatrix<Tdimension, Tdimension, TElement, TData> &ConstantValuesSpecialized<Tdimension, Tdimension, TElement, TData>::InitializeIdentity()
+{
+  static tMatrix matrix;
+  for (size_t i = 0; i < Tdimension; ++i)
   {
-    TElement *values;
-    size_t row;
-  public:
-    inline Accessor(TElement *values, size_t row) __attribute__((always_inline));
-
-    inline const TElement operator [](size_t column) const __attribute__((always_inline,flatten));
-
-    inline TElement &operator [](size_t column) __attribute__((always_inline,flatten));
-  };
-
-  inline void SetFromArray(const TElement data[Trows * Tcolumns]) __attribute__((always_inline,flatten));
-
-//----------------------------------------------------------------------
-// Protected methods
-//----------------------------------------------------------------------
-protected:
-
-  inline UpperTriangle()
-  {
-    static_assert(Trows == Tcolumns, "Upper triangle matrices must be square (rows = columns)!");
-  };
-
-//----------------------------------------------------------------------
-// Private fields and methods
-//----------------------------------------------------------------------
-private:
-
-  TElement values[Trows *(Trows + 1) / 2];
-
-  UpperTriangle(const UpperTriangle &other);
-  UpperTriangle &operator = (const UpperTriangle &);
-
-};
+    matrix[i][i] = static_cast<TElement>(1);
+  }
+  return matrix;
+}
 
 
 
@@ -127,7 +100,5 @@ private:
 }
 }
 }
-
-#include "rrlib/math/matrix/data/UpperTriangle.hpp"
 
 #endif

@@ -19,11 +19,11 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 //
 //----------------------------------------------------------------------
-/*!\file    UpperTriangle.h
+/*!\file    Cartesian.hpp
  *
  * \author  Tobias Foehst
  *
- * \date    2010-11-21
+ * \date    2011-08-25
  *
  * \brief
  *
@@ -31,19 +31,16 @@
  *
  */
 //----------------------------------------------------------------------
-#ifndef __rrlib__math__matrix__include_guard__
-#error Invalid include directive. Try #include "rrlib/math/tMatrix.h" instead.
+#ifndef __rrlib__math__vector__include_guard__
+#error Invalid include directive. Try #include "rrlib/math/tVector.h" instead.
 #endif
 
-#ifndef __rrlib__math__matrix__data__UpperTriangle_h__
-#define __rrlib__math__matrix__data__UpperTriangle_h__
+#ifndef __rrlib__math__vector__data__Cartesian_hpp__
+#define __rrlib__math__vector__data__Cartesian_hpp__
 
 //----------------------------------------------------------------------
 // External includes (system with <>, local with "")
 //----------------------------------------------------------------------
-#include <stdexcept>
-#include <sstream>
-#include <iomanip>
 
 //----------------------------------------------------------------------
 // Internal includes with ""
@@ -60,7 +57,7 @@ namespace rrlib
 {
 namespace math
 {
-namespace matrix
+namespace vector
 {
 
 //----------------------------------------------------------------------
@@ -68,56 +65,83 @@ namespace matrix
 //----------------------------------------------------------------------
 
 //----------------------------------------------------------------------
-// Class declaration
+// Implementation
 //----------------------------------------------------------------------
-//!
-/*!
- *
- */
-template <size_t Trows, size_t Tcolumns, typename TElement>
-class UpperTriangle
+
+//----------------------------------------------------------------------
+// Cartesian 2 X
+//----------------------------------------------------------------------
+template <typename TElement>
+TElement Cartesian<2, TElement>::X() const
 {
+  return this->x;
+}
+
+template <typename TElement>
+TElement &Cartesian<2, TElement>::X()
+{
+  return this->x;
+}
 
 //----------------------------------------------------------------------
-// Public methods and typedefs
+// Cartesian 2 Y
 //----------------------------------------------------------------------
-public:
+template <typename TElement>
+TElement Cartesian<2, TElement>::Y() const
+{
+  return this->y;
+}
 
-  class Accessor
-  {
-    TElement *values;
-    size_t row;
-  public:
-    inline Accessor(TElement *values, size_t row) __attribute__((always_inline));
-
-    inline const TElement operator [](size_t column) const __attribute__((always_inline,flatten));
-
-    inline TElement &operator [](size_t column) __attribute__((always_inline,flatten));
-  };
-
-  inline void SetFromArray(const TElement data[Trows * Tcolumns]) __attribute__((always_inline,flatten));
+template <typename TElement>
+TElement &Cartesian<2, TElement>::Y()
+{
+  return this->y;
+}
 
 //----------------------------------------------------------------------
-// Protected methods
+// Cartesian 3 X
 //----------------------------------------------------------------------
-protected:
+template <typename TElement>
+TElement Cartesian<3, TElement>::X() const
+{
+  return this->x;
+}
 
-  inline UpperTriangle()
-  {
-    static_assert(Trows == Tcolumns, "Upper triangle matrices must be square (rows = columns)!");
-  };
+template <typename TElement>
+TElement &Cartesian<3, TElement>::X()
+{
+  return this->x;
+}
 
 //----------------------------------------------------------------------
-// Private fields and methods
+// Cartesian 3 Y
 //----------------------------------------------------------------------
-private:
+template <typename TElement>
+TElement Cartesian<3, TElement>::Y() const
+{
+  return this->y;
+}
 
-  TElement values[Trows *(Trows + 1) / 2];
+template <typename TElement>
+TElement &Cartesian<3, TElement>::Y()
+{
+  return this->y;
+}
 
-  UpperTriangle(const UpperTriangle &other);
-  UpperTriangle &operator = (const UpperTriangle &);
+//----------------------------------------------------------------------
+// Cartesian 3 Z
+//----------------------------------------------------------------------
+template <typename TElement>
+TElement Cartesian<3, TElement>::Z() const
+{
+  return this->z;
+}
 
-};
+template <typename TElement>
+TElement &Cartesian<3, TElement>::Z()
+{
+  return this->z;
+}
 
 
 
@@ -127,7 +151,5 @@ private:
 }
 }
 }
-
-#include "rrlib/math/matrix/data/UpperTriangle.hpp"
 
 #endif

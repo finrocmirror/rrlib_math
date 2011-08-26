@@ -80,7 +80,8 @@ class ConstantValuesSpecialized
 //----------------------------------------------------------------------
 protected:
 
-  inline ConstantValuesSpecialized() {};
+  inline ConstantValuesSpecialized()
+  {};
 
 //----------------------------------------------------------------------
 // Private fields and methods
@@ -105,18 +106,15 @@ class ConstantValuesSpecialized<Tdimension, Tdimension, TElement, TData>
 //----------------------------------------------------------------------
 public:
 
-  static inline const tMatrix &Identity()
-  {
-    static tMatrix identity(InitializeIdentity());
-    return identity;
-  }
+  static inline const tMatrix &Identity() __attribute__((always_inline,flatten));
 
 //----------------------------------------------------------------------
 // Protected methods
 //----------------------------------------------------------------------
 protected:
 
-  inline ConstantValuesSpecialized() {}
+  inline ConstantValuesSpecialized()
+  {}
 
 //----------------------------------------------------------------------
 // Private fields and methods
@@ -126,15 +124,7 @@ private:
   ConstantValuesSpecialized(const ConstantValuesSpecialized &other);
   ConstantValuesSpecialized &operator = (const ConstantValuesSpecialized &);
 
-  static const tMatrix &InitializeIdentity()
-  {
-    static tMatrix matrix;
-    for (size_t i = 0; i < Tdimension; ++i)
-    {
-      matrix[i][i] = static_cast<TElement>(1);
-    }
-    return matrix;
-  }
+  static const tMatrix &InitializeIdentity() __attribute__((always_inline,flatten));
 
 };
 
@@ -146,5 +136,7 @@ private:
 }
 }
 }
+
+#include "rrlib/math/matrix/data/ConstantValuesSpecialized.hpp"
 
 #endif
