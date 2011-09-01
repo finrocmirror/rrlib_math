@@ -158,7 +158,9 @@ const tVector<Trank, TElement> tLUDecomposition<Trank, TElement>::Solve(const tV
   tVector<Tdimension, TElement> temp(right_side);
   for (size_t i = 0; i < Trank - 1; ++i)
   {
+    TElement swap = temp[i];
     temp[i] = temp[this->pivot[i]];
+    temp[this->pivot[i]] = swap;
   }
 
   for (size_t row = 0; row < Trank; ++row)
