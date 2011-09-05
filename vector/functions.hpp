@@ -197,10 +197,10 @@ void GetCartesianVectorFromPolar(tVector<Tdimension, TCartesianElement, vector::
 }
 
 //----------------------------------------------------------------------
-// GetPolarSignedFromCartesian
+// GetPolarSignedVectorFromCartesian
 //----------------------------------------------------------------------
 template <typename TElement>
-tVector<2, TElement, vector::Polar> GetPolarSignedFromCartesian(tVector<2, TElement, vector::Cartesian> cartesian, double radius)
+tVector<2, TElement, vector::Polar> GetPolarSignedVectorFromCartesian(tVector<2, TElement, vector::Cartesian> cartesian, double radius)
 {
   cartesian.Normalize();
   return tVector<2, TElement, vector::Polar>(cartesian.Y() >= 0 ? std::acos(cartesian.X()) : -std::acos(cartesian.X()), radius);

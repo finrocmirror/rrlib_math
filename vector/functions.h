@@ -105,7 +105,7 @@ template <size_t Tdimension, typename TCartesianElement, typename TPolarElement>
 inline void GetCartesianVectorFromPolar(tVector<Tdimension, TCartesianElement, vector::Cartesian> &cartesian, const tVector<Tdimension, TPolarElement, vector::Polar> &polar) __attribute__((always_inline,flatten));
 
 template <typename TElement>
-inline tVector<2, TElement, vector::Polar> GetPolarSignedFromCartesian(tVector<2, TElement, vector::Cartesian> cartesian, double radius = 1) __attribute__((always_inline,flatten));
+inline tVector<2, TElement, vector::Polar> GetPolarSignedVectorFromCartesian(tVector<2, TElement, vector::Cartesian> cartesian, double radius = 1) __attribute__((always_inline,flatten));
 
 //----------------------------------------------------------------------
 // End of namespace declaration

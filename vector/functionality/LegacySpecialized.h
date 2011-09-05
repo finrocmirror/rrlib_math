@@ -167,7 +167,7 @@ inline const TElement LegacySpecialized<2, TElement, Cartesian>::operator % (con
 template <typename TElement>
 inline const math::tVector<2, TElement, Cartesian> LegacySpecialized<2, TElement, Cartesian>::polarSigned(TElement radius) const
 {
-  math::tVector<2, TElement, Polar> temp = GetPolarSignedFromCartesian(reinterpret_cast<const tVector &>(*this), radius);
+  math::tVector<2, TElement, Polar> temp = GetPolarSignedVectorFromCartesian(reinterpret_cast<const tVector &>(*this), radius);
   return *reinterpret_cast<math::tVector<2, TElement, Cartesian> *>(&temp);
 //    const tVector *that = reinterpret_cast<const tVector *>(this);
 //    tVector temp(*that);
@@ -193,6 +193,9 @@ inline const math::tVector<2, TElement, Cartesian> LegacySpecialized<2, TElement
 template <typename TElement>
 float LegacySpecialized<2, TElement, Cartesian>::GetDistance2Line(float angle, const tVector &line_start, const tVector &line_end, float max)
 {
+
+  // A CALL TO THIS METHOD WOULD BEST BE REPLACED BY USING rrlib_geometry STUFF
+
   tVector *that = reinterpret_cast<tVector *>(this);
 
   tVector line_direction = (line_end - line_start).Normalized();
