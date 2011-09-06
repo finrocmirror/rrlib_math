@@ -123,7 +123,7 @@ public:
         throw std::logic_error(stream.str());
       }
       std::memset(this, 0, sizeof(tMatrix));
-      for (size_t i = 0; i < Trows * Tcolumns; ++i)
+      for (size_t i = 0; i < sizeof(tMatrix) / sizeof(TElement); ++i)
       {
         reinterpret_cast<TElement *>(this)[i] = reinterpret_cast<const TOtherElement *>(&other)[i];
       }
