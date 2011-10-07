@@ -2,7 +2,7 @@
 // You received this file as part of RRLib
 // Robotics Research Library
 //
-// Copyright (C) AG Robotersysteme TU Kaiserslautern
+// Copyright (C) Finroc GbR (finroc.org)
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -106,9 +106,9 @@ class ConstantValuesSpecialized<2, TElement, Cartesian>
 //----------------------------------------------------------------------
 public:
 
-  static const tVector &XDirection() __attribute__((always_inline,flatten));
+  static const tVector &XDirection() __attribute__((always_inline, flatten));
 
-  static const tVector &YDirection() __attribute__((always_inline,flatten));
+  static const tVector &YDirection() __attribute__((always_inline, flatten));
 
 //----------------------------------------------------------------------
 // Protected methods
@@ -141,11 +141,11 @@ class ConstantValuesSpecialized<3, TElement, Cartesian>
 //----------------------------------------------------------------------
 public:
 
-  static inline const tVector &XDirection() __attribute__((always_inline,flatten));
+  static inline const tVector &XDirection() __attribute__((always_inline, flatten));
 
-  static inline const tVector &YDirection() __attribute__((always_inline,flatten));
+  static inline const tVector &YDirection() __attribute__((always_inline, flatten));
 
-  static inline const tVector &ZDirection() __attribute__((always_inline,flatten));
+  static inline const tVector &ZDirection() __attribute__((always_inline, flatten));
 
 //----------------------------------------------------------------------
 // Protected methods

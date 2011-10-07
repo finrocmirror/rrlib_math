@@ -2,7 +2,7 @@
 // You received this file as part of RRLib
 // Robotics Research Library
 //
-// Copyright (C) AG Robotersysteme TU Kaiserslautern
+// Copyright (C) Finroc GbR (finroc.org)
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -97,30 +97,30 @@ class tVector : public TData<Tdimension, TElement>,
 //----------------------------------------------------------------------
 public:
 
-  inline tVector() __attribute__((always_inline,flatten));
+  inline tVector() __attribute__((always_inline, flatten));
 
   inline tVector(const tVector &other) __attribute__((always_inline));
 
   template <size_t Tother_dimension, typename TOtherElement>
-  inline tVector(const tVector<Tother_dimension, TOtherElement> &other) __attribute__((always_inline,flatten));
+  inline tVector(const tVector<Tother_dimension, TOtherElement> &other) __attribute__((always_inline, flatten));
 
   template <typename ... TValues>
-  explicit inline tVector(TValues... values) __attribute__((always_inline,flatten));
+  explicit inline tVector(TValues... values) __attribute__((always_inline, flatten));
 
 #ifdef _LIB_OIV_PRESENT_
 
   template < typename T = int >
-  explicit inline tVector(const SbVec2f &v, typename boost::enable_if_c < (Tdimension == 2), T >::type = 0) __attribute__((always_inline,flatten));
+  explicit inline tVector(const SbVec2f &v, typename boost::enable_if_c < (Tdimension == 2), T >::type = 0) __attribute__((always_inline, flatten));
 
   template < typename T = int >
-  explicit inline tVector(const SbVec3f &v, typename boost::enable_if_c < (Tdimension == 3), T >::type = 0) __attribute__((always_inline,flatten));
+  explicit inline tVector(const SbVec3f &v, typename boost::enable_if_c < (Tdimension == 3), T >::type = 0) __attribute__((always_inline, flatten));
 
 #endif
 
-  inline tVector &operator = (const tVector &other) __attribute__((always_inline,flatten));
+  inline tVector &operator = (const tVector &other) __attribute__((always_inline, flatten));
 
   template <size_t Tother_dimension, typename TOtherElement>
-  inline tVector &operator = (const tVector<Tother_dimension, TOtherElement, TData> &other) __attribute__((always_inline,flatten));
+  inline tVector &operator = (const tVector<Tother_dimension, TOtherElement, TData> &other) __attribute__((always_inline, flatten));
 
 };
 

@@ -2,7 +2,7 @@
 // You received this file as part of RRLib
 // Robotics Research Library
 //
-// Copyright (C) AG Robotersysteme TU Kaiserslautern
+// Copyright (C) Finroc GbR (finroc.org)
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -106,7 +106,7 @@ class ConstantValuesSpecialized<Tdimension, Tdimension, TElement, TData>
 //----------------------------------------------------------------------
 public:
 
-  static inline const tMatrix &Identity() __attribute__((always_inline,flatten));
+  static inline const tMatrix &Identity() __attribute__((always_inline, flatten));
 
 //----------------------------------------------------------------------
 // Protected methods
@@ -124,7 +124,7 @@ private:
   ConstantValuesSpecialized(const ConstantValuesSpecialized &other);
   ConstantValuesSpecialized &operator = (const ConstantValuesSpecialized &);
 
-  static const tMatrix &InitializeIdentity() __attribute__((always_inline,flatten));
+  static const tMatrix &InitializeIdentity() __attribute__((always_inline, flatten));
 
 };
 

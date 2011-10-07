@@ -2,7 +2,7 @@
 // You received this file as part of RRLib
 // Robotics Research Library
 //
-// Copyright (C) AG Robotersysteme TU Kaiserslautern
+// Copyright (C) Finroc GbR (finroc.org)
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -81,9 +81,9 @@ class Polar
 //----------------------------------------------------------------------
 public:
 
-  inline TElement &Length() const __attribute__((always_inline,flatten));
+  inline TElement &Length() const __attribute__((always_inline, flatten));
 
-  inline TElement &Length() __attribute__((always_inline,flatten));
+  inline TElement &Length() __attribute__((always_inline, flatten));
 
 //----------------------------------------------------------------------
 // Protected methods
@@ -118,13 +118,13 @@ class Polar<2, TElement>
 //----------------------------------------------------------------------
 public:
 
-  inline tAngle<TElement, angle::Radian, angle::Signed> Alpha() const __attribute__((always_inline,flatten));
+  inline tAngle<TElement, angle::Radian, angle::Signed> Alpha() const __attribute__((always_inline, flatten));
 
-  inline tAngle<TElement, angle::Radian, angle::Signed> &Alpha() __attribute__((always_inline,flatten));
+  inline tAngle<TElement, angle::Radian, angle::Signed> &Alpha() __attribute__((always_inline, flatten));
 
-  inline const TElement &Length() const __attribute__((always_inline,flatten));
+  inline const TElement &Length() const __attribute__((always_inline, flatten));
 
-  inline TElement &Length() __attribute__((always_inline,flatten));
+  inline TElement &Length() __attribute__((always_inline, flatten));
 
 //----------------------------------------------------------------------
 // Protected methods
@@ -159,17 +159,17 @@ class Polar<3, TElement>
 //----------------------------------------------------------------------
 public:
 
-  inline tAngle<TElement, angle::Radian, angle::Signed> Alpha() const __attribute__((always_inline,flatten));
+  inline tAngle<TElement, angle::Radian, angle::Signed> Alpha() const __attribute__((always_inline, flatten));
 
-  inline tAngle<TElement, angle::Radian, angle::Signed> &Alpha() __attribute__((always_inline,flatten));
+  inline tAngle<TElement, angle::Radian, angle::Signed> &Alpha() __attribute__((always_inline, flatten));
 
-  inline tAngle<TElement, angle::Radian, angle::Signed> Beta() const __attribute__((always_inline,flatten));
+  inline tAngle<TElement, angle::Radian, angle::Signed> Beta() const __attribute__((always_inline, flatten));
 
-  inline tAngle<TElement, angle::Radian, angle::Signed> &Beta() __attribute__((always_inline,flatten));
+  inline tAngle<TElement, angle::Radian, angle::Signed> &Beta() __attribute__((always_inline, flatten));
 
-  inline const TElement &Length() const __attribute__((always_inline,flatten));
+  inline const TElement &Length() const __attribute__((always_inline, flatten));
 
-  inline TElement &Length() __attribute__((always_inline,flatten));
+  inline TElement &Length() __attribute__((always_inline, flatten));
 
 //----------------------------------------------------------------------
 // Protected methods

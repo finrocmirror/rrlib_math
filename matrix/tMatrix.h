@@ -2,7 +2,7 @@
 // You received this file as part of RRLib
 // Robotics Research Library
 //
-// Copyright (C) AG Robotersysteme TU Kaiserslautern
+// Copyright (C) Finroc GbR (finroc.org)
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -111,19 +111,19 @@ public:
   inline tMatrix(const tVector<Trows, TLeftElement, vector::Cartesian> &left, const tVector<Tcolumns, TRightElement, vector::Cartesian> &right) __attribute__((always_inline));
 
   template <typename ... TValues>
-  explicit inline tMatrix(TElement value, TValues... values) __attribute__((always_inline,flatten));
+  explicit inline tMatrix(TElement value, TValues... values) __attribute__((always_inline, flatten));
 
 #ifdef _LIB_OIV_PRESENT_
 
   template < class T = int >
-  explicit inline tMatrix(const SbMatrix &m, typename boost::enable_if_c < (Trows == 4 && Tcolumns == 4), T >::type = 0) __attribute__((always_inline,flatten));
+  explicit inline tMatrix(const SbMatrix &m, typename boost::enable_if_c < (Trows == 4 && Tcolumns == 4), T >::type = 0) __attribute__((always_inline, flatten));
 
 #endif
 
-  inline tMatrix &operator = (const tMatrix &other) __attribute__((always_inline,flatten));
+  inline tMatrix &operator = (const tMatrix &other) __attribute__((always_inline, flatten));
 
   template <typename TOtherElement>
-  inline tMatrix &operator = (const tMatrix<Trows, Tcolumns, TOtherElement, TData> &other) __attribute__((always_inline,flatten));
+  inline tMatrix &operator = (const tMatrix<Trows, Tcolumns, TOtherElement, TData> &other) __attribute__((always_inline, flatten));
 
 };
 

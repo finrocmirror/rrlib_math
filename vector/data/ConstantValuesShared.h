@@ -2,7 +2,7 @@
 // You received this file as part of RRLib
 // Robotics Research Library
 //
-// Copyright (C) AG Robotersysteme TU Kaiserslautern
+// Copyright (C) Finroc GbR (finroc.org)
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -85,7 +85,7 @@ public:
 
   typedef TElement tElement;
 
-  static inline const tVector &Zero() __attribute__((always_inline,flatten));
+  static inline const tVector &Zero() __attribute__((always_inline, flatten));
 
 //----------------------------------------------------------------------
 // Protected methods
@@ -122,9 +122,9 @@ public:
 
   typedef TElement tElement;
 
-  static inline const tVector &Zero() __attribute__((always_inline,flatten));
+  static inline const tVector &Zero() __attribute__((always_inline, flatten));
 
-  static inline const tVector &Identity() __attribute__((always_inline,flatten));
+  static inline const tVector &Identity() __attribute__((always_inline, flatten));
 
 //----------------------------------------------------------------------
 // Protected methods
@@ -142,7 +142,7 @@ private:
   ConstantValuesShared(const ConstantValuesShared &other);
   ConstantValuesShared &operator = (const ConstantValuesShared &);
 
-  static inline const tVector &InitializeIdentity() __attribute__((always_inline,flatten));
+  static inline const tVector &InitializeIdentity() __attribute__((always_inline, flatten));
 
 };
 

@@ -2,7 +2,7 @@
 // You received this file as part of RRLib
 // Robotics Research Library
 //
-// Copyright (C) AG Robotersysteme TU Kaiserslautern
+// Copyright (C) Finroc GbR (finroc.org)
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -110,7 +110,7 @@ class Conversions<4, 4, TElement, matrix::Full>
 public:
 
 #ifdef _LIB_OIV_PRESENT_
-  inline const SbMatrix GetCoinMatrix() const __attribute__((always_inline,flatten))
+  inline const SbMatrix GetCoinMatrix() const __attribute__((always_inline, flatten))
   {
     const math::tMatrix<4, 4, TElement, matrix::Full>* that = reinterpret_cast<const math::tMatrix<4, 4, TElement, matrix::Full> *>(this);
     return SbMatrix(

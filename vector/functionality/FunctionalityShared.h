@@ -2,7 +2,7 @@
 // You received this file as part of RRLib
 // Robotics Research Library
 //
-// Copyright (C) AG Robotersysteme TU Kaiserslautern
+// Copyright (C) Finroc GbR (finroc.org)
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -137,20 +137,20 @@ public:
   }
 
   template <typename TOtherElement>
-  inline const tVector &operator += (const math::tVector<Tdimension, TOtherElement, TData> &other) __attribute__((always_inline,flatten));
+  inline const tVector &operator += (const math::tVector<Tdimension, TOtherElement, TData> &other) __attribute__((always_inline, flatten));
 
   template <typename TOtherElement>
-  inline const tVector &operator -= (const math::tVector<Tdimension, TOtherElement, TData> &other) __attribute__((always_inline,flatten));
+  inline const tVector &operator -= (const math::tVector<Tdimension, TOtherElement, TData> &other) __attribute__((always_inline, flatten));
 
   template <typename TScalar>
-  inline const typename boost::enable_if<boost::is_scalar<TScalar>, tVector>::type &operator *= (const TScalar &scalar) __attribute__((always_inline,flatten));
+  inline const typename boost::enable_if<boost::is_scalar<TScalar>, tVector>::type &operator *= (const TScalar &scalar) __attribute__((always_inline, flatten));
 
   template <typename TScalar>
-  inline const typename boost::enable_if<boost::is_scalar<TScalar>, tVector>::type &operator /= (const TScalar &scalar) __attribute__((always_inline,flatten));
+  inline const typename boost::enable_if<boost::is_scalar<TScalar>, tVector>::type &operator /= (const TScalar &scalar) __attribute__((always_inline, flatten));
 
-  inline void Normalize() __attribute__((always_inline,flatten));
+  inline void Normalize() __attribute__((always_inline, flatten));
 
-  inline const tVector Normalized() const __attribute__((always_inline,flatten));
+  inline const tVector Normalized() const __attribute__((always_inline, flatten));
 
   template <typename TOtherElement>
   inline void Project(const math::tVector<Tdimension, TOtherElement, TData> &other)
@@ -170,16 +170,16 @@ public:
   }
 
   template <typename TOtherElement>
-  inline const math::tVector<Tdimension, typename until_0x::Auto<TElement, TOtherElement>::type, TData> Projected(const math::tVector<Tdimension, TOtherElement, TData> &other) const __attribute__((always_inline,flatten));
+  inline const math::tVector<Tdimension, typename until_0x::Auto<TElement, TOtherElement>::type, TData> Projected(const math::tVector<Tdimension, TOtherElement, TData> &other) const __attribute__((always_inline, flatten));
 
 //----------------------------------------------------------------------
 // Protected methods
 //----------------------------------------------------------------------
 protected:
 
-  inline FunctionalityShared() __attribute__((always_inline,flatten));
+  inline FunctionalityShared() __attribute__((always_inline, flatten));
 
-  inline FunctionalityShared(const tVector &other) __attribute__((always_inline,flatten));
+  inline FunctionalityShared(const tVector &other) __attribute__((always_inline, flatten));
 
 //----------------------------------------------------------------------
 // Private fields and methods

@@ -2,7 +2,7 @@
 // You received this file as part of RRLib
 // Robotics Research Library
 //
-// Copyright (C) AG Robotersysteme TU Kaiserslautern
+// Copyright (C) Finroc GbR (finroc.org)
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -107,13 +107,13 @@ class Cartesian<2, TElement>
 //----------------------------------------------------------------------
 public:
 
-  inline TElement X() const __attribute__((always_inline,flatten));
+  inline TElement X() const __attribute__((always_inline, flatten));
 
-  inline TElement &X() __attribute__((always_inline,flatten));
+  inline TElement &X() __attribute__((always_inline, flatten));
 
-  inline TElement Y() const __attribute__((always_inline,flatten));
+  inline TElement Y() const __attribute__((always_inline, flatten));
 
-  inline TElement &Y() __attribute__((always_inline,flatten));
+  inline TElement &Y() __attribute__((always_inline, flatten));
 
 //----------------------------------------------------------------------
 // Protected methods
@@ -148,17 +148,17 @@ class Cartesian<3, TElement>
 //----------------------------------------------------------------------
 public:
 
-  inline TElement X() const __attribute__((always_inline,flatten));
+  inline TElement X() const __attribute__((always_inline, flatten));
 
-  inline TElement &X() __attribute__((always_inline,flatten));
+  inline TElement &X() __attribute__((always_inline, flatten));
 
-  inline TElement Y() const __attribute__((always_inline,flatten));
+  inline TElement Y() const __attribute__((always_inline, flatten));
 
-  inline TElement &Y() __attribute__((always_inline,flatten));
+  inline TElement &Y() __attribute__((always_inline, flatten));
 
-  inline TElement Z() const __attribute__((always_inline,flatten));
+  inline TElement Z() const __attribute__((always_inline, flatten));
 
-  inline TElement &Z() __attribute__((always_inline,flatten));
+  inline TElement &Z() __attribute__((always_inline, flatten));
 
 //----------------------------------------------------------------------
 // Protected methods
