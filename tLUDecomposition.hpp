@@ -208,7 +208,7 @@ void tLUDecomposition<Trank, TElement>::FullMatrixDecomposition(const tMatrix<Tr
       }
       if (row_sum != 0)
       {
-        TElement normalized_first = temp_matrix[row][step] / row_sum;
+        TElement normalized_first = AbsoluteValue(temp_matrix[row][step]) / row_sum;
         if (normalized_first > relative_maximum)
         {
           relative_maximum = normalized_first;
