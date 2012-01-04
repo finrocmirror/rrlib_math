@@ -181,14 +181,12 @@ public:
     return std::tan(angle::Radian::ConvertFromUnit(this->value, TUnitPolicy()));
   }
 
-  inline void SinCos(double &sine, double &cosine) const
+  template <typename TFloatType>
+  inline void SinCos(TFloatType &sine, TFloatType &cosine) const
   {
-    sincos(angle::Radian::ConvertFromUnit(this->value, TUnitPolicy()), &sine, &cosine);
-  }
-
-  inline void SinCos(float &sine, float &cosine) const
-  {
-    sincosf(angle::Radian::ConvertFromUnit(this->value, TUnitPolicy()), &sine, &cosine);
+    double value = angle::Radian::ConvertFromUnit(this->value, TUnitPolicy());
+    sine = std::sin(value);
+    cosine = std::cos(value);
   }
 
 //----------------------------------------------------------------------

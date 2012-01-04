@@ -223,7 +223,7 @@ public:
     math::tMatrix<3, 3, TElement, Full>(data).GetRotation(axis, angle);
   }
 
-  /*! Sets this matrix to represent a homogenious rotation matrix
+  /*! Sets this matrix to represent a homogeneous rotation matrix
    *  with given angle around given axis.
    *  If axis is invalid, this is a no-op.
    * \returns reference to this matrix
@@ -241,9 +241,9 @@ public:
 
     tVector<3, TVectorElement, vector::Cartesian> normalized_axis(axis.Normalized());
 
-    double sin_angle;
-    double cos_angle;
-    sincos(angle / 2, &sin_angle, &cos_angle);
+    double half_angle = angle / 2;
+    double sin_angle = std::sin(half_angle);
+    double cos_angle = std::cos(half_angle);
 
     double x = sin_angle * normalized_axis.X();
     double y = sin_angle * normalized_axis.Y();
