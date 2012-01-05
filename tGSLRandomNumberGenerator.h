@@ -69,7 +69,7 @@ namespace math
 */
 class tGSLRandomNumberGeneratorImplementation
 {
-  friend class util::singleton::CreateStatic<tGSLRandomNumberGeneratorImplementation>;
+  friend class util::singleton::CreateUsingNew<tGSLRandomNumberGeneratorImplementation>;
 
 //----------------------------------------------------------------------
 // Public methods and typedefs
@@ -109,7 +109,7 @@ private:
 
 };
 
-typedef util::tSingletonHolder<tGSLRandomNumberGeneratorImplementation, util::singleton::CreateStatic> tGSLRandomNumberGenerator;
+typedef util::tSingletonHolder<tGSLRandomNumberGeneratorImplementation> tGSLRandomNumberGenerator;
 
 namespace sGslRandomNumberGenerator
 {
