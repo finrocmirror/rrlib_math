@@ -117,7 +117,7 @@ namespace sGslRandomNumberGenerator
 inline gsl_rng* GetGslRandomNumberGenerator() __attribute__((deprecated));
 inline gsl_rng* GetGslRandomNumberGenerator()
 {
-  return tGSLRandomNumberGenerator::GetInstance().Generator();
+  return tGSLRandomNumberGenerator::Instance().Generator();
 }
 
 }

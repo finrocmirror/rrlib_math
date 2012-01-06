@@ -103,7 +103,7 @@ int main(int argc, char **argv)
     gettimeofday(&start, 0);
     for (int i = 0; i < n; ++i)
     {
-      value[i] = gsl_ran_gaussian(tGSLRandomNumberGenerator::GetInstance().Generator(), sigma);
+      value[i] = gsl_ran_gaussian(tGSLRandomNumberGenerator::Instance().Generator(), sigma);
     }
     gettimeofday(&end, 0);
     fprintf(stderr, "took %f ms\n", ((end.tv_sec*1000000 + end.tv_usec) - (start.tv_sec*1000000 + start.tv_usec)) / 1000.);
@@ -113,7 +113,7 @@ int main(int argc, char **argv)
     gettimeofday(&start, 0);
     for (int i = 0; i < n; ++i)
     {
-      value[i] = gsl_ran_gaussian_ziggurat(tGSLRandomNumberGenerator::GetInstance().Generator(), sigma);
+      value[i] = gsl_ran_gaussian_ziggurat(tGSLRandomNumberGenerator::Instance().Generator(), sigma);
     }
     gettimeofday(&end, 0);
     fprintf(stderr, "took %f ms\n", ((end.tv_sec*1000000 + end.tv_usec) - (start.tv_sec*1000000 + start.tv_usec)) / 1000.);
@@ -123,7 +123,7 @@ int main(int argc, char **argv)
     gettimeofday(&start, 0);
     for (int i = 0; i < n; ++i)
     {
-      value[i] = gsl_ran_exponential(tGSLRandomNumberGenerator::GetInstance().Generator(), sigma);
+      value[i] = gsl_ran_exponential(tGSLRandomNumberGenerator::Instance().Generator(), sigma);
     }
     gettimeofday(&end, 0);
     fprintf(stderr, "took %f ms\n", ((end.tv_sec*1000000 + end.tv_usec) - (start.tv_sec*1000000 + start.tv_usec)) / 1000.);
