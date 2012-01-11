@@ -253,6 +253,36 @@ const bool FunctionalityShared<Trows, Tcolumns, TElement, TData>::IsZero(double 
 }
 
 
+//----------------------------------------------------------------------
+// FunctionalityShared GetRow
+//----------------------------------------------------------------------
+template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, size_t, typename> class TData>
+tVector<Tcolumns, TElement, vector::Cartesian> FunctionalityShared<Trows, Tcolumns, TElement, TData>::GetRow(size_t row) const
+{
+  tMatrix *that = reinterpret_cast<tMatrix *>(this);
+  TElement result[Tcolumns];
+  for (size_t column = 0; column < Tcolumns; ++column)
+  {
+    result[column] = (*that)[row][column];
+  }
+  return tVector<Tcolumns, TElement, vector::Cartesian>(result);
+}
+
+//----------------------------------------------------------------------
+// FunctionalityShared GetColumn
+//----------------------------------------------------------------------
+template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, size_t, typename> class TData>
+tVector<Trows, TElement, vector::Cartesian> FunctionalityShared<Trows, Tcolumns, TElement, TData>::GetColumn(size_t column) const
+{
+  tMatrix *that = reinterpret_cast<tMatrix *>(this);
+  TElement result[Trows];
+  for (size_t row = 0; column < Trows; ++row)
+  {
+    result[row] = (*that)[row][column];
+  }
+  return tVector<Trows, TElement, vector::Cartesian>(result);
+}
+
 
 //----------------------------------------------------------------------
 // End of namespace declaration

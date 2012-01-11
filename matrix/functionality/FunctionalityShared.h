@@ -156,6 +156,10 @@ public:
 
   inline const bool IsZero(double epsilon = 0) const __attribute__((always_inline, flatten));
 
+  inline tVector<Tcolumns, TElement, vector::Cartesian> GetRow(size_t row) const;
+
+  inline tVector<Trows, TElement, vector::Cartesian> GetColumn(size_t column) const;
+
 //----------------------------------------------------------------------
 // Protected methods
 //----------------------------------------------------------------------
