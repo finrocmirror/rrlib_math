@@ -41,6 +41,7 @@
 //----------------------------------------------------------------------
 // External includes (system with <>, local with "")
 //----------------------------------------------------------------------
+#include <functional>
 
 #ifdef _LIB_OIV_PRESENT_
 #include <Inventor/SbVec2f.h>
@@ -93,9 +94,15 @@ class tVector : public TData<Tdimension, TElement>,
   typedef vector::FunctionalitySpecialized<Tdimension, TElement, TData> FunctionalitySpecialized;
 
 //----------------------------------------------------------------------
-// Public methods
+// Public methods and typedefs
 //----------------------------------------------------------------------
 public:
+
+  typedef std::function < TElement(const tVector &, const tVector &) > tMetric;
+
+  static const tMetric cEUCLIDEAN_DISTANCE;
+  static const tMetric cMANHATTAN_DISTANCE;
+  static const tMetric cCHEBYSHEV_DISTANCE;
 
   inline tVector() __attribute__((always_inline, flatten));
 

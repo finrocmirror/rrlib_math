@@ -50,10 +50,6 @@
 //----------------------------------------------------------------------
 // Internal includes with ""
 //----------------------------------------------------------------------
-namespace math
-{
-template <size_t, typename> class tVector;
-}
 
 //----------------------------------------------------------------------
 // Debugging
@@ -70,6 +66,37 @@ namespace math
 //----------------------------------------------------------------------
 // Forward declarations / typedefs / enums
 //----------------------------------------------------------------------
+
+//----------------------------------------------------------------------
+// Const values
+//----------------------------------------------------------------------
+template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
+const typename tVector<Tdimension, TElement, TData>::tMetric tVector<Tdimension, TElement, TData>::cEUCLIDEAN_DISTANCE = [](const tVector &a, const tVector &b)
+{
+  return (a - b).Length();
+};
+
+//template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
+//const typename tVector<Tdimension, TElement, TData>::tMetric tVector<Tdimension, TElement, TData>::cMANHATTAN_DISTANCE = [](const tVector &a, const tVector &b)
+//{
+//  TElement result = 0;
+//  for (size_t i = 0; i < Tdimension; ++i)
+//  {
+//    result += AbsoluteValue(a[i] - b[i]);
+//  }
+//  return result;
+//};
+//
+//template <size_t Tdimension, typename TElement>
+//const typename tVector<Tdimension, TElement, vector::Cartesian>::tMetric tVector<Tdimension, TElement, vector::Cartesian>::cCHEBYSHEV_DISTANCE = [](const tVector &a, const tVector &b)
+//{
+//  TElement result = 0;
+//  for (size_t i = 0; i < Tdimension; ++i)
+//  {
+//    result = std::max(result, AbsoluteValue(a[i] - b[i]));
+//  }
+//  return result;
+//};
 
 //----------------------------------------------------------------------
 // Implementation
