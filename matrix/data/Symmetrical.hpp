@@ -76,7 +76,7 @@ namespace matrix
 //----------------------------------------------------------------------
 template <size_t Trows, size_t Tcolumns, typename TElement>
 Symmetrical<Trows, Tcolumns, TElement>::Accessor::Accessor(TElement *values, size_t row)
-    : values(values), row(row)
+  : values(values), row(row)
 {}
 
 //----------------------------------------------------------------------
@@ -117,7 +117,7 @@ void Symmetrical<Trows, Tcolumns, TElement>::SetFromArray(const TElement data[Tr
         stream << "Trying to initialize symmetric matrix from invalid data set " << math::tMatrix<Trows, Tcolumns, TElement, Full>(data) << ".";
         throw std::runtime_error(stream.str());
       }
-      this->values[column *(column + 1) / 2 + row] = data[row * Tcolumns + column];
+      this->values[column * (column + 1) / 2 + row] = data[row * Tcolumns + column];
     }
   }
 }

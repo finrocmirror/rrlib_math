@@ -89,7 +89,7 @@ private:
   gsl_rng *r;  /* global generator */
 
   inline tGSLRandomNumberGeneratorImplementation()
-      : r(0)
+    : r(0)
   {
     gsl_rng_env_setup();
     this->r = gsl_rng_alloc(gsl_rng_default);

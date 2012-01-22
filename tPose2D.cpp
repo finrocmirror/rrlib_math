@@ -65,27 +65,27 @@ using namespace rrlib::math;
 // tPose2D constructors
 //----------------------------------------------------------------------
 tPose2D::tPose2D()
-    : yaw(0)
+  : yaw(0)
 {}
 
 tPose2D::tPose2D(const tVec2d &position, tAngleRad yaw)
-    : position(position),
+  : position(position),
     yaw(yaw)
 {}
 
 tPose2D::tPose2D(double x, double y, tAngleRad yaw)
-    : position(x, y),
+  : position(x, y),
     yaw(yaw)
 {}
 
 tPose2D::tPose2D(const tMat3x3d &matrix)
-    : yaw(0)
+  : yaw(0)
 {
   this->Set(matrix);
 }
 
 tPose2D::tPose2D(const tPose3D &other)
-    : position(other.Position()),
+  : position(other.Position()),
     yaw(other.Yaw())
 {}
 

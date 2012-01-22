@@ -111,19 +111,19 @@ tVector<Tdimension, TElement, TData>::tVector()
 
 template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
 tVector<Tdimension, TElement, TData>::tVector(const tVector &other)
-    : FunctionalityShared(other)
+  : FunctionalityShared(other)
 {}
 
 template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
 template <size_t Tother_dimension, typename TOtherElement>
 tVector<Tdimension, TElement, TData>::tVector(const tVector<Tother_dimension, TOtherElement> &other)
-    : FunctionalitySpecialized(other)
+  : FunctionalitySpecialized(other)
 {}
 
 template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
 template <typename ... TValues>
 tVector<Tdimension, TElement, TData>::tVector(TValues... values)
-    : FunctionalitySpecialized(values...)
+  : FunctionalitySpecialized(values...)
 {}
 
 #ifdef _LIB_OIV_PRESENT_

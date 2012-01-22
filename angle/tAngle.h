@@ -82,9 +82,9 @@ namespace math
  */
 template <
 typename TElement = double,
-typename TUnitPolicy = angle::Radian,
-typename TSignPolicy = angle::Signed
->
+         typename TUnitPolicy = angle::Radian,
+         typename TSignPolicy = angle::Signed
+         >
 class tAngle
 {
 
@@ -94,20 +94,20 @@ class tAngle
 public:
 
   inline tAngle()
-      : value(0)
+    : value(0)
   {}
 
   inline tAngle(TElement value)
-      : value(TSignPolicy::FitIntoRange(value, TUnitPolicy::RangeLimit()))
+    : value(TSignPolicy::FitIntoRange(value, TUnitPolicy::RangeLimit()))
   {}
 
   inline tAngle(const tAngle &other)
-      : value(other.value)
+    : value(other.value)
   {}
 
   template <typename TOtherElement, typename TOtherUnitPolicy, typename TOtherSignPolicy>
   inline tAngle(const tAngle<TOtherElement, TOtherUnitPolicy, TOtherSignPolicy> &other)
-      : value(TSignPolicy::FitIntoRange(TUnitPolicy::ConvertFromUnit(static_cast<TOtherElement>(other), TOtherUnitPolicy()), TUnitPolicy::RangeLimit()))
+    : value(TSignPolicy::FitIntoRange(TUnitPolicy::ConvertFromUnit(static_cast<TOtherElement>(other), TOtherUnitPolicy()), TUnitPolicy::RangeLimit()))
   {}
 
   inline tAngle &operator = (const tAngle &other)

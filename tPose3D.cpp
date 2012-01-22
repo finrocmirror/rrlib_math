@@ -64,48 +64,48 @@ using namespace rrlib::math;
 // tPose3D constructors
 //----------------------------------------------------------------------
 tPose3D::tPose3D()
-    : roll(0),
+  : roll(0),
     pitch(0),
     yaw(0)
 {}
 
 tPose3D::tPose3D(double x, double y, double z)
-    : position(x, y, z),
+  : position(x, y, z),
     roll(0),
     pitch(0),
     yaw(0)
 {}
 
 tPose3D::tPose3D(double x, double y, double z, tAngleRad roll, tAngleRad pitch, tAngleRad yaw)
-    : position(x, y, z),
+  : position(x, y, z),
     roll(roll),
     pitch(pitch),
     yaw(yaw)
 {}
 
 tPose3D::tPose3D(const tVec3d &position)
-    : position(position),
+  : position(position),
     roll(0),
     pitch(0),
     yaw(0)
 {}
 
 tPose3D::tPose3D(const tVec3d &position, tAngleRad roll, tAngleRad pitch, tAngleRad yaw)
-    : position(position),
+  : position(position),
     roll(roll),
     pitch(pitch),
     yaw(yaw)
 {}
 
 tPose3D::tPose3D(const tPose2D &pose_2d)
-    : position(pose_2d.Position()),
+  : position(pose_2d.Position()),
     roll(0),
     pitch(0),
     yaw(pose_2d.Yaw())
 {}
 
 tPose3D::tPose3D(const tMat4x4d &matrix, bool use_second_solution)
-    : roll(0),
+  : roll(0),
     pitch(0),
     yaw(0)
 {

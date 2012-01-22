@@ -76,17 +76,17 @@ namespace math
  */
 template < size_t Trows, size_t Tcolumns, typename TElement = double, template <size_t, size_t, typename> class TData = matrix::Full >
 class tMatrix : public TData<Trows, Tcolumns, TElement>,
-    public matrix::FunctionalityShared<Trows, Tcolumns, TElement, TData>,
-    public matrix::FunctionalitySpecialized<Trows, Tcolumns, TElement, TData>,
-    public matrix::SquareMatrixOperationsShared<Trows, Tcolumns, TElement, TData>,
-    public matrix::SquareMatrixOperationsSpecialized<Trows, Tcolumns, TElement, TData>,
-    public matrix::HomogeneousMultiplication<Trows, Tcolumns, TElement, TData>,
-    public matrix::Rotation<Trows, Tcolumns, TElement, TData>,
-    public matrix::LegacyShared<Trows, Tcolumns, TElement, TData>,
-    public matrix::LegacySpecialized<Trows, Tcolumns, TElement, TData>,
-    public matrix::ConstantValuesShared<Trows, Tcolumns, TElement, TData>,
-    public matrix::ConstantValuesSpecialized<Trows, Tcolumns, TElement, TData>,
-    public matrix::Conversions<Trows, Tcolumns, TElement, TData>
+  public matrix::FunctionalityShared<Trows, Tcolumns, TElement, TData>,
+  public matrix::FunctionalitySpecialized<Trows, Tcolumns, TElement, TData>,
+  public matrix::SquareMatrixOperationsShared<Trows, Tcolumns, TElement, TData>,
+  public matrix::SquareMatrixOperationsSpecialized<Trows, Tcolumns, TElement, TData>,
+  public matrix::HomogeneousMultiplication<Trows, Tcolumns, TElement, TData>,
+  public matrix::Rotation<Trows, Tcolumns, TElement, TData>,
+  public matrix::LegacyShared<Trows, Tcolumns, TElement, TData>,
+  public matrix::LegacySpecialized<Trows, Tcolumns, TElement, TData>,
+  public matrix::ConstantValuesShared<Trows, Tcolumns, TElement, TData>,
+  public matrix::ConstantValuesSpecialized<Trows, Tcolumns, TElement, TData>,
+  public matrix::Conversions<Trows, Tcolumns, TElement, TData>
 {
   typedef matrix::FunctionalityShared<Trows, Tcolumns, TElement, TData> FunctionalityShared;
 

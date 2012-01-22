@@ -110,7 +110,7 @@ protected:
 //----------------------------------------------------------------------
 private:
 
-  TElement values[Trows *(Trows + 1) / 2];
+  TElement values[Trows * (Trows + 1) / 2];
 
   Symmetrical(const Symmetrical &other);
   Symmetrical &operator = (const Symmetrical &);

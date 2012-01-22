@@ -195,7 +195,7 @@ public:
   inline const TElement Determinant() const __attribute__((always_inline, flatten))
   {
     const tMatrix *that = reinterpret_cast<const tMatrix *>(this);
-    return (*that)[0][0] *(*that)[1][1] - (*that)[1][0] *(*that)[0][1];
+    return (*that)[0][0] * (*that)[1][1] - (*that)[1][0] * (*that)[0][1];
   }
 
   inline const tMatrix Inverted() const __attribute__((always_inline, flatten))

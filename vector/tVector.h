@@ -81,14 +81,14 @@ namespace math
  */
 template < size_t Tdimension, typename TElement = double, template <size_t, typename> class TData = vector::Cartesian >
 class tVector : public TData<Tdimension, TElement>,
-    public vector::FunctionalityShared<Tdimension, TElement, TData>,
-    public vector::FunctionalitySpecialized<Tdimension, TElement, TData>,
-    public vector::Conversions<Tdimension, TElement, TData>,
-    public vector::Rotation<Tdimension, TElement, TData>,
-    public vector::LegacyShared<Tdimension, TElement, TData>,
-    public vector::LegacySpecialized<Tdimension, TElement, TData>,
-    public vector::ConstantValuesShared<Tdimension, TElement, TData>,
-    public vector::ConstantValuesSpecialized<Tdimension, TElement, TData>
+  public vector::FunctionalityShared<Tdimension, TElement, TData>,
+  public vector::FunctionalitySpecialized<Tdimension, TElement, TData>,
+  public vector::Conversions<Tdimension, TElement, TData>,
+  public vector::Rotation<Tdimension, TElement, TData>,
+  public vector::LegacyShared<Tdimension, TElement, TData>,
+  public vector::LegacySpecialized<Tdimension, TElement, TData>,
+  public vector::ConstantValuesShared<Tdimension, TElement, TData>,
+  public vector::ConstantValuesSpecialized<Tdimension, TElement, TData>
 {
   typedef vector::FunctionalityShared<Tdimension, TElement, TData> FunctionalityShared;
   typedef vector::FunctionalitySpecialized<Tdimension, TElement, TData> FunctionalitySpecialized;

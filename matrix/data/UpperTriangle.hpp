@@ -76,7 +76,7 @@ namespace matrix
 //----------------------------------------------------------------------
 template <size_t Trows, size_t Tcolumns, typename TElement>
 UpperTriangle<Trows, Tcolumns, TElement>::Accessor::Accessor(TElement *values, size_t row)
-    : values(values), row(row)
+  : values(values), row(row)
 {}
 
 //----------------------------------------------------------------------
@@ -107,7 +107,7 @@ TElement &UpperTriangle<Trows, Tcolumns, TElement>::Accessor::operator [](size_t
     stream << "Non-const access to fixed zero value in upper triangle matrix (" << this->row << ", " << column << ").";
     throw std::logic_error(stream.str());
   }
-  return this->values[column *(column + 1) / 2  + this->row];
+  return this->values[column * (column + 1) / 2  + this->row];
 }
 
 //----------------------------------------------------------------------
@@ -130,7 +130,7 @@ void UpperTriangle<Trows, Tcolumns, TElement>::SetFromArray(const TElement data[
         }
         continue;
       }
-      this->values[column *(column + 1) / 2 + row] = data[row * Tcolumns + column];
+      this->values[column * (column + 1) / 2 + row] = data[row * Tcolumns + column];
     }
   }
 }

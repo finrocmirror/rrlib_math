@@ -83,7 +83,7 @@ public:
  */
 template <typename TLeft, typename TRight>
 class Auto<TLeft, TRight, false>
-  {};
+{};
 
 
 

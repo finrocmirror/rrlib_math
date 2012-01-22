@@ -80,30 +80,30 @@ tMatrix<Trows, Tcolumns, TElement, TData>::tMatrix()
 
 template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, size_t, typename> class TData>
 tMatrix<Trows, Tcolumns, TElement, TData>::tMatrix(const tMatrix &other)
-    : FunctionalityShared(other)
+  : FunctionalityShared(other)
 {}
 
 template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, size_t, typename> class TData>
 tMatrix<Trows, Tcolumns, TElement, TData>::tMatrix(const TElement data[Trows * Tcolumns])
-    : FunctionalityShared(data)
+  : FunctionalityShared(data)
 {}
 
 template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, size_t, typename> class TData>
 template <typename TOtherElement>
 tMatrix<Trows, Tcolumns, TElement, TData>::tMatrix(const tMatrix<Trows, Tcolumns, TOtherElement, TData> &other)
-    : FunctionalityShared(other)
+  : FunctionalityShared(other)
 {}
 
 template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, size_t, typename> class TData>
 template <typename TOtherElement, template <size_t, size_t, typename> class TOtherData>
 tMatrix<Trows, Tcolumns, TElement, TData>::tMatrix(const tMatrix<Trows, Tcolumns, TOtherElement, TOtherData> &other)
-    : FunctionalityShared(other)
+  : FunctionalityShared(other)
 {}
 
 template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, size_t, typename> class TData>
 template <typename TLeftElement, typename TRightElement>
 tMatrix<Trows, Tcolumns, TElement, TData>::tMatrix(const tVector<Trows, TLeftElement, vector::Cartesian> &left, const tVector<Tcolumns, TRightElement, vector::Cartesian> &right)
-    : FunctionalityShared(left, right)
+  : FunctionalityShared(left, right)
 {}
 
 template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, size_t, typename> class TData>

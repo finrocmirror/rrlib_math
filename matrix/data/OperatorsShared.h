@@ -288,7 +288,7 @@ const typename boost::enable_if<boost::is_scalar<TScalar>, math::tMatrix<Trows, 
 template <size_t Trows, size_t Tcolumns, typename TMatrixElement, typename TScalar, template <size_t, size_t, typename> class TData>
 const typename boost::enable_if<boost::is_scalar<TScalar>, math::tMatrix<Trows, Tcolumns, typename until_0x::Auto<TMatrixElement, TScalar>::type, TData> >::type operator / (const math::tMatrix<Trows, Tcolumns, TMatrixElement, TData> &matrix, const TScalar scalar)
 {
-  return matrix *(1 / scalar);
+  return matrix * (1 / scalar);
 }
 
 

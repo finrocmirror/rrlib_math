@@ -177,9 +177,9 @@ public:
     double mco = 1.0 - co;
     math::tVector<3, TAxisElement, Cartesian> normalized_axis(axis.Normalized());
 
-    that->Set(co * that->X() + (normalized_axis.X() * mco) * normalized_axis * *that + si *(normalized_axis.Y() * that->Z() - normalized_axis.Z() * that->Y()),
-              co * that->Y() + (normalized_axis.Y() * mco) * normalized_axis * *that + si *(normalized_axis.Z() * that->X() - normalized_axis.X() * that->Z()),
-              co * that->Z() + (normalized_axis.Z() * mco) * normalized_axis * *that + si *(normalized_axis.X() * that->Y() - normalized_axis.Y() * that->X()));
+    that->Set(co * that->X() + (normalized_axis.X() * mco) * normalized_axis * *that + si * (normalized_axis.Y() * that->Z() - normalized_axis.Z() * that->Y()),
+              co * that->Y() + (normalized_axis.Y() * mco) * normalized_axis * *that + si * (normalized_axis.Z() * that->X() - normalized_axis.X() * that->Z()),
+              co * that->Z() + (normalized_axis.Z() * mco) * normalized_axis * *that + si * (normalized_axis.X() * that->Y() - normalized_axis.Y() * that->X()));
   }
 
   template <typename TAxisElement>

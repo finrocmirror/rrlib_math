@@ -110,7 +110,7 @@ int main(int argc, char **argv)
   std::cout << -polar1 << std::endl;
   std::cout << polar1 + polar2 << std::endl;
   std::cout << (polar1 + polar2) * 3.0 << std::endl;
-  std::cout << 3.0 *(polar1 + polar2) << std::endl;
+  std::cout << 3.0 * (polar1 + polar2) << std::endl;
 
   std::cout << a.Length() << ", " << a.SquaredLength() << std::endl;
   std::cout << b.Length() << ", " << b.SquaredLength() << std::endl;

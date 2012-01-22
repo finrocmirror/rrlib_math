@@ -76,7 +76,7 @@ namespace matrix
 //----------------------------------------------------------------------
 template <size_t Trows, size_t Tcolumns, typename TElement>
 Full<Trows, Tcolumns, TElement>::Accessor::Accessor(TElement *values, size_t row)
-    : values(values), row(row)
+  : values(values), row(row)
 {}
 
 //----------------------------------------------------------------------

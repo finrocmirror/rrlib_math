@@ -109,7 +109,7 @@ protected:
 //----------------------------------------------------------------------
 private:
 
-  TElement values[Trows *(Trows + 1) / 2];
+  TElement values[Trows * (Trows + 1) / 2];
 
   UpperTriangle(const UpperTriangle &other);
   UpperTriangle &operator = (const UpperTriangle &);
