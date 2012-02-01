@@ -442,7 +442,7 @@ std::ostream &rrlib::math::operator << (std::ostream &stream, const tPose3D &pos
 
 std::istream &rrlib::math::operator >> (std::istream &stream, tPose3D &pose)
 {
-  char temp;
+  char temp(0);
   stream >> temp;
   if (temp == '(')
   {
@@ -455,7 +455,7 @@ std::istream &rrlib::math::operator >> (std::istream &stream, tPose3D &pose)
   else
   {
     stream.putback(temp);
-    double roll, pitch, yaw;
+    double roll(0.0), pitch(0.0), yaw(0.0);
     stream >> pose.X() >> pose.Y() >> pose.Z() >> roll >> pitch >> yaw;
     pose.Roll() = tAngleDeg(roll);
     pose.Pitch() = tAngleDeg(pitch);
