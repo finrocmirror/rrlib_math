@@ -5,7 +5,7 @@
   <rrlib name="math"
         libs="boost">
     <sources>
-      serialization.cpp
+      rtti.cpp
       tAngle.cpp
       tCholeskyDecomposition.cpp
       tLUDecomposition.cpp

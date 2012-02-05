@@ -46,8 +46,7 @@
 #include "rrlib/math/tAngle.h"
 
 #ifdef _LIB_RRLIB_SERIALIZATION_PRESENT_
-#include "rrlib/serialization/tStringInputStream.h"
-#include "rrlib/serialization/tStringOutputStream.h"
+#include "rrlib/serialization/serialization.h"
 #include <sstream>
 #endif
 

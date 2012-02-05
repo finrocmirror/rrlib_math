@@ -19,21 +19,22 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 //
 //----------------------------------------------------------------------
-/*!\file    serialization.cpp
+/*!\file    rtti.cpp
  *
  * \author  Max Reichardt
  *
  * \date    2011-10-30
  *
+ * \brief   Initializes runtime type information for types in rrlib_math
  */
 //----------------------------------------------------------------------
 
-#ifdef _LIB_RRLIB_SERIALIZATION_PRESENT_
+#ifdef _LIB_RRLIB_RTTI_PRESENT_
 
 //----------------------------------------------------------------------
 // External includes (system with <>, local with "")
 //----------------------------------------------------------------------
-#include "rrlib/serialization/tDataType.h"
+#include "rrlib/rtti/rtti.h"
 
 //----------------------------------------------------------------------
 // Internal includes with ""
@@ -50,7 +51,7 @@
 // Namespace usage
 //----------------------------------------------------------------------
 using namespace rrlib::math;
-using namespace rrlib::serialization;
+using namespace rrlib::rtti;
 
 //----------------------------------------------------------------------
 // Type initializers
