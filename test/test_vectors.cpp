@@ -62,6 +62,11 @@ using namespace rrlib::math;
 // Implementation
 //----------------------------------------------------------------------
 
+void f(const tVec2d &v)
+{
+  std::cout << "f(): v=" << v << std::endl;
+}
+
 int main(int argc, char **argv)
 {
 
@@ -132,6 +137,12 @@ int main(int argc, char **argv)
   std::cout << std::endl;
   assert(sb_vec3f[0] == b[0] && sb_vec3f[1] == b[1] && sb_vec3f[2] == b[2]);
 #endif
+
+  tVector<2, double> v(0., -2.);
+  std::cout << v.GetPolarVector().Alpha() << ", " << tAngle<double, angle::Radian, angle::Unsigned>(v.GetPolarVector().Alpha()) << std::endl;
+
+  tVec3d vec_3d(1., 2., 3.);
+  f(vec_3d);
 
   std::cout << "OK" << std::endl;
 
