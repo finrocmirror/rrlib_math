@@ -294,54 +294,18 @@ class LegacySpecialized<6, TElement, Cartesian>
 //----------------------------------------------------------------------
 public:
 
-  inline const TElement X() const
-  {
-    return reinterpret_cast<const TElement *>(this)[0];
-  }
-  inline TElement &X()
-  {
-    return reinterpret_cast<TElement *>(this)[0];
-  }
-  inline const TElement Y() const
-  {
-    return reinterpret_cast<const TElement *>(this)[1];
-  }
-  inline TElement &Y()
-  {
-    return reinterpret_cast<TElement *>(this)[1];
-  }
-  inline const TElement Z() const
-  {
-    return reinterpret_cast<const TElement *>(this)[2];
-  }
-  inline TElement &Z()
-  {
-    return reinterpret_cast<TElement *>(this)[2];
-  }
-  inline const TElement Roll() const
-  {
-    return reinterpret_cast<const TElement *>(this)[3];
-  }
-  inline TElement &Roll()
-  {
-    return reinterpret_cast<TElement *>(this)[3];
-  }
-  inline const TElement Pitch() const
-  {
-    return reinterpret_cast<const TElement *>(this)[4];
-  }
-  inline TElement &Pitch()
-  {
-    return reinterpret_cast<TElement *>(this)[4];
-  }
-  inline const TElement Yaw() const
-  {
-    return reinterpret_cast<const TElement *>(this)[5];
-  }
-  inline TElement &Yaw()
-  {
-    return reinterpret_cast<TElement *>(this)[5];
-  }
+  inline const TElement X() const __attribute__((deprecated));
+  inline TElement &X() __attribute__((deprecated));
+  inline const TElement Y() const __attribute__((deprecated));
+  inline TElement &Y() __attribute__((deprecated));
+  inline const TElement Z() const __attribute__((deprecated));
+  inline TElement &Z() __attribute__((deprecated));
+  inline const TElement Roll() const __attribute__((deprecated));
+  inline TElement &Roll() __attribute__((deprecated));
+  inline const TElement Pitch() const __attribute__((deprecated));
+  inline TElement &Pitch() __attribute__((deprecated));
+  inline const TElement Yaw() const __attribute__((deprecated));
+  inline TElement &Yaw() __attribute__((deprecated));
 
 //----------------------------------------------------------------------
 // Protected methods
@@ -359,6 +323,79 @@ private:
   LegacySpecialized &operator = (const LegacySpecialized &);
 
 };
+
+
+template <typename TElement>
+inline const TElement LegacySpecialized<6, TElement, Cartesian>::X() const
+{
+  return reinterpret_cast<const TElement *>(this)[0];
+}
+
+template <typename TElement>
+inline TElement &LegacySpecialized<6, TElement, Cartesian>::X()
+{
+  return reinterpret_cast<TElement *>(this)[0];
+}
+
+template <typename TElement>
+inline const TElement LegacySpecialized<6, TElement, Cartesian>::Y() const
+{
+  return reinterpret_cast<const TElement *>(this)[1];
+}
+
+template <typename TElement>
+inline TElement &LegacySpecialized<6, TElement, Cartesian>::Y()
+{
+  return reinterpret_cast<TElement *>(this)[1];
+}
+
+template <typename TElement>
+inline const TElement LegacySpecialized<6, TElement, Cartesian>::Z() const
+{
+  return reinterpret_cast<const TElement *>(this)[2];
+}
+
+template <typename TElement>
+inline TElement &LegacySpecialized<6, TElement, Cartesian>::Z()
+{
+  return reinterpret_cast<TElement *>(this)[2];
+}
+
+template <typename TElement>
+inline const TElement LegacySpecialized<6, TElement, Cartesian>::Roll() const
+{
+  return reinterpret_cast<const TElement *>(this)[3];
+}
+
+template <typename TElement>
+inline TElement &LegacySpecialized<6, TElement, Cartesian>::Roll()
+{
+  return reinterpret_cast<TElement *>(this)[3];
+}
+
+template <typename TElement>
+inline const TElement LegacySpecialized<6, TElement, Cartesian>::Pitch() const
+{
+  return reinterpret_cast<const TElement *>(this)[4];
+}
+
+template <typename TElement>
+inline TElement &LegacySpecialized<6, TElement, Cartesian>::Pitch()
+{
+  return reinterpret_cast<TElement *>(this)[4];
+}
+
+template <typename TElement>
+inline const TElement LegacySpecialized<6, TElement, Cartesian>::Yaw() const
+{
+  return reinterpret_cast<const TElement *>(this)[5];
+}
+
+template <typename TElement>
+inline TElement &LegacySpecialized<6, TElement, Cartesian>::Yaw()
+{
+  return reinterpret_cast<TElement *>(this)[5];
+}
 
 
 //----------------------------------------------------------------------
