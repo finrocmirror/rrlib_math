@@ -148,7 +148,7 @@ serialization::tOutputStream &operator << (serialization::tOutputStream &stream,
 {
   for (size_t i = 0; i < Trows * Tcolumns; ++i)
   {
-    stream << matrix[i];
+    stream << reinterpret_cast<const TElement *>(&matrix)[i];
   }
   return stream;
 }
@@ -158,7 +158,7 @@ serialization::tInputStream &operator >> (serialization::tInputStream &stream, m
 {
   for (size_t i = 0; i < Trows * Tcolumns; ++i)
   {
-    stream >> matrix[i];
+    stream >> reinterpret_cast<TElement *>(&matrix)[i];
   }
   return stream;
 }
