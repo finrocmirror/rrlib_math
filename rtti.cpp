@@ -64,6 +64,7 @@ static tDataType<tVec6d> init_type_vector_6d("Vector6d");
 static tDataType<tVec2i> init_type_vector_2i("Vector2i");
 static tDataType<tVec3i> init_type_vector_3i("Vector3i");
 static tDataType<tVec6i> init_type_vector_6i("Vector6i");
+static tDataType<tAngleRad> init_type_angle("Angle");
 
 #endif
 
