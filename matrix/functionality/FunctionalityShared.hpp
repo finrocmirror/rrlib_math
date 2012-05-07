@@ -45,6 +45,8 @@
 #include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/is_scalar.hpp>
 
+#include "rrlib/util/variadic_templates.h"
+
 //----------------------------------------------------------------------
 // Internal includes with ""
 //----------------------------------------------------------------------
@@ -148,8 +150,13 @@ template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, si
 template <typename ... TValues>
 void FunctionalityShared<Trows, Tcolumns, TElement, TData>::Set(TValues... values)
 {
+  static_assert(sizeof...(values) == Trows * Tcolumns, "Wrong number of values given to store in matrix");
+
   TElement buffer[Trows * Tcolumns];
-  this->SetValues<0>(buffer, values...);
+  TElement *p = buffer;
+  util::ProcessVariadicValues<TElement>([p](TElement x) mutable { *p = x; ++p; }, values...);
+
+  reinterpret_cast<tMatrix *>(this)->SetFromArray(buffer);
 }
 
 //----------------------------------------------------------------------

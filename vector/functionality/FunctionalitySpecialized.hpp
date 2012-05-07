@@ -45,6 +45,8 @@
 #include <boost/utility/enable_if.hpp>
 #include <iostream>
 
+#include "rrlib/util/variadic_templates.h"
+
 //----------------------------------------------------------------------
 // Internal includes with ""
 //----------------------------------------------------------------------
@@ -139,8 +141,10 @@ template <size_t Tdimension, typename TElement>
 template <typename ... TValues>
 void FunctionalitySpecialized<Tdimension, TElement, Cartesian>::Set(TValues... values)
 {
-  TElement buffer[Tdimension];
-  this->SetValues<0>(buffer, values...);
+  static_assert(sizeof...(values) == Tdimension, "Wrong number of values given to store in vector");
+
+  TElement *p = reinterpret_cast<TElement *>(this);
+  util::ProcessVariadicValues<TElement>([p](TElement x) mutable { *p = x; ++p; }, values...);
 }
 
 //----------------------------------------------------------------------
@@ -311,8 +315,10 @@ template <size_t Tdimension, typename TElement>
 template <typename ... TValues>
 void FunctionalitySpecialized<Tdimension, TElement, Polar>::Set(TValues... values)
 {
-  tAngleRad buffer[Tdimension - 1];
-  this->SetValues<0>(buffer, values...);
+  static_assert(sizeof...(values) == Tdimension, "Wrong number of values given to store in vector");
+
+  TElement *p = reinterpret_cast<TElement *>(this);
+  util::ProcessVariadicValues<TElement>([p](TElement x) mutable { *p = x; ++p; }, values...);
 }
 
 //----------------------------------------------------------------------

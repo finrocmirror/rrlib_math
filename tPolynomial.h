@@ -110,16 +110,6 @@ private:
 
   double coefficients[Tdegree + 1];
 
-  template <size_t index>
-  inline void SetCoefficients()
-  {}
-  template <size_t index, typename ... TCoefficients>
-  inline void SetCoefficients(double head, TCoefficients... tail)
-  {
-    this->coefficients[index] = head;
-    this->SetCoefficients < index - 1 > (tail...);
-  }
-
 };
 
 //----------------------------------------------------------------------

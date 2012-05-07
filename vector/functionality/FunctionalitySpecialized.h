@@ -162,19 +162,6 @@ private:
   FunctionalitySpecialized(const FunctionalitySpecialized &);
   FunctionalitySpecialized &operator = (const FunctionalitySpecialized &);
 
-  template <size_t number_of_given_values>
-  inline void SetValues(TElement buffer[Tdimension])
-  {
-    static_assert(number_of_given_values == Tdimension, "Wrong number of values given to store in vector");
-    std::memcpy(this, buffer, sizeof(tVector));
-  }
-  template <size_t number_of_given_values, typename ... TValues>
-  inline void SetValues(TElement buffer[Tdimension], TElement value, TValues... values)
-  {
-    buffer[number_of_given_values] = value;
-    this->SetValues < number_of_given_values + 1 > (buffer, values...);
-  }
-
 };
 
 /*!

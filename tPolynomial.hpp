@@ -33,6 +33,8 @@
 //----------------------------------------------------------------------
 #include <cstring>
 
+#include "rrlib/util/variadic_templates.h"
+
 //----------------------------------------------------------------------
 // Internal includes with ""
 //----------------------------------------------------------------------
@@ -82,7 +84,8 @@ template <typename ... TCoefficients>
 tPolynomial<Tdegree>::tPolynomial(double coefficient, TCoefficients... coefficients)
 {
   static_assert(sizeof...(coefficients) <= Tdegree, "Too many coefficients specified");
-  this->SetCoefficients<Tdegree>(coefficient, coefficients...);
+  size_t index = Tdegree;
+  util::ProcessVariadicValues([this, index](double x) mutable { this->coefficients[index--] = x; }, coefficient, coefficients...);
 }
 
 template <size_t Tdegree>

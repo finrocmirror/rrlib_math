@@ -187,19 +187,6 @@ private:
 
   FunctionalityShared(const FunctionalityShared &);
 
-  template <size_t number_of_given_values>
-  inline void SetValues(TElement buffer[Trows * Tcolumns])
-  {
-    static_assert(number_of_given_values == Trows * Tcolumns, "Wrong number of values given to store in matrix");
-    reinterpret_cast<tMatrix *>(this)->SetFromArray(buffer);
-  }
-  template <size_t number_of_given_values, typename ... TValues>
-  inline void SetValues(TElement buffer[Trows * Tcolumns], TElement value, TValues... values)
-  {
-    buffer[number_of_given_values] = value;
-    this->SetValues < number_of_given_values + 1 > (buffer, values...);
-  }
-
 };
 
 
