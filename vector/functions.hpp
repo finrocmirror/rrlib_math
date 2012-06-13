@@ -126,6 +126,48 @@ const bool operator < (const tVector<Tdimension, TElement, TData> &left, const t
 }
 
 //----------------------------------------------------------------------
+// operator >
+//----------------------------------------------------------------------
+template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
+const bool operator > (const tVector<Tdimension, TElement, TData> &left, const tVector<Tdimension, TElement, TData> &right)
+{
+  if (&left == &right)
+  {
+    return false;
+  }
+  for (size_t i = 0; i < Tdimension; ++i)
+  {
+    if (left[i] > right[i])
+    {
+      return true;
+    }
+    if (left[i] < right[i])
+    {
+      break;
+    }
+  }
+  return false;
+}
+
+//----------------------------------------------------------------------
+// operator <=
+//----------------------------------------------------------------------
+template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
+const bool operator <= (const tVector<Tdimension, TElement, TData> &left, const tVector<Tdimension, TElement, TData> &right)
+{
+  return !(left > right);
+}
+
+//----------------------------------------------------------------------
+// operator >=
+//----------------------------------------------------------------------
+template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
+const bool operator >= (const tVector<Tdimension, TElement, TData> &left, const tVector<Tdimension, TElement, TData> &right)
+{
+  return !(left < right);
+}
+
+//----------------------------------------------------------------------
 // SchurProduct
 //----------------------------------------------------------------------
 template <size_t Tdimension, typename TLeftElement, typename TRightElement>

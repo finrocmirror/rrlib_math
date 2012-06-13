@@ -74,6 +74,15 @@ inline const bool operator != (const tVector<Tdimension, TElement, TData> &left,
 template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
 inline const bool operator < (const tVector<Tdimension, TElement, TData> &left, const tVector<Tdimension, TElement, TData> &right);
 
+template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
+inline const bool operator > (const tVector<Tdimension, TElement, TData> &left, const tVector<Tdimension, TElement, TData> &right);
+
+template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
+inline const bool operator <= (const tVector<Tdimension, TElement, TData> &left, const tVector<Tdimension, TElement, TData> &right);
+
+template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
+inline const bool operator >= (const tVector<Tdimension, TElement, TData> &left, const tVector<Tdimension, TElement, TData> &right);
+
 template <size_t Tdimension, typename TLeftElement, typename TRightElement>
 inline const tVector<Tdimension, typename until_0x::Auto<TLeftElement, TRightElement>::type, vector::Cartesian> SchurProduct(const tVector<Tdimension, TLeftElement, vector::Cartesian> &left, const tVector<Tdimension, TRightElement, vector::Cartesian> &right) __attribute__((always_inline, flatten));
 

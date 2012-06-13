@@ -240,6 +240,42 @@ inline const tAngle<TElement, TUnitPolicy, TSignPolicy> operator - (const tAngle
 //  return temp;
 //}
 
+template <typename TElement, typename TLeftUnitPolicy, typename TRightUnitPolicy, typename TSignPolicy>
+inline const bool operator == (const tAngle<TElement, TLeftUnitPolicy, TSignPolicy> &left, const tAngle<TElement, TRightUnitPolicy, TSignPolicy> &right)
+{
+  return static_cast<TElement>(tAngle<TElement, TLeftUnitPolicy, TSignPolicy>(left)) == static_cast<TElement>(tAngle<TElement, TLeftUnitPolicy, TSignPolicy>(right));
+}
+
+template <typename TElement, typename TLeftUnitPolicy, typename TRightUnitPolicy, typename TSignPolicy>
+const bool operator != (const tAngle<TElement, TLeftUnitPolicy, TSignPolicy> &left, const tAngle<TElement, TRightUnitPolicy, TSignPolicy> &right)
+{
+  return !(left == right);
+}
+
+template <typename TElement, typename TLeftUnitPolicy, typename TRightUnitPolicy, typename TSignPolicy>
+const bool operator < (const tAngle<TElement, TLeftUnitPolicy, TSignPolicy> &left, const tAngle<TElement, TRightUnitPolicy, TSignPolicy> &right)
+{
+  return static_cast<TElement>(tAngle<TElement, TLeftUnitPolicy, TSignPolicy>(left)) < static_cast<TElement>(tAngle<TElement, TLeftUnitPolicy, TSignPolicy>(right));
+}
+
+template <typename TElement, typename TLeftUnitPolicy, typename TRightUnitPolicy, typename TSignPolicy>
+const bool operator > (const tAngle<TElement, TLeftUnitPolicy, TSignPolicy> &left, const tAngle<TElement, TRightUnitPolicy, TSignPolicy> &right)
+{
+  return static_cast<TElement>(tAngle<TElement, TLeftUnitPolicy, TSignPolicy>(left)) > static_cast<TElement>(tAngle<TElement, TLeftUnitPolicy, TSignPolicy>(right));
+}
+
+template <typename TElement, typename TLeftUnitPolicy, typename TRightUnitPolicy, typename TSignPolicy>
+const bool operator <= (const tAngle<TElement, TLeftUnitPolicy, TSignPolicy> &left, const tAngle<TElement, TRightUnitPolicy, TSignPolicy> &right)
+{
+  return !(left > right);
+}
+
+template <typename TElement, typename TLeftUnitPolicy, typename TRightUnitPolicy, typename TSignPolicy>
+const bool operator >= (const tAngle<TElement, TLeftUnitPolicy, TSignPolicy> &left, const tAngle<TElement, TRightUnitPolicy, TSignPolicy> &right)
+{
+  return !(left < right);
+}
+
 template <typename TElement, typename TUnitPolicy, typename TSignPolicy>
 std::ostream &operator << (std::ostream &stream, const tAngle<TElement, TUnitPolicy, TSignPolicy> &angle)
 {

@@ -109,7 +109,6 @@ int main(int argc, char **argv)
   assignment_target = tAngleDeg(90);
   std::cout << assignment_target << std::endl;
 
-
   std::cout << "OK" << std::endl;
 
   return EXIT_SUCCESS;
