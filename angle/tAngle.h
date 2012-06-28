@@ -211,11 +211,27 @@ inline const tAngle<TElement, TUnitPolicy, TSignPolicy> operator + (const tAngle
   return temp;
 }
 
+template <typename TElement, typename TLeftUnitPolicy, typename TRightUnitPolicy, typename TLeftSignPolicy, typename TRightSignPolicy>
+inline const tAngle<TElement, angle::Radian, angle::Unsigned> operator + (const tAngle<TElement, TLeftUnitPolicy, TLeftSignPolicy> &left, const tAngle<TElement, TRightUnitPolicy, TRightSignPolicy> &right)
+{
+  tAngle<TElement, angle::Radian, angle::Unsigned> temp(left);
+  temp -= tAngle<TElement, angle::Radian, angle::Unsigned>(right);
+  return temp;
+}
+
 template <typename TElement, typename TUnitPolicy, typename TSignPolicy>
 inline const tAngle<TElement, TUnitPolicy, TSignPolicy> operator - (const tAngle<TElement, TUnitPolicy, TSignPolicy> &left, const tAngle<TElement, TUnitPolicy, TSignPolicy> &right)
 {
   tAngle<TElement, TUnitPolicy, TSignPolicy> temp(left);
   temp -= right;
+  return temp;
+}
+
+template <typename TElement, typename TLeftUnitPolicy, typename TRightUnitPolicy, typename TLeftSignPolicy, typename TRightSignPolicy>
+inline const tAngle<TElement, angle::Radian, angle::Unsigned> operator - (const tAngle<TElement, TLeftUnitPolicy, TLeftSignPolicy> &left, const tAngle<TElement, TRightUnitPolicy, TRightSignPolicy> &right)
+{
+  tAngle<TElement, angle::Radian, angle::Unsigned> temp(left);
+  temp -= tAngle<TElement, angle::Radian, angle::Unsigned>(right);
   return temp;
 }
 
