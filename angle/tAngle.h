@@ -215,7 +215,7 @@ template <typename TElement, typename TLeftUnitPolicy, typename TRightUnitPolicy
 inline const tAngle<TElement, angle::Radian, angle::Unsigned> operator + (const tAngle<TElement, TLeftUnitPolicy, TLeftSignPolicy> &left, const tAngle<TElement, TRightUnitPolicy, TRightSignPolicy> &right)
 {
   tAngle<TElement, angle::Radian, angle::Unsigned> temp(left);
-  temp -= tAngle<TElement, angle::Radian, angle::Unsigned>(right);
+  temp += tAngle<TElement, angle::Radian, angle::Unsigned>(right);
   return temp;
 }
 
