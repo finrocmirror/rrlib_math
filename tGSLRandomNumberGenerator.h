@@ -42,7 +42,7 @@
 //----------------------------------------------------------------------
 // Internal includes with ""
 //----------------------------------------------------------------------
-#include "rrlib/util/patterns/singleton.h"
+#include "rrlib/design_patterns/singleton.h"
 
 //----------------------------------------------------------------------
 // Debugging
@@ -69,7 +69,7 @@ namespace math
 */
 class tGSLRandomNumberGeneratorImplementation
 {
-  friend class util::singleton::CreateUsingNew<tGSLRandomNumberGeneratorImplementation>;
+  friend class design_patterns::singleton::CreateUsingNew<tGSLRandomNumberGeneratorImplementation>;
 
 //----------------------------------------------------------------------
 // Public methods and typedefs
@@ -109,7 +109,7 @@ private:
 
 };
 
-typedef util::tSingletonHolder<tGSLRandomNumberGeneratorImplementation> tGSLRandomNumberGenerator;
+typedef design_patterns::tSingletonHolder<tGSLRandomNumberGeneratorImplementation> tGSLRandomNumberGenerator;
 
 namespace sGslRandomNumberGenerator
 {
