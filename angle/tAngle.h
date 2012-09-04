@@ -44,6 +44,7 @@
 #include <iostream>
 #include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/is_same.hpp>
+#include <boost/type_traits/is_scalar.hpp>
 #include <stdexcept>
 #include <sstream>
 
@@ -235,26 +236,30 @@ inline const tAngle<TElement, angle::Radian, angle::Unsigned> operator - (const 
   return temp;
 }
 
-//template <typename TUnitPolicy, typename TSignPolicy>
-//inline const tAngle<TUnitPolicy, TSignPolicy> operator *(const tAngle<TUnitPolicy, TSignPolicy> &angle, double factor)
-//{
-//  tAngle<TUnitPolicy, TSignPolicy> temp(angle);
-//  temp *= factor;
-//  return temp;
-//}
-//template <typename TUnitPolicy, typename TSignPolicy>
-//inline const tAngle<TUnitPolicy, TSignPolicy> operator *(double factor, const tAngle<TUnitPolicy, TSignPolicy> &angle)
-//{
-//  return angle * factor;
-//}
+template <typename TElement, typename TUnitPolicy, typename TSignPolicy, typename TScalar>
+inline const typename boost::enable_if<boost::is_scalar<TScalar>, tAngle<TElement, TUnitPolicy, TSignPolicy>>::type operator *(const tAngle<TElement, TUnitPolicy, TSignPolicy> &angle, TScalar factor)
+{
+  tAngle<TElement, TUnitPolicy, TSignPolicy> temp(angle);
+  temp *= factor;
+  return temp;
+}
+template <typename TElement, typename TUnitPolicy, typename TSignPolicy, typename TScalar>
+inline const typename boost::enable_if<boost::is_scalar<TScalar>, tAngle<TElement, TUnitPolicy, TSignPolicy>>::type operator *(TScalar factor, const tAngle<TElement, TUnitPolicy, TSignPolicy> &angle)
+{
+  return angle * factor;
+}
 
-//template <typename TUnitPolicy, typename TSignPolicy>
-//inline const tAngle<TUnitPolicy, TSignPolicy> operator / (const tAngle<TUnitPolicy, TSignPolicy> &angle, double divider)
-//{
-//  tAngle<TUnitPolicy, TSignPolicy> temp(angle);
-//  temp /= divider;
-//  return temp;
-//}
+template <typename TElement, typename TUnitPolicy, typename TSignPolicy, typename TScalar>
+inline const typename boost::enable_if<boost::is_scalar<TScalar>, tAngle<TElement, TUnitPolicy, TSignPolicy>>::type operator / (const tAngle<TElement, TUnitPolicy, TSignPolicy> &angle, TScalar divider)
+{
+  return angle * (1.0 / divider);
+}
+
+template <typename TElement, typename TUnitPolicy, typename TSignPolicy>
+inline const double operator / (const tAngle<TElement, TUnitPolicy, TSignPolicy> &angle, const tAngle<TElement, TUnitPolicy, TSignPolicy> &divider)
+{
+  return static_cast<double>(angle) / static_cast<double>(divider);
+}
 
 template <typename TElement, typename TLeftUnitPolicy, typename TRightUnitPolicy, typename TSignPolicy>
 inline const bool operator == (const tAngle<TElement, TLeftUnitPolicy, TSignPolicy> &left, const tAngle<TElement, TRightUnitPolicy, TSignPolicy> &right)
