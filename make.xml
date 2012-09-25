@@ -22,20 +22,6 @@
     </sources>
   </rrlib>
   
-  <rrlib name="math_gsl"
-        libs="gsl">
-    <sources>
-      tGSLRandomNumberGenerator.h
-    </sources>
-  </rrlib>
-
-  <testprogram name="gsl_rng"
-        libs="gsl">
-    <sources>
-      test/test_gsl_rng.cpp
-    </sources>
-  </testprogram>
-  
   <testprogram name="vectors"
         optionallibs="oiv" >
     <sources>
