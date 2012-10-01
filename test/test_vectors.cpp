@@ -146,5 +146,13 @@ int main(int argc, char **argv)
 
   std::cout << "OK" << std::endl;
 
+
+  rrlib::math::tVector<3, float> bad(1, 1, 1);
+  std::cout << "Bad: " << bad << " => " << bad.GetPolarVector() << " Alpha = " << bad.GetPolarVector().Alpha() << ", Beta = " << bad.GetPolarVector().Beta() << std::endl;
+
+  rrlib::math::tVector<3, float, rrlib::math::vector::Cartesian> worse(1, 1, 1);
+  std::cout << "worse: " << worse << " => " << worse.GetPolarVector() << " Alpha = " << worse.GetPolarVector().Alpha() << ", Beta = " << worse.GetPolarVector().Beta()  << std::endl;
+
+
   return EXIT_SUCCESS;
 }

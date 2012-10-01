@@ -130,7 +130,7 @@ public:
       else
       {
         std::memcpy(this, &other, sizeof(tVector) - sizeof(TElement));
-        *reinterpret_cast<TElement *>(this_addr + sizeof(tAngleRad[Tdimension - 1])) = *reinterpret_cast<const TOtherElement *>(other_addr + sizeof(tAngleRad[Tdimension - 1]));
+        *reinterpret_cast<TElement *>(this_addr + sizeof(tAngle<TElement, angle::Radian, angle::Signed>[Tdimension - 1])) = *reinterpret_cast<const TOtherElement *>(other_addr + sizeof(tAngle<TElement, angle::Radian, angle::Signed>[Tdimension - 1]));
       }
     }
     return *this;

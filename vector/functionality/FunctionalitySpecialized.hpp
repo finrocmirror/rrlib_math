@@ -259,7 +259,7 @@ const typename boost::enable_if_c < Tdimension == 3 && Tother_dimension == 3, ma
 //----------------------------------------------------------------------
 template <size_t Tdimension, typename TElement>
 template <typename TOtherElement>
-FunctionalitySpecialized<Tdimension, TElement, Polar>::FunctionalitySpecialized(const tAngleRad angles[Tdimension - 1], TOtherElement length)
+FunctionalitySpecialized<Tdimension, TElement, Polar>::FunctionalitySpecialized(const tAngle angles[Tdimension - 1], TOtherElement length)
 {
   tVector *that = reinterpret_cast<tVector *>(this);
   std::memcpy(this, angles, sizeof(tVector) - sizeof(TElement));
@@ -282,7 +282,7 @@ FunctionalitySpecialized<Tdimension, TElement, Polar>::FunctionalitySpecialized(
 
 template <size_t Tdimension, typename TElement>
 template <typename ... TValues>
-FunctionalitySpecialized<Tdimension, TElement, Polar>::FunctionalitySpecialized(tAngleRad value, TValues... values)
+FunctionalitySpecialized<Tdimension, TElement, Polar>::FunctionalitySpecialized(tAngle value, TValues... values)
 {
   FunctionalitySpecialized::Set(value, values...);
 }
@@ -291,13 +291,13 @@ FunctionalitySpecialized<Tdimension, TElement, Polar>::FunctionalitySpecialized(
 // FunctionalitySpecialized Polar operator []
 //----------------------------------------------------------------------
 template <size_t Tdimension, typename TElement>
-const tAngleRad FunctionalitySpecialized<Tdimension, TElement, Polar>::operator [](size_t i) const
+const tAngle<TElement, angle::Radian, angle::Signed> FunctionalitySpecialized<Tdimension, TElement, Polar>::operator [](size_t i) const
 {
   return const_cast<FunctionalitySpecialized &>(*this)[i];
 }
 
 template <size_t Tdimension, typename TElement>
-tAngleRad &FunctionalitySpecialized<Tdimension, TElement, Polar>::operator [](size_t i)
+tAngle<TElement, angle::Radian, angle::Signed> &FunctionalitySpecialized<Tdimension, TElement, Polar>::operator [](size_t i)
 {
   if (i > Tdimension - 2)
   {
@@ -305,7 +305,7 @@ tAngleRad &FunctionalitySpecialized<Tdimension, TElement, Polar>::operator [](si
     stream << "Vector index (" << i << ") out of bounds [0.." << Tdimension - 2 << "].";
     throw std::logic_error(stream.str());
   }
-  return reinterpret_cast<tAngleRad *>(this)[i];
+  return reinterpret_cast<tAngle *>(this)[i];
 }
 
 //----------------------------------------------------------------------

@@ -171,14 +171,15 @@ template <size_t Tdimension, typename TElement>
 class FunctionalitySpecialized<Tdimension, TElement, Polar>
 {
   typedef math::tVector<Tdimension, TElement, Polar> tVector;
+  typedef math::tAngle<TElement, angle::Radian, angle::Signed> tAngle;
 
 //----------------------------------------------------------------------
 // Public methods and typedefs
 //----------------------------------------------------------------------
 public:
 
-  inline const tAngleRad operator [](size_t i) const __attribute__((always_inline, flatten));
-  inline tAngleRad &operator [](size_t i) __attribute__((always_inline, flatten));
+  inline const tAngle operator [](size_t i) const __attribute__((always_inline, flatten));
+  inline tAngle &operator [](size_t i) __attribute__((always_inline, flatten));
 
   template <typename ... TValues>
   inline void Set(TValues... values) __attribute__((always_inline, flatten));
@@ -196,13 +197,13 @@ protected:
   {}
 
   template <typename TOtherElement>
-  explicit inline FunctionalitySpecialized(const tAngleRad angles[Tdimension - 1], TOtherElement length) __attribute__((always_inline, flatten));
+  explicit inline FunctionalitySpecialized(const tAngle angles[Tdimension - 1], TOtherElement length) __attribute__((always_inline, flatten));
 
   template <size_t Tother_dimension, typename TOtherElement>
   explicit inline FunctionalitySpecialized(const math::tVector<Tother_dimension, TOtherElement, Polar> &other) __attribute__((always_inline, flatten));
 
   template <typename ... TValues>
-  explicit inline FunctionalitySpecialized(tAngleRad value, TValues... values) __attribute__((always_inline, flatten));
+  explicit inline FunctionalitySpecialized(tAngle value, TValues... values) __attribute__((always_inline, flatten));
 
 //----------------------------------------------------------------------
 // Private fields and methods
@@ -213,7 +214,7 @@ private:
   FunctionalitySpecialized &operator = (const FunctionalitySpecialized &);
 
   template <size_t number_of_given_values>
-  inline void SetValues(tAngleRad buffer[Tdimension - 1], TElement length)
+  inline void SetValues(tAngle buffer[Tdimension - 1], TElement length)
   {
     static_assert(number_of_given_values == Tdimension - 1, "Wrong number of values given to store in vector");
     tVector *that = reinterpret_cast<tVector *>(this);
@@ -221,7 +222,7 @@ private:
     that->Length() = length;
   }
   template <size_t number_of_given_values, typename ... TValues>
-  inline void SetValues(tAngleRad buffer[Tdimension - 1], tAngleRad value, TValues... values)
+  inline void SetValues(tAngle buffer[Tdimension - 1], tAngle value, TValues... values)
   {
     buffer[number_of_given_values] = value;
     this->SetValues < number_of_given_values + 1 > (buffer, values...);
