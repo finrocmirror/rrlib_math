@@ -21,7 +21,13 @@
       vector/**
     </sources>
   </rrlib>
-  
+
+  <rrlib name="random">
+    <sources>
+      tMultivariateNormalDistribution.h
+    </sources>
+  </rrlib>
+
   <testprogram name="vectors"
         optionallibs="oiv" >
     <sources>
