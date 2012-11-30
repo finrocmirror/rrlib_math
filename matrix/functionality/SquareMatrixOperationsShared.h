@@ -135,7 +135,7 @@ public:
     return that->Inverted();
   }
 
-  static const tMatrix Diagonal(const tVector<Tdimension, TElement> values)
+  static const tMatrix Diagonal(const tVector<Tdimension, TElement> &values)
   {
     tMatrix result;
     for (size_t i = 0; i < Tdimension; ++i)
@@ -143,6 +143,12 @@ public:
       result[i][i] = values[i];
     }
     return result;
+  }
+
+  template <typename ... TValues>
+  static const tMatrix Diagonal(TValues ... values)
+  {
+    return tMatrix::Diagonal(tVector<Tdimension, TElement>(values...));
   }
 
 //----------------------------------------------------------------------
