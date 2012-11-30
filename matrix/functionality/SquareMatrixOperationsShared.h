@@ -135,6 +135,16 @@ public:
     return that->Inverted();
   }
 
+  static const tMatrix Diagonal(const tVector<Tdimension, TElement> values)
+  {
+    tMatrix result;
+    for (size_t i = 0; i < Tdimension; ++i)
+    {
+      result[i][i] = values[i];
+    }
+    return result;
+  }
+
 //----------------------------------------------------------------------
 // Protected methods
 //----------------------------------------------------------------------
