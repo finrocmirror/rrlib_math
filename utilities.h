@@ -207,9 +207,9 @@ const bool IsEqual(float a, float b, float max_error = 1.0E-6, tFloatComparisonM
 
 /*! Function to extract the sign of an arbitrary number
  *
- * \param value the number
- * \returns -1 if (value < 0), 1 if (value > 0) and 0 if (value == 0)
+ * \param value   The number
  *
+ * \returns -1 if (value < 0), 1 if (value > 0) and 0 if (value == 0)
  */
 template <typename T>
 inline int Signum(T value)
@@ -217,6 +217,14 @@ inline int Signum(T value)
   return (value > T(0)) - (value < T(0));
 }
 
+/*! Function to limit a value to a given range
+ *
+ * \param value   The value to clip
+ * \param value   The minimum value of the clipping range
+ * \param value   The maximum value of the clipping range
+ *
+ * \returns The limited value: \a value if within range, \a min_value or \a max_value if clipped
+ */
 template <typename T>
 inline T LimitedValue(T value, T min_value, T max_value)
 {
