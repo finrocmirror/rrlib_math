@@ -195,9 +195,9 @@ const math::tMatrix<Trows, Tcolumns, TElement, TData> operator - (const math::tM
 }
 
 template <size_t Trows, size_t Tcolumns, typename TLeftElement, typename TRightElement, template <size_t, size_t, typename> class TData>
-const math::tMatrix<Trows, Tcolumns, typename until_0x::Auto<TLeftElement, TRightElement>::type, TData> operator + (const math::tMatrix<Trows, Tcolumns, TLeftElement, TData> &left, const math::tMatrix<Trows, Tcolumns, TRightElement, TData> &right)
+const math::tMatrix < Trows, Tcolumns, decltype(TLeftElement() + TRightElement()), TData > operator + (const math::tMatrix<Trows, Tcolumns, TLeftElement, TData> &left, const math::tMatrix<Trows, Tcolumns, TRightElement, TData> &right)
 {
-  typedef math::tMatrix<Trows, Tcolumns, typename until_0x::Auto<TLeftElement, TRightElement>::type, TData> tResult;
+  typedef math::tMatrix < Trows, Tcolumns, decltype(TLeftElement() + TRightElement()), TData > tResult;
   typename tResult::tElement data[sizeof(tResult) / sizeof(typename tResult::tElement)];
   for (size_t i = 0; i < sizeof(tResult) / sizeof(typename tResult::tElement); ++i)
   {
@@ -267,9 +267,9 @@ inline const typename MatrixAddition<Trows, Tcolumns, TLeftElement, TRightElemen
 
 
 template <size_t Trows, size_t Tcolumns, typename TMatrixElement, typename TScalar, template <size_t, size_t, typename> class TData>
-const typename boost::enable_if<boost::is_scalar<TScalar>, math::tMatrix<Trows, Tcolumns, typename until_0x::Auto<TMatrixElement, TScalar>::type, TData> >::type operator *(const math::tMatrix<Trows, Tcolumns, TMatrixElement, TData> &matrix, const TScalar scalar)
+const typename boost::enable_if < boost::is_scalar<TScalar>, math::tMatrix < Trows, Tcolumns, decltype(TMatrixElement() + TScalar()), TData > >::type operator *(const math::tMatrix<Trows, Tcolumns, TMatrixElement, TData> &matrix, const TScalar scalar)
 {
-  typedef math::tMatrix<Trows, Tcolumns, typename until_0x::Auto<TMatrixElement, TScalar>::type, TData> tResult;
+  typedef math::tMatrix < Trows, Tcolumns, decltype(TMatrixElement() + TScalar()), TData > tResult;
   typename tResult::tElement data[sizeof(tResult) / sizeof(typename tResult::tElement)];
   for (size_t i = 0; i < sizeof(tResult) / sizeof(typename tResult::tElement); ++i)
   {
@@ -279,13 +279,13 @@ const typename boost::enable_if<boost::is_scalar<TScalar>, math::tMatrix<Trows, 
 }
 
 template <size_t Trows, size_t Tcolumns, typename TMatrixElement, typename TScalar, template <size_t, size_t, typename> class TData>
-const typename boost::enable_if<boost::is_scalar<TScalar>, math::tMatrix<Trows, Tcolumns, typename until_0x::Auto<TMatrixElement, TScalar>::type, TData> >::type operator *(const TScalar scalar, const math::tMatrix<Trows, Tcolumns, TMatrixElement, TData> &matrix)
+const typename boost::enable_if < boost::is_scalar<TScalar>, math::tMatrix < Trows, Tcolumns, decltype(TMatrixElement() + TScalar()), TData > >::type operator *(const TScalar scalar, const math::tMatrix<Trows, Tcolumns, TMatrixElement, TData> &matrix)
 {
   return matrix * scalar;
 }
 
 template <size_t Trows, size_t Tcolumns, typename TMatrixElement, typename TScalar, template <size_t, size_t, typename> class TData>
-const typename boost::enable_if<boost::is_scalar<TScalar>, math::tMatrix<Trows, Tcolumns, typename until_0x::Auto<TMatrixElement, TScalar>::type, TData> >::type operator / (const math::tMatrix<Trows, Tcolumns, TMatrixElement, TData> &matrix, const TScalar scalar)
+const typename boost::enable_if < boost::is_scalar<TScalar>, math::tMatrix < Trows, Tcolumns, decltype(TMatrixElement() + TScalar()), TData > >::type operator / (const math::tMatrix<Trows, Tcolumns, TMatrixElement, TData> &matrix, const TScalar scalar)
 {
   return matrix * (1 / scalar);
 }

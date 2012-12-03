@@ -152,21 +152,21 @@ const tVector<Tdimension, TElement, Polar> operator - (const tVector<Tdimension,
 }
 
 template <size_t Tdimension, typename TLeftElement, typename TRightElement>
-const tVector<Tdimension, typename until_0x::Auto<TLeftElement, TRightElement>::type, Polar> operator + (const tVector<Tdimension, TLeftElement, Polar> &left, const tVector<Tdimension, TRightElement, Polar> &right)
+tVector < Tdimension, decltype(TLeftElement() + TRightElement()), Polar > operator + (const tVector<Tdimension, TLeftElement, Polar> &left, const tVector<Tdimension, TRightElement, Polar> &right)
 {
   return (left.GetCartesianVector() + right.GetCartesianVector()).GetPolarVector();
 }
 
 template <size_t Tdimension, typename TLeftElement, typename TRightElement>
-const tVector<Tdimension, typename until_0x::Auto<TLeftElement, TRightElement>::type, Polar> operator - (const tVector<Tdimension, TLeftElement, Polar> &left, const tVector<Tdimension, TRightElement, Polar> &right)
+tVector < Tdimension, decltype(TLeftElement() + TRightElement()), Polar > operator - (const tVector<Tdimension, TLeftElement, Polar> &left, const tVector<Tdimension, TRightElement, Polar> &right)
 {
   return (left.GetCartesianVector() - right.GetCartesianVector()).GetPolarVector();
 }
 
 template <size_t Tdimension, typename TElement, typename TScalar>
-const typename boost::enable_if<boost::is_scalar<TScalar>, tVector<Tdimension, typename until_0x::Auto<TElement, TScalar>::type, Polar> >::type operator *(const tVector<Tdimension, TElement, Polar> &vector, const TScalar scalar)
+typename boost::enable_if < boost::is_scalar<TScalar>, tVector < Tdimension, decltype(TElement() + TScalar()), Polar >>::type operator * (const tVector<Tdimension, TElement, Polar> &vector, const TScalar scalar)
 {
-  typedef math::tVector<Tdimension, typename until_0x::Auto<TElement, TScalar>::type, Polar> tResult;
+  typedef math::tVector < Tdimension, decltype(TElement() + TScalar()), Polar > tResult;
   tAngleRad angles[Tdimension];
   for (size_t i = 0; i < Tdimension - 1; ++i)
   {
@@ -175,13 +175,13 @@ const typename boost::enable_if<boost::is_scalar<TScalar>, tVector<Tdimension, t
   return tResult(angles, vector.Length() * scalar);
 }
 template <size_t Tdimension, typename TElement, typename TScalar>
-const typename boost::enable_if<boost::is_scalar<TScalar>, tVector<Tdimension, typename until_0x::Auto<TElement, TScalar>::type, Polar> >::type operator *(const TScalar scalar, const tVector<Tdimension, TElement, Polar> &vector)
+typename boost::enable_if < boost::is_scalar<TScalar>, tVector < Tdimension, decltype(TElement() + TScalar()), Polar >>::type operator * (const TScalar scalar, const tVector<Tdimension, TElement, Polar> &vector)
 {
   return vector * scalar;
 }
 
 template <size_t Tdimension, typename TLeftElement, typename TRightElement>
-const typename until_0x::Auto<TLeftElement, TRightElement>::type operator *(const tVector<Tdimension, TLeftElement, Polar> &left, const tVector<Tdimension, TRightElement, Polar> &right)
+decltype(TLeftElement() + TRightElement()) operator *(const tVector<Tdimension, TLeftElement, Polar> &left, const tVector<Tdimension, TRightElement, Polar> &right)
 {
   return left.GetCartesianVector() * right.GetCartesianVector();
 }

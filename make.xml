@@ -14,7 +14,6 @@
       tPose2D.cpp
       tPose3D.cpp
       tVector.cpp
-      until_0x_helper.h
       utilities.cpp
       angle/**
       matrix/**

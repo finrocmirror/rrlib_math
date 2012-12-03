@@ -170,7 +170,7 @@ public:
   }
 
   template <typename TOtherElement>
-  inline const math::tVector<Tdimension, typename until_0x::Auto<TElement, TOtherElement>::type, TData> Projected(const math::tVector<Tdimension, TOtherElement, TData> &other) const __attribute__((always_inline, flatten));
+  inline const math::tVector < Tdimension, decltype(TElement() + TOtherElement()), TData > Projected(const math::tVector<Tdimension, TOtherElement, TData> &other) const __attribute__((always_inline, flatten));
 
 //----------------------------------------------------------------------
 // Protected methods

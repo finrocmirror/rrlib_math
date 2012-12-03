@@ -84,10 +84,10 @@ template <size_t Tdimension, typename TElement, template <size_t, typename> clas
 inline const bool operator >= (const tVector<Tdimension, TElement, TData> &left, const tVector<Tdimension, TElement, TData> &right);
 
 template <size_t Tdimension, typename TLeftElement, typename TRightElement>
-inline const tVector<Tdimension, typename until_0x::Auto<TLeftElement, TRightElement>::type, vector::Cartesian> SchurProduct(const tVector<Tdimension, TLeftElement, vector::Cartesian> &left, const tVector<Tdimension, TRightElement, vector::Cartesian> &right) __attribute__((always_inline, flatten));
+inline const tVector < Tdimension, decltype(TLeftElement() + TRightElement()), vector::Cartesian > SchurProduct(const tVector<Tdimension, TLeftElement, vector::Cartesian> &left, const tVector<Tdimension, TRightElement, vector::Cartesian> &right) __attribute__((always_inline, flatten));
 
 template <typename TLeftElement, typename TRightElement>
-inline const tVector<3, typename until_0x::Auto<TLeftElement, TRightElement>::type, vector::Cartesian> CrossProduct(const tVector<3, TLeftElement, vector::Cartesian> &left, const tVector<3, TRightElement, vector::Cartesian> &right) __attribute__((always_inline, flatten));
+inline const tVector < 3, decltype(TLeftElement() + TRightElement()), vector::Cartesian > CrossProduct(const tVector<3, TLeftElement, vector::Cartesian> &left, const tVector<3, TRightElement, vector::Cartesian> &right) __attribute__((always_inline, flatten));
 
 template <size_t Tdimension, typename TLeftElement, typename TRightElement, template <size_t, typename> class TData>
 inline const tAngleRad EnclosedAngle(const tVector<Tdimension, TLeftElement, TData> &left, const tVector<Tdimension, TRightElement, TData> &right);

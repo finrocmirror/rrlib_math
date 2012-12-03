@@ -48,8 +48,6 @@
 // Internal includes with ""
 //----------------------------------------------------------------------
 
-#include "rrlib/math/until_0x_helper.h"
-
 #define __rrlib__math__matrix__include_guard__
 
 namespace rrlib

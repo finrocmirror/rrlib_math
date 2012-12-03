@@ -109,10 +109,10 @@ class HomogeneousMultiplication<Tdimension, Tdimension, TElement, TData>
 public:
 
   template <typename TVectorElement>
-  inline const tVector < Tdimension - 1, typename until_0x::Auto<TElement, TVectorElement>::type, vector::Cartesian > MultiplyHomogeneously(const tVector < Tdimension - 1, TVectorElement, vector::Cartesian > &vector) const
+  inline const tVector < Tdimension - 1, decltype(TElement() + TVectorElement()), vector::Cartesian > MultiplyHomogeneously(const tVector < Tdimension - 1, TVectorElement, vector::Cartesian > &vector) const
   {
     const tMatrix *that = reinterpret_cast<const tMatrix *>(this);
-    typedef tVector < Tdimension - 1, typename until_0x::Auto<TElement, TVectorElement>::type, vector::Cartesian > tResult;
+    typedef tVector < Tdimension - 1, decltype(TElement() + TVectorElement()), vector::Cartesian > tResult;
     typename tResult::tElement data[Tdimension - 1];
     std::memset(data, 0, sizeof(data));
     for (size_t row = 0; row < Tdimension - 1; ++row)

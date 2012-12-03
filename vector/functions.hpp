@@ -171,7 +171,7 @@ const bool operator >= (const tVector<Tdimension, TElement, TData> &left, const 
 // SchurProduct
 //----------------------------------------------------------------------
 template <size_t Tdimension, typename TLeftElement, typename TRightElement>
-const tVector<Tdimension, typename until_0x::Auto<TLeftElement, TRightElement>::type, vector::Cartesian> SchurProduct(const tVector<Tdimension, TLeftElement, vector::Cartesian> &left, const tVector<Tdimension, TRightElement, vector::Cartesian> &right)
+const tVector < Tdimension, decltype(TLeftElement() + TRightElement()), vector::Cartesian > SchurProduct(const tVector<Tdimension, TLeftElement, vector::Cartesian> &left, const tVector<Tdimension, TRightElement, vector::Cartesian> &right)
 {
   return left.SchurMultiplied(right);
 }
@@ -180,7 +180,7 @@ const tVector<Tdimension, typename until_0x::Auto<TLeftElement, TRightElement>::
 // CrossProduct
 //----------------------------------------------------------------------
 template <typename TLeftElement, typename TRightElement>
-const tVector<3, typename until_0x::Auto<TLeftElement, TRightElement>::type, vector::Cartesian> CrossProduct(const tVector<3, TLeftElement, vector::Cartesian> &left, const tVector<3, TRightElement, vector::Cartesian> &right)
+const tVector < 3, decltype(TLeftElement() + TRightElement()), vector::Cartesian > CrossProduct(const tVector<3, TLeftElement, vector::Cartesian> &left, const tVector<3, TRightElement, vector::Cartesian> &right)
 {
   return left.CrossMultiplied(right);
 }
