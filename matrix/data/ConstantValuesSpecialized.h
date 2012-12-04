@@ -124,7 +124,7 @@ private:
   ConstantValuesSpecialized(const ConstantValuesSpecialized &other);
   ConstantValuesSpecialized &operator = (const ConstantValuesSpecialized &);
 
-  static const tMatrix &InitializeIdentity() __attribute__((always_inline, flatten));
+  static inline const tMatrix &InitializeIdentity() __attribute__((always_inline, flatten));
 
 };
 
