@@ -211,6 +211,14 @@ inline const tAngle<TElement, TUnitPolicy, TSignPolicy> operator + (const tAngle
   return temp;
 }
 
+template <typename TElement, typename TLeftUnitPolicy, typename TRightUnitPolicy, typename TSignPolicy>
+inline const tAngle<TElement, angle::Radian, TSignPolicy> operator + (const tAngle<TElement, TLeftUnitPolicy, TSignPolicy> &left, const tAngle<TElement, TRightUnitPolicy, TSignPolicy> &right)
+{
+  tAngle<TElement, angle::Radian, TSignPolicy> temp(left);
+  temp += tAngle<TElement, angle::Radian, TSignPolicy>(right);
+  return temp;
+}
+
 template <typename TElement, typename TLeftUnitPolicy, typename TRightUnitPolicy, typename TLeftSignPolicy, typename TRightSignPolicy>
 inline const tAngle<TElement, angle::Radian, angle::Unsigned> operator + (const tAngle<TElement, TLeftUnitPolicy, TLeftSignPolicy> &left, const tAngle<TElement, TRightUnitPolicy, TRightSignPolicy> &right)
 {
