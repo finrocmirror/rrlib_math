@@ -66,6 +66,24 @@ namespace math
 //----------------------------------------------------------------------
 // Implementation
 //----------------------------------------------------------------------
+namespace
+{
+template <typename TVector>
+struct tTrait;
+
+template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
+struct tTrait<tVector<Tdimension, TElement, TData>>
+{
+  enum { eARRAY_DIMENSION = Tdimension };
+  enum { eEXPLICIT_LENGTH = false };
+};
+template <size_t Tdimension, typename TElement>
+struct tTrait<tVector<Tdimension, TElement, vector::Polar>>
+{
+  enum { eARRAY_DIMENSION = Tdimension - 1 };
+  enum { eEXPLICIT_LENGTH = true };
+};
+}
 
 //----------------------------------------------------------------------
 // IsEqual
@@ -73,9 +91,16 @@ namespace math
 template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
 bool IsEqual(const tVector<Tdimension, TElement, TData> &left, const tVector<Tdimension, TElement, TData> &right, float max_error = 1.0E-6, tFloatComparisonMethod method = eFCM_ABSOLUTE_ERROR)
 {
-  for (size_t i = 0; i < Tdimension; ++i)
+  for (size_t i = 0; i < tTrait<tVector<Tdimension, TElement, TData>>::eARRAY_DIMENSION; ++i)
   {
     if (!IsEqual(left[i], right[i], max_error, method))
+    {
+      return false;
+    }
+  }
+  if (tTrait<tVector<Tdimension, TElement, TData>>::eEXPLICIT_LENGTH)
+  {
+    if (!IsEqual(left.Length(), right.Length(), max_error, method))
     {
       return false;
     }
@@ -111,7 +136,7 @@ const bool operator < (const tVector<Tdimension, TElement, TData> &left, const t
   {
     return false;
   }
-  for (size_t i = 0; i < Tdimension; ++i)
+  for (size_t i = 0; i < tTrait<tVector<Tdimension, TElement, TData>>::eARRAY_DIMENSION; ++i)
   {
     if (left[i] < right[i])
     {
@@ -120,6 +145,13 @@ const bool operator < (const tVector<Tdimension, TElement, TData> &left, const t
     if (left[i] > right[i])
     {
       break;
+    }
+  }
+  if (tTrait<tVector<Tdimension, TElement, TData>>::eEXPLICIT_LENGTH)
+  {
+    if (left.Length() < right.Length())
+    {
+      return true;
     }
   }
   return false;
@@ -135,7 +167,7 @@ const bool operator > (const tVector<Tdimension, TElement, TData> &left, const t
   {
     return false;
   }
-  for (size_t i = 0; i < Tdimension; ++i)
+  for (size_t i = 0; i < tTrait<tVector<Tdimension, TElement, TData>>::eARRAY_DIMENSION; ++i)
   {
     if (left[i] > right[i])
     {
@@ -144,6 +176,13 @@ const bool operator > (const tVector<Tdimension, TElement, TData> &left, const t
     if (left[i] < right[i])
     {
       break;
+    }
+  }
+  if (tTrait<tVector<Tdimension, TElement, TData>>::eEXPLICIT_LENGTH)
+  {
+    if (left.Length() > right.Length())
+    {
+      return true;
     }
   }
   return false;
