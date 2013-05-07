@@ -19,7 +19,7 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 //
 //----------------------------------------------------------------------
-/*!\file    LowerTriangle.h
+/*!\file    rrlib/math/matrix/data/LowerTriangle.h
  *
  * \author  Tobias Foehst
  *

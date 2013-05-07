@@ -19,7 +19,7 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 //
 //----------------------------------------------------------------------
-/*!\file    tPolynomial.hpp
+/*!\file    rrlib/math/tPolynomial.hpp
  *
  * \author  Tobias Foehst
  *

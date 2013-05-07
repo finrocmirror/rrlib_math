@@ -19,13 +19,13 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 //
 //----------------------------------------------------------------------
-/*!\file    tPose3D.h
+/*!\file    rrlib/math/tPose3D.h
  *
  * \author  Tobias Foehst
  *
  * \date    2010-11-28
  *
- * \brief Contains tPose3D
+ * \brief   Contains tPose3D
  *
  * \b tPos2D
  *

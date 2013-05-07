@@ -19,13 +19,12 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 //
 //----------------------------------------------------------------------
-/*!\file    rtti.cpp
+/*!\file    rrlib/math/rtti.cpp
  *
  * \author  Max Reichardt
  *
  * \date    2011-10-30
  *
- * \brief   Initializes runtime type information for types in rrlib_math
  */
 //----------------------------------------------------------------------
 

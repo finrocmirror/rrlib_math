@@ -19,13 +19,11 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 //
 //----------------------------------------------------------------------
-/*!\file    ConstantValuesSpecialized.hpp
+/*!\file    rrlib/math/matrix/data/ConstantValuesSpecialized.hpp
  *
  * \author  Tobias Foehst
  *
  * \date    2011-08-25
- *
- * \brief
  *
  * \b
  *

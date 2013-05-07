@@ -19,7 +19,7 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 //
 //----------------------------------------------------------------------
-/*!\file    OperatorsPolar.h
+/*!\file    rrlib/math/vector/data/OperatorsPolar.h
  *
  * \author  Tobias Foehst
  *
