@@ -76,7 +76,7 @@ namespace vector
 /*!
  *
  */
-template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
+template <size_t Tdimension, typename TElement, template <size_t, typename, typename ...> class TData, typename ... TAdditionalDataParameters>
 class Conversions
 {
 
@@ -110,10 +110,11 @@ class Conversions<2, TElement, Cartesian>
 //----------------------------------------------------------------------
 public:
 
-  inline const tVector<2, TElement, Polar> GetPolarVector() const __attribute__((always_inline, flatten))
+  template <typename TPolarUnitPolicy = angle::Radian, typename TPolarSignPolicy = angle::Signed>
+  __attribute__((always_inline, flatten)) inline const tVector<2, TElement, Polar, TPolarUnitPolicy, TPolarSignPolicy> GetPolarVector() const
   {
     const tVector<2, TElement, Cartesian> *that = reinterpret_cast<const tVector<2, TElement, Cartesian> *>(this);
-    return tVector<2, TElement, Polar>(std::atan2(that->Y(), that->X()), that->Length());
+    return tVector<2, TElement, Polar, TPolarUnitPolicy, TPolarSignPolicy>(tAngleRad(std::atan2(that->Y(), that->X())), that->Length());
   }
 
 #ifdef _LIB_OIV_PRESENT_
@@ -154,11 +155,12 @@ class Conversions<3, TElement, Cartesian>
 //----------------------------------------------------------------------
 public:
 
-  inline const tVector<3, TElement, Polar> GetPolarVector() const __attribute__((always_inline, flatten))
+  template <typename TPolarUnitPolicy = angle::Radian, typename TPolarSignPolicy = angle::Signed>
+  __attribute__((always_inline, flatten)) inline const tVector<3, TElement, Polar, TPolarUnitPolicy, TPolarSignPolicy> GetPolarVector() const
   {
     const tVector<3, TElement, Cartesian> *that = reinterpret_cast<const tVector<3, TElement, Cartesian> *>(this);
     TElement length = that->Length();
-    return tVector<3, TElement, Polar>(std::atan2(that->Y(), that->X()), std::acos(that->Z() / length), length);
+    return tVector<3, TElement, Polar, TPolarUnitPolicy, TPolarSignPolicy>(tAngleRad(std::atan2(that->Y(), that->X())), tAngleRad(std::acos(that->Z() / length)), length);
   }
 
 #ifdef _LIB_OIV_PRESENT_
@@ -190,8 +192,8 @@ private:
 /*!
  *
  */
-template <typename TElement>
-class Conversions<2, TElement, Polar>
+template <typename TElement, typename ... TAdditionalDataParameters>
+class Conversions<2, TElement, Polar, TAdditionalDataParameters...>
 {
 
 //----------------------------------------------------------------------
@@ -201,8 +203,8 @@ public:
 
   inline const tVector<2, TElement, Cartesian> GetCartesianVector() const __attribute__((always_inline, flatten))
   {
-    const tVector<2, TElement, Polar> *that = reinterpret_cast<const tVector<2, TElement, Polar> *>(this);
-    return tVector<2, TElement, Cartesian>(that->Length() * std::cos(that->Alpha()), that->Length() * std::sin(that->Alpha()));
+    const tVector<2, TElement, Polar, TAdditionalDataParameters...> *that = reinterpret_cast<const tVector<2, TElement, Polar, TAdditionalDataParameters...> *>(this);
+    return tVector<2, TElement, Cartesian>(that->Length() * that->Alpha().Cosine(), that->Length() * that->Alpha().Sine());
   }
 
 #ifdef _LIB_OIV_PRESENT_
@@ -234,8 +236,8 @@ private:
 /*!
  *
  */
-template <typename TElement>
-class Conversions<3, TElement, Polar>
+template <typename TElement, typename ... TAdditionalDataParameters>
+class Conversions<3, TElement, Polar, TAdditionalDataParameters...>
 {
 
 //----------------------------------------------------------------------
@@ -245,11 +247,11 @@ public:
 
   inline const tVector<3, TElement, Cartesian> GetCartesianVector() const __attribute__((always_inline, flatten))
   {
-    const tVector<3, TElement, Polar> *that = reinterpret_cast<const tVector<3, TElement, Polar> *>(this);
-    TElement sin_alpha = std::sin(that->Alpha());
-    TElement cos_alpha = std::cos(that->Alpha());
-    TElement sin_beta = std::sin(that->Beta());
-    TElement cos_beta = std::cos(that->Beta());
+    const tVector<3, TElement, Polar, TAdditionalDataParameters...> *that = reinterpret_cast<const tVector<3, TElement, Polar, TAdditionalDataParameters...> *>(this);
+    TElement sin_alpha = that->Alpha().Sine();
+    TElement cos_alpha = that->Alpha().Cosine();
+    TElement sin_beta = that->Beta().Sine();
+    TElement cos_beta = that->Beta().Cosine();
     return tVector<3, TElement, Cartesian>(that->Length() * cos_alpha * sin_beta, that->Length() * sin_alpha * sin_beta, that->Length() * cos_beta);
   }
 

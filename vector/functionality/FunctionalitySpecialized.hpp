@@ -255,18 +255,18 @@ const typename boost::enable_if_c < Tdimension == 3 && Tother_dimension == 3, ma
 //----------------------------------------------------------------------
 // FunctionalitySpecialized Polar constructors
 //----------------------------------------------------------------------
-template <size_t Tdimension, typename TElement>
+template <size_t Tdimension, typename TElement, typename ... TAdditionalDataParameters>
 template <typename TOtherElement>
-FunctionalitySpecialized<Tdimension, TElement, Polar>::FunctionalitySpecialized(const tAngle angles[Tdimension - 1], TOtherElement length)
+FunctionalitySpecialized<Tdimension, TElement, Polar, TAdditionalDataParameters...>::FunctionalitySpecialized(const tAngle angles[Tdimension - 1], TOtherElement length)
 {
   tVector *that = reinterpret_cast<tVector *>(this);
   std::memcpy(this, angles, sizeof(tVector) - sizeof(TElement));
   that->Length() = length;
 }
 
-template <size_t Tdimension, typename TElement>
+template <size_t Tdimension, typename TElement, typename ... TAdditionalDataParameters>
 template <size_t Tother_dimension, typename TOtherElement>
-FunctionalitySpecialized<Tdimension, TElement, Polar>::FunctionalitySpecialized(const math::tVector<Tother_dimension, TOtherElement, Polar> &other)
+FunctionalitySpecialized<Tdimension, TElement, Polar, TAdditionalDataParameters...>::FunctionalitySpecialized(const math::tVector<Tother_dimension, TOtherElement, Polar, TAdditionalDataParameters...> &other)
 {
   tVector *that = reinterpret_cast<tVector *>(this);
   std::memset(this, 0, sizeof(tVector));
@@ -278,9 +278,22 @@ FunctionalitySpecialized<Tdimension, TElement, Polar>::FunctionalitySpecialized(
   that->Length() = other.Length();
 }
 
-template <size_t Tdimension, typename TElement>
+template <size_t Tdimension, typename TElement, typename ... TAdditionalDataParameters>
+template <typename TOtherUnitPolicy, typename TOtherSignPolicy>
+FunctionalitySpecialized<Tdimension, TElement, Polar, TAdditionalDataParameters...>::FunctionalitySpecialized(const math::tVector<Tdimension, TElement, Polar, TOtherUnitPolicy, TOtherSignPolicy> &other)
+{
+  tVector *that = reinterpret_cast<tVector *>(this);
+  std::memset(this, 0, sizeof(tVector));
+  for (size_t i = 0; i < Tdimension - 1; ++i)
+  {
+    (*that)[i] = other[i];
+  }
+  that->Length() = other.Length();
+}
+
+template <size_t Tdimension, typename TElement, typename ... TAdditionalDataParameters>
 template <typename ... TValues>
-FunctionalitySpecialized<Tdimension, TElement, Polar>::FunctionalitySpecialized(tAngle value, TValues... values)
+FunctionalitySpecialized<Tdimension, TElement, Polar, TAdditionalDataParameters...>::FunctionalitySpecialized(tAngle value, TValues... values)
 {
   FunctionalitySpecialized::Set(value, values...);
 }
@@ -288,14 +301,14 @@ FunctionalitySpecialized<Tdimension, TElement, Polar>::FunctionalitySpecialized(
 //----------------------------------------------------------------------
 // FunctionalitySpecialized Polar operator []
 //----------------------------------------------------------------------
-template <size_t Tdimension, typename TElement>
-const tAngle<TElement, angle::Radian, angle::Signed> FunctionalitySpecialized<Tdimension, TElement, Polar>::operator [](size_t i) const
+template <size_t Tdimension, typename TElement, typename ... TAdditionalDataParameters>
+const typename Polar<Tdimension, TElement, TAdditionalDataParameters...>::tAngle FunctionalitySpecialized<Tdimension, TElement, Polar, TAdditionalDataParameters...>::operator [](size_t i) const
 {
   return const_cast<FunctionalitySpecialized &>(*this)[i];
 }
 
-template <size_t Tdimension, typename TElement>
-tAngle<TElement, angle::Radian, angle::Signed> &FunctionalitySpecialized<Tdimension, TElement, Polar>::operator [](size_t i)
+template <size_t Tdimension, typename TElement, typename ... TAdditionalDataParameters>
+typename Polar<Tdimension, TElement, TAdditionalDataParameters...>::tAngle &FunctionalitySpecialized<Tdimension, TElement, Polar, TAdditionalDataParameters...>::operator [](size_t i)
 {
   if (i > Tdimension - 2)
   {
@@ -309,9 +322,9 @@ tAngle<TElement, angle::Radian, angle::Signed> &FunctionalitySpecialized<Tdimens
 //----------------------------------------------------------------------
 // FunctionalitySpecialized Polar Set
 //----------------------------------------------------------------------
-template <size_t Tdimension, typename TElement>
+template <size_t Tdimension, typename TElement, typename ... TAdditionalDataParameters>
 template <typename ... TValues>
-void FunctionalitySpecialized<Tdimension, TElement, Polar>::Set(TValues... values)
+void FunctionalitySpecialized<Tdimension, TElement, Polar, TAdditionalDataParameters...>::Set(TValues... values)
 {
   static_assert(sizeof...(values) == Tdimension, "Wrong number of values given to store in vector");
 
@@ -322,8 +335,8 @@ void FunctionalitySpecialized<Tdimension, TElement, Polar>::Set(TValues... value
 //----------------------------------------------------------------------
 // FunctionalitySpecialized Polar SquaredLength
 //----------------------------------------------------------------------
-template <size_t Tdimension, typename TElement>
-const TElement FunctionalitySpecialized<Tdimension, TElement, Polar>::SquaredLength() const
+template <size_t Tdimension, typename TElement, typename ... TAdditionalDataParameters>
+const TElement FunctionalitySpecialized<Tdimension, TElement, Polar, TAdditionalDataParameters...>::SquaredLength() const
 {
   const tVector *that = reinterpret_cast<const tVector *>(this);
   return that->Length() * that->Length();
@@ -332,8 +345,8 @@ const TElement FunctionalitySpecialized<Tdimension, TElement, Polar>::SquaredLen
 //----------------------------------------------------------------------
 // FunctionalitySpecialized Polar IsZero
 //----------------------------------------------------------------------
-template <size_t Tdimension, typename TElement>
-const bool FunctionalitySpecialized<Tdimension, TElement, Polar>::IsZero(double epsilon) const
+template <size_t Tdimension, typename TElement, typename ... TAdditionalDataParameters>
+const bool FunctionalitySpecialized<Tdimension, TElement, Polar, TAdditionalDataParameters...>::IsZero(double epsilon) const
 {
   const tVector *that = reinterpret_cast<const tVector *>(this);
   return that->Length() < epsilon;

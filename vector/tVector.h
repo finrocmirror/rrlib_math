@@ -79,26 +79,26 @@ namespace math
 /*!
  *
  */
-template < size_t Tdimension, typename TElement = double, template <size_t, typename> class TData = vector::Cartesian >
-class tVector : public TData<Tdimension, TElement>,
-  public vector::FunctionalityShared<Tdimension, TElement, TData>,
-  public vector::FunctionalitySpecialized<Tdimension, TElement, TData>,
-  public vector::Conversions<Tdimension, TElement, TData>,
-  public vector::Rotation<Tdimension, TElement, TData>,
+template < size_t Tdimension, typename TElement = double, template <size_t, typename, typename ...> class TData = vector::Cartesian, typename ... TAdditionalDataParameters>
+class tVector : public TData<Tdimension, TElement, TAdditionalDataParameters...>,
+  public vector::FunctionalityShared<Tdimension, TElement, TData, TAdditionalDataParameters...>,
+  public vector::FunctionalitySpecialized<Tdimension, TElement, TData, TAdditionalDataParameters...>,
+  public vector::Conversions<Tdimension, TElement, TData, TAdditionalDataParameters...>,
+  public vector::Rotation<Tdimension, TElement, TData, TAdditionalDataParameters...>,
   public vector::LegacyShared<Tdimension, TElement, TData>,
   public vector::LegacySpecialized<Tdimension, TElement, TData>,
-  public vector::ConstantValuesShared<Tdimension, TElement, TData>,
-  public vector::ConstantValuesSpecialized<Tdimension, TElement, TData>
+  public vector::ConstantValuesShared<Tdimension, TElement, TData, TAdditionalDataParameters...>,
+  public vector::ConstantValuesSpecialized<Tdimension, TElement, TData, TAdditionalDataParameters...>
 {
-  typedef vector::FunctionalityShared<Tdimension, TElement, TData> FunctionalityShared;
-  typedef vector::FunctionalitySpecialized<Tdimension, TElement, TData> FunctionalitySpecialized;
+  typedef vector::FunctionalityShared<Tdimension, TElement, TData, TAdditionalDataParameters...> FunctionalityShared;
+  typedef vector::FunctionalitySpecialized<Tdimension, TElement, TData, TAdditionalDataParameters...> FunctionalitySpecialized;
 
 //----------------------------------------------------------------------
 // Public methods and typedefs
 //----------------------------------------------------------------------
 public:
 
-  typedef std::function < TElement(const tVector &, const tVector &) > tMetric;
+  typedef std::function < TElement(const tVector<Tdimension, TElement, TData, TAdditionalDataParameters...> &, const tVector &) > tMetric;
 
   static const tMetric cEUCLIDEAN_DISTANCE;
   static const tMetric cMANHATTAN_DISTANCE;
@@ -110,6 +110,9 @@ public:
 
   template <size_t Tother_dimension, typename TOtherElement>
   inline tVector(const tVector<Tother_dimension, TOtherElement> &other) __attribute__((always_inline, flatten));
+
+  template <typename TOtherUnitPolicy, typename TOtherSignPolicy>
+  inline tVector(const tVector<Tdimension, TElement, TData, TOtherUnitPolicy, TOtherSignPolicy> &other) __attribute__((always_inline, flatten));
 
   template <typename ... TValues>
   explicit inline tVector(TValues... values) __attribute__((always_inline, flatten));
@@ -127,7 +130,10 @@ public:
   inline tVector &operator = (const tVector &other) __attribute__((always_inline, flatten));
 
   template <size_t Tother_dimension, typename TOtherElement>
-  inline tVector &operator = (const tVector<Tother_dimension, TOtherElement, TData> &other) __attribute__((always_inline, flatten));
+  inline tVector &operator = (const tVector<Tother_dimension, TOtherElement, TData, TAdditionalDataParameters...> &other) __attribute__((always_inline, flatten));
+
+  template <typename TOtherUnitPolicy, typename TOtherSignPolicy>
+  inline tVector &operator = (const tVector<Tdimension, TElement, TData, TOtherUnitPolicy, TOtherSignPolicy> &other) __attribute__((always_inline, flatten));
 
 };
 

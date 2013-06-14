@@ -68,8 +68,8 @@ namespace math
 //----------------------------------------------------------------------
 // Const values
 //----------------------------------------------------------------------
-template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
-const typename tVector<Tdimension, TElement, TData>::tMetric tVector<Tdimension, TElement, TData>::cEUCLIDEAN_DISTANCE = [](const tVector &a, const tVector &b)
+template <size_t Tdimension, typename TElement, template <size_t, typename, typename ...> class TData, typename ... TAdditionalDataParameters>
+const typename tVector<Tdimension, TElement, TData, TAdditionalDataParameters...>::tMetric tVector<Tdimension, TElement, TData, TAdditionalDataParameters...>::cEUCLIDEAN_DISTANCE = [](const tVector &a, const tVector &b)
 {
   return (a - b).Length();
 };
@@ -103,39 +103,45 @@ const typename tVector<Tdimension, TElement, TData>::tMetric tVector<Tdimension,
 //----------------------------------------------------------------------
 // tVector constructors
 //----------------------------------------------------------------------
-template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
-tVector<Tdimension, TElement, TData>::tVector()
+template <size_t Tdimension, typename TElement, template <size_t, typename, typename ...> class TData, typename ... TAdditionalDataParameters>
+tVector<Tdimension, TElement, TData, TAdditionalDataParameters...>::tVector()
 {}
 
-template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
-tVector<Tdimension, TElement, TData>::tVector(const tVector &other)
+template <size_t Tdimension, typename TElement, template <size_t, typename, typename ...> class TData, typename ... TAdditionalDataParameters>
+tVector<Tdimension, TElement, TData, TAdditionalDataParameters...>::tVector(const tVector &other)
   : FunctionalityShared(other)
 {}
 
-template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
+template <size_t Tdimension, typename TElement, template <size_t, typename, typename ...> class TData, typename ... TAdditionalDataParameters>
 template <size_t Tother_dimension, typename TOtherElement>
-tVector<Tdimension, TElement, TData>::tVector(const tVector<Tother_dimension, TOtherElement> &other)
+tVector<Tdimension, TElement, TData, TAdditionalDataParameters...>::tVector(const tVector<Tother_dimension, TOtherElement> &other)
   : FunctionalitySpecialized(other)
 {}
 
-template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
+template <size_t Tdimension, typename TElement, template <size_t, typename, typename ...> class TData, typename ... TAdditionalDataParameters>
+template <typename TOtherUnitPolicy, typename TOtherSignPolicy>
+tVector<Tdimension, TElement, TData, TAdditionalDataParameters...>::tVector(const tVector<Tdimension, TElement, TData, TOtherUnitPolicy, TOtherSignPolicy> &other)
+  : FunctionalitySpecialized(other)
+{}
+
+template <size_t Tdimension, typename TElement, template <size_t, typename, typename ...> class TData, typename ... TAdditionalDataParameters>
 template <typename ... TValues>
-tVector<Tdimension, TElement, TData>::tVector(TValues... values)
+tVector<Tdimension, TElement, TData, TAdditionalDataParameters...>::tVector(TValues... values)
   : FunctionalitySpecialized(values...)
 {}
 
 #ifdef _LIB_OIV_PRESENT_
 
-template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
+template <size_t Tdimension, typename TElement, template <size_t, typename, typename ...> class TData, typename ... TAdditionalDataParameters>
 template < typename T>
-tVector<Tdimension, TElement, TData>::tVector(const SbVec2f &v, typename boost::enable_if_c < (Tdimension == 2), T >::type)
+tVector<Tdimension, TElement, TData, TAdditionalDataParameters...>::tVector(const SbVec2f &v, typename boost::enable_if_c < (Tdimension == 2), T >::type)
 {
   FunctionalitySpecialized::Set(v[0], v[1]);
 }
 
-template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
+template <size_t Tdimension, typename TElement, template <size_t, typename, typename ...> class TData, typename ... TAdditionalDataParameters>
 template < typename T>
-tVector<Tdimension, TElement, TData>::tVector(const SbVec3f &v, typename boost::enable_if_c < (Tdimension == 3), T >::type)
+tVector<Tdimension, TElement, TData, TAdditionalDataParameters...>::tVector(const SbVec3f &v, typename boost::enable_if_c < (Tdimension == 3), T >::type)
 {
   FunctionalitySpecialized::Set(v[0], v[1], v[2]);
 }
@@ -145,15 +151,22 @@ tVector<Tdimension, TElement, TData>::tVector(const SbVec3f &v, typename boost::
 //----------------------------------------------------------------------
 // tVector operator =
 //----------------------------------------------------------------------
-template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
-tVector<Tdimension, TElement, TData> &tVector<Tdimension, TElement, TData>::operator = (const tVector &other)
+template <size_t Tdimension, typename TElement, template <size_t, typename, typename ...> class TData, typename ... TAdditionalDataParameters>
+tVector<Tdimension, TElement, TData, TAdditionalDataParameters...> &tVector<Tdimension, TElement, TData, TAdditionalDataParameters...>::operator = (const tVector &other)
 {
   return reinterpret_cast<tVector &>(FunctionalityShared::operator=(other));
 }
 
-template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
+template <size_t Tdimension, typename TElement, template <size_t, typename, typename ...> class TData, typename ... TAdditionalDataParameters>
 template <size_t Tother_dimension, typename TOtherElement>
-tVector<Tdimension, TElement, TData> &tVector<Tdimension, TElement, TData>::operator = (const tVector<Tother_dimension, TOtherElement, TData> &other)
+tVector<Tdimension, TElement, TData, TAdditionalDataParameters...> &tVector<Tdimension, TElement, TData, TAdditionalDataParameters...>::operator = (const tVector<Tother_dimension, TOtherElement, TData, TAdditionalDataParameters...> &other)
+{
+  return reinterpret_cast<tVector &>(FunctionalityShared::operator=(other));
+}
+
+template <size_t Tdimension, typename TElement, template <size_t, typename, typename ...> class TData, typename ... TAdditionalDataParameters>
+template <typename TOtherUnitPolicy, typename TOtherSignPolicy>
+tVector<Tdimension, TElement, TData, TAdditionalDataParameters...> &tVector<Tdimension, TElement, TData, TAdditionalDataParameters...>::operator = (const tVector<Tdimension, TElement, TData, TOtherUnitPolicy, TOtherSignPolicy> &other)
 {
   return reinterpret_cast<tVector &>(FunctionalityShared::operator=(other));
 }

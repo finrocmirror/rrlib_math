@@ -71,7 +71,7 @@ namespace vector
 /*!
  *
  */
-template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
+template <size_t Tdimension, typename TElement, template <size_t, typename, typename ...> class TData, typename ... TAdditionalDataParameters>
 class ConstantValuesSpecialized
 {
 

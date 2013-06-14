@@ -76,10 +76,10 @@ namespace vector
 /*!
  *
  */
-template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
+template <size_t Tdimension, typename TElement, template <size_t, typename, typename ...> class TData, typename ... TAdditionalDataParameters>
 class FunctionalityShared
 {
-  typedef math::tVector<Tdimension, TElement, TData> tVector;
+  typedef math::tVector<Tdimension, TElement, TData, TAdditionalDataParameters...> tVector;
 
 //----------------------------------------------------------------------
 // Public methods and typedefs
@@ -104,14 +104,14 @@ public:
   }
 
   template <size_t Tother_dimension, typename TOtherElement>
-  inline FunctionalityShared &operator = (const math::tVector<Tother_dimension, TOtherElement, TData> &other)
+  inline FunctionalityShared &operator = (const math::tVector<Tother_dimension, TOtherElement, TData, TAdditionalDataParameters...> &other)
   {
     uint8_t *this_addr = reinterpret_cast<uint8_t *>(this);
     const uint8_t *other_addr = reinterpret_cast<const uint8_t *>(&other);
 
     if (this_addr != other_addr)
     {
-      const size_t safety_area = this_addr < other_addr ? sizeof(tVector) : sizeof(math::tVector<Tother_dimension, TOtherElement, TData>);
+      const size_t safety_area = this_addr < other_addr ? sizeof(tVector) : sizeof(math::tVector<Tother_dimension, TOtherElement, TData, TAdditionalDataParameters...>);
       if (static_cast<size_t>(std::abs(this_addr - other_addr)) < safety_area)
       {
         std::stringstream stream;
@@ -120,7 +120,7 @@ public:
       }
       std::memset(this, 0, sizeof(tVector));
       size_t size = std::min(Tdimension, Tother_dimension);
-      if (boost::is_same<TData<2, int>, Cartesian<2, int>>::value)
+      if (boost::is_same<TData<2, int, TAdditionalDataParameters...>, Cartesian<2, int>>::value)
       {
         for (size_t i = 0; i < size; ++i)
         {
@@ -137,10 +137,10 @@ public:
   }
 
   template <typename TOtherElement>
-  inline const tVector &operator += (const math::tVector<Tdimension, TOtherElement, TData> &other) __attribute__((always_inline, flatten));
+  inline const tVector &operator += (const math::tVector<Tdimension, TOtherElement, TData, TAdditionalDataParameters...> &other) __attribute__((always_inline, flatten));
 
   template <typename TOtherElement>
-  inline const tVector &operator -= (const math::tVector<Tdimension, TOtherElement, TData> &other) __attribute__((always_inline, flatten));
+  inline const tVector &operator -= (const math::tVector<Tdimension, TOtherElement, TData, TAdditionalDataParameters...> &other) __attribute__((always_inline, flatten));
 
   template <typename TScalar>
   inline const typename boost::enable_if<boost::is_scalar<TScalar>, tVector>::type &operator *= (const TScalar &scalar) __attribute__((always_inline, flatten));
@@ -153,7 +153,7 @@ public:
   inline const tVector Normalized() const __attribute__((always_inline, flatten));
 
   template <typename TOtherElement>
-  inline void Project(const math::tVector<Tdimension, TOtherElement, TData> &other)
+  inline void Project(const math::tVector<Tdimension, TOtherElement, TData, TAdditionalDataParameters...> &other)
   {
     tVector *that = reinterpret_cast<tVector *>(this);
     TOtherElement others_norm = other.SquaredLength();
@@ -170,7 +170,7 @@ public:
   }
 
   template <typename TOtherElement>
-  inline const math::tVector < Tdimension, decltype(TElement() + TOtherElement()), TData > Projected(const math::tVector<Tdimension, TOtherElement, TData> &other) const __attribute__((always_inline, flatten));
+  inline const math::tVector < Tdimension, decltype(TElement() + TOtherElement()), TData, TAdditionalDataParameters... > Projected(const math::tVector<Tdimension, TOtherElement, TData, TAdditionalDataParameters...> &other) const __attribute__((always_inline, flatten));
 
 //----------------------------------------------------------------------
 // Protected methods

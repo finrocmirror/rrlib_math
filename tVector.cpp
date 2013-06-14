@@ -74,8 +74,14 @@ template class tVector<2, unsigned int, vector::Cartesian>;
 template class tVector<3, unsigned int, vector::Cartesian>;
 template class tVector<6, unsigned int, vector::Cartesian>;
 
-template class tVector<2, double, vector::Polar>;
-template class tVector<3, double, vector::Polar>;
+template class tVector<2, double, vector::Polar, angle::Radian, angle::Signed>;
+template class tVector<3, double, vector::Polar, angle::Radian, angle::Signed>;
 
-template class tVector<2, float, vector::Polar>;
-template class tVector<3, float, vector::Polar>;
+template class tVector<2, float, vector::Polar, angle::Radian, angle::Signed>;
+template class tVector<3, float, vector::Polar, angle::Radian, angle::Signed>;
+
+template class tVector<2, double, vector::Polar, angle::Degree, angle::Signed>;
+template class tVector<3, double, vector::Polar, angle::Degree, angle::Signed>;
+
+template class tVector<2, float, vector::Polar, angle::Degree, angle::Signed>;
+template class tVector<3, float, vector::Polar, angle::Degree, angle::Signed>;

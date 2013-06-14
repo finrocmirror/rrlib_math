@@ -73,10 +73,10 @@ namespace vector
 /*!
  *
  */
-template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
+template <size_t Tdimension, typename TElement, template <size_t, typename, typename ...> class TData, typename ... TAdditionalDataParameters>
 class FunctionalitySpecialized
 {
-  typedef math::tVector<Tdimension, TElement, TData> tVector;
+  typedef math::tVector<Tdimension, TElement, TData, TAdditionalDataParameters...> tVector;
 
 //----------------------------------------------------------------------
 // Protected methods
@@ -167,11 +167,11 @@ private:
 /*!
  *
  */
-template <size_t Tdimension, typename TElement>
-class FunctionalitySpecialized<Tdimension, TElement, Polar>
+template <size_t Tdimension, typename TElement, typename ... TAdditionalDataParameters>
+class FunctionalitySpecialized<Tdimension, TElement, Polar, TAdditionalDataParameters...>
 {
-  typedef math::tVector<Tdimension, TElement, Polar> tVector;
-  typedef math::tAngle<TElement, angle::Radian, angle::Signed> tAngle;
+  typedef math::tVector<Tdimension, TElement, Polar, TAdditionalDataParameters...> tVector;
+  typedef typename Polar<Tdimension, TElement, TAdditionalDataParameters...>::tAngle tAngle;
 
 //----------------------------------------------------------------------
 // Public methods and typedefs
@@ -200,7 +200,10 @@ protected:
   explicit inline FunctionalitySpecialized(const tAngle angles[Tdimension - 1], TOtherElement length) __attribute__((always_inline, flatten));
 
   template <size_t Tother_dimension, typename TOtherElement>
-  explicit inline FunctionalitySpecialized(const math::tVector<Tother_dimension, TOtherElement, Polar> &other) __attribute__((always_inline, flatten));
+  explicit inline FunctionalitySpecialized(const math::tVector<Tother_dimension, TOtherElement, Polar, TAdditionalDataParameters...> &other) __attribute__((always_inline, flatten));
+
+  template <typename TOtherUnitPolicy, typename TOtherSignPolicy>
+  explicit inline FunctionalitySpecialized(const math::tVector<Tdimension, TElement, Polar, TOtherUnitPolicy, TOtherSignPolicy> &other) __attribute__((always_inline, flatten));
 
   template <typename ... TValues>
   explicit inline FunctionalitySpecialized(tAngle value, TValues... values) __attribute__((always_inline, flatten));
@@ -229,8 +232,6 @@ private:
   }
 
 };
-
-
 
 //----------------------------------------------------------------------
 // End of namespace declaration

@@ -69,14 +69,14 @@ namespace
 template <typename TVector>
 struct tTrait;
 
-template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
-struct tTrait<tVector<Tdimension, TElement, TData>>
+template <size_t Tdimension, typename TElement, template <size_t, typename, typename ...> class TData, typename ... TAdditionalDataParameters>
+struct tTrait<tVector<Tdimension, TElement, TData, TAdditionalDataParameters...>>
 {
   enum { eARRAY_DIMENSION = Tdimension };
   enum { eEXPLICIT_LENGTH = false };
 };
-template <size_t Tdimension, typename TElement>
-struct tTrait<tVector<Tdimension, TElement, vector::Polar>>
+template <size_t Tdimension, typename TElement, typename ... TAdditionalDataParameters>
+struct tTrait<tVector<Tdimension, TElement, vector::Polar, TAdditionalDataParameters...>>
 {
   enum { eARRAY_DIMENSION = Tdimension - 1 };
   enum { eEXPLICIT_LENGTH = true };
@@ -86,17 +86,17 @@ struct tTrait<tVector<Tdimension, TElement, vector::Polar>>
 //----------------------------------------------------------------------
 // IsEqual
 //----------------------------------------------------------------------
-template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
-bool IsEqual(const tVector<Tdimension, TElement, TData> &left, const tVector<Tdimension, TElement, TData> &right, float max_error = 1.0E-6, tFloatComparisonMethod method = eFCM_ABSOLUTE_ERROR)
+template <size_t Tdimension, typename TElement, template <size_t, typename, typename ...> class TData, typename ... TAdditionalDataParameters>
+bool IsEqual(const tVector<Tdimension, TElement, TData, TAdditionalDataParameters...> &left, const tVector<Tdimension, TElement, TData, TAdditionalDataParameters...> &right, float max_error = 1.0E-6, tFloatComparisonMethod method = eFCM_ABSOLUTE_ERROR)
 {
-  for (size_t i = 0; i < tTrait<tVector<Tdimension, TElement, TData>>::eARRAY_DIMENSION; ++i)
+  for (size_t i = 0; i < tTrait<tVector<Tdimension, TElement, TData, TAdditionalDataParameters...>>::eARRAY_DIMENSION; ++i)
   {
     if (!IsEqual(left[i], right[i], max_error, method))
     {
       return false;
     }
   }
-  if (tTrait<tVector<Tdimension, TElement, TData>>::eEXPLICIT_LENGTH)
+  if (tTrait<tVector<Tdimension, TElement, TData, TAdditionalDataParameters...>>::eEXPLICIT_LENGTH)
   {
     if (!IsEqual(left.Length(), right.Length(), max_error, method))
     {
@@ -109,8 +109,8 @@ bool IsEqual(const tVector<Tdimension, TElement, TData> &left, const tVector<Tdi
 //----------------------------------------------------------------------
 // operator ==
 //----------------------------------------------------------------------
-template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
-const bool operator == (const tVector<Tdimension, TElement, TData> &left, const tVector<Tdimension, TElement, TData> &right)
+template <size_t Tdimension, typename TElement, template <size_t, typename, typename ...> class TData, typename ... TAdditionalDataParameters>
+const bool operator == (const tVector<Tdimension, TElement, TData, TAdditionalDataParameters...> &left, const tVector<Tdimension, TElement, TData, TAdditionalDataParameters...> &right)
 {
   return IsEqual(left, right, 0.0);
 }
@@ -118,8 +118,8 @@ const bool operator == (const tVector<Tdimension, TElement, TData> &left, const 
 //----------------------------------------------------------------------
 // operator !=
 //----------------------------------------------------------------------
-template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
-const bool operator != (const tVector<Tdimension, TElement, TData> &left, const tVector<Tdimension, TElement, TData> &right)
+template <size_t Tdimension, typename TElement, template <size_t, typename, typename ...> class TData, typename ... TAdditionalDataParameters>
+const bool operator != (const tVector<Tdimension, TElement, TData, TAdditionalDataParameters...> &left, const tVector<Tdimension, TElement, TData, TAdditionalDataParameters...> &right)
 {
   return !(left == right);
 }
@@ -127,14 +127,14 @@ const bool operator != (const tVector<Tdimension, TElement, TData> &left, const 
 //----------------------------------------------------------------------
 // operator <
 //----------------------------------------------------------------------
-template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
-const bool operator < (const tVector<Tdimension, TElement, TData> &left, const tVector<Tdimension, TElement, TData> &right)
+template <size_t Tdimension, typename TElement, template <size_t, typename, typename ...> class TData, typename ... TAdditionalDataParameters>
+const bool operator < (const tVector<Tdimension, TElement, TData, TAdditionalDataParameters...> &left, const tVector<Tdimension, TElement, TData, TAdditionalDataParameters...> &right)
 {
   if (&left == &right)
   {
     return false;
   }
-  for (size_t i = 0; i < tTrait<tVector<Tdimension, TElement, TData>>::eARRAY_DIMENSION; ++i)
+  for (size_t i = 0; i < tTrait<tVector<Tdimension, TElement, TData, TAdditionalDataParameters...>>::eARRAY_DIMENSION; ++i)
   {
     if (left[i] < right[i])
     {
@@ -145,7 +145,7 @@ const bool operator < (const tVector<Tdimension, TElement, TData> &left, const t
       break;
     }
   }
-  if (tTrait<tVector<Tdimension, TElement, TData>>::eEXPLICIT_LENGTH)
+  if (tTrait<tVector<Tdimension, TElement, TData, TAdditionalDataParameters...>>::eEXPLICIT_LENGTH)
   {
     if (left.Length() < right.Length())
     {
@@ -158,14 +158,14 @@ const bool operator < (const tVector<Tdimension, TElement, TData> &left, const t
 //----------------------------------------------------------------------
 // operator >
 //----------------------------------------------------------------------
-template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
-const bool operator > (const tVector<Tdimension, TElement, TData> &left, const tVector<Tdimension, TElement, TData> &right)
+template <size_t Tdimension, typename TElement, template <size_t, typename, typename ...> class TData, typename ... TAdditionalDataParameters>
+const bool operator > (const tVector<Tdimension, TElement, TData, TAdditionalDataParameters...> &left, const tVector<Tdimension, TElement, TData, TAdditionalDataParameters...> &right)
 {
   if (&left == &right)
   {
     return false;
   }
-  for (size_t i = 0; i < tTrait<tVector<Tdimension, TElement, TData>>::eARRAY_DIMENSION; ++i)
+  for (size_t i = 0; i < tTrait<tVector<Tdimension, TElement, TData, TAdditionalDataParameters...>>::eARRAY_DIMENSION; ++i)
   {
     if (left[i] > right[i])
     {
@@ -176,7 +176,7 @@ const bool operator > (const tVector<Tdimension, TElement, TData> &left, const t
       break;
     }
   }
-  if (tTrait<tVector<Tdimension, TElement, TData>>::eEXPLICIT_LENGTH)
+  if (tTrait<tVector<Tdimension, TElement, TData, TAdditionalDataParameters...>>::eEXPLICIT_LENGTH)
   {
     if (left.Length() > right.Length())
     {
@@ -189,8 +189,8 @@ const bool operator > (const tVector<Tdimension, TElement, TData> &left, const t
 //----------------------------------------------------------------------
 // operator <=
 //----------------------------------------------------------------------
-template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
-const bool operator <= (const tVector<Tdimension, TElement, TData> &left, const tVector<Tdimension, TElement, TData> &right)
+template <size_t Tdimension, typename TElement, template <size_t, typename, typename ...> class TData, typename ... TAdditionalDataParameters>
+const bool operator <= (const tVector<Tdimension, TElement, TData, TAdditionalDataParameters...> &left, const tVector<Tdimension, TElement, TData, TAdditionalDataParameters...> &right)
 {
   return !(left > right);
 }
@@ -198,8 +198,8 @@ const bool operator <= (const tVector<Tdimension, TElement, TData> &left, const 
 //----------------------------------------------------------------------
 // operator >=
 //----------------------------------------------------------------------
-template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
-const bool operator >= (const tVector<Tdimension, TElement, TData> &left, const tVector<Tdimension, TElement, TData> &right)
+template <size_t Tdimension, typename TElement, template <size_t, typename, typename ...> class TData, typename ... TAdditionalDataParameters>
+const bool operator >= (const tVector<Tdimension, TElement, TData, TAdditionalDataParameters...> &left, const tVector<Tdimension, TElement, TData, TAdditionalDataParameters...> &right)
 {
   return !(left < right);
 }
@@ -225,8 +225,8 @@ const tVector < 3, decltype(TLeftElement() + TRightElement()), vector::Cartesian
 //----------------------------------------------------------------------
 // EnclosedAngle
 //----------------------------------------------------------------------
-template <size_t Tdimension, typename TLeftElement, typename TRightElement, template <size_t, typename> class TData>
-const tAngleRad EnclosedAngle(const tVector<Tdimension, TLeftElement, TData> &left, const tVector<Tdimension, TRightElement, TData> &right)
+template <size_t Tdimension, typename TLeftElement, typename TRightElement, template <size_t, typename, typename ...> class TData, typename ... TAdditionalDataParameters>
+const tAngleRad EnclosedAngle(const tVector<Tdimension, TLeftElement, TData, TAdditionalDataParameters...> &left, const tVector<Tdimension, TRightElement, TData, TAdditionalDataParameters...> &right)
 {
   if (left.IsZero() || right.IsZero())
   {
@@ -247,21 +247,21 @@ const tAngleRad EnclosedAngle(const tVector<Tdimension, TLeftElement, TData> &le
 //----------------------------------------------------------------------
 // EnclosedAngle
 //----------------------------------------------------------------------
-template <typename TLeftElement, typename TRightElement, template <size_t, typename> class TData>
-const tAngleRad EnclosedAngle(const tVector<2, TLeftElement, TData> &left, const tVector<2, TRightElement, TData> &right)
+template <typename TLeftElement, typename TRightElement, template <size_t, typename, typename ...> class TData, typename ... TAdditionalDataParameters>
+const tAngleRad EnclosedAngle(const tVector<2, TLeftElement, TData, TAdditionalDataParameters...> &left, const tVector<2, TRightElement, TData, TAdditionalDataParameters...> &right)
 {
-  if (CrossProduct(tVector<3, TLeftElement, TData>(left), tVector<3, TRightElement, TData>(right)).Z() < 0)
+  if (CrossProduct(tVector<3, TLeftElement, TData, TAdditionalDataParameters...>(left), tVector<3, TRightElement, TData, TAdditionalDataParameters...>(right)).Z() < 0)
   {
-    return 2 * M_PI - EnclosedAngle(tVector<3, TLeftElement, TData>(left), tVector<3, TRightElement, TData>(right));
+    return 2 * M_PI - EnclosedAngle(tVector<3, TLeftElement, TData, TAdditionalDataParameters...>(left), tVector<3, TRightElement, TData, TAdditionalDataParameters...>(right));
   }
-  return EnclosedAngle(tVector<3, TLeftElement, TData>(left), tVector<3, TRightElement, TData>(right));
+  return EnclosedAngle(tVector<3, TLeftElement, TData, TAdditionalDataParameters...>(left), tVector<3, TRightElement, TData, TAdditionalDataParameters...>(right));
 }
 
 //----------------------------------------------------------------------
 // GetPolarVectorFromCartesian
 //----------------------------------------------------------------------
-template <size_t Tdimension, typename TPolarElement, typename TCartesianElement>
-void GetPolarVectorFromCartesian(tVector<Tdimension, TPolarElement, vector::Polar> &polar, const tVector<Tdimension, TCartesianElement, vector::Cartesian> &cartesian)
+template <size_t Tdimension, typename TPolarElement, typename TCartesianElement, typename TPolarUnitPolicy, typename TPolarSignPolicy>
+void GetPolarVectorFromCartesian(tVector<Tdimension, TPolarElement, vector::Polar, TPolarUnitPolicy, TPolarSignPolicy> &polar, const tVector<Tdimension, TCartesianElement, vector::Cartesian> &cartesian)
 {
   polar = cartesian.GetPolarVector();
 }
@@ -269,8 +269,8 @@ void GetPolarVectorFromCartesian(tVector<Tdimension, TPolarElement, vector::Pola
 //----------------------------------------------------------------------
 // GetCartesianVectorFromPolar
 //----------------------------------------------------------------------
-template <size_t Tdimension, typename TCartesianElement, typename TPolarElement>
-void GetCartesianVectorFromPolar(tVector<Tdimension, TCartesianElement, vector::Cartesian> &cartesian, const tVector<Tdimension, TPolarElement, vector::Polar> &polar)
+template <size_t Tdimension, typename TCartesianElement, typename TPolarElement, typename TPolarUnitPolicy, typename TPolarSignPolicy>
+void GetCartesianVectorFromPolar(tVector<Tdimension, TCartesianElement, vector::Cartesian> &cartesian, const tVector<Tdimension, TPolarElement, vector::Polar, TPolarUnitPolicy, TPolarSignPolicy> &polar)
 {
   cartesian = polar.GetCartesianVector();
 }
@@ -278,11 +278,11 @@ void GetCartesianVectorFromPolar(tVector<Tdimension, TCartesianElement, vector::
 //----------------------------------------------------------------------
 // GetPolarSignedVectorFromCartesian
 //----------------------------------------------------------------------
-template <typename TElement>
-tVector<2, TElement, vector::Polar> GetPolarSignedVectorFromCartesian(tVector<2, TElement, vector::Cartesian> cartesian, double radius)
+template <typename TElement, typename TPolarUnitPolicy>
+tVector<2, TElement, vector::Polar, TPolarUnitPolicy, angle::Signed> GetPolarSignedVectorFromCartesian(tVector<2, TElement, vector::Cartesian> cartesian, double radius)
 {
   cartesian.Normalize();
-  return tVector<2, TElement, vector::Polar>(cartesian.Y() >= 0 ? std::acos(cartesian.X()) : -std::acos(cartesian.X()), radius);
+  return tVector<2, TElement, vector::Polar, TPolarUnitPolicy, angle::Signed>(cartesian.Y() >= 0 ? std::acos(cartesian.X()) : -std::acos(cartesian.X()), radius);
 }
 
 //----------------------------------------------------------------------

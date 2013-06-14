@@ -71,10 +71,10 @@ namespace vector
 /*!
  *
  */
-template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
+template <size_t Tdimension, typename TElement, template <size_t, typename, typename ...> class TData, typename ... TAdditionalDataParameters>
 class ConstantValuesShared
 {
-  typedef math::tVector<Tdimension, TElement, TData> tVector;
+  typedef math::tVector<Tdimension, TElement, TData, TAdditionalDataParameters...> tVector;
 
 //----------------------------------------------------------------------
 // Public methods and typedefs

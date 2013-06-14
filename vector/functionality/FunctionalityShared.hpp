@@ -74,14 +74,14 @@ namespace vector
 //----------------------------------------------------------------------
 // FunctionalityShared constructors
 //----------------------------------------------------------------------
-template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
-FunctionalityShared<Tdimension, TElement, TData>::FunctionalityShared()
+template <size_t Tdimension, typename TElement, template <size_t, typename, typename ...> class TData, typename ... TAdditionalDataParameters>
+FunctionalityShared<Tdimension, TElement, TData, TAdditionalDataParameters...>::FunctionalityShared()
 {
   std::memset(this, 0, sizeof(tVector));
 }
 
-template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
-FunctionalityShared<Tdimension, TElement, TData>::FunctionalityShared(const tVector &other)
+template <size_t Tdimension, typename TElement, template <size_t, typename, typename ...> class TData, typename ... TAdditionalDataParameters>
+FunctionalityShared<Tdimension, TElement, TData, TAdditionalDataParameters...>::FunctionalityShared(const tVector &other)
 {
   std::memcpy(this, &other, sizeof(tVector));
 }
@@ -89,9 +89,9 @@ FunctionalityShared<Tdimension, TElement, TData>::FunctionalityShared(const tVec
 //----------------------------------------------------------------------
 // FunctionalityShared operator +=
 //----------------------------------------------------------------------
-template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
+template <size_t Tdimension, typename TElement, template <size_t, typename, typename ...> class TData, typename ... TAdditionalDataParameters>
 template <typename TOtherElement>
-const tVector<Tdimension, TElement, TData> &FunctionalityShared<Tdimension, TElement, TData>::operator += (const math::tVector<Tdimension, TOtherElement, TData> &other)
+const tVector<Tdimension, TElement, TData, TAdditionalDataParameters...> &FunctionalityShared<Tdimension, TElement, TData, TAdditionalDataParameters...>::operator += (const math::tVector<Tdimension, TOtherElement, TData, TAdditionalDataParameters...> &other)
 {
   tVector *that = reinterpret_cast<tVector *>(this);
   *that = *that + other;
@@ -101,9 +101,9 @@ const tVector<Tdimension, TElement, TData> &FunctionalityShared<Tdimension, TEle
 //----------------------------------------------------------------------
 // FunctionalityShared operator -=
 //----------------------------------------------------------------------
-template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
+template <size_t Tdimension, typename TElement, template <size_t, typename, typename ...> class TData, typename ... TAdditionalDataParameters>
 template <typename TOtherElement>
-const tVector<Tdimension, TElement, TData> &FunctionalityShared<Tdimension, TElement, TData>::operator -= (const math::tVector<Tdimension, TOtherElement, TData> &other)
+const tVector<Tdimension, TElement, TData, TAdditionalDataParameters...> &FunctionalityShared<Tdimension, TElement, TData, TAdditionalDataParameters...>::operator -= (const math::tVector<Tdimension, TOtherElement, TData, TAdditionalDataParameters...> &other)
 {
   tVector *that = reinterpret_cast<tVector *>(this);
   *that = *that - other;
@@ -113,9 +113,9 @@ const tVector<Tdimension, TElement, TData> &FunctionalityShared<Tdimension, TEle
 //----------------------------------------------------------------------
 // FunctionalityShared operator *=
 //----------------------------------------------------------------------
-template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
+template <size_t Tdimension, typename TElement, template <size_t, typename, typename ...> class TData, typename ... TAdditionalDataParameters>
 template <typename TScalar>
-const typename boost::enable_if<boost::is_scalar<TScalar>, tVector<Tdimension, TElement, TData>>::type &FunctionalityShared<Tdimension, TElement, TData>::operator *= (const TScalar &scalar)
+const typename boost::enable_if<boost::is_scalar<TScalar>, tVector<Tdimension, TElement, TData, TAdditionalDataParameters...>>::type &FunctionalityShared<Tdimension, TElement, TData, TAdditionalDataParameters...>::operator *= (const TScalar &scalar)
 {
   tVector *that = reinterpret_cast<tVector *>(this);
   *that = *that * scalar;
@@ -125,9 +125,9 @@ const typename boost::enable_if<boost::is_scalar<TScalar>, tVector<Tdimension, T
 //----------------------------------------------------------------------
 // FunctionalityShared operator /=
 //----------------------------------------------------------------------
-template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
+template <size_t Tdimension, typename TElement, template <size_t, typename, typename ...> class TData, typename ... TAdditionalDataParameters>
 template <typename TScalar>
-const typename boost::enable_if<boost::is_scalar<TScalar>, tVector<Tdimension, TElement, TData>>::type &FunctionalityShared<Tdimension, TElement, TData>::operator /= (const TScalar &scalar)
+const typename boost::enable_if<boost::is_scalar<TScalar>, tVector<Tdimension, TElement, TData, TAdditionalDataParameters...>>::type &FunctionalityShared<Tdimension, TElement, TData, TAdditionalDataParameters...>::operator /= (const TScalar &scalar)
 {
   tVector *that = reinterpret_cast<tVector *>(this);
   if (scalar == 0)
@@ -141,8 +141,8 @@ const typename boost::enable_if<boost::is_scalar<TScalar>, tVector<Tdimension, T
 //----------------------------------------------------------------------
 // FunctionalityShared Normalize
 //----------------------------------------------------------------------
-template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
-void FunctionalityShared<Tdimension, TElement, TData>::Normalize()
+template <size_t Tdimension, typename TElement, template <size_t, typename, typename ...> class TData, typename ... TAdditionalDataParameters>
+void FunctionalityShared<Tdimension, TElement, TData, TAdditionalDataParameters...>::Normalize()
 {
   tVector *that = reinterpret_cast<tVector *>(this);
 
@@ -153,8 +153,8 @@ void FunctionalityShared<Tdimension, TElement, TData>::Normalize()
 //----------------------------------------------------------------------
 // FunctionalityShared Normalized
 //----------------------------------------------------------------------
-template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
-const tVector<Tdimension, TElement, TData> FunctionalityShared<Tdimension, TElement, TData>::Normalized() const
+template <size_t Tdimension, typename TElement, template <size_t, typename, typename ...> class TData, typename ... TAdditionalDataParameters>
+const tVector<Tdimension, TElement, TData, TAdditionalDataParameters...> FunctionalityShared<Tdimension, TElement, TData, TAdditionalDataParameters...>::Normalized() const
 {
   const tVector *that = reinterpret_cast<const tVector *>(this);
   tVector temp(*that);
@@ -165,12 +165,12 @@ const tVector<Tdimension, TElement, TData> FunctionalityShared<Tdimension, TElem
 //----------------------------------------------------------------------
 // FunctionalityShared Projected
 //----------------------------------------------------------------------
-template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
+template <size_t Tdimension, typename TElement, template <size_t, typename, typename ...> class TData, typename ... TAdditionalDataParameters>
 template <typename TOtherElement>
-const math::tVector < Tdimension, decltype(TElement() + TOtherElement()), TData > FunctionalityShared<Tdimension, TElement, TData>::Projected(const math::tVector<Tdimension, TOtherElement, TData> &other) const
+const math::tVector < Tdimension, decltype(TElement() + TOtherElement()), TData, TAdditionalDataParameters... > FunctionalityShared<Tdimension, TElement, TData, TAdditionalDataParameters...>::Projected(const math::tVector<Tdimension, TOtherElement, TData, TAdditionalDataParameters...> &other) const
 {
   const tVector *that = reinterpret_cast<const tVector *>(this);
-  math::tVector < Tdimension, decltype(TElement() + TOtherElement()), TData > temp(*that);
+  math::tVector < Tdimension, decltype(TElement() + TOtherElement()), TData, TAdditionalDataParameters... > temp(*that);
   temp.Project(other);
   return temp;
 }

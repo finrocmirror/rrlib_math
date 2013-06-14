@@ -55,7 +55,7 @@ namespace rrlib
 {
 namespace math
 {
-template <size_t, typename, template <size_t, typename> class>
+template <size_t, typename, template <size_t, typename, typename ...> class, typename ...>
 class tVector;
 }
 }
@@ -137,12 +137,17 @@ extern template class tVector<2, unsigned int, vector::Cartesian>;
 extern template class tVector<3, unsigned int, vector::Cartesian>;
 extern template class tVector<6, unsigned int, vector::Cartesian>;
 
-extern template class tVector<2, double, vector::Polar>;
-extern template class tVector<3, double, vector::Polar>;
+extern template class tVector<2, double, vector::Polar, angle::Radian, angle::Signed>;
+extern template class tVector<3, double, vector::Polar, angle::Radian, angle::Signed>;
 
-extern template class tVector<2, float, vector::Polar>;
-extern template class tVector<3, float, vector::Polar>;
+extern template class tVector<2, float, vector::Polar, angle::Radian, angle::Signed>;
+extern template class tVector<3, float, vector::Polar, angle::Radian, angle::Signed>;
 
+extern template class tVector<2, double, vector::Polar, angle::Degree, angle::Signed>;
+extern template class tVector<3, double, vector::Polar, angle::Degree, angle::Signed>;
+
+extern template class tVector<2, float, vector::Polar, angle::Degree, angle::Signed>;
+extern template class tVector<3, float, vector::Polar, angle::Degree, angle::Signed>;
 
 
 //----------------------------------------------------------------------

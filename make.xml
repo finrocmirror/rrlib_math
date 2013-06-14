@@ -52,5 +52,17 @@
       test/unit_test_utilities.cpp
     </sources>
   </unittest>
+  
+  <unittest name="angles">
+    <sources>
+      test/unit_test_angles.cpp
+    </sources>
+  </unittest>
+  
+  <unittest name="vectors">
+    <sources>
+      test/unit_test_vectors.cpp
+    </sources>
+  </unittest>
 
 </targets>

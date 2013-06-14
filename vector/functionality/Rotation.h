@@ -73,7 +73,7 @@ namespace vector
 /*!
  *
  */
-template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
+template <size_t Tdimension, typename TElement, template <size_t, typename, typename ...> class TData, typename ... TAdditionalDataParameters>
 class Rotation
 {
 
@@ -212,10 +212,10 @@ private:
 /*!
  *
  */
-template <typename TElement>
-class Rotation<2, TElement, Polar>
+template <typename TElement, typename TUnitPolicy, typename TSignPolicy>
+class Rotation<2, TElement, Polar, TUnitPolicy, TSignPolicy>
 {
-  typedef math::tVector<2, TElement, Polar> tVector;
+  typedef math::tVector<2, TElement, Polar, TUnitPolicy, TSignPolicy> tVector;
 
 //----------------------------------------------------------------------
 // Protected methods
@@ -238,10 +238,10 @@ private:
 /*!
  *
  */
-template <typename TElement>
-class Rotation<3, TElement, Polar>
+template <typename TElement, typename TUnitPolicy, typename TSignPolicy>
+class Rotation<3, TElement, Polar, TUnitPolicy, TSignPolicy>
 {
-  typedef math::tVector<3, TElement, Polar> tVector;
+  typedef math::tVector<3, TElement, Polar, TUnitPolicy, TSignPolicy> tVector;
 
 //----------------------------------------------------------------------
 // Protected methods

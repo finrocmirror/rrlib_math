@@ -19,87 +19,75 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 //
 //----------------------------------------------------------------------
-/*!\file    rrlib/math/vector/data/OperatorsShared.h
+/*!\file    rrlib/math/test/unit_test_angles.cpp
  *
- * \author  Tobias Foehst
+ * \author  Michael Arndt
  *
- * \date    2011-03-14
- *
- * \brief
- *
- * \b
  *
  */
 //----------------------------------------------------------------------
-#ifndef __rrlib__math__vector__include_guard__
-#error Invalid include directive. Try #include "rrlib/math/tVector.h" instead.
-#endif
-
-#ifndef __rrlib__math__vector__data__OperatorsShared_h__
-#define __rrlib__math__vector__data__OperatorsShared_h__
 
 //----------------------------------------------------------------------
 // External includes (system with <>, local with "")
 //----------------------------------------------------------------------
-#ifdef _LIB_RRLIB_SERIALIZATION_PRESENT_
-#include "rrlib/serialization/serialization.h"
-#include <sstream>
-#endif
+#include <cstdlib>
+#include <iostream>
+
+#include "rrlib/util/tUnitTestSuite.h"
 
 //----------------------------------------------------------------------
 // Internal includes with ""
 //----------------------------------------------------------------------
+#include "rrlib/math/tAngle.h"
 
 //----------------------------------------------------------------------
 // Debugging
 //----------------------------------------------------------------------
+#include <cassert>
 
 //----------------------------------------------------------------------
-// Namespace declaration
+// Namespace usage
 //----------------------------------------------------------------------
-namespace rrlib
-{
-namespace math
-{
-namespace vector
-{
+using namespace rrlib::math;
 
 //----------------------------------------------------------------------
 // Forward declarations / typedefs / enums
 //----------------------------------------------------------------------
 
 //----------------------------------------------------------------------
-// Function declarations
+// Const values
 //----------------------------------------------------------------------
 
-#ifdef _LIB_RRLIB_SERIALIZATION_PRESENT_
+//----------------------------------------------------------------------
+// Implementation
+//----------------------------------------------------------------------
 
-template <size_t Tdimension, typename TElement, template <size_t, typename, typename ...> class TData, typename ... TAdditionalDataParameters>
-serialization::tStringOutputStream &operator << (serialization::tStringOutputStream &stream, const tVector<Tdimension, TElement, TData, TAdditionalDataParameters...> &vector)
+class tTestAngles : public rrlib::util::tUnitTestSuite
 {
-  std::stringstream string_stream;
-  string_stream << vector;
-  stream << string_stream.str();
-  return stream;
-}
+  RRLIB_UNIT_TESTS_BEGIN_SUITE(tTestAngles);
+  RRLIB_UNIT_TESTS_ADD_TEST(Test);
+  RRLIB_UNIT_TESTS_END_SUITE;
 
-template <size_t Tdimension, typename TElement, template <size_t, typename, typename ...> class TData, typename ... TAdditionalDataParameters>
-serialization::tStringInputStream &operator >> (serialization::tStringInputStream &stream, tVector<Tdimension, TElement, TData, TAdditionalDataParameters...> &vector)
-{
-  std::istringstream string_stream(stream.ReadLine());
-  string_stream >> vector;
-  return stream;
-}
+private:
 
-#endif
+  virtual void InitializeTests() {}
+  virtual void CleanUp() {}
+
+  virtual void Test()
+  {
+
+    tAngleRad angle;
+
+    RRLIB_UNIT_TESTS_EQUALITY_MESSAGE("Angle must be zero after initialization", 0.0, (double) angle);
+
+    angle = tAngleRad(M_PI / 2);
+
+    RRLIB_UNIT_TESTS_EQUALITY_DOUBLE_MESSAGE("Angle must be correct after assignment", M_PI / 2, (double) angle, 1E-9);
+
+    // FIXME: many more
+  }
 
 
+};
 
-//----------------------------------------------------------------------
-// End of namespace declaration
-//----------------------------------------------------------------------
-}
-}
-}
-
-#endif
+RRLIB_UNIT_TESTS_REGISTER_SUITE(tTestAngles);

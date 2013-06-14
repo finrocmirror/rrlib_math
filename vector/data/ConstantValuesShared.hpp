@@ -69,8 +69,8 @@ namespace vector
 //----------------------------------------------------------------------
 // ConstantValuesShared Zero
 //----------------------------------------------------------------------
-template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
-const tVector<Tdimension, TElement, TData> &ConstantValuesShared<Tdimension, TElement, TData>::Zero()
+template <size_t Tdimension, typename TElement, template <size_t, typename, typename ...> class TData, typename ... TAdditionalDataParameters>
+const tVector<Tdimension, TElement, TData, TAdditionalDataParameters...> &ConstantValuesShared<Tdimension, TElement, TData, TAdditionalDataParameters...>::Zero()
 {
   static tVector vector;
   return vector;

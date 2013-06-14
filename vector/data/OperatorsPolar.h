@@ -79,8 +79,8 @@ namespace vector
 // Function declarations
 //----------------------------------------------------------------------
 
-template <size_t Tdimension, typename TElement>
-std::ostream &operator << (std::ostream &stream, const tVector<Tdimension, TElement, Polar> &vector)
+template <size_t Tdimension, typename TElement, typename ... TAdditionalDataParameters>
+std::ostream &operator << (std::ostream &stream, const tVector<Tdimension, TElement, Polar, TAdditionalDataParameters...> &vector)
 {
   stream << "(";
   for (size_t i = 0; i < Tdimension - 1; ++i)
@@ -91,8 +91,8 @@ std::ostream &operator << (std::ostream &stream, const tVector<Tdimension, TElem
   return stream;
 }
 
-template <size_t Tdimension, typename TElement>
-std::istream &operator >> (std::istream &stream, tVector<Tdimension, TElement, Polar> &vector)
+template <size_t Tdimension, typename TElement, typename ... TAdditionalDataParameters>
+std::istream &operator >> (std::istream &stream, tVector<Tdimension, TElement, Polar, TAdditionalDataParameters...> &vector)
 {
   char temp;
   stream >> temp;
@@ -121,8 +121,8 @@ std::istream &operator >> (std::istream &stream, tVector<Tdimension, TElement, P
 
 #ifdef _LIB_RRLIB_SERIALIZATION_PRESENT_
 
-template <size_t Tdimension, typename TElement>
-serialization::tOutputStream &operator << (serialization::tOutputStream &stream, const tVector<Tdimension, TElement, Polar> &vector)
+template <size_t Tdimension, typename TElement, typename ... TAdditionalDataParameters>
+serialization::tOutputStream &operator << (serialization::tOutputStream &stream, const tVector<Tdimension, TElement, Polar, TAdditionalDataParameters...> &vector)
 {
   for (size_t i = 0; i < Tdimension - 1; ++i)
   {
@@ -132,8 +132,8 @@ serialization::tOutputStream &operator << (serialization::tOutputStream &stream,
   return stream;
 }
 
-template <size_t Tdimension, typename TElement>
-serialization::tInputStream &operator >> (serialization::tInputStream &stream, tVector<Tdimension, TElement, Polar> &vector)
+template <size_t Tdimension, typename TElement, typename ... TAdditionalDataParameters>
+serialization::tInputStream &operator >> (serialization::tInputStream &stream, tVector<Tdimension, TElement, Polar, TAdditionalDataParameters...> &vector)
 {
   for (size_t i = 0; i < Tdimension - 1; ++i)
   {
@@ -145,43 +145,43 @@ serialization::tInputStream &operator >> (serialization::tInputStream &stream, t
 
 #endif
 
-template <size_t Tdimension, typename TElement>
-const tVector<Tdimension, TElement, Polar> operator - (const tVector<Tdimension, TElement, Polar> &vector)
+template <size_t Tdimension, typename TElement, typename ... TAdditionalDataParameters>
+const tVector<Tdimension, TElement, Polar, TAdditionalDataParameters...> operator - (const tVector<Tdimension, TElement, Polar, TAdditionalDataParameters...> &vector)
 {
   return (-vector.GetCartesianVector()).GetPolarVector();
 }
 
-template <size_t Tdimension, typename TLeftElement, typename TRightElement>
-tVector < Tdimension, decltype(TLeftElement() + TRightElement()), Polar > operator + (const tVector<Tdimension, TLeftElement, Polar> &left, const tVector<Tdimension, TRightElement, Polar> &right)
+template <size_t Tdimension, typename TLeftElement, typename TRightElement, template <size_t, typename TElement, typename ... TAdditionalDataParameters> class TData, typename ... TAdditionalDataParameters>
+tVector < Tdimension, decltype(TLeftElement() + TRightElement()), TData, TAdditionalDataParameters... > operator + (const tVector<Tdimension, TLeftElement, TData, TAdditionalDataParameters...> &left, const tVector<Tdimension, TRightElement, TData, TAdditionalDataParameters... > &right)
 {
   return (left.GetCartesianVector() + right.GetCartesianVector()).GetPolarVector();
 }
 
-template <size_t Tdimension, typename TLeftElement, typename TRightElement>
-tVector < Tdimension, decltype(TLeftElement() + TRightElement()), Polar > operator - (const tVector<Tdimension, TLeftElement, Polar> &left, const tVector<Tdimension, TRightElement, Polar> &right)
+template <size_t Tdimension, typename TLeftElement, typename TRightElement, typename ... TAdditionalDataParameters>
+tVector < Tdimension, decltype(TLeftElement() - TRightElement()), Polar, TAdditionalDataParameters... > operator - (const tVector<Tdimension, TLeftElement, Polar, TAdditionalDataParameters...> &left, const tVector<Tdimension, TRightElement, Polar, TAdditionalDataParameters...> &right)
 {
   return (left.GetCartesianVector() - right.GetCartesianVector()).GetPolarVector();
 }
 
-template <size_t Tdimension, typename TElement, typename TScalar>
-typename boost::enable_if < boost::is_scalar<TScalar>, tVector < Tdimension, decltype(TElement() + TScalar()), Polar >>::type operator * (const tVector<Tdimension, TElement, Polar> &vector, const TScalar scalar)
+template <size_t Tdimension, typename TElement, typename TScalar, typename ... TAdditionalDataParameters>
+typename boost::enable_if < boost::is_scalar<TScalar>, tVector < Tdimension, decltype(TElement() * TScalar()), Polar, TAdditionalDataParameters... >>::type operator * (const tVector<Tdimension, TElement, Polar, TAdditionalDataParameters...> &vector, const TScalar scalar)
 {
-  typedef math::tVector < Tdimension, decltype(TElement() + TScalar()), Polar > tResult;
-  tAngleRad angles[Tdimension];
+  typedef math::tVector < Tdimension, decltype(TElement() * TScalar()), Polar, TAdditionalDataParameters... > tResult;
+  tAngle<decltype(TElement() * TScalar()), TAdditionalDataParameters...> angles[Tdimension];
   for (size_t i = 0; i < Tdimension - 1; ++i)
   {
     angles[i] = vector[i];
   }
   return tResult(angles, vector.Length() * scalar);
 }
-template <size_t Tdimension, typename TElement, typename TScalar>
-typename boost::enable_if < boost::is_scalar<TScalar>, tVector < Tdimension, decltype(TElement() + TScalar()), Polar >>::type operator * (const TScalar scalar, const tVector<Tdimension, TElement, Polar> &vector)
+template <size_t Tdimension, typename TElement, typename TScalar, typename ... TAdditionalDataParameters>
+typename boost::enable_if < boost::is_scalar<TScalar>, tVector < Tdimension, decltype(TElement() * TScalar()), Polar, TAdditionalDataParameters... >>::type operator * (const TScalar scalar, const tVector<Tdimension, TElement, Polar, TAdditionalDataParameters...> &vector)
 {
   return vector * scalar;
 }
 
-template <size_t Tdimension, typename TLeftElement, typename TRightElement>
-decltype(TLeftElement() + TRightElement()) operator *(const tVector<Tdimension, TLeftElement, Polar> &left, const tVector<Tdimension, TRightElement, Polar> &right)
+template <size_t Tdimension, typename TLeftElement, typename TRightElement, typename ... TAdditionalDataParameters>
+decltype(TLeftElement() * TRightElement()) operator *(const tVector<Tdimension, TLeftElement, Polar, TAdditionalDataParameters...> &left, const tVector<Tdimension, TRightElement, Polar, TAdditionalDataParameters...> &right)
 {
   return left.GetCartesianVector() * right.GetCartesianVector();
 }

@@ -109,8 +109,8 @@ int main(int argc, char **argv)
 
   std::cout << "polar operations" << std::endl;
 
-  tVector<2, double, vector::Polar> polar1(0.0, 1.0);
-  tVector<2, double, vector::Polar> polar2(M_PI_2, 1.0);
+  tVector<2, double, vector::Polar, angle::Radian, angle::Signed> polar1(0.0, 1.0);
+  tVector<2, double, vector::Polar, angle::Radian, angle::Signed> polar2(M_PI_2, 1.0);
 
   std::cout << -polar1 << std::endl;
   std::cout << polar1 + polar2 << std::endl;

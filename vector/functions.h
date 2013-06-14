@@ -62,26 +62,26 @@ namespace math
 
 
 
-template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
-inline bool IsEqual(const tVector<Tdimension, TElement, TData> &left, const tVector<Tdimension, TElement, TData> &right, float max_error = 1.0E-6, tFloatComparisonMethod method = eFCM_ABSOLUTE_ERROR) __attribute__((always_inline, flatten));
+template <size_t Tdimension, typename TElement, template <size_t, typename, typename ...> class TData, typename ... TAdditionalDataParameters>
+inline bool IsEqual(const tVector<Tdimension, TElement, TData, TAdditionalDataParameters...> &left, const tVector<Tdimension, TElement, TData, TAdditionalDataParameters...> &right, float max_error = 1.0E-6, tFloatComparisonMethod method = eFCM_ABSOLUTE_ERROR) __attribute__((always_inline, flatten));
 
-template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
-inline const bool operator == (const tVector<Tdimension, TElement, TData> &left, const tVector<Tdimension, TElement, TData> &right) __attribute__((always_inline, flatten));
+template <size_t Tdimension, typename TElement, template <size_t, typename, typename ...> class TData, typename ... TAdditionalDataParameters>
+inline const bool operator == (const tVector<Tdimension, TElement, TData, TAdditionalDataParameters...> &left, const tVector<Tdimension, TElement, TData, TAdditionalDataParameters...> &right) __attribute__((always_inline, flatten));
 
-template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
-inline const bool operator != (const tVector<Tdimension, TElement, TData> &left, const tVector<Tdimension, TElement, TData> &right) __attribute__((always_inline, flatten));
+template <size_t Tdimension, typename TElement, template <size_t, typename, typename ...> class TData, typename ... TAdditionalDataParameters>
+inline const bool operator != (const tVector<Tdimension, TElement, TData, TAdditionalDataParameters...> &left, const tVector<Tdimension, TElement, TData, TAdditionalDataParameters...> &right) __attribute__((always_inline, flatten));
 
-template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
-inline const bool operator < (const tVector<Tdimension, TElement, TData> &left, const tVector<Tdimension, TElement, TData> &right);
+template <size_t Tdimension, typename TElement, template <size_t, typename, typename ...> class TData, typename ... TAdditionalDataParameters>
+inline const bool operator < (const tVector<Tdimension, TElement, TData, TAdditionalDataParameters...> &left, const tVector<Tdimension, TElement, TData, TAdditionalDataParameters...> &right);
 
-template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
-inline const bool operator > (const tVector<Tdimension, TElement, TData> &left, const tVector<Tdimension, TElement, TData> &right);
+template <size_t Tdimension, typename TElement, template <size_t, typename, typename ...> class TData, typename ... TAdditionalDataParameters>
+inline const bool operator > (const tVector<Tdimension, TElement, TData, TAdditionalDataParameters...> &left, const tVector<Tdimension, TElement, TData, TAdditionalDataParameters...> &right);
 
-template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
-inline const bool operator <= (const tVector<Tdimension, TElement, TData> &left, const tVector<Tdimension, TElement, TData> &right);
+template <size_t Tdimension, typename TElement, template <size_t, typename, typename ...> class TData, typename ... TAdditionalDataParameters>
+inline const bool operator <= (const tVector<Tdimension, TElement, TData, TAdditionalDataParameters...> &left, const tVector<Tdimension, TElement, TData, TAdditionalDataParameters...> &right);
 
-template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
-inline const bool operator >= (const tVector<Tdimension, TElement, TData> &left, const tVector<Tdimension, TElement, TData> &right);
+template <size_t Tdimension, typename TElement, template <size_t, typename, typename ...> class TData, typename ... TAdditionalDataParameters>
+inline const bool operator >= (const tVector<Tdimension, TElement, TData, TAdditionalDataParameters...> &left, const tVector<Tdimension, TElement, TData, TAdditionalDataParameters...> &right);
 
 template <size_t Tdimension, typename TLeftElement, typename TRightElement>
 inline const tVector < Tdimension, decltype(TLeftElement() + TRightElement()), vector::Cartesian > SchurProduct(const tVector<Tdimension, TLeftElement, vector::Cartesian> &left, const tVector<Tdimension, TRightElement, vector::Cartesian> &right) __attribute__((always_inline, flatten));
@@ -89,11 +89,11 @@ inline const tVector < Tdimension, decltype(TLeftElement() + TRightElement()), v
 template <typename TLeftElement, typename TRightElement>
 inline const tVector < 3, decltype(TLeftElement() + TRightElement()), vector::Cartesian > CrossProduct(const tVector<3, TLeftElement, vector::Cartesian> &left, const tVector<3, TRightElement, vector::Cartesian> &right) __attribute__((always_inline, flatten));
 
-template <size_t Tdimension, typename TLeftElement, typename TRightElement, template <size_t, typename> class TData>
-inline const tAngleRad EnclosedAngle(const tVector<Tdimension, TLeftElement, TData> &left, const tVector<Tdimension, TRightElement, TData> &right);
+template <size_t Tdimension, typename TLeftElement, typename TRightElement, template <size_t, typename, typename ...> class TData, typename ... TAdditionalDataParameters>
+inline const tAngleRad EnclosedAngle(const tVector<Tdimension, TLeftElement, TData, TAdditionalDataParameters...> &left, const tVector<Tdimension, TRightElement, TData, TAdditionalDataParameters...> &right);
 
-template <typename TLeftElement, typename TRightElement, template <size_t, typename> class TData>
-const tAngleRad EnclosedAngle(const tVector<2, TLeftElement, TData> &left, const tVector<2, TRightElement, TData> &right);
+template <typename TLeftElement, typename TRightElement, template <size_t, typename, typename ...> class TData, typename ... TAdditionalDataParameters>
+const tAngleRad EnclosedAngle(const tVector<2, TLeftElement, TData, TAdditionalDataParameters...> &left, const tVector<2, TRightElement, TData, TAdditionalDataParameters...> &right);
 
 /*!
  * \brief Convert Cartesian coordinates into polar coordinates
@@ -101,8 +101,8 @@ const tAngleRad EnclosedAngle(const tVector<2, TLeftElement, TData> &left, const
  * \param polar       A reference to the vector that is supposed to hold the polar coordinates (angle, radius)
  * \param cartesian   The vector that holds the Cartesian coordinates
  */
-template <size_t Tdimension, typename TPolarElement, typename TCartesianElement>
-inline void GetPolarVectorFromCartesian(tVector<Tdimension, TPolarElement, vector::Polar> &polar, const tVector<Tdimension, TCartesianElement, vector::Cartesian> &cartesian) __attribute__((always_inline, flatten));
+template <size_t Tdimension, typename TPolarElement, typename TCartesianElement, typename TPolarUnitPolicy = angle::Radian, typename TPolarSignPolicy = angle::Unsigned>
+inline void GetPolarVectorFromCartesian(tVector<Tdimension, TPolarElement, vector::Polar, TPolarUnitPolicy, TPolarSignPolicy> &polar, const tVector<Tdimension, TCartesianElement, vector::Cartesian> &cartesian) __attribute__((always_inline, flatten));
 
 /*!
  * \brief Convert polar coordinates into Cartesian coordinates
@@ -110,11 +110,11 @@ inline void GetPolarVectorFromCartesian(tVector<Tdimension, TPolarElement, vecto
  * \param cartesian   A reference to the vector that is supposed to hold the Cartesian coordinates
  * \param polar       The vector that holds the polar coordinates (angle, radius)
  */
-template <size_t Tdimension, typename TCartesianElement, typename TPolarElement>
-inline void GetCartesianVectorFromPolar(tVector<Tdimension, TCartesianElement, vector::Cartesian> &cartesian, const tVector<Tdimension, TPolarElement, vector::Polar> &polar) __attribute__((always_inline, flatten));
+template <size_t Tdimension, typename TCartesianElement, typename TPolarElement, typename TPolarUnitPolicy, typename TPolarSignPolicy>
+inline void GetCartesianVectorFromPolar(tVector<Tdimension, TCartesianElement, vector::Cartesian> &cartesian, const tVector<Tdimension, TPolarElement, vector::Polar, TPolarUnitPolicy, TPolarSignPolicy> &polar) __attribute__((always_inline, flatten));
 
-template <typename TElement>
-inline tVector<2, TElement, vector::Polar> GetPolarSignedVectorFromCartesian(tVector<2, TElement, vector::Cartesian> cartesian, double radius = 1) __attribute__((always_inline, flatten));
+template <typename TElement, typename TPolarUnitPolicy = angle::Radian>
+inline tVector<2, TElement, vector::Polar, TPolarUnitPolicy, angle::Signed> GetPolarSignedVectorFromCartesian(tVector<2, TElement, vector::Cartesian> cartesian, double radius = 1) __attribute__((always_inline, flatten));
 
 //----------------------------------------------------------------------
 // End of namespace declaration

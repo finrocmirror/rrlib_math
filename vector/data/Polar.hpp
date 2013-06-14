@@ -70,14 +70,14 @@ namespace vector
 //----------------------------------------------------------------------
 // Polar Length
 //----------------------------------------------------------------------
-template <size_t Tdimension, typename TElement>
-TElement &Polar<Tdimension, TElement>::Length() const
+template <size_t Tdimension, typename TElement, typename TOtherUnitPolicy, typename TOtherSignPolicy>
+TElement &Polar<Tdimension, TElement, TOtherUnitPolicy, TOtherSignPolicy>::Length() const
 {
   return this->length;
 }
 
-template <size_t Tdimension, typename TElement>
-TElement &Polar<Tdimension, TElement>::Length()
+template <size_t Tdimension, typename TElement, typename TOtherUnitPolicy, typename TOtherSignPolicy>
+TElement &Polar<Tdimension, TElement, TOtherUnitPolicy, TOtherSignPolicy>::Length()
 {
   return this->length;
 }
@@ -85,14 +85,14 @@ TElement &Polar<Tdimension, TElement>::Length()
 //----------------------------------------------------------------------
 // Polar 2 Alpha
 //----------------------------------------------------------------------
-template <typename TElement>
-tAngle<TElement, angle::Radian, angle::Signed> Polar<2, TElement>::Alpha() const
+template <typename TElement, typename TOtherUnitPolicy, typename TOtherSignPolicy>
+tAngle<TElement, TOtherUnitPolicy, TOtherSignPolicy> Polar<2, TElement, TOtherUnitPolicy, TOtherSignPolicy>::Alpha() const
 {
   return this->alpha;
 }
 
-template <typename TElement>
-tAngle<TElement, angle::Radian, angle::Signed> &Polar<2, TElement>::Alpha()
+template <typename TElement, typename TOtherUnitPolicy, typename TOtherSignPolicy>
+tAngle<TElement, TOtherUnitPolicy, TOtherSignPolicy> &Polar<2, TElement, TOtherUnitPolicy, TOtherSignPolicy>::Alpha()
 {
   return this->alpha;
 }
@@ -100,14 +100,14 @@ tAngle<TElement, angle::Radian, angle::Signed> &Polar<2, TElement>::Alpha()
 //----------------------------------------------------------------------
 // Polar 2 Length
 //----------------------------------------------------------------------
-template <typename TElement>
-const TElement &Polar<2, TElement>::Length() const
+template <typename TElement, typename TOtherUnitPolicy, typename TOtherSignPolicy>
+const TElement &Polar<2, TElement, TOtherUnitPolicy, TOtherSignPolicy>::Length() const
 {
   return this->length;
 }
 
-template <typename TElement>
-TElement &Polar<2, TElement>::Length()
+template <typename TElement, typename TOtherUnitPolicy, typename TOtherSignPolicy>
+TElement &Polar<2, TElement, TOtherUnitPolicy, TOtherSignPolicy>::Length()
 {
   return this->length;
 }
@@ -115,14 +115,14 @@ TElement &Polar<2, TElement>::Length()
 //----------------------------------------------------------------------
 // Polar 3 Alpha
 //----------------------------------------------------------------------
-template <typename TElement>
-tAngle<TElement, angle::Radian, angle::Signed> Polar<3, TElement>::Alpha() const
+template <typename TElement, typename TOtherUnitPolicy, typename TOtherSignPolicy>
+tAngle<TElement, TOtherUnitPolicy, TOtherSignPolicy> Polar<3, TElement, TOtherUnitPolicy, TOtherSignPolicy>::Alpha() const
 {
   return this->alpha;
 }
 
-template <typename TElement>
-tAngle<TElement, angle::Radian, angle::Signed> &Polar<3, TElement>::Alpha()
+template <typename TElement, typename TOtherUnitPolicy, typename TOtherSignPolicy>
+tAngle<TElement, TOtherUnitPolicy, TOtherSignPolicy> &Polar<3, TElement, TOtherUnitPolicy, TOtherSignPolicy>::Alpha()
 {
   return this->alpha;
 }
@@ -130,14 +130,14 @@ tAngle<TElement, angle::Radian, angle::Signed> &Polar<3, TElement>::Alpha()
 //----------------------------------------------------------------------
 // Polar 3 Beta
 //----------------------------------------------------------------------
-template <typename TElement>
-tAngle<TElement, angle::Radian, angle::Signed> Polar<3, TElement>::Beta() const
+template <typename TElement, typename TOtherUnitPolicy, typename TOtherSignPolicy>
+tAngle<TElement, TOtherUnitPolicy, TOtherSignPolicy> Polar<3, TElement, TOtherUnitPolicy, TOtherSignPolicy>::Beta() const
 {
   return this->beta;
 }
 
-template <typename TElement>
-tAngle<TElement, angle::Radian, angle::Signed> &Polar<3, TElement>::Beta()
+template <typename TElement, typename TOtherUnitPolicy, typename TOtherSignPolicy>
+tAngle<TElement, TOtherUnitPolicy, TOtherSignPolicy> &Polar<3, TElement, TOtherUnitPolicy, TOtherSignPolicy>::Beta()
 {
   return this->beta;
 }
@@ -145,14 +145,14 @@ tAngle<TElement, angle::Radian, angle::Signed> &Polar<3, TElement>::Beta()
 //----------------------------------------------------------------------
 // Polar 3 Length
 //----------------------------------------------------------------------
-template <typename TElement>
-const TElement &Polar<3, TElement>::Length() const
+template <typename TElement, typename TOtherUnitPolicy, typename TOtherSignPolicy>
+const TElement &Polar<3, TElement, TOtherUnitPolicy, TOtherSignPolicy>::Length() const
 {
   return this->length;
 }
 
-template <typename TElement>
-TElement &Polar<3, TElement>::Length()
+template <typename TElement, typename TOtherUnitPolicy, typename TOtherSignPolicy>
+TElement &Polar<3, TElement, TOtherUnitPolicy, TOtherSignPolicy>::Length()
 {
   return this->length;
 }

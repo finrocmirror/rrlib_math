@@ -72,7 +72,9 @@ namespace vector
 /*!
  *
  */
-template <size_t Tdimension, typename TElement>
+
+
+template <size_t Tdimension, typename TElement, typename TUnitPolicy = angle::Radian, typename TSignPolicy = angle::Signed>
 class Polar
 {
 
@@ -80,6 +82,8 @@ class Polar
 // Public methods and typedefs
 //----------------------------------------------------------------------
 public:
+
+  typedef math::tAngle<TElement, TUnitPolicy, TSignPolicy> tAngle;
 
   inline TElement &Length() const __attribute__((always_inline, flatten));
 
@@ -98,7 +102,7 @@ protected:
 //----------------------------------------------------------------------
 private:
 
-  tAngle<TElement, angle::Radian, angle::Signed> angles[Tdimension - 1];
+  tAngle angles[Tdimension - 1];
   TElement length;
 
   Polar(const Polar &);
@@ -109,8 +113,8 @@ private:
 /*!
  *
  */
-template <typename TElement>
-class Polar<2, TElement>
+template <typename TElement, typename TUnitPolicy, typename TSignPolicy>
+class Polar<2, TElement, TUnitPolicy, TSignPolicy>
 {
 
 //----------------------------------------------------------------------
@@ -118,9 +122,11 @@ class Polar<2, TElement>
 //----------------------------------------------------------------------
 public:
 
-  inline tAngle<TElement, angle::Radian, angle::Signed> Alpha() const __attribute__((always_inline, flatten));
+  typedef math::tAngle<TElement, TUnitPolicy, TSignPolicy> tAngle;
 
-  inline tAngle<TElement, angle::Radian, angle::Signed> &Alpha() __attribute__((always_inline, flatten));
+  inline tAngle Alpha() const __attribute__((always_inline, flatten));
+
+  inline tAngle &Alpha() __attribute__((always_inline, flatten));
 
   inline const TElement &Length() const __attribute__((always_inline, flatten));
 
@@ -139,7 +145,7 @@ protected:
 //----------------------------------------------------------------------
 private:
 
-  tAngle<TElement, angle::Radian, angle::Signed> alpha;
+  tAngle alpha;
   TElement length;
 
   Polar(const Polar &);
@@ -150,8 +156,8 @@ private:
 /*!
  *
  */
-template <typename TElement>
-class Polar<3, TElement>
+template <typename TElement, typename TUnitPolicy, typename TSignPolicy>
+class Polar<3, TElement, TUnitPolicy, TSignPolicy>
 {
 
 //----------------------------------------------------------------------
@@ -159,13 +165,15 @@ class Polar<3, TElement>
 //----------------------------------------------------------------------
 public:
 
-  inline tAngle<TElement, angle::Radian, angle::Signed> Alpha() const __attribute__((always_inline, flatten));
+  typedef math::tAngle<TElement, TUnitPolicy, TSignPolicy> tAngle;
 
-  inline tAngle<TElement, angle::Radian, angle::Signed> &Alpha() __attribute__((always_inline, flatten));
+  inline tAngle Alpha() const __attribute__((always_inline, flatten));
 
-  inline tAngle<TElement, angle::Radian, angle::Signed> Beta() const __attribute__((always_inline, flatten));
+  inline tAngle &Alpha() __attribute__((always_inline, flatten));
 
-  inline tAngle<TElement, angle::Radian, angle::Signed> &Beta() __attribute__((always_inline, flatten));
+  inline tAngle Beta() const __attribute__((always_inline, flatten));
+
+  inline tAngle &Beta() __attribute__((always_inline, flatten));
 
   inline const TElement &Length() const __attribute__((always_inline, flatten));
 
@@ -184,16 +192,14 @@ protected:
 //----------------------------------------------------------------------
 private:
 
-  tAngle<TElement, angle::Radian, angle::Signed> alpha;
-  tAngle<TElement, angle::Radian, angle::Signed> beta;
+  tAngle alpha;
+  tAngle beta;
   TElement length;
 
   Polar(const Polar &);
   Polar &operator = (const Polar &);
 
 };
-
-
 
 //----------------------------------------------------------------------
 // End of namespace declaration
