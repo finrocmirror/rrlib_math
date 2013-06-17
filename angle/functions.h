@@ -19,45 +19,37 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 //
 //----------------------------------------------------------------------
-/*!\file    rrlib/math/tAngle.h
+/*!\file    rrlib/math/angle/functions.h
  *
- * \author  Tobias Foehst
+ * \author  Michael Arndt
  *
- * \date    2010-12-06
+ * \date    2013-06-17
  *
  * \brief
  *
  * \b
  *
+ * A few words for functions.h
+ *
  */
 //----------------------------------------------------------------------
-#ifndef __rrlib__math__tAngle_h__
-#define __rrlib__math__tAngle_h__
+#ifndef __rrlib__math__angle__include_guard__
+#error Invalid include directive. Try #include "rrlib/math/tAngle.h" instead.
+#endif
+
+#ifndef __rrlib__math__angle__functions_h__
+#define __rrlib__math__angle__functions_h__
 
 //----------------------------------------------------------------------
-// External includes (system with <>, local with "")
+// External includes with <>
 //----------------------------------------------------------------------
 
 //----------------------------------------------------------------------
 // Internal includes with ""
 //----------------------------------------------------------------------
 
-#define __rrlib__math__angle__include_guard__
-
-#include "rrlib/math/angle/policies/unit/Radian.h"
-#include "rrlib/math/angle/policies/unit/Degree.h"
-
-#include "rrlib/math/angle/policies/signedness/Signed.h"
-#include "rrlib/math/angle/policies/signedness/Unsigned.h"
-
-#include "rrlib/math/angle/tAngle.h"
-
-#include "rrlib/math/angle/functions.h"
-
-#undef __rrlib__math__angle__include_guard__
-
 //----------------------------------------------------------------------
-// Implementation
+// Debugging
 //----------------------------------------------------------------------
 
 //----------------------------------------------------------------------
@@ -68,33 +60,32 @@ namespace rrlib
 namespace math
 {
 
-//----------------------------------------------------------------------
-// Forward declarations / typedefs / enums
-//----------------------------------------------------------------------
+/*!
+ * \brief Test if an angle is inbetween two other angles (in the mathematically positive direction)
+ *
+ * \param test    The angle to test for
+ * \param first   First angle
+ * \param second  Second angle
+ */
+template < template <typename, typename, typename> class TAngle, typename TElement, typename TUnitPolicy, typename TSignPolicy>
+bool IsAngleInbetween(const TAngle<TElement, TUnitPolicy, TSignPolicy> &test, const TAngle<TElement, TUnitPolicy, TSignPolicy> &first, const TAngle<TElement, TUnitPolicy, TSignPolicy> &second);
 
-typedef tAngle<double, angle::Radian, angle::Signed> tAngleRadSigned;
-typedef tAngle<double, angle::Degree, angle::Signed> tAngleDegSigned;
-
-typedef tAngle<double, angle::Radian, angle::Unsigned> tAngleRadUnsigned;
-typedef tAngle<double, angle::Degree, angle::Unsigned> tAngleDegUnsigned;
-
-typedef tAngleRadSigned tAngleRad;
-typedef tAngleDegSigned tAngleDeg;
-
-//----------------------------------------------------------------------
-// Explicit template instantiation
-//----------------------------------------------------------------------
-
-extern template class tAngle<double, angle::Radian, angle::Signed>;
-extern template class tAngle<double, angle::Degree, angle::Signed>;
-
-extern template class tAngle<double, angle::Radian, angle::Unsigned>;
-extern template class tAngle<double, angle::Degree, angle::Unsigned>;
+/*!
+ * \brief Get the size of the angle between two other angles (in the mathematically positive direction)
+ *
+ * \param first   First angle
+ * \param second  Second angle
+ * \return the difference (in the same unit-policy, but always with an unsigned sign policy)
+ */
+template < template <typename, typename, typename> class TAngle, typename TElement, typename TUnitPolicy, typename TSignPolicy>
+TAngle<TElement, TUnitPolicy, angle::Unsigned> GetAngleInbetween(const TAngle<TElement, TUnitPolicy, TSignPolicy> &first, const TAngle<TElement, TUnitPolicy, TSignPolicy> &second);
 
 //----------------------------------------------------------------------
 // End of namespace declaration
 //----------------------------------------------------------------------
 }
 }
+
+#include "rrlib/math/angle/functions.hpp"
 
 #endif

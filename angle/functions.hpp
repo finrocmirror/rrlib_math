@@ -19,45 +19,38 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 //
 //----------------------------------------------------------------------
-/*!\file    rrlib/math/tAngle.h
+/*!\file    rrlib/math/angle/functions.hpp
  *
- * \author  Tobias Foehst
+ * \author  Michael Arndt
  *
- * \date    2010-12-06
- *
- * \brief
+ * \date    2013-06-17
  *
  * \b
  *
+ * A few words for functions.h
+ *
  */
 //----------------------------------------------------------------------
-#ifndef __rrlib__math__tAngle_h__
-#define __rrlib__math__tAngle_h__
+#ifndef __rrlib__math__angle__include_guard__
+#error Invalid include directive. Try #include "rrlib/math/tAngle.h" instead.
+#endif
+
+#ifndef __rrlib__math__angle__functions_hpp__
+#define __rrlib__math__angle__functions_hpp__
 
 //----------------------------------------------------------------------
-// External includes (system with <>, local with "")
+// External includes with <>
 //----------------------------------------------------------------------
+#include <cmath>
+#include <iostream>
 
 //----------------------------------------------------------------------
 // Internal includes with ""
 //----------------------------------------------------------------------
-
-#define __rrlib__math__angle__include_guard__
-
-#include "rrlib/math/angle/policies/unit/Radian.h"
-#include "rrlib/math/angle/policies/unit/Degree.h"
-
-#include "rrlib/math/angle/policies/signedness/Signed.h"
-#include "rrlib/math/angle/policies/signedness/Unsigned.h"
-
-#include "rrlib/math/angle/tAngle.h"
-
-#include "rrlib/math/angle/functions.h"
-
-#undef __rrlib__math__angle__include_guard__
+#include "rrlib/math/utilities.h"
 
 //----------------------------------------------------------------------
-// Implementation
+// Debugging
 //----------------------------------------------------------------------
 
 //----------------------------------------------------------------------
@@ -69,27 +62,31 @@ namespace math
 {
 
 //----------------------------------------------------------------------
-// Forward declarations / typedefs / enums
+// Implementation
 //----------------------------------------------------------------------
+template < template <typename, typename, typename> class TAngle, typename TElement, typename TUnitPolicy, typename TSignPolicy>
+bool IsAngleInbetween(const TAngle<TElement, TUnitPolicy, TSignPolicy> &test, const TAngle<TElement, TUnitPolicy, TSignPolicy> &first, const TAngle<TElement, TUnitPolicy, TSignPolicy> &second)
+{
+  /* important: this algorithm operates on signed types! */
+  TAngle<TElement, TUnitPolicy, angle::Signed> test_(test);
+  TAngle<TElement, TUnitPolicy, angle::Signed> first_(first);
+  TAngle<TElement, TUnitPolicy, angle::Signed> second_(second);
 
-typedef tAngle<double, angle::Radian, angle::Signed> tAngleRadSigned;
-typedef tAngle<double, angle::Degree, angle::Signed> tAngleDegSigned;
+  // if they are not in "natural order", things are slightly different
+  if (first_ > second_)
+    return test_ >= first_ || test_ < second_;
 
-typedef tAngle<double, angle::Radian, angle::Unsigned> tAngleRadUnsigned;
-typedef tAngle<double, angle::Degree, angle::Unsigned> tAngleDegUnsigned;
+  // standard case
+  return test_ >= first_ && test_ < second_;
+}
 
-typedef tAngleRadSigned tAngleRad;
-typedef tAngleDegSigned tAngleDeg;
+template < template <typename, typename, typename> class TAngle, typename TElement, typename TUnitPolicy, typename TSignPolicy>
+TAngle<TElement, TUnitPolicy, angle::Unsigned> GetAngleInbetween(const TAngle<TElement, TUnitPolicy, TSignPolicy> &first, const TAngle<TElement, TUnitPolicy, TSignPolicy> &second)
+{
+  /* important: this function operates on UNsigned types! */
+  return TAngle<TElement, TUnitPolicy, angle::Unsigned>((double) tAngle<TElement, TUnitPolicy, angle::Unsigned>(second) - (double) tAngle<TElement, TUnitPolicy, angle::Unsigned>(first));
+}
 
-//----------------------------------------------------------------------
-// Explicit template instantiation
-//----------------------------------------------------------------------
-
-extern template class tAngle<double, angle::Radian, angle::Signed>;
-extern template class tAngle<double, angle::Degree, angle::Signed>;
-
-extern template class tAngle<double, angle::Radian, angle::Unsigned>;
-extern template class tAngle<double, angle::Degree, angle::Unsigned>;
 
 //----------------------------------------------------------------------
 // End of namespace declaration
