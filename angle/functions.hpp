@@ -74,7 +74,9 @@ bool IsAngleInbetween(const TAngle<TElement, TUnitPolicy, TSignPolicy> &test, co
 
   // if they are not in "natural order", things are slightly different
   if (first_ > second_)
+  {
     return test_ >= first_ || test_ < second_;
+  }
 
   // standard case
   return test_ >= first_ && test_ < second_;
