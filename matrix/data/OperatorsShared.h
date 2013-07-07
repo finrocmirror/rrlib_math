@@ -214,7 +214,7 @@ class MatrixAddition
   static math::tMatrix<Trows, Tcolumns, TLeftElement, TLeftData> CreateLeft();
   static math::tMatrix<Trows, Tcolumns, TRightElement, TRightData> CreateRight();
 public:
-  typedef typeof(CreateLeft() + CreateRight()) type;
+  typedef decltype(CreateLeft() + CreateRight()) type;
 };
 }
 template <size_t Trows, size_t Tcolumns, typename TLeftElement, typename TRightElement, template <size_t, size_t, typename> class TLeftData, template <size_t, size_t, typename> class TRightData>
