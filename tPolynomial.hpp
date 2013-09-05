@@ -85,7 +85,7 @@ tPolynomial<Tdegree>::tPolynomial(double coefficient, TCoefficients... coefficie
 {
   static_assert(sizeof...(coefficients) <= Tdegree, "Too many coefficients specified");
   size_t index = Tdegree;
-  util::ProcessVariadicValues<double>([this, index](double x) mutable { this->coefficients[index--] = x; }, coefficient, coefficients...);
+  util::ProcessVariadicValues([this, index](double x) mutable { this->coefficients[index--] = x; }, coefficient, coefficients...);
 }
 
 template <size_t Tdegree>
