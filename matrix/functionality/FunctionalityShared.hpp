@@ -152,7 +152,7 @@ void FunctionalityShared<Trows, Tcolumns, TElement, TData>::Set(TValues... value
 
   TElement buffer[Trows * Tcolumns];
   TElement *p = buffer;
-  util::ProcessVariadicValues<TElement>([p](TElement x) mutable { *p = x; ++p; }, values...);
+  util::ProcessVariadicValues([p](TElement x) mutable { *p = x; ++p; }, values...);
 
   reinterpret_cast<tMatrix *>(this)->SetFromArray(buffer);
 }
