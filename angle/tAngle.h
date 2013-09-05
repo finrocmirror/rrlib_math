@@ -46,6 +46,7 @@
 #include <boost/type_traits/is_same.hpp>
 #include <stdexcept>
 #include <sstream>
+#include <cstring>
 
 #ifdef _LIB_RRLIB_SERIALIZATION_PRESENT_
 #include "rrlib/serialization/serialization.h"
@@ -320,7 +321,7 @@ std::istream &operator >> (std::istream &stream, tAngle<TElement, TUnitPolicy, T
   double value;
   stream >> value;
   angle = value * TUnitPolicy::UnitDivider();
-  size_t unit_string_length = strlen(TUnitPolicy::UnitString());
+  size_t unit_string_length = std::strlen(TUnitPolicy::UnitString());
   if (unit_string_length > 0)
   {
     char temp[unit_string_length + 1];
@@ -329,7 +330,7 @@ std::istream &operator >> (std::istream &stream, tAngle<TElement, TUnitPolicy, T
       stream >> temp[i];
     }
     temp[unit_string_length] = 0;
-    if (strcmp(TUnitPolicy::UnitString(), temp) != 0)
+    if (std::strcmp(TUnitPolicy::UnitString(), temp) != 0)
     {
       std::stringstream error_message;
       error_message << "Could not read expected unit string '" << TUnitPolicy::UnitString() << "'! Read '" << temp << "'.";
