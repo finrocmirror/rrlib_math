@@ -28,14 +28,14 @@
   </rrlib>
 
   <testprogram name="vectors"
-        optionallibs="oiv" >
+        optionallibs="oiv">
     <sources>
       test/test_vectors.cpp
     </sources>
   </testprogram>
 
   <testprogram name="matrices"
-        optionallibs="oiv" >
+        optionallibs="oiv">
     <sources>
       test/test_matrices.cpp
     </sources>

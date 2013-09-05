@@ -142,7 +142,11 @@ void FunctionalitySpecialized<Tdimension, TElement, Cartesian>::Set(TValues... v
   static_assert(sizeof...(values) == Tdimension, "Wrong number of values given to store in vector");
 
   TElement *p = reinterpret_cast<TElement *>(this);
-  util::ProcessVariadicValues([p](TElement x) mutable { *p = x; ++p; }, values...);
+  util::ProcessVariadicValues([&p](TElement x)
+  {
+    *p++ = x;
+  },
+  values...);
 }
 
 //----------------------------------------------------------------------
@@ -329,7 +333,11 @@ void FunctionalitySpecialized<Tdimension, TElement, Polar, TAdditionalDataParame
   static_assert(sizeof...(values) == Tdimension, "Wrong number of values given to store in vector");
 
   TElement *p = reinterpret_cast<TElement *>(this);
-  util::ProcessVariadicValues([p](TElement x) mutable { *p = x; ++p; }, values...);
+  util::ProcessVariadicValues([&p](TElement x)
+  {
+    *p++ = x;
+  },
+  values...);
 }
 
 //----------------------------------------------------------------------
