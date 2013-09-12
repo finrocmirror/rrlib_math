@@ -132,9 +132,6 @@ public:
   template <size_t Tother_dimension, typename TOtherElement>
   inline tVector &operator = (const tVector<Tother_dimension, TOtherElement, TData, TAdditionalDataParameters...> &other) __attribute__((always_inline, flatten));
 
-  template <typename TOtherUnitPolicy, typename TOtherSignPolicy>
-  inline tVector &operator = (const tVector<Tdimension, TElement, TData, TOtherUnitPolicy, TOtherSignPolicy> &other) __attribute__((always_inline, flatten));
-
 };
 
 

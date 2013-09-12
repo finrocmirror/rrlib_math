@@ -164,12 +164,6 @@ tVector<Tdimension, TElement, TData, TAdditionalDataParameters...> &tVector<Tdim
   return reinterpret_cast<tVector &>(FunctionalityShared::operator=(other));
 }
 
-template <size_t Tdimension, typename TElement, template <size_t, typename, typename ...> class TData, typename ... TAdditionalDataParameters>
-template <typename TOtherUnitPolicy, typename TOtherSignPolicy>
-tVector<Tdimension, TElement, TData, TAdditionalDataParameters...> &tVector<Tdimension, TElement, TData, TAdditionalDataParameters...>::operator = (const tVector<Tdimension, TElement, TData, TOtherUnitPolicy, TOtherSignPolicy> &other)
-{
-  return reinterpret_cast<tVector &>(FunctionalityShared::operator=(other));
-}
 
 
 //----------------------------------------------------------------------
