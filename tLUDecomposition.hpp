@@ -195,20 +195,24 @@ void tLUDecomposition<Trank, TElement>::FullMatrixDecomposition(const tMatrix<Tr
 
   tMatrix<Trows, Trank, TElement, matrix::Full> temp_matrix(matrix);
 
-  for (size_t step = 0; step < Trank - 1; ++step)
+  for (size_t step = 0; step < std::min(Trank, Trows - 1); ++step)
   {
+    RRLIB_LOG_PRINT(DEBUG_VERBOSE_3, "step: ", step);
     TElement relative_maximum = 0;
     this->pivot[step] = step;
-    for (size_t row = step; row < Trank; ++row)
+    for (size_t row = step; row < Trows; ++row)
     {
+      RRLIB_LOG_PRINT(DEBUG_VERBOSE_3, "  row: ", step);
       TElement row_sum = 0;
       for (size_t column = step; column < Trank; ++column)
       {
         row_sum += AbsoluteValue(temp_matrix[row][column]);
       }
+      RRLIB_LOG_PRINT(DEBUG_VERBOSE_3, "    sum: ", row_sum);
       if (row_sum != 0)
       {
         TElement normalized_first = AbsoluteValue(temp_matrix[row][step]) / row_sum;
+        RRLIB_LOG_PRINT(DEBUG_VERBOSE_3, "    normalized_first: ", normalized_first);
         if (normalized_first > relative_maximum)
         {
           relative_maximum = normalized_first;
@@ -219,11 +223,12 @@ void tLUDecomposition<Trank, TElement>::FullMatrixDecomposition(const tMatrix<Tr
 
     if (relative_maximum == 0)
     {
-      throw std::logic_error("FIXME: Matrix not of expected rank");
+      throw std::logic_error("Matrix not of expected rank");
     }
 
     if (this->pivot[step] != step)
     {
+      RRLIB_LOG_PRINT(DEBUG_VERBOSE_3, "    pivotize: ", step, " <-> ", this->pivot[step]);
       for (size_t column = 0; column < Trank; ++column)
       {
         TElement temp = temp_matrix[step][column];
@@ -232,30 +237,37 @@ void tLUDecomposition<Trank, TElement>::FullMatrixDecomposition(const tMatrix<Tr
       }
     }
 
-    for (size_t row = step + 1; row < Trank; ++row)
+    for (size_t row = step + 1; row < Trows; ++row)
     {
+      RRLIB_LOG_PRINT(DEBUG_VERBOSE_3, "a[k][k] = ", temp_matrix[step][step]);
       temp_matrix[row][step] /= temp_matrix[step][step];
+      RRLIB_LOG_PRINT(DEBUG_VERBOSE_3, "a[i][k] = ", temp_matrix[row][step]);
       for (size_t column = step + 1; column < Trank; ++column)
       {
         temp_matrix[row][column] -= temp_matrix[row][step] * temp_matrix[step][column];
+        RRLIB_LOG_PRINT(DEBUG_VERBOSE_3, "a[i][j] = ", temp_matrix[row][column]);
       }
     }
   }
+  RRLIB_LOG_PRINT(DEBUG_VERBOSE_3, "matrix: ", temp_matrix);
   if (temp_matrix[Trank - 1][Trank - 1] == 0)
   {
-    throw std::logic_error("FIXME: Matrix not of expected rank");
+    throw std::logic_error("Matrix not of expected rank");
   }
 
-  for (size_t row = Trank; row < Trows; ++row)
-  {
-    for (size_t column = 0; column < Trank; ++column)
-    {
-      if (temp_matrix[row][column] != 0)
-      {
-        throw std::logic_error("FIXME: Matrix not of expected rank");
-      }
-    }
-  }
+// FIXME: we need a different check if there are linear independent rows left
+//        as these are not eliminated but remain as multiples of the first
+//        Trank rows
+//  for (size_t row = Trank; row < Trows; ++row)
+//  {
+//    for (size_t column = 0; column < Trank; ++column)
+//    {
+//      if (temp_matrix[row][column] != 0)
+//      {
+//        throw std::logic_error(Matrix not of expected rank");
+//      }
+//    }
+//  }
 
   for (size_t row = 0; row < Trank; ++row)
   {
