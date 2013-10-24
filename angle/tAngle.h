@@ -134,7 +134,7 @@ public:
   }
 
   template <typename TOtherUnitPolicy, typename TOtherSignPolicy>
-  inline typename boost::disable_if<boost::is_same<tAngle, tAngle<TElement, TOtherUnitPolicy, TOtherSignPolicy> >, tAngle>::type &operator += (const tAngle<TElement, TOtherUnitPolicy, TOtherSignPolicy> &other)
+  inline typename boost::disable_if<boost::is_same<tAngle, tAngle<TElement, TOtherUnitPolicy, TOtherSignPolicy>>, tAngle>::type &operator += (const tAngle<TElement, TOtherUnitPolicy, TOtherSignPolicy> &other)
   {
     this->value = TSignPolicy::FitIntoRange(this->value + TUnitPolicy::ConvertFromUnit(static_cast<TElement>(other), TOtherUnitPolicy()), TUnitPolicy::RangeLimit());
     return *this;
@@ -147,7 +147,7 @@ public:
   }
 
   template <typename TOtherUnitPolicy, typename TOtherSignPolicy>
-  inline typename boost::disable_if<boost::is_same<tAngle, tAngle<TElement, TOtherUnitPolicy, TOtherSignPolicy> >, tAngle>::type &operator -= (const tAngle<TElement, TOtherUnitPolicy, TOtherSignPolicy> &other)
+  inline typename boost::disable_if<boost::is_same<tAngle, tAngle<TElement, TOtherUnitPolicy, TOtherSignPolicy>>, tAngle>::type &operator -= (const tAngle<TElement, TOtherUnitPolicy, TOtherSignPolicy> &other)
   {
     this->value = TSignPolicy::FitIntoRange(this->value - TUnitPolicy::ConvertFromUnit(static_cast<TElement>(other), TOtherUnitPolicy()), TUnitPolicy::RangeLimit());
     return *this;

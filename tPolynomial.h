@@ -85,7 +85,7 @@ public:
 
   tPolynomial(const tPolynomial &other);
 
-  template < size_t Tlower_degree, typename T = int >
+  template <size_t Tlower_degree, typename T = int>
   tPolynomial(const tPolynomial<Tlower_degree> &other, typename boost::enable_if_c < (Tlower_degree < Tdegree), T >::type = 0);
 
   template <typename ... TCoefficients>

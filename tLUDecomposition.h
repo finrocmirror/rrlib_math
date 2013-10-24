@@ -69,7 +69,7 @@ namespace math
 /*! A more detailed description of tLUDecomposition, which
     Tobias Foehst hasn't done yet !!
 */
-template < size_t Trank, typename TElement = double >
+template <size_t Trank, typename TElement = double>
 class tLUDecomposition
 {
 

@@ -73,7 +73,7 @@ namespace matrix
 //----------------------------------------------------------------------
 
 template <size_t Trows, size_t Tcolumns, typename TLeftElement, typename TRightElement, template <size_t, size_t, typename> class TRightData>
-const typename boost::disable_if < boost::is_same<Symmetrical<1, 1, int>, TRightData<1, 1, int> >, math::tMatrix < Trows, Tcolumns, decltype(TLeftElement() + TRightElement()), Full > >::type operator + (const math::tMatrix<Trows, Tcolumns, TLeftElement, Symmetrical> &left, const math::tMatrix<Trows, Tcolumns, TRightElement, TRightData> &right)
+const typename boost::disable_if < boost::is_same<Symmetrical<1, 1, int>, TRightData<1, 1, int>>, math::tMatrix < Trows, Tcolumns, decltype(TLeftElement() + TRightElement()), Full > >::type operator + (const math::tMatrix<Trows, Tcolumns, TLeftElement, Symmetrical> &left, const math::tMatrix<Trows, Tcolumns, TRightElement, TRightData> &right)
 {
   typedef math::tMatrix < Trows, Tcolumns, decltype(TLeftElement() + TRightElement()), Full > tResult;
   typename tResult::tElement data[Trows * Tcolumns];

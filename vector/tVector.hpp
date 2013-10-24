@@ -127,15 +127,15 @@ tVector<Tdimension, TElement, TData>::tVector(TValues... values)
 #ifdef _LIB_OIV_PRESENT_
 
 template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
-template < typename T>
-tVector<Tdimension, TElement, TData>::tVector(const SbVec2f &v, typename boost::enable_if_c < (Tdimension == 2), T >::type)
+template <typename T>
+tVector<Tdimension, TElement, TData>::tVector(const SbVec2f &v, typename boost::enable_if_c <(Tdimension == 2), T>::type)
 {
   FunctionalitySpecialized::Set(v[0], v[1]);
 }
 
 template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
-template < typename T>
-tVector<Tdimension, TElement, TData>::tVector(const SbVec3f &v, typename boost::enable_if_c < (Tdimension == 3), T >::type)
+template <typename T>
+tVector<Tdimension, TElement, TData>::tVector(const SbVec3f &v, typename boost::enable_if_c <(Tdimension == 3), T>::type)
 {
   FunctionalitySpecialized::Set(v[0], v[1], v[2]);
 }

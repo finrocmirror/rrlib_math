@@ -74,7 +74,7 @@ namespace math
 /*!
  *
  */
-template < size_t Trows, size_t Tcolumns, typename TElement = double, template <size_t, size_t, typename> class TData = matrix::Full >
+template <size_t Trows, size_t Tcolumns, typename TElement = double, template <size_t, size_t, typename> class TData = matrix::Full>
 class tMatrix : public TData<Trows, Tcolumns, TElement>,
   public matrix::FunctionalityShared<Trows, Tcolumns, TElement, TData>,
   public matrix::FunctionalitySpecialized<Trows, Tcolumns, TElement, TData>,
@@ -115,7 +115,7 @@ public:
 
 #ifdef _LIB_OIV_PRESENT_
 
-  template < class T = int >
+  template <class T = int>
   explicit inline tMatrix(const SbMatrix &m, typename boost::enable_if_c < (Trows == 4 && Tcolumns == 4), T >::type = 0) __attribute__((always_inline, flatten));
 
 #endif

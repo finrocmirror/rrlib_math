@@ -79,7 +79,7 @@ namespace math
 /*!
  *
  */
-template < size_t Tdimension, typename TElement = double, template <size_t, typename> class TData = vector::Cartesian >
+template <size_t Tdimension, typename TElement = double, template <size_t, typename> class TData = vector::Cartesian>
 class tVector : public TData<Tdimension, TElement>,
   public vector::FunctionalityShared<Tdimension, TElement, TData>,
   public vector::FunctionalitySpecialized<Tdimension, TElement, TData>,
@@ -98,7 +98,7 @@ class tVector : public TData<Tdimension, TElement>,
 //----------------------------------------------------------------------
 public:
 
-  typedef std::function < TElement(const tVector &, const tVector &) > tMetric;
+  typedef std::function <TElement(const tVector &, const tVector &)> tMetric;
 
   static const tMetric cEUCLIDEAN_DISTANCE;
   static const tMetric cMANHATTAN_DISTANCE;
@@ -116,11 +116,11 @@ public:
 
 #ifdef _LIB_OIV_PRESENT_
 
-  template < typename T = int >
-  explicit inline tVector(const SbVec2f &v, typename boost::enable_if_c < (Tdimension == 2), T >::type = 0) __attribute__((always_inline, flatten));
+  template <typename T = int>
+  explicit inline tVector(const SbVec2f &v, typename boost::enable_if_c <(Tdimension == 2), T>::type = 0) __attribute__((always_inline, flatten));
 
-  template < typename T = int >
-  explicit inline tVector(const SbVec3f &v, typename boost::enable_if_c < (Tdimension == 3), T >::type = 0) __attribute__((always_inline, flatten));
+  template <typename T = int>
+  explicit inline tVector(const SbVec3f &v, typename boost::enable_if_c <(Tdimension == 3), T>::type = 0) __attribute__((always_inline, flatten));
 
 #endif
 
