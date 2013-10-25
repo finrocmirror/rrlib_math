@@ -67,7 +67,7 @@ namespace math
  * \param first   First angle
  * \param second  Second angle
  */
-template < template <typename, typename, typename> class TAngle, typename TElement, typename TUnitPolicy, typename TSignPolicy>
+template <template <typename, typename, typename> class TAngle, typename TElement, typename TUnitPolicy, typename TSignPolicy>
 bool IsAngleInbetween(const TAngle<TElement, TUnitPolicy, TSignPolicy> &test, const TAngle<TElement, TUnitPolicy, TSignPolicy> &first, const TAngle<TElement, TUnitPolicy, TSignPolicy> &second);
 
 /*!
@@ -77,7 +77,7 @@ bool IsAngleInbetween(const TAngle<TElement, TUnitPolicy, TSignPolicy> &test, co
  * \param second  Second angle
  * \return the difference (in the same unit-policy, but always with an unsigned sign policy)
  */
-template < template <typename, typename, typename> class TAngle, typename TElement, typename TUnitPolicy, typename TSignPolicy>
+template <template <typename, typename, typename> class TAngle, typename TElement, typename TUnitPolicy, typename TSignPolicy>
 TAngle<TElement, TUnitPolicy, angle::Unsigned> GetAngleInbetween(const TAngle<TElement, TUnitPolicy, TSignPolicy> &first, const TAngle<TElement, TUnitPolicy, TSignPolicy> &second);
 
 //----------------------------------------------------------------------

@@ -4,19 +4,19 @@
 //
 // Copyright (C) Finroc GbR (finroc.org)
 //
-// This program is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 2
-// of the License, or (at your option) any later version.
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2 of the License, or
+// (at your option) any later version.
 //
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 //
-// You should have received a copy of the GNU General Public License
-// along with this program; if not, write to the Free Software
-// Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+// You should have received a copy of the GNU General Public License along
+// with this program; if not, write to the Free Software Foundation, Inc.,
+// 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 //
 //----------------------------------------------------------------------
 /*!\file    rrlib/math/matrix/tMatrix.h
@@ -74,7 +74,7 @@ namespace math
 /*!
  *
  */
-template < size_t Trows, size_t Tcolumns, typename TElement = double, template <size_t, size_t, typename> class TData = matrix::Full >
+template <size_t Trows, size_t Tcolumns, typename TElement = double, template <size_t, size_t, typename> class TData = matrix::Full>
 class tMatrix : public TData<Trows, Tcolumns, TElement>,
   public matrix::FunctionalityShared<Trows, Tcolumns, TElement, TData>,
   public matrix::FunctionalitySpecialized<Trows, Tcolumns, TElement, TData>,
@@ -115,7 +115,7 @@ public:
 
 #ifdef _LIB_OIV_PRESENT_
 
-  template < class T = int >
+  template <class T = int>
   explicit inline tMatrix(const SbMatrix &m, typename boost::enable_if_c < (Trows == 4 && Tcolumns == 4), T >::type = 0) __attribute__((always_inline, flatten));
 
 #endif

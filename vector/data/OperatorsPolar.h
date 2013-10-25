@@ -4,19 +4,19 @@
 //
 // Copyright (C) Finroc GbR (finroc.org)
 //
-// This program is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 2
-// of the License, or (at your option) any later version.
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2 of the License, or
+// (at your option) any later version.
 //
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 //
-// You should have received a copy of the GNU General Public License
-// along with this program; if not, write to the Free Software
-// Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+// You should have received a copy of the GNU General Public License along
+// with this program; if not, write to the Free Software Foundation, Inc.,
+// 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 //
 //----------------------------------------------------------------------
 /*!\file    rrlib/math/vector/data/OperatorsPolar.h
@@ -152,7 +152,7 @@ const tVector<Tdimension, TElement, Polar, TAdditionalDataParameters...> operato
 }
 
 template <size_t Tdimension, typename TLeftElement, typename TRightElement, template <size_t, typename TElement, typename ... TAdditionalDataParameters> class TData, typename ... TAdditionalDataParameters>
-tVector < Tdimension, decltype(TLeftElement() + TRightElement()), TData, TAdditionalDataParameters... > operator + (const tVector<Tdimension, TLeftElement, TData, TAdditionalDataParameters...> &left, const tVector<Tdimension, TRightElement, TData, TAdditionalDataParameters... > &right)
+tVector < Tdimension, decltype(TLeftElement() + TRightElement()), TData, TAdditionalDataParameters... > operator + (const tVector<Tdimension, TLeftElement, TData, TAdditionalDataParameters...> &left, const tVector<Tdimension, TRightElement, TData, TAdditionalDataParameters...> &right)
 {
   return (left.GetCartesianVector() + right.GetCartesianVector()).GetPolarVector();
 }
@@ -164,9 +164,9 @@ tVector < Tdimension, decltype(TLeftElement() - TRightElement()), Polar, TAdditi
 }
 
 template <size_t Tdimension, typename TElement, typename TScalar, typename ... TAdditionalDataParameters>
-typename boost::enable_if < boost::is_scalar<TScalar>, tVector < Tdimension, decltype(TElement() * TScalar()), Polar, TAdditionalDataParameters... >>::type operator * (const tVector<Tdimension, TElement, Polar, TAdditionalDataParameters...> &vector, const TScalar scalar)
+typename boost::enable_if <boost::is_scalar<TScalar>, tVector <Tdimension, decltype(TElement() * TScalar()), Polar, TAdditionalDataParameters...>>::type operator * (const tVector<Tdimension, TElement, Polar, TAdditionalDataParameters...> &vector, const TScalar scalar)
 {
-  typedef math::tVector < Tdimension, decltype(TElement() * TScalar()), Polar, TAdditionalDataParameters... > tResult;
+  typedef math::tVector <Tdimension, decltype(TElement() * TScalar()), Polar, TAdditionalDataParameters...> tResult;
   tAngle<decltype(TElement() * TScalar()), TAdditionalDataParameters...> angles[Tdimension];
   for (size_t i = 0; i < Tdimension - 1; ++i)
   {
@@ -175,7 +175,7 @@ typename boost::enable_if < boost::is_scalar<TScalar>, tVector < Tdimension, dec
   return tResult(angles, vector.Length() * scalar);
 }
 template <size_t Tdimension, typename TElement, typename TScalar, typename ... TAdditionalDataParameters>
-typename boost::enable_if < boost::is_scalar<TScalar>, tVector < Tdimension, decltype(TElement() * TScalar()), Polar, TAdditionalDataParameters... >>::type operator * (const TScalar scalar, const tVector<Tdimension, TElement, Polar, TAdditionalDataParameters...> &vector)
+typename boost::enable_if <boost::is_scalar<TScalar>, tVector <Tdimension, decltype(TElement() * TScalar()), Polar, TAdditionalDataParameters...>>::type operator * (const TScalar scalar, const tVector<Tdimension, TElement, Polar, TAdditionalDataParameters...> &vector)
 {
   return vector * scalar;
 }

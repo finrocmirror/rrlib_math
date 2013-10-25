@@ -4,19 +4,19 @@
 //
 // Copyright (C) Finroc GbR (finroc.org)
 //
-// This program is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// as published by the Free Software Foundation; either version 2
-// of the License, or (at your option) any later version.
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2 of the License, or
+// (at your option) any later version.
 //
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 //
-// You should have received a copy of the GNU General Public License
-// along with this program; if not, write to the Free Software
-// Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+// You should have received a copy of the GNU General Public License along
+// with this program; if not, write to the Free Software Foundation, Inc.,
+// 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 //
 //----------------------------------------------------------------------
 /*!\file    rrlib/math/vector/functionality/Rotation.h
@@ -177,9 +177,9 @@ public:
     double mco = 1.0 - co;
     math::tVector<3, TAxisElement, Cartesian> normalized_axis(axis.Normalized());
 
-    that->Set(co * that->X() + (normalized_axis.X() * mco) * normalized_axis * *that + si * (normalized_axis.Y() * that->Z() - normalized_axis.Z() * that->Y()),
-              co * that->Y() + (normalized_axis.Y() * mco) * normalized_axis * *that + si * (normalized_axis.Z() * that->X() - normalized_axis.X() * that->Z()),
-              co * that->Z() + (normalized_axis.Z() * mco) * normalized_axis * *that + si * (normalized_axis.X() * that->Y() - normalized_axis.Y() * that->X()));
+    that->Set(co * that->X() + (normalized_axis.X() * mco) * normalized_axis **that + si * (normalized_axis.Y() * that->Z() - normalized_axis.Z() * that->Y()),
+              co * that->Y() + (normalized_axis.Y() * mco) * normalized_axis **that + si * (normalized_axis.Z() * that->X() - normalized_axis.X() * that->Z()),
+              co * that->Z() + (normalized_axis.Z() * mco) * normalized_axis **that + si * (normalized_axis.X() * that->Y() - normalized_axis.Y() * that->X()));
   }
 
   template <typename TAxisElement>
