@@ -155,13 +155,16 @@ const tVector<Trank, TElement> tLUDecomposition<Trank, TElement>::Solve(const tV
 {
   static_assert(Tdimension >= Trank, "Dimension of given vector is too small");
 
+  RRLIB_LOG_PRINT(DEBUG_VERBOSE_3, "vector: ", right_side);
+  RRLIB_LOG_PRINT(DEBUG_VERBOSE_3, "pivot: ", this->pivot);
+
   tVector<Tdimension, TElement> temp(right_side);
-  for (size_t i = 0; i < Trank - 1; ++i)
+  for (size_t i = 0; i < Trank; ++i)
   {
-    TElement swap = temp[i];
-    temp[i] = temp[this->pivot[i]];
-    temp[this->pivot[i]] = swap;
+    std::swap(temp[i], temp[this->pivot[i]]);
   }
+
+  RRLIB_LOG_PRINT(DEBUG_VERBOSE_3, "pivotized: ", temp);
 
   for (size_t row = 0; row < Trank; ++row)
   {
@@ -195,14 +198,14 @@ void tLUDecomposition<Trank, TElement>::FullMatrixDecomposition(const tMatrix<Tr
 
   tMatrix<Trows, Trank, TElement, matrix::Full> temp_matrix(matrix);
 
-  for (size_t step = 0; step < std::min(Trank, Trows - 1); ++step)
+  for (size_t step = 0; step < std::min(Trank, Trows); ++step)
   {
     RRLIB_LOG_PRINT(DEBUG_VERBOSE_3, "step: ", step);
     TElement relative_maximum = 0;
     this->pivot[step] = step;
     for (size_t row = step; row < Trows; ++row)
     {
-      RRLIB_LOG_PRINT(DEBUG_VERBOSE_3, "  row: ", step);
+      RRLIB_LOG_PRINT(DEBUG_VERBOSE_3, "  row: ", row);
       TElement row_sum = 0;
       for (size_t column = step; column < Trank; ++column)
       {
@@ -231,21 +234,19 @@ void tLUDecomposition<Trank, TElement>::FullMatrixDecomposition(const tMatrix<Tr
       RRLIB_LOG_PRINT(DEBUG_VERBOSE_3, "    pivotize: ", step, " <-> ", this->pivot[step]);
       for (size_t column = 0; column < Trank; ++column)
       {
-        TElement temp = temp_matrix[step][column];
-        temp_matrix[step][column] = temp_matrix[this->pivot[step]][column];
-        temp_matrix[this->pivot[step]][column] = temp;
+        std::swap(temp_matrix[step][column], temp_matrix[this->pivot[step]][column]);
       }
     }
 
+    RRLIB_LOG_PRINT(DEBUG_VERBOSE_3, "    a[k][k] = a[", step, "][", step, "] = ", temp_matrix[step][step]);
     for (size_t row = step + 1; row < Trows; ++row)
     {
-      RRLIB_LOG_PRINT(DEBUG_VERBOSE_3, "a[k][k] = ", temp_matrix[step][step]);
       temp_matrix[row][step] /= temp_matrix[step][step];
-      RRLIB_LOG_PRINT(DEBUG_VERBOSE_3, "a[i][k] = ", temp_matrix[row][step]);
+      RRLIB_LOG_PRINT(DEBUG_VERBOSE_3, "      a[i][k] = a[", row, "][", step, "] = ", temp_matrix[row][step]);
       for (size_t column = step + 1; column < Trank; ++column)
       {
         temp_matrix[row][column] -= temp_matrix[row][step] * temp_matrix[step][column];
-        RRLIB_LOG_PRINT(DEBUG_VERBOSE_3, "a[i][j] = ", temp_matrix[row][column]);
+        RRLIB_LOG_PRINT(DEBUG_VERBOSE_3, "      a[i][j] = a[", row, "][", column, "] = ", temp_matrix[row][column]);
       }
     }
   }
@@ -281,6 +282,10 @@ void tLUDecomposition<Trank, TElement>::FullMatrixDecomposition(const tMatrix<Tr
       this->upper[row][column] = temp_matrix[row][column];
     }
   }
+
+  RRLIB_LOG_PRINT(DEBUG_VERBOSE_3, "lower: ", this->lower);
+  RRLIB_LOG_PRINT(DEBUG_VERBOSE_3, "upper: ", this->upper);
+  RRLIB_LOG_PRINT(DEBUG_VERBOSE_3, "pivot: ", this->pivot);
 }
 
 //----------------------------------------------------------------------
