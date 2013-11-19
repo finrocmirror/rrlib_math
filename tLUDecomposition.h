@@ -107,7 +107,7 @@ private:
 
   tMatrix<Trank, Trank, TElement, matrix::LowerTriangle> lower;
   tMatrix<Trank, Trank, TElement, matrix::UpperTriangle> upper;
-  size_t pivot[Trank - 1];
+  tVector<Trank, size_t> pivot;
 
   template <size_t Trows, template <size_t, size_t, typename> class TData>
   void FullMatrixDecomposition(const tMatrix<Trows, Trank, TElement, TData> &matrix);

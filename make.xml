@@ -64,4 +64,10 @@
     </sources>
   </unittest>
 
+  <unittest name="decompositions">
+    <sources>
+      test/unit_test_decompositions.cpp
+    </sources>
+  </unittest>
+
 </targets>
