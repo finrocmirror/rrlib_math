@@ -81,7 +81,7 @@ Full<Trows, Tcolumns, TElement>::Accessor::Accessor(TElement *values, size_t row
 // Full::Accessor operator []
 //----------------------------------------------------------------------
 template <size_t Trows, size_t Tcolumns, typename TElement>
-const TElement Full<Trows, Tcolumns, TElement>::Accessor::operator [](size_t column) const
+const TElement &Full<Trows, Tcolumns, TElement>::Accessor::operator [](size_t column) const
 {
   return const_cast<Accessor &>(*this)[column];
 }

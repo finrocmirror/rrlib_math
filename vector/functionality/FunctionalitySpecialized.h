@@ -109,7 +109,7 @@ class FunctionalitySpecialized<Tdimension, TElement, Cartesian>
 //----------------------------------------------------------------------
 public:
 
-  inline const TElement operator [](size_t i) const __attribute__((always_inline, flatten));
+  inline const TElement &operator [](size_t i) const __attribute__((always_inline, flatten));
   inline TElement &operator [](size_t i) __attribute__((always_inline, flatten));
 
   template <typename ... TValues>
@@ -178,7 +178,7 @@ class FunctionalitySpecialized<Tdimension, TElement, Polar, TAdditionalDataParam
 //----------------------------------------------------------------------
 public:
 
-  inline const tAngle operator [](size_t i) const __attribute__((always_inline, flatten));
+  inline const tAngle &operator [](size_t i) const __attribute__((always_inline, flatten));
   inline tAngle &operator [](size_t i) __attribute__((always_inline, flatten));
 
   template <typename ... TValues>

@@ -81,7 +81,7 @@ Symmetrical<Trows, Tcolumns, TElement>::Accessor::Accessor(TElement *values, siz
 // Symmetrical::Accessor operator []
 //----------------------------------------------------------------------
 template <size_t Trows, size_t Tcolumns, typename TElement>
-const TElement Symmetrical<Trows, Tcolumns, TElement>::Accessor::operator [](size_t column) const
+const TElement &Symmetrical<Trows, Tcolumns, TElement>::Accessor::operator [](size_t column) const
 {
   return const_cast<Accessor &>(*this)[column];
 }

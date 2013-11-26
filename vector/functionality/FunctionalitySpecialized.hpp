@@ -115,7 +115,7 @@ FunctionalitySpecialized<Tdimension, TElement, Cartesian>::FunctionalitySpeciali
 // FunctionalitySpecialized Cartesian operator []
 //----------------------------------------------------------------------
 template <size_t Tdimension, typename TElement>
-const TElement FunctionalitySpecialized<Tdimension, TElement, Cartesian>::operator [](size_t i) const
+const TElement &FunctionalitySpecialized<Tdimension, TElement, Cartesian>::operator [](size_t i) const
 {
   return const_cast<FunctionalitySpecialized &>(*this)[i];
 }
@@ -306,7 +306,7 @@ FunctionalitySpecialized<Tdimension, TElement, Polar, TAdditionalDataParameters.
 // FunctionalitySpecialized Polar operator []
 //----------------------------------------------------------------------
 template <size_t Tdimension, typename TElement, typename ... TAdditionalDataParameters>
-const typename Polar<Tdimension, TElement, TAdditionalDataParameters...>::tAngle FunctionalitySpecialized<Tdimension, TElement, Polar, TAdditionalDataParameters...>::operator [](size_t i) const
+const typename Polar<Tdimension, TElement, TAdditionalDataParameters...>::tAngle &FunctionalitySpecialized<Tdimension, TElement, Polar, TAdditionalDataParameters...>::operator [](size_t i) const
 {
   return const_cast<FunctionalitySpecialized &>(*this)[i];
 }

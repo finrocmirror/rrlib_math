@@ -81,7 +81,7 @@ UpperTriangle<Trows, Tcolumns, TElement>::Accessor::Accessor(TElement *values, s
 // LowerTriangle::Accessor operator []
 //----------------------------------------------------------------------
 template <size_t Trows, size_t Tcolumns, typename TElement>
-const TElement UpperTriangle<Trows, Tcolumns, TElement>::Accessor::operator [](size_t column) const
+const TElement &UpperTriangle<Trows, Tcolumns, TElement>::Accessor::operator [](size_t column) const
 {
   if (column < this->row)
   {

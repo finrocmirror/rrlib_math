@@ -82,7 +82,7 @@ LowerTriangle<Trows, Tcolumns, TElement>::Accessor::Accessor(TElement *values, s
 // LowerTriangle::Accessor operator []
 //----------------------------------------------------------------------
 template <size_t Trows, size_t Tcolumns, typename TElement>
-const TElement LowerTriangle<Trows, Tcolumns, TElement>::Accessor::operator [](size_t column) const
+const TElement &LowerTriangle<Trows, Tcolumns, TElement>::Accessor::operator [](size_t column) const
 {
   if (column > this->row)
   {

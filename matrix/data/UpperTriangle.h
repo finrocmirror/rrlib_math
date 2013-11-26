@@ -87,7 +87,7 @@ public:
   public:
     inline Accessor(TElement *values, size_t row) __attribute__((always_inline));
 
-    inline const TElement operator [](size_t column) const __attribute__((always_inline, flatten));
+    inline const TElement &operator [](size_t column) const __attribute__((always_inline, flatten));
 
     inline TElement &operator [](size_t column) __attribute__((always_inline, flatten));
   };
