@@ -58,10 +58,10 @@ using namespace rrlib::math;
 // Implementation
 //----------------------------------------------------------------------
 
-template class tMatrix<2, 2, double, matrix::Full>;
-template class tMatrix<3, 3, double, matrix::Full>;
-template class tMatrix<4, 4, double, matrix::Full>;
+template class tMatrix<2, 2, double>;
+template class tMatrix<3, 3, double>;
+template class tMatrix<4, 4, double>;
 
-template class tMatrix<2, 2, float, matrix::Full>;
-template class tMatrix<3, 3, float, matrix::Full>;
-template class tMatrix<4, 4, float, matrix::Full>;
+template class tMatrix<2, 2, float>;
+template class tMatrix<3, 3, float>;
+template class tMatrix<4, 4, float>;

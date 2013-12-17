@@ -69,8 +69,8 @@ namespace matrix
 //----------------------------------------------------------------------
 // ConstantValuesSpecialized Identity
 //----------------------------------------------------------------------
-template <size_t Tdimension, typename TElement, template <size_t, size_t, typename> class TData>
-const tMatrix<Tdimension, Tdimension, TElement, TData> &ConstantValuesSpecialized<Tdimension, Tdimension, TElement, TData>::Identity()
+template <size_t Tdimension, typename TElement>
+const tMatrix<Tdimension, Tdimension, TElement> &ConstantValuesSpecialized<Tdimension, Tdimension, TElement>::Identity()
 {
   static tMatrix identity(InitializeIdentity());
   return identity;
@@ -79,8 +79,8 @@ const tMatrix<Tdimension, Tdimension, TElement, TData> &ConstantValuesSpecialize
 //----------------------------------------------------------------------
 // ConstantValuesSpecialized InitializeIdentity
 //----------------------------------------------------------------------
-template <size_t Tdimension, typename TElement, template <size_t, size_t, typename> class TData>
-const tMatrix<Tdimension, Tdimension, TElement, TData> &ConstantValuesSpecialized<Tdimension, Tdimension, TElement, TData>::InitializeIdentity()
+template <size_t Tdimension, typename TElement>
+const tMatrix<Tdimension, Tdimension, TElement> &ConstantValuesSpecialized<Tdimension, Tdimension, TElement>::InitializeIdentity()
 {
   static tMatrix matrix;
   for (size_t i = 0; i < Tdimension; ++i)

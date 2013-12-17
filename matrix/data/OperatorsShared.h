@@ -53,6 +53,7 @@
 //----------------------------------------------------------------------
 // Internal includes with ""
 //----------------------------------------------------------------------
+#include "rrlib/math/tVector.h"
 
 //----------------------------------------------------------------------
 // Debugging
@@ -76,8 +77,8 @@ namespace matrix
 // Function declarations
 //----------------------------------------------------------------------
 
-template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, size_t, typename> class TData>
-std::ostream &operator << (std::ostream &stream, const math::tMatrix<Trows, Tcolumns, TElement, TData> &matrix)
+template <size_t Trows, size_t Tcolumns, typename TElement>
+std::ostream &operator << (std::ostream &stream, const math::tMatrix<Trows, Tcolumns, TElement> &matrix)
 {
   stream << "[";
   for (size_t k = 0; k < Tcolumns; ++k)
@@ -96,8 +97,8 @@ std::ostream &operator << (std::ostream &stream, const math::tMatrix<Trows, Tcol
   return stream;
 }
 
-template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, size_t, typename> class TData>
-std::istream &operator >> (std::istream &stream, math::tMatrix<Trows, Tcolumns, TElement, TData> &matrix)
+template <size_t Trows, size_t Tcolumns, typename TElement>
+std::istream &operator >> (std::istream &stream, math::tMatrix<Trows, Tcolumns, TElement> &matrix)
 {
   char temp;
   stream >> temp;
@@ -143,8 +144,8 @@ std::istream &operator >> (std::istream &stream, math::tMatrix<Trows, Tcolumns, 
 
 #ifdef _LIB_RRLIB_SERIALIZATION_PRESENT_
 
-template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, size_t, typename> class TData>
-serialization::tOutputStream &operator << (serialization::tOutputStream &stream, const math::tMatrix<Trows, Tcolumns, TElement, TData> &matrix)
+template <size_t Trows, size_t Tcolumns, typename TElement>
+serialization::tOutputStream &operator << (serialization::tOutputStream &stream, const math::tMatrix<Trows, Tcolumns, TElement> &matrix)
 {
   for (size_t i = 0; i < Trows * Tcolumns; ++i)
   {
@@ -153,8 +154,8 @@ serialization::tOutputStream &operator << (serialization::tOutputStream &stream,
   return stream;
 }
 
-template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, size_t, typename> class TData>
-serialization::tInputStream &operator >> (serialization::tInputStream &stream, math::tMatrix<Trows, Tcolumns, TElement, TData> &matrix)
+template <size_t Trows, size_t Tcolumns, typename TElement>
+serialization::tInputStream &operator >> (serialization::tInputStream &stream, math::tMatrix<Trows, Tcolumns, TElement> &matrix)
 {
   for (size_t i = 0; i < Trows * Tcolumns; ++i)
   {
@@ -163,8 +164,8 @@ serialization::tInputStream &operator >> (serialization::tInputStream &stream, m
   return stream;
 }
 
-template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, size_t, typename> class TData>
-serialization::tStringOutputStream &operator << (serialization::tStringOutputStream &stream, const math::tMatrix<Trows, Tcolumns, TElement, TData> &matrix)
+template <size_t Trows, size_t Tcolumns, typename TElement>
+serialization::tStringOutputStream &operator << (serialization::tStringOutputStream &stream, const math::tMatrix<Trows, Tcolumns, TElement> &matrix)
 {
   std::stringstream string_stream;
   string_stream << matrix;
@@ -172,8 +173,8 @@ serialization::tStringOutputStream &operator << (serialization::tStringOutputStr
   return stream;
 }
 
-template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, size_t, typename> class TData>
-serialization::tStringInputStream &operator >> (serialization::tStringInputStream &stream, math::tMatrix<Trows, Tcolumns, TElement, TData> &matrix)
+template <size_t Trows, size_t Tcolumns, typename TElement>
+serialization::tStringInputStream &operator >> (serialization::tStringInputStream &stream, math::tMatrix<Trows, Tcolumns, TElement> &matrix)
 {
   std::istringstream string_stream(stream.ReadLine());
   string_stream >> matrix;
@@ -182,10 +183,10 @@ serialization::tStringInputStream &operator >> (serialization::tStringInputStrea
 
 #endif
 
-template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, size_t, typename> class TData>
-const math::tMatrix<Trows, Tcolumns, TElement, TData> operator - (const math::tMatrix<Trows, Tcolumns, TElement, TData> &matrix)
+template <size_t Trows, size_t Tcolumns, typename TElement>
+const math::tMatrix<Trows, Tcolumns, TElement> operator - (const math::tMatrix<Trows, Tcolumns, TElement> &matrix)
 {
-  typedef math::tMatrix<Trows, Tcolumns, TElement, TData> tResult;
+  typedef math::tMatrix<Trows, Tcolumns, TElement> tResult;
   typename tResult::tElement data[sizeof(tResult) / sizeof(typename tResult::tElement)];
   for (size_t i = 0; i < sizeof(tResult) / sizeof(typename tResult::tElement); ++i)
   {
@@ -194,10 +195,10 @@ const math::tMatrix<Trows, Tcolumns, TElement, TData> operator - (const math::tM
   return *reinterpret_cast<tResult *>(&data);
 }
 
-template <size_t Trows, size_t Tcolumns, typename TLeftElement, typename TRightElement, template <size_t, size_t, typename> class TData>
-const math::tMatrix < Trows, Tcolumns, decltype(TLeftElement() + TRightElement()), TData > operator + (const math::tMatrix<Trows, Tcolumns, TLeftElement, TData> &left, const math::tMatrix<Trows, Tcolumns, TRightElement, TData> &right)
+template <size_t Trows, size_t Tcolumns, typename TLeftElement, typename TRightElement>
+const math::tMatrix < Trows, Tcolumns, decltype(TLeftElement() + TRightElement()) > operator + (const math::tMatrix<Trows, Tcolumns, TLeftElement> &left, const math::tMatrix<Trows, Tcolumns, TRightElement> &right)
 {
-  typedef math::tMatrix < Trows, Tcolumns, decltype(TLeftElement() + TRightElement()), TData > tResult;
+  typedef math::tMatrix < Trows, Tcolumns, decltype(TLeftElement() + TRightElement()) > tResult;
   typename tResult::tElement data[sizeof(tResult) / sizeof(typename tResult::tElement)];
   for (size_t i = 0; i < sizeof(tResult) / sizeof(typename tResult::tElement); ++i)
   {
@@ -206,70 +207,71 @@ const math::tMatrix < Trows, Tcolumns, decltype(TLeftElement() + TRightElement()
   return *reinterpret_cast<tResult *>(&data);
 }
 
-namespace
-{
-template <size_t Trows, size_t Tcolumns, typename TLeftElement, typename TRightElement, template <size_t, size_t, typename> class TLeftData, template <size_t, size_t, typename> class TRightData>
-class MatrixAddition
-{
-  static math::tMatrix<Trows, Tcolumns, TLeftElement, TLeftData> CreateLeft();
-  static math::tMatrix<Trows, Tcolumns, TRightElement, TRightData> CreateRight();
-public:
-  typedef decltype(CreateLeft() + CreateRight()) type;
-};
-}
-template <size_t Trows, size_t Tcolumns, typename TLeftElement, typename TRightElement, template <size_t, size_t, typename> class TLeftData, template <size_t, size_t, typename> class TRightData>
-inline const typename MatrixAddition<Trows, Tcolumns, TLeftElement, TRightElement, TLeftData, TRightData>::type operator - (const math::tMatrix<Trows, Tcolumns, TLeftElement, TLeftData> &left, const math::tMatrix<Trows, Tcolumns, TRightElement, TRightData> &right)
+template <size_t Trows, size_t Tcolumns, typename TLeftElement, typename TRightElement>
+inline const math::tMatrix < Trows, Tcolumns, decltype(TLeftElement() + TRightElement()) > operator - (const math::tMatrix<Trows, Tcolumns, TLeftElement> &left, const math::tMatrix<Trows, Tcolumns, TRightElement> &right)
 {
   return left + -right;
 }
 
-
-
-
-
-
-//template <size_t Trows, size_t Tcolumns, typename TMatrixElement, typename TVectorElement, template <size_t, size_t, typename> class TData>
-//const tVector<Trows, typename until_0x::Auto<TMatrixElement, TVectorElement>::type, vector::Cartesian> operator * (const math::tMatrix<Trows, Tcolumns, TMatrixElement, TData> &matrix, const tVector<Tcolumns, TVectorElement, vector::Cartesian> &vector)
-//{
-//  typedef tVector<Trows, typename until_0x::Auto<TMatrixElement, TVectorElement>::type, vector::Cartesian> tResult;
-//  typename tResult::tElement data[Trows];
-//  for (size_t row = 0; row < Trows; ++row)
-//  {
-//    data[row] = 0;
-//    for (size_t column = 0; column < Tcolumns; ++column)
-//    {
-//      data[row] += matrix[row][column] * reinterpret_cast<const TVectorElement *>(&vector)[column];
-//    }
-//  }
-//  return tResult(data);
-//}
-//
-//template <size_t Trows, size_t Tcolumns, typename TMatrixElement, typename TVectorElement, template <size_t, size_t, typename> class TData>
-//const tVector<Tcolumns, typename until_0x::Auto<TMatrixElement, TVectorElement>::type, vector::Cartesian> operator * (const tVector<Trows, TVectorElement, vector::Cartesian> &vector, const math::tMatrix<Trows, Tcolumns, TMatrixElement, TData> &matrix)
-//{
-//  typedef tVector<Tcolumns, typename until_0x::Auto<TMatrixElement, TVectorElement>::type, vector::Cartesian> tResult;
-//  typename tResult::tElement data[Tcolumns];
-//  for (size_t column = 0; column < Tcolumns; ++column)
-//  {
-//    data[column] = 0;
-//    for (size_t row = 0; row < Trows; ++row)
-//    {
-//      data[column] += reinterpret_cast<const TVectorElement *>(&vector)[row] * matrix[row][column];
-//    }
-//  }
-//  return tResult(data);
-//}
-
-
-
-
-
-
-
-template <size_t Trows, size_t Tcolumns, typename TMatrixElement, typename TScalar, template <size_t, size_t, typename> class TData>
-const typename boost::enable_if < boost::is_scalar<TScalar>, math::tMatrix < Trows, Tcolumns, decltype(TMatrixElement() + TScalar()), TData > >::type operator *(const math::tMatrix<Trows, Tcolumns, TMatrixElement, TData> &matrix, const TScalar scalar)
+template <size_t Trows, size_t Tconnection, size_t Tcolumns, typename TLeftElement, typename TRightElement>
+const math::tMatrix < Trows, Tcolumns, decltype(TLeftElement() + TRightElement()) > operator *(const math::tMatrix<Trows, Tconnection, TLeftElement> &left, const math::tMatrix<Tconnection, Tcolumns, TRightElement> &right)
 {
-  typedef math::tMatrix < Trows, Tcolumns, decltype(TMatrixElement() + TScalar()), TData > tResult;
+  typedef math::tMatrix < Trows, Tcolumns, decltype(TLeftElement() + TRightElement()) > tResult;
+  typename tResult::tElement data[Trows * Tcolumns];
+  std::memset(data, 0, sizeof(data));
+  size_t index = 0;
+  for (size_t row = 0; row < Trows; ++row)
+  {
+    for (size_t column = 0; column < Tcolumns; ++column)
+    {
+      const size_t left_offset = row * Tconnection;
+      for (size_t i = 0; i < Tconnection; ++i)
+      {
+        data[index] += reinterpret_cast<const TLeftElement *>(&left)[left_offset + i] * right[i][column];
+      }
+      index++;
+    }
+  }
+  return tResult(data);
+}
+
+template <size_t Trows, size_t Tcolumns, typename TMatrixElement, typename TVectorElement>
+const tVector < Trows, decltype(TMatrixElement() + TVectorElement()), vector::Cartesian > operator *(const math::tMatrix<Trows, Tcolumns, TMatrixElement> &matrix, const tVector<Tcolumns, TVectorElement, vector::Cartesian> &vector)
+{
+  typedef tVector < Trows, decltype(TMatrixElement() + TVectorElement()), vector::Cartesian > tResult;
+  typename tResult::tElement data[Trows];
+  for (size_t row = 0; row < Trows; ++row)
+  {
+    data[row] = 0;
+    const size_t matrix_offset = row * Tcolumns;
+    for (size_t column = 0; column < Tcolumns; ++column)
+    {
+      data[row] += reinterpret_cast<const TMatrixElement *>(&matrix)[matrix_offset + column] * reinterpret_cast<const TVectorElement *>(&vector)[column];
+    }
+  }
+  return tResult(data);
+}
+
+template <size_t Trows, size_t Tcolumns, typename TMatrixElement, typename TVectorElement>
+const tVector < Tcolumns, decltype(TMatrixElement() + TVectorElement()), vector::Cartesian > operator *(const tVector<Trows, TVectorElement, vector::Cartesian> &vector, const math::tMatrix<Trows, Tcolumns, TMatrixElement> &matrix)
+{
+  typedef tVector < Tcolumns, decltype(TMatrixElement() + TVectorElement()), vector::Cartesian > tResult;
+  typename tResult::tElement data[Tcolumns];
+  for (size_t column = 0; column < Tcolumns; ++column)
+  {
+    data[column] = 0;
+    for (size_t row = 0; row < Trows; ++row)
+    {
+      data[column] += reinterpret_cast<const TVectorElement *>(&vector)[row] * reinterpret_cast<const TMatrixElement *>(&matrix)[row * Tcolumns + column];
+    }
+  }
+  return tResult(data);
+}
+
+template <size_t Trows, size_t Tcolumns, typename TMatrixElement, typename TScalar>
+const typename boost::enable_if < boost::is_scalar<TScalar>, math::tMatrix < Trows, Tcolumns, decltype(TMatrixElement() + TScalar()) > >::type operator *(const math::tMatrix<Trows, Tcolumns, TMatrixElement> &matrix, const TScalar scalar)
+{
+  typedef math::tMatrix < Trows, Tcolumns, decltype(TMatrixElement() + TScalar()) > tResult;
   typename tResult::tElement data[sizeof(tResult) / sizeof(typename tResult::tElement)];
   for (size_t i = 0; i < sizeof(tResult) / sizeof(typename tResult::tElement); ++i)
   {
@@ -278,14 +280,14 @@ const typename boost::enable_if < boost::is_scalar<TScalar>, math::tMatrix < Tro
   return *reinterpret_cast<tResult *>(&data);
 }
 
-template <size_t Trows, size_t Tcolumns, typename TMatrixElement, typename TScalar, template <size_t, size_t, typename> class TData>
-const typename boost::enable_if < boost::is_scalar<TScalar>, math::tMatrix < Trows, Tcolumns, decltype(TMatrixElement() + TScalar()), TData > >::type operator *(const TScalar scalar, const math::tMatrix<Trows, Tcolumns, TMatrixElement, TData> &matrix)
+template <size_t Trows, size_t Tcolumns, typename TMatrixElement, typename TScalar>
+const typename boost::enable_if < boost::is_scalar<TScalar>, math::tMatrix < Trows, Tcolumns, decltype(TMatrixElement() + TScalar()) > >::type operator *(const TScalar scalar, const math::tMatrix<Trows, Tcolumns, TMatrixElement> &matrix)
 {
   return matrix * scalar;
 }
 
-template <size_t Trows, size_t Tcolumns, typename TMatrixElement, typename TScalar, template <size_t, size_t, typename> class TData>
-const typename boost::enable_if < boost::is_scalar<TScalar>, math::tMatrix < Trows, Tcolumns, decltype(TMatrixElement() + TScalar()), TData > >::type operator / (const math::tMatrix<Trows, Tcolumns, TMatrixElement, TData> &matrix, const TScalar scalar)
+template <size_t Trows, size_t Tcolumns, typename TMatrixElement, typename TScalar>
+const typename boost::enable_if < boost::is_scalar<TScalar>, math::tMatrix < Trows, Tcolumns, decltype(TMatrixElement() + TScalar()) > >::type operator / (const math::tMatrix<Trows, Tcolumns, TMatrixElement> &matrix, const TScalar scalar)
 {
   return matrix * (1 / scalar);
 }

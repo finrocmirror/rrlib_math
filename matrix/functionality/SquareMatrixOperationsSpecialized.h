@@ -72,10 +72,10 @@ namespace matrix
 /*!
  *
  */
-template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, size_t, typename> class TData>
+template <size_t Trows, size_t Tcolumns, typename TElement>
 class SquareMatrixOperationsSpecialized
 {
-  typedef math::tMatrix<Trows, Tcolumns, TElement, TData> tMatrix;
+  typedef math::tMatrix<Trows, Tcolumns, TElement> tMatrix;
 
 //----------------------------------------------------------------------
 // Protected methods
@@ -98,10 +98,10 @@ private:
 /*!
  *
  */
-template <size_t Tdimension, typename TElement, template <size_t, size_t, typename> class TData>
-class SquareMatrixOperationsSpecialized<Tdimension, Tdimension, TElement, TData>
+template <size_t Tdimension, typename TElement>
+class SquareMatrixOperationsSpecialized<Tdimension, Tdimension, TElement>
 {
-  typedef math::tMatrix<Tdimension, Tdimension, TElement, TData> tMatrix;
+  typedef math::tMatrix<Tdimension, Tdimension, TElement> tMatrix;
 
 //----------------------------------------------------------------------
 // Public methods and typedefs
@@ -162,10 +162,10 @@ private:
   SquareMatrixOperationsSpecialized(const SquareMatrixOperationsSpecialized &);
   SquareMatrixOperationsSpecialized &operator = (const SquareMatrixOperationsSpecialized &);
 
-  const math::tMatrix < Tdimension - 1, Tdimension - 1, TElement, Full > ExtractSubMatrix(size_t cut_row, size_t cut_column) const
+  const math::tMatrix < Tdimension - 1, Tdimension - 1, TElement > ExtractSubMatrix(size_t cut_row, size_t cut_column) const
   {
     const tMatrix *that = reinterpret_cast<const tMatrix *>(this);
-    typedef math::tMatrix < Tdimension - 1, Tdimension - 1, TElement, Full > tResult;
+    typedef math::tMatrix < Tdimension - 1, Tdimension - 1, TElement > tResult;
     typename tResult::tElement data[tResult::cROWS * tResult::cCOLUMNS];
     for (size_t row = 0; row < tResult::cROWS; ++row)
     {
@@ -182,10 +182,10 @@ private:
 /*!
  *
  */
-template <typename TElement, template <size_t, size_t, typename> class TData>
-class SquareMatrixOperationsSpecialized<2, 2, TElement, TData>
+template <typename TElement>
+class SquareMatrixOperationsSpecialized<2, 2, TElement>
 {
-  typedef math::tMatrix<2, 2, TElement, TData> tMatrix;
+  typedef math::tMatrix<2, 2, TElement> tMatrix;
 
 //----------------------------------------------------------------------
 // Public methods and typedefs

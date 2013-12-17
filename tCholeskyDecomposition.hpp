@@ -65,8 +65,9 @@ namespace math
 // tCholeskyDecomposition constructors
 //----------------------------------------------------------------------
 template <size_t Trank, typename TElement>
-tCholeskyDecomposition<Trank, TElement>::tCholeskyDecomposition(const tMatrix<Trank, Trank, TElement, matrix::Symmetrical> &matrix)
+tCholeskyDecomposition<Trank, TElement>::tCholeskyDecomposition(const tMatrix<Trank, Trank, TElement> &matrix)
 {
+  // FIXME: check if matrix is symmetric
   for (size_t step = 0; step < Trank; ++step)
   {
     this->cholesky_matrix[step][step] = matrix[step][step];

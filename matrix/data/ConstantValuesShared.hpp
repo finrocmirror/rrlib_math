@@ -69,8 +69,8 @@ namespace matrix
 //----------------------------------------------------------------------
 // ConstantValuesShared Zero
 //----------------------------------------------------------------------
-template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, size_t, typename> class TData>
-const tMatrix<Trows, Tcolumns, TElement, TData> &ConstantValuesShared<Trows, Tcolumns, TElement, TData>::Zero()
+template <size_t Trows, size_t Tcolumns, typename TElement>
+const tMatrix<Trows, Tcolumns, TElement> &ConstantValuesShared<Trows, Tcolumns, TElement>::Zero()
 {
   static tMatrix matrix;
   return matrix;

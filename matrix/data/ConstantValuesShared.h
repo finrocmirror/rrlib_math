@@ -71,10 +71,10 @@ namespace matrix
 /*!
  *
  */
-template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, size_t, typename> class TData>
+template <size_t Trows, size_t Tcolumns, typename TElement>
 class ConstantValuesShared
 {
-  typedef math::tMatrix<Trows, Tcolumns, TElement, TData> tMatrix;
+  typedef math::tMatrix<Trows, Tcolumns, TElement> tMatrix;
 
 //----------------------------------------------------------------------
 // Public methods and typedefs

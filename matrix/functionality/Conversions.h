@@ -76,7 +76,7 @@ namespace matrix
 /*!
  *
  */
-template <size_t Trows, size_t Tcolumns, typename TElement = double, template <size_t, size_t, typename> class TData = matrix::Full>
+template <size_t Trows, size_t Tcolumns, typename TElement>
 class Conversions
 {
 
@@ -101,7 +101,7 @@ private:
  *
  */
 template <typename TElement>
-class Conversions<4, 4, TElement, matrix::Full>
+class Conversions<4, 4, TElement>
 {
 
 //----------------------------------------------------------------------
@@ -112,7 +112,7 @@ public:
 #ifdef _LIB_OIV_PRESENT_
   inline const SbMatrix GetCoinMatrix() const __attribute__((always_inline, flatten))
   {
-    const math::tMatrix<4, 4, TElement, matrix::Full>* that = reinterpret_cast<const math::tMatrix<4, 4, TElement, matrix::Full> *>(this);
+    const math::tMatrix<4, 4, TElement> *that = reinterpret_cast<const math::tMatrix<4, 4, TElement> *>(this);
     return SbMatrix(
              (*that)[0][0], (*that)[1][0], (*that)[2][0], (*that)[3][0],
              (*that)[0][1], (*that)[1][1], (*that)[2][1], (*that)[3][1],

@@ -75,10 +75,10 @@ namespace matrix
 /*!
  *
  */
-template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, size_t, typename> class TData>
+template <size_t Trows, size_t Tcolumns, typename TElement>
 class Rotation
 {
-  typedef math::tMatrix<Trows, Tcolumns, TElement, TData> tMatrix;
+  typedef math::tMatrix<Trows, Tcolumns, TElement> tMatrix;
 
 //----------------------------------------------------------------------
 // Protected methods
@@ -102,9 +102,9 @@ private:
  *
  */
 template <typename TElement>
-class Rotation<3, 3, TElement, Full>
+class Rotation<3, 3, TElement>
 {
-  typedef math::tMatrix<3, 3, TElement, Full> tMatrix;
+  typedef math::tMatrix<3, 3, TElement> tMatrix;
 
 //----------------------------------------------------------------------
 // Public methods and typedefs
@@ -199,9 +199,9 @@ private:
  *
  */
 template <typename TElement>
-class Rotation<4, 4, TElement, Full>
+class Rotation<4, 4, TElement>
 {
-  typedef math::tMatrix<4, 4, TElement, Full> tMatrix;
+  typedef math::tMatrix<4, 4, TElement> tMatrix;
 
 //----------------------------------------------------------------------
 // Public methods and typedefs
@@ -220,7 +220,7 @@ public:
         data[row * 3 + column] = (*that)[row][column];
       }
     }
-    math::tMatrix<3, 3, TElement, Full>(data).GetRotation(axis, angle);
+    math::tMatrix<3, 3, TElement>(data).GetRotation(axis, angle);
   }
 
   /*! Sets this matrix to represent a homogeneous rotation matrix

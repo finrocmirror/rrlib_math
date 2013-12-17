@@ -35,6 +35,8 @@
 #include <iostream>
 #include <cmath>
 
+#include "rrlib/logging/messages.h"
+
 //----------------------------------------------------------------------
 // Internal includes with ""
 //----------------------------------------------------------------------
@@ -82,9 +84,9 @@ int main(int argc, char **argv)
 
   std::cout << -a << std::endl;
 
-  tMatrix<2, 2, double, matrix::LowerTriangle> l(1, 0, 3, 4);
-  tMatrix<2, 2, double, matrix::UpperTriangle> u(1, 2, 0, 4);
-  tMatrix<2, 2, double, matrix::Symmetrical> s(1, 2, 2, 5);
+  tMatrix<2, 2, double> l(1, 0, 3, 4);
+  tMatrix<2, 2, double> u(1, 2, 0, 4);
+  tMatrix<2, 2, double> s(1, 2, 2, 5);
 
   tVector<2, double> v(1, 2);
 
@@ -244,7 +246,7 @@ int main(int argc, char **argv)
   std::cout << s << std::endl;
 
   // test matrix inversion with hilbert-matrix
-  typedef tMatrix<5, 5, double, matrix::Full> tInversionTest;
+  typedef tMatrix<5, 5, double> tInversionTest;
   tInversionTest hilbert_matrix;
   for (size_t row = 0; row < tInversionTest::cROWS; ++row)
   {
@@ -267,15 +269,14 @@ int main(int argc, char **argv)
     1, 1.60, 2.5600
   );
 
-  tMatrix<3, 3, double, matrix::Symmetrical> A = (tMatrix<3, 3, double, matrix::Symmetrical>)
-      (C.Transposed() * C);
+  tMatrix<3, 3, double> A = C.Transposed() * C;
   std::cout << "A:" << A << std::endl;
 
   tVector<7, double> d(-2.63, -1.18, -1.16, -1.54, -2.65, -5.41, -7.67);
   tVector<3, double> _b = C.Transposed() * d;
   std::cout << "b:" << _b << std::endl;
 
-  tMatrix<3, 3, double, matrix::LowerTriangle> L;
+  tMatrix<3, 3, double> L;
   tCholeskyDecomposition<3, double> chol(A);
   L = chol.C();
   std::cout << "----------------------------------------" << std::endl

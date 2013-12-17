@@ -78,9 +78,9 @@ class tCholeskyDecomposition
 //----------------------------------------------------------------------
 public:
 
-  tCholeskyDecomposition(const tMatrix<Trank, Trank, TElement, matrix::Symmetrical> &matrix);
+  tCholeskyDecomposition(const tMatrix<Trank, Trank, TElement> &matrix);
 
-  inline const tMatrix<Trank, Trank, TElement, matrix::LowerTriangle> &C() const
+  inline const tMatrix<Trank, Trank, TElement> &C() const
   {
     return this->cholesky_matrix;
   }
@@ -92,7 +92,7 @@ public:
 //----------------------------------------------------------------------
 private:
 
-  tMatrix<Trank, Trank, TElement, matrix::LowerTriangle> cholesky_matrix;
+  tMatrix<Trank, Trank, TElement> cholesky_matrix;
 
 };
 

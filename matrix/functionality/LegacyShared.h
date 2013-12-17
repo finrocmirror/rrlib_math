@@ -71,10 +71,10 @@ namespace matrix
 /*!
  *
  */
-template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, size_t, typename> class TData>
+template <size_t Trows, size_t Tcolumns, typename TElement>
 class LegacyShared
 {
-  typedef math::tMatrix<Trows, Tcolumns, TElement, TData> tMatrix;
+  typedef math::tMatrix<Trows, Tcolumns, TElement> tMatrix;
 
 //----------------------------------------------------------------------
 // Public methods and typedefs
@@ -103,16 +103,16 @@ private:
 
 };
 
-template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, size_t, typename> class TData>
+template <size_t Trows, size_t Tcolumns, typename TElement>
 template <typename ... TValues>
-void LegacyShared<Trows, Tcolumns, TElement, TData>::SetMatrix(TValues... values)
+void LegacyShared<Trows, Tcolumns, TElement>::SetMatrix(TValues... values)
 {
   tMatrix *that = reinterpret_cast<tMatrix *>(this);
   that->Set(values...);
 }
 
-template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, size_t, typename> class TData>
-double LegacyShared<Trows, Tcolumns, TElement, TData>::Det() const
+template <size_t Trows, size_t Tcolumns, typename TElement>
+double LegacyShared<Trows, Tcolumns, TElement>::Det() const
 {
   const tMatrix *that = reinterpret_cast<const tMatrix *>(this);
   return that->Determinant();

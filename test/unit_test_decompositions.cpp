@@ -85,7 +85,7 @@ private:
   virtual void Test()
   {
     // 3x3 equation system with doubles
-    rrlib::math::tMatrix<3, 3, double, matrix::Full> matrix1(
+    rrlib::math::tMatrix<3, 3, double> matrix1(
       -5.0, -1.0,  2.0,
       -2.0,  6.0,  2.0,
       4.0,  2.0, -8.0
@@ -97,7 +97,7 @@ private:
 
 
     // 3x3 equation system with doubles
-    rrlib::math::tMatrix<3, 3, double, matrix::Full> matrix2(
+    rrlib::math::tMatrix<3, 3, double> matrix2(
       9.0,  3.0,  1.0,
       4.0,  2.0,  1.0,
       1.0,  1.0, -1.0
@@ -109,7 +109,7 @@ private:
 
 
     // 5x5 equation system with doubles
-    rrlib::math::tMatrix<5, 5, double, matrix::Full> matrix3(
+    rrlib::math::tMatrix<5, 5, double> matrix3(
       2.0,  4.0,  2.0,  3.0,  5.0,
       -6.0,  4.0,  4.0, -2.0,  1.0,
       7.0, -3.0,  6.0,  1.0,  2.0,
@@ -122,7 +122,7 @@ private:
     RRLIB_UNIT_TESTS_EQUALITY_MESSAGE("Result of solved equation system should be (2, 4, 0.5, 3, -5)", (rrlib::math::tVector<5, double>(2.0, 4.0, 0.5, 3.0, -5.0)), (rrlib::math::tVector<5, double>) result3);
 
     // over-determined 3x2 equation system
-    rrlib::math::tMatrix<3, 2, double, matrix::Full> matrix4(
+    rrlib::math::tMatrix<3, 2, double> matrix4(
       2.0,  0.0,
       2.0,  0.0,
       2.0, -1.0
@@ -133,7 +133,7 @@ private:
     RRLIB_UNIT_TESTS_EQUALITY_MESSAGE("Result of solved equation system should be (0.5, 1, 0)", rrlib::math::tVec3d(0.5, 1.0, 0.0), (rrlib::math::tVector<3, double>) result4);
 
     // over-determined 3x2 equation system
-    rrlib::math::tMatrix<3, 2, double, matrix::Full> matrix5(
+    rrlib::math::tMatrix<3, 2, double> matrix5(
       0.0,  0.0,
       0.0,  1.0,
       -1.0,  0.0

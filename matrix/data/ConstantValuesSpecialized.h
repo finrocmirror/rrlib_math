@@ -71,7 +71,7 @@ namespace matrix
 /*!
  *
  */
-template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, size_t, typename> class TData>
+template <size_t Trows, size_t Tcolumns, typename TElement>
 class ConstantValuesSpecialized
 {
 
@@ -96,10 +96,10 @@ private:
 /*!
  *
  */
-template <size_t Tdimension, typename TElement, template <size_t, size_t, typename> class TData>
-class ConstantValuesSpecialized<Tdimension, Tdimension, TElement, TData>
+template <size_t Tdimension, typename TElement>
+class ConstantValuesSpecialized<Tdimension, Tdimension, TElement>
 {
-  typedef math::tMatrix<Tdimension, Tdimension, TElement, TData> tMatrix;
+  typedef math::tMatrix<Tdimension, Tdimension, TElement> tMatrix;
 
 //----------------------------------------------------------------------
 // Public methods and typedefs

@@ -67,136 +67,11 @@ namespace math
 //----------------------------------------------------------------------
 template <size_t Trank, typename TElement>
 template <size_t Trows>
-tLUDecomposition<Trank, TElement>::tLUDecomposition(const tMatrix<Trows, Trank, TElement, matrix::Full> &matrix)
-{
-  this->FullMatrixDecomposition(matrix);
-}
-
-template <size_t Trank, typename TElement>
-tLUDecomposition<Trank, TElement>::tLUDecomposition(const tMatrix<Trank, Trank, TElement, matrix::LowerTriangle> &matrix)
-{
-  for (size_t i = 0; i < Trank; ++i)
-  {
-    if (matrix[i][i] == 0)
-    {
-      throw std::logic_error("FIXME: Matrix not of expected rank");
-    }
-  }
-
-  for (size_t i = 0; i < Trank; ++i)
-  {
-    this->upper[i][i] = matrix[i][i];
-  }
-  this->lower = matrix;
-
-  for (size_t column = 0; column < Trank; ++column)
-  {
-    for (size_t row = column; row < Trank; ++row)
-    {
-      this->lower[row][column] /= this->upper[column][column];
-    }
-  }
-
-  for (size_t i = 0; i < Trank - 1; ++i)
-  {
-    this->pivot[i] = i;
-  }
-}
-
-template <size_t Trank, typename TElement>
-tLUDecomposition<Trank, TElement>::tLUDecomposition(const tMatrix<Trank, Trank, TElement, matrix::UpperTriangle> &matrix)
-{
-  for (size_t i = 0; i < Trank; ++i)
-  {
-    if (matrix[i][i] == 0)
-    {
-      throw std::logic_error("FIXME: Matrix not of expected rank");
-    }
-  }
-
-  for (size_t i = 0; i < Trank; ++i)
-  {
-    this->lower[i][i] = 1;
-  }
-  this->upper = matrix;
-
-  for (size_t i = 0; i < Trank - 1; ++i)
-  {
-    this->pivot[i] = i;
-  }
-}
-
-template <size_t Trank, typename TElement>
-tLUDecomposition<Trank, TElement>::tLUDecomposition(const tMatrix<Trank, Trank, TElement, matrix::Symmetrical> &matrix)
-{
-  try
-  {
-    tCholeskyDecomposition<Trank, TElement> cholesky_decomposition(matrix);
-    this->lower = cholesky_decomposition.C();
-    this->upper = cholesky_decomposition.C().Transposed();
-
-    for (size_t i = 0; i < Trank - 1; ++i)
-    {
-      this->pivot[i] = i;
-    }
-  }
-  catch (const std::logic_error &e)
-  {
-    this->FullMatrixDecomposition(matrix);
-  }
-}
-
-//----------------------------------------------------------------------
-// tLUDecomposition Solve
-//----------------------------------------------------------------------
-template <size_t Trank, typename TElement>
-template <size_t Tdimension>
-const tVector<Trank, TElement> tLUDecomposition<Trank, TElement>::Solve(const tVector<Tdimension, TElement> &right_side) const
-{
-  static_assert(Tdimension >= Trank, "Dimension of given vector is too small");
-
-  RRLIB_LOG_PRINT(DEBUG_VERBOSE_3, "vector: ", right_side);
-  RRLIB_LOG_PRINT(DEBUG_VERBOSE_3, "pivot: ", this->pivot);
-
-  tVector<Tdimension, TElement> temp(right_side);
-  for (size_t i = 0; i < Trank; ++i)
-  {
-    std::swap(temp[i], temp[this->pivot[i]]);
-  }
-
-  RRLIB_LOG_PRINT(DEBUG_VERBOSE_3, "pivotized: ", temp);
-
-  for (size_t row = 0; row < Trank; ++row)
-  {
-    for (size_t column = 0; column < row; ++column)
-    {
-      temp[row] -= this->lower[row][column] * temp[column];
-    }
-  }
-  TElement result[Trank];
-  for (size_t step = 0; step < Trank; ++step)
-  {
-    size_t row = Trank - step - 1;
-    result[row] = temp[row];
-    for (size_t column = row + 1; column < Trank; ++column)
-    {
-      result[row] -= this->upper[row][column] * result[column];
-    }
-    result[row] /= this->upper[row][row];
-  }
-  return tVector<Trank, TElement>(result);
-}
-
-//----------------------------------------------------------------------
-// tLUDecomposition FullMatrixDecomposition
-//----------------------------------------------------------------------
-template <size_t Trank, typename TElement>
-template <size_t Trows, template <size_t, size_t, typename> class TData>
-void tLUDecomposition<Trank, TElement>::FullMatrixDecomposition(const tMatrix<Trows, Trank, TElement, TData> &matrix)
+tLUDecomposition<Trank, TElement>::tLUDecomposition(const tMatrix<Trows, Trank, TElement> &matrix)
 {
   static_assert(Trows >= Trank, "Matrix can not have given rank");
 
-  tMatrix<Trows, Trank, TElement, matrix::Full> temp_matrix(matrix);
+  tMatrix<Trows, Trank, TElement> temp_matrix(matrix);
 
   for (size_t step = 0; step < std::min(Trank, Trows); ++step)
   {
@@ -286,6 +161,47 @@ void tLUDecomposition<Trank, TElement>::FullMatrixDecomposition(const tMatrix<Tr
   RRLIB_LOG_PRINT(DEBUG_VERBOSE_3, "lower: ", this->lower);
   RRLIB_LOG_PRINT(DEBUG_VERBOSE_3, "upper: ", this->upper);
   RRLIB_LOG_PRINT(DEBUG_VERBOSE_3, "pivot: ", this->pivot);
+}
+
+//----------------------------------------------------------------------
+// tLUDecomposition Solve
+//----------------------------------------------------------------------
+template <size_t Trank, typename TElement>
+template <size_t Tdimension>
+const tVector<Trank, TElement> tLUDecomposition<Trank, TElement>::Solve(const tVector<Tdimension, TElement> &right_side) const
+{
+  static_assert(Tdimension >= Trank, "Dimension of given vector is too small");
+
+  RRLIB_LOG_PRINT(DEBUG_VERBOSE_3, "vector: ", right_side);
+  RRLIB_LOG_PRINT(DEBUG_VERBOSE_3, "pivot: ", this->pivot);
+
+  tVector<Tdimension, TElement> temp(right_side);
+  for (size_t i = 0; i < Trank; ++i)
+  {
+    std::swap(temp[i], temp[this->pivot[i]]);
+  }
+
+  RRLIB_LOG_PRINT(DEBUG_VERBOSE_3, "pivotized: ", temp);
+
+  for (size_t row = 0; row < Trank; ++row)
+  {
+    for (size_t column = 0; column < row; ++column)
+    {
+      temp[row] -= this->lower[row][column] * temp[column];
+    }
+  }
+  TElement result[Trank];
+  for (size_t step = 0; step < Trank; ++step)
+  {
+    size_t row = Trank - step - 1;
+    result[row] = temp[row];
+    for (size_t column = row + 1; column < Trank; ++column)
+    {
+      result[row] -= this->upper[row][column] * result[column];
+    }
+    result[row] /= this->upper[row][row];
+  }
+  return tVector<Trank, TElement>(result);
 }
 
 //----------------------------------------------------------------------

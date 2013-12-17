@@ -71,10 +71,10 @@ namespace matrix
 /*!
  *
  */
-template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, size_t, typename> class TData>
+template <size_t Trows, size_t Tcolumns, typename TElement>
 class SquareMatrixOperationsShared
 {
-  typedef math::tMatrix<Trows, Tcolumns, TElement, TData> tMatrix;
+  typedef math::tMatrix<Trows, Tcolumns, TElement> tMatrix;
 
 //----------------------------------------------------------------------
 // Public methods and typedefs
@@ -107,10 +107,10 @@ private:
 /*!
  *
  */
-template <size_t Tdimension, typename TElement, template <size_t, size_t, typename> class TData>
-class SquareMatrixOperationsShared<Tdimension, Tdimension, TElement, TData>
+template <size_t Tdimension, typename TElement>
+class SquareMatrixOperationsShared<Tdimension, Tdimension, TElement>
 {
-  typedef math::tMatrix<Tdimension, Tdimension, TElement, TData> tMatrix;
+  typedef math::tMatrix<Tdimension, Tdimension, TElement> tMatrix;
 
 //----------------------------------------------------------------------
 // Public methods and typedefs

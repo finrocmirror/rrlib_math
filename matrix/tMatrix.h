@@ -74,21 +74,20 @@ namespace math
 /*!
  *
  */
-template <size_t Trows, size_t Tcolumns, typename TElement = double, template <size_t, size_t, typename> class TData = matrix::Full>
-class tMatrix : public TData<Trows, Tcolumns, TElement>,
-  public matrix::FunctionalityShared<Trows, Tcolumns, TElement, TData>,
-  public matrix::FunctionalitySpecialized<Trows, Tcolumns, TElement, TData>,
-  public matrix::SquareMatrixOperationsShared<Trows, Tcolumns, TElement, TData>,
-  public matrix::SquareMatrixOperationsSpecialized<Trows, Tcolumns, TElement, TData>,
-  public matrix::HomogeneousMultiplication<Trows, Tcolumns, TElement, TData>,
-  public matrix::Rotation<Trows, Tcolumns, TElement, TData>,
-  public matrix::LegacyShared<Trows, Tcolumns, TElement, TData>,
-  public matrix::LegacySpecialized<Trows, Tcolumns, TElement, TData>,
-  public matrix::ConstantValuesShared<Trows, Tcolumns, TElement, TData>,
-  public matrix::ConstantValuesSpecialized<Trows, Tcolumns, TElement, TData>,
-  public matrix::Conversions<Trows, Tcolumns, TElement, TData>
+template <size_t Trows, size_t Tcolumns, typename TElement = double>
+class tMatrix : public matrix::Full<Trows, Tcolumns, TElement>,
+  public matrix::FunctionalityShared<Trows, Tcolumns, TElement>,
+  public matrix::SquareMatrixOperationsShared<Trows, Tcolumns, TElement>,
+  public matrix::SquareMatrixOperationsSpecialized<Trows, Tcolumns, TElement>,
+  public matrix::HomogeneousMultiplication<Trows, Tcolumns, TElement>,
+  public matrix::Rotation<Trows, Tcolumns, TElement>,
+  public matrix::LegacyShared<Trows, Tcolumns, TElement>,
+  public matrix::LegacySpecialized<Trows, Tcolumns, TElement>,
+  public matrix::ConstantValuesShared<Trows, Tcolumns, TElement>,
+  public matrix::ConstantValuesSpecialized<Trows, Tcolumns, TElement>,
+  public matrix::Conversions<Trows, Tcolumns, TElement>
 {
-  typedef matrix::FunctionalityShared<Trows, Tcolumns, TElement, TData> FunctionalityShared;
+  typedef matrix::FunctionalityShared<Trows, Tcolumns, TElement> FunctionalityShared;
 
 //----------------------------------------------------------------------
 // Public methods
@@ -102,10 +101,7 @@ public:
   explicit inline tMatrix(const TElement data[Trows * Tcolumns]) __attribute__((always_inline));
 
   template <typename TOtherElement>
-  explicit inline tMatrix(const tMatrix<Trows, Tcolumns, TOtherElement, TData> &other) __attribute__((always_inline));
-
-  template <typename TOtherElement, template <size_t, size_t, typename> class TOtherData>
-  explicit inline tMatrix(const tMatrix<Trows, Tcolumns, TOtherElement, TOtherData> &other) __attribute__((always_inline));
+  explicit inline tMatrix(const tMatrix<Trows, Tcolumns, TOtherElement> &other) __attribute__((always_inline));
 
   template <typename TLeftElement, typename TRightElement>
   inline tMatrix(const tVector<Trows, TLeftElement, vector::Cartesian> &left, const tVector<Tcolumns, TRightElement, vector::Cartesian> &right) __attribute__((always_inline));
@@ -123,7 +119,7 @@ public:
   inline tMatrix &operator = (const tMatrix &other) __attribute__((always_inline, flatten));
 
   template <typename TOtherElement>
-  inline tMatrix &operator = (const tMatrix<Trows, Tcolumns, TOtherElement, TData> &other) __attribute__((always_inline, flatten));
+  inline tMatrix &operator = (const tMatrix<Trows, Tcolumns, TOtherElement> &other) __attribute__((always_inline, flatten));
 
 };
 

@@ -100,7 +100,7 @@ public:
     normal_distribution(0, 1),
     mean(mean),
     covariance(covariance),
-    affine_transformation(tCholeskyDecomposition<Tdimension, TElement>(tMatrix<Tdimension, Tdimension, TElement, matrix::Symmetrical>(covariance)).C())
+    affine_transformation(tCholeskyDecomposition<Tdimension, TElement>(tMatrix<Tdimension, Tdimension, TElement>(covariance)).C())
   {}
 
   /*! Generating function
@@ -149,7 +149,7 @@ private:
   std::normal_distribution<TElement> normal_distribution;
   tSample mean;
   tCovariance covariance;
-  tMatrix<Tdimension, Tdimension, TElement, matrix::LowerTriangle> affine_transformation;
+  tMatrix<Tdimension, Tdimension, TElement> affine_transformation;
 
 };
 

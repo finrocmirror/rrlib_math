@@ -75,27 +75,27 @@ namespace matrix
 //----------------------------------------------------------------------
 // FunctionalityShared constructors
 //----------------------------------------------------------------------
-template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, size_t, typename> class TData>
-FunctionalityShared<Trows, Tcolumns, TElement, TData>::FunctionalityShared()
+template <size_t Trows, size_t Tcolumns, typename TElement>
+FunctionalityShared<Trows, Tcolumns, TElement>::FunctionalityShared()
 {
   std::memset(this, 0, sizeof(tMatrix));
 }
 
-template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, size_t, typename> class TData>
-FunctionalityShared<Trows, Tcolumns, TElement, TData>::FunctionalityShared(const tMatrix &other)
+template <size_t Trows, size_t Tcolumns, typename TElement>
+FunctionalityShared<Trows, Tcolumns, TElement>::FunctionalityShared(const tMatrix &other)
 {
   std::memcpy(this, &other, sizeof(tMatrix));
 }
 
-template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, size_t, typename> class TData>
-FunctionalityShared<Trows, Tcolumns, TElement, TData>::FunctionalityShared(const TElement data[Trows * Tcolumns])
+template <size_t Trows, size_t Tcolumns, typename TElement>
+FunctionalityShared<Trows, Tcolumns, TElement>::FunctionalityShared(const TElement data[Trows * Tcolumns])
 {
   reinterpret_cast<tMatrix *>(this)->SetFromArray(data);
 }
 
-template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, size_t, typename> class TData>
+template <size_t Trows, size_t Tcolumns, typename TElement>
 template <typename TOtherElement>
-FunctionalityShared<Trows, Tcolumns, TElement, TData>::FunctionalityShared(const math::tMatrix<Trows, Tcolumns, TOtherElement, TData> &other)
+FunctionalityShared<Trows, Tcolumns, TElement>::FunctionalityShared(const math::tMatrix<Trows, Tcolumns, TOtherElement> &other)
 {
   std::memset(this, 0, sizeof(tMatrix));
   for (size_t i = 0; i < sizeof(tMatrix) / sizeof(TElement); ++i)
@@ -104,16 +104,9 @@ FunctionalityShared<Trows, Tcolumns, TElement, TData>::FunctionalityShared(const
   }
 }
 
-template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, size_t, typename> class TData>
-template <typename TOtherElement, template <size_t, size_t, typename> class TOtherData>
-FunctionalityShared<Trows, Tcolumns, TElement, TData>::FunctionalityShared(const math::tMatrix<Trows, Tcolumns, TOtherElement, TOtherData> &other)
-{
-  this->SetFromMatrix(other);
-}
-
-template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, size_t, typename> class TData>
+template <size_t Trows, size_t Tcolumns, typename TElement>
 template <typename TLeftElement, typename TRightElement>
-FunctionalityShared<Trows, Tcolumns, TElement, TData>::FunctionalityShared(const tVector<Trows, TLeftElement, vector::Cartesian> &left, const tVector<Tcolumns, TRightElement, vector::Cartesian> &right)
+FunctionalityShared<Trows, Tcolumns, TElement>::FunctionalityShared(const tVector<Trows, TLeftElement, vector::Cartesian> &left, const tVector<Tcolumns, TRightElement, vector::Cartesian> &right)
 {
   TElement data[Trows * Tcolumns];
   for (size_t row = 0; row < Trows; ++row)
@@ -129,24 +122,24 @@ FunctionalityShared<Trows, Tcolumns, TElement, TData>::FunctionalityShared(const
 //----------------------------------------------------------------------
 // FunctionalityShared operator []
 //----------------------------------------------------------------------
-template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, size_t, typename> class TData>
-const typename TData<Trows, Tcolumns, TElement>::Accessor FunctionalityShared<Trows, Tcolumns, TElement, TData>::operator [](size_t row) const
+template <size_t Trows, size_t Tcolumns, typename TElement>
+const typename matrix::Full<Trows, Tcolumns, TElement>::Accessor FunctionalityShared<Trows, Tcolumns, TElement>::operator [](size_t row) const
 {
   return const_cast<FunctionalityShared &>(*this)[row];
 }
 
-template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, size_t, typename> class TData>
-typename TData<Trows, Tcolumns, TElement>::Accessor FunctionalityShared<Trows, Tcolumns, TElement, TData>::operator [](size_t row)
+template <size_t Trows, size_t Tcolumns, typename TElement>
+typename matrix::Full<Trows, Tcolumns, TElement>::Accessor FunctionalityShared<Trows, Tcolumns, TElement>::operator [](size_t row)
 {
-  return typename tData::Accessor(reinterpret_cast<TElement *>(this), row);
+  return typename matrix::Full<Trows, Tcolumns, TElement>::Accessor(reinterpret_cast<TElement *>(this), row);
 }
 
 //----------------------------------------------------------------------
 // FunctionalityShared Set
 //----------------------------------------------------------------------
-template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, size_t, typename> class TData>
+template <size_t Trows, size_t Tcolumns, typename TElement>
 template <typename ... TValues>
-void FunctionalityShared<Trows, Tcolumns, TElement, TData>::Set(TValues... values)
+void FunctionalityShared<Trows, Tcolumns, TElement>::Set(TValues... values)
 {
   static_assert(sizeof...(values) == Trows * Tcolumns, "Wrong number of values given to store in matrix");
 
@@ -164,9 +157,9 @@ void FunctionalityShared<Trows, Tcolumns, TElement, TData>::Set(TValues... value
 //----------------------------------------------------------------------
 // FunctionalityShared SetFromMatrix
 //----------------------------------------------------------------------
-template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, size_t, typename> class TData>
-template <typename TOtherElement, template <size_t, size_t, typename> class TOtherData>
-void FunctionalityShared<Trows, Tcolumns, TElement, TData>::SetFromMatrix(const math::tMatrix<Trows, Tcolumns, TOtherElement, TOtherData> &source)
+template <size_t Trows, size_t Tcolumns, typename TElement>
+template <typename TOtherElement>
+void FunctionalityShared<Trows, Tcolumns, TElement>::SetFromMatrix(const math::tMatrix<Trows, Tcolumns, TOtherElement> &source)
 {
   TElement buffer[Trows * Tcolumns];
   for (size_t row  = 0; row < Trows; ++row)
@@ -182,8 +175,8 @@ void FunctionalityShared<Trows, Tcolumns, TElement, TData>::SetFromMatrix(const 
 //----------------------------------------------------------------------
 // FunctionalityShared SetIdentity
 //----------------------------------------------------------------------
-template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, size_t, typename> class TData>
-void FunctionalityShared<Trows, Tcolumns, TElement, TData>::SetIdentity()
+template <size_t Trows, size_t Tcolumns, typename TElement>
+void FunctionalityShared<Trows, Tcolumns, TElement>::SetIdentity()
 {
   *this = tMatrix::Identity();
 }
@@ -191,9 +184,9 @@ void FunctionalityShared<Trows, Tcolumns, TElement, TData>::SetIdentity()
 //----------------------------------------------------------------------
 // FunctionalityShared operator +=
 //----------------------------------------------------------------------
-template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, size_t, typename> class TData>
-template <typename TOtherElement, template <size_t, size_t, typename> class TOtherData>
-const tMatrix<Trows, Tcolumns, TElement, TData> &FunctionalityShared<Trows, Tcolumns, TElement, TData>::operator += (const math::tMatrix<Trows, Tcolumns, TOtherElement, TOtherData> &other)
+template <size_t Trows, size_t Tcolumns, typename TElement>
+template <typename TOtherElement>
+const tMatrix<Trows, Tcolumns, TElement> &FunctionalityShared<Trows, Tcolumns, TElement>::operator += (const math::tMatrix<Trows, Tcolumns, TOtherElement> &other)
 {
   tMatrix *that = reinterpret_cast<tMatrix *>(this);
   *that = *that + other;
@@ -203,9 +196,9 @@ const tMatrix<Trows, Tcolumns, TElement, TData> &FunctionalityShared<Trows, Tcol
 //----------------------------------------------------------------------
 // FunctionalityShared operator -=
 //----------------------------------------------------------------------
-template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, size_t, typename> class TData>
-template <typename TOtherElement, template <size_t, size_t, typename> class TOtherData>
-const tMatrix<Trows, Tcolumns, TElement, TData> &FunctionalityShared<Trows, Tcolumns, TElement, TData>::operator -= (const math::tMatrix<Trows, Tcolumns, TOtherElement, TOtherData> &other)
+template <size_t Trows, size_t Tcolumns, typename TElement>
+template <typename TOtherElement>
+const tMatrix<Trows, Tcolumns, TElement> &FunctionalityShared<Trows, Tcolumns, TElement>::operator -= (const math::tMatrix<Trows, Tcolumns, TOtherElement> &other)
 {
   tMatrix *that = reinterpret_cast<tMatrix *>(this);
   *that = *that - other;
@@ -215,18 +208,18 @@ const tMatrix<Trows, Tcolumns, TElement, TData> &FunctionalityShared<Trows, Tcol
 //----------------------------------------------------------------------
 // FunctionalityShared operator *=
 //----------------------------------------------------------------------
-template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, size_t, typename> class TData>
-template <typename TOtherElement, template <size_t, size_t, typename> class TOtherData>
-const tMatrix<Trows, Tcolumns, TElement, TData> &FunctionalityShared<Trows, Tcolumns, TElement, TData>::operator *= (const math::tMatrix<Tcolumns, Tcolumns, TOtherElement, TOtherData> &other)
+template <size_t Trows, size_t Tcolumns, typename TElement>
+template <typename TOtherElement>
+const tMatrix<Trows, Tcolumns, TElement> &FunctionalityShared<Trows, Tcolumns, TElement>::operator *= (const math::tMatrix<Tcolumns, Tcolumns, TOtherElement> &other)
 {
   tMatrix *that = reinterpret_cast<tMatrix *>(this);
   *that = *that * other;
   return *that;
 }
 
-template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, size_t, typename> class TData>
+template <size_t Trows, size_t Tcolumns, typename TElement>
 template <typename TScalar>
-const typename boost::enable_if<boost::is_scalar<TScalar>, tMatrix<Trows, Tcolumns, TElement, TData>>::type &FunctionalityShared<Trows, Tcolumns, TElement, TData>::operator *= (const TScalar &scalar)
+const typename boost::enable_if<boost::is_scalar<TScalar>, tMatrix<Trows, Tcolumns, TElement>>::type &FunctionalityShared<Trows, Tcolumns, TElement>::operator *= (const TScalar &scalar)
 {
   tMatrix *that = reinterpret_cast<tMatrix *>(this);
   *that = *that * scalar;
@@ -236,9 +229,9 @@ const typename boost::enable_if<boost::is_scalar<TScalar>, tMatrix<Trows, Tcolum
 //----------------------------------------------------------------------
 // FunctionalityShared operator /=
 //----------------------------------------------------------------------
-template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, size_t, typename> class TData>
+template <size_t Trows, size_t Tcolumns, typename TElement>
 template <typename TScalar>
-const typename boost::enable_if<boost::is_scalar<TScalar>, tMatrix<Trows, Tcolumns, TElement, TData>>::type &FunctionalityShared<Trows, Tcolumns, TElement, TData>::operator /= (const TScalar &scalar)
+const typename boost::enable_if<boost::is_scalar<TScalar>, tMatrix<Trows, Tcolumns, TElement>>::type &FunctionalityShared<Trows, Tcolumns, TElement>::operator /= (const TScalar &scalar)
 {
   tMatrix *that = reinterpret_cast<tMatrix *>(this);
   *that *= 1.0 / scalar;
@@ -248,8 +241,8 @@ const typename boost::enable_if<boost::is_scalar<TScalar>, tMatrix<Trows, Tcolum
 //----------------------------------------------------------------------
 // FunctionalityShared IsZero
 //----------------------------------------------------------------------
-template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, size_t, typename> class TData>
-const bool FunctionalityShared<Trows, Tcolumns, TElement, TData>::IsZero(double epsilon) const
+template <size_t Trows, size_t Tcolumns, typename TElement>
+const bool FunctionalityShared<Trows, Tcolumns, TElement>::IsZero(double epsilon) const
 {
   for (size_t i = 0; i < sizeof(tMatrix) / sizeof(TElement); ++i)
   {
@@ -265,8 +258,8 @@ const bool FunctionalityShared<Trows, Tcolumns, TElement, TData>::IsZero(double 
 //----------------------------------------------------------------------
 // FunctionalityShared GetRow
 //----------------------------------------------------------------------
-template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, size_t, typename> class TData>
-tVector<Tcolumns, TElement, vector::Cartesian> FunctionalityShared<Trows, Tcolumns, TElement, TData>::GetRow(size_t row) const
+template <size_t Trows, size_t Tcolumns, typename TElement>
+tVector<Tcolumns, TElement, vector::Cartesian> FunctionalityShared<Trows, Tcolumns, TElement>::GetRow(size_t row) const
 {
   tMatrix *that = reinterpret_cast<tMatrix *>(this);
   TElement result[Tcolumns];
@@ -280,8 +273,8 @@ tVector<Tcolumns, TElement, vector::Cartesian> FunctionalityShared<Trows, Tcolum
 //----------------------------------------------------------------------
 // FunctionalityShared GetColumn
 //----------------------------------------------------------------------
-template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, size_t, typename> class TData>
-tVector<Trows, TElement, vector::Cartesian> FunctionalityShared<Trows, Tcolumns, TElement, TData>::GetColumn(size_t column) const
+template <size_t Trows, size_t Tcolumns, typename TElement>
+tVector<Trows, TElement, vector::Cartesian> FunctionalityShared<Trows, Tcolumns, TElement>::GetColumn(size_t column) const
 {
   tMatrix *that = reinterpret_cast<tMatrix *>(this);
   TElement result[Trows];
@@ -290,6 +283,24 @@ tVector<Trows, TElement, vector::Cartesian> FunctionalityShared<Trows, Tcolumns,
     result[row] = (*that)[row][column];
   }
   return tVector<Trows, TElement, vector::Cartesian>(result);
+}
+
+//----------------------------------------------------------------------
+// FunctionalityShared Transposed
+//----------------------------------------------------------------------
+template <size_t Trows, size_t Tcolumns, typename TElement>
+const tMatrix<Tcolumns, Trows, TElement> FunctionalityShared<Trows, Tcolumns, TElement>::Transposed() const
+{
+  const tMatrix *that = reinterpret_cast<const tMatrix *>(this);
+  math::tMatrix<Tcolumns, Trows, TElement> result;
+  for (size_t row = 0; row < Trows; ++row)
+  {
+    for (size_t column = 0; column < Tcolumns; ++column)
+    {
+      result[column][row] = (*that)[row][column];
+    }
+  }
+  return result;
 }
 
 

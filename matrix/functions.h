@@ -63,14 +63,14 @@ namespace math
 
 
 
-template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, size_t, typename> class TLeftData, template <size_t, size_t, typename> class TRightData>
-inline bool IsEqual(const tMatrix<Trows, Tcolumns, TElement, TLeftData> &left, const tMatrix<Trows, Tcolumns, TElement, TRightData> &right, float max_error = 1.0E-6, tFloatComparisonMethod method = eFCM_ABSOLUTE_ERROR) __attribute__((always_inline, flatten));
+template <size_t Trows, size_t Tcolumns, typename TElement>
+inline bool IsEqual(const tMatrix<Trows, Tcolumns, TElement> &left, const tMatrix<Trows, Tcolumns, TElement> &right, float max_error = 1.0E-6, tFloatComparisonMethod method = eFCM_ABSOLUTE_ERROR) __attribute__((always_inline, flatten));
 
-template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, size_t, typename> class TLeftData, template <size_t, size_t, typename> class TRightData>
-inline const bool operator == (const tMatrix<Trows, Tcolumns, TElement, TLeftData> &left, const tMatrix<Trows, Tcolumns, TElement, TRightData> &right) __attribute__((always_inline, flatten));
+template <size_t Trows, size_t Tcolumns, typename TElement>
+inline const bool operator == (const tMatrix<Trows, Tcolumns, TElement> &left, const tMatrix<Trows, Tcolumns, TElement> &right) __attribute__((always_inline, flatten));
 
-template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, size_t, typename> class TLeftData, template <size_t, size_t, typename> class TRightData>
-inline const bool operator != (const tMatrix<Trows, Tcolumns, TElement, TLeftData> &left, const tMatrix<Trows, Tcolumns, TElement, TRightData> &right) __attribute__((always_inline, flatten));
+template <size_t Trows, size_t Tcolumns, typename TElement>
+inline const bool operator != (const tMatrix<Trows, Tcolumns, TElement> &left, const tMatrix<Trows, Tcolumns, TElement> &right) __attribute__((always_inline, flatten));
 
 template <typename TElement>
 const tMatrix<2, 2, TElement> Get2DRotationMatrix(tAngleRad angle);

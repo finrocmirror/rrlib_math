@@ -66,8 +66,8 @@ namespace math
 // Implementation
 //----------------------------------------------------------------------
 
-template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, size_t, typename> class TLeftData, template <size_t, size_t, typename> class TRightData>
-bool IsEqual(const tMatrix<Trows, Tcolumns, TElement, TLeftData> &left, const tMatrix<Trows, Tcolumns, TElement, TRightData> &right, float max_error, tFloatComparisonMethod method)
+template <size_t Trows, size_t Tcolumns, typename TElement>
+bool IsEqual(const tMatrix<Trows, Tcolumns, TElement> &left, const tMatrix<Trows, Tcolumns, TElement> &right, float max_error, tFloatComparisonMethod method)
 {
   for (size_t row = 0; row < Trows; ++row)
   {
@@ -82,14 +82,14 @@ bool IsEqual(const tMatrix<Trows, Tcolumns, TElement, TLeftData> &left, const tM
   return true;
 }
 
-template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, size_t, typename> class TLeftData, template <size_t, size_t, typename> class TRightData>
-const bool operator == (const tMatrix<Trows, Tcolumns, TElement, TLeftData> &left, const tMatrix<Trows, Tcolumns, TElement, TRightData> &right)
+template <size_t Trows, size_t Tcolumns, typename TElement>
+const bool operator == (const tMatrix<Trows, Tcolumns, TElement> &left, const tMatrix<Trows, Tcolumns, TElement> &right)
 {
   return IsEqual(left, right, 0.0);
 }
 
-template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, size_t, typename> class TLeftData, template <size_t, size_t, typename> class TRightData>
-const bool operator != (const tMatrix<Trows, Tcolumns, TElement, TLeftData> &left, const tMatrix<Trows, Tcolumns, TElement, TRightData> &right)
+template <size_t Trows, size_t Tcolumns, typename TElement>
+const bool operator != (const tMatrix<Trows, Tcolumns, TElement> &left, const tMatrix<Trows, Tcolumns, TElement> &right)
 {
   return !(left == right);
 }

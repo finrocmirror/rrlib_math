@@ -71,7 +71,7 @@ namespace matrix
 /*!
  *
  */
-template <size_t Trows, size_t Tcolumns, typename TElement, template <size_t, size_t, typename> class TData>
+template <size_t Trows, size_t Tcolumns, typename TElement>
 class LegacySpecialized
 {
 
@@ -94,10 +94,10 @@ private:
 /*!
  *
  */
-template <typename TElement, template <size_t, size_t, typename> class TData>
-class LegacySpecialized<3, 3, TElement, TData>
+template <typename TElement>
+class LegacySpecialized<3, 3, TElement>
 {
-  typedef math::tMatrix<3, 3, TElement, TData> tMatrix;
+  typedef math::tMatrix<3, 3, TElement> tMatrix;
 
 //----------------------------------------------------------------------
 // Public methods and typedefs
@@ -130,24 +130,24 @@ private:
 
 };
 
-template <typename TElement, template <size_t, size_t, typename> class TData>
+template <typename TElement>
 template <typename TVectorElement>
-const tVector < 2, decltype(TElement() + TVectorElement()), vector::Cartesian > LegacySpecialized<3, 3, TElement, TData>::MultHomogeneous(const tVector<2, TVectorElement, vector::Cartesian> &vector) const
+const tVector < 2, decltype(TElement() + TVectorElement()), vector::Cartesian > LegacySpecialized<3, 3, TElement>::MultHomogeneous(const tVector<2, TVectorElement, vector::Cartesian> &vector) const
 {
   const tMatrix *that = reinterpret_cast<const tMatrix *>(this);
   return that->MultiplyHomogeneously(vector);
 }
 
-template <typename TElement, template <size_t, size_t, typename> class TData>
+template <typename TElement>
 template <typename TVectorElement>
-void LegacySpecialized<3, 3, TElement, TData>::MultHomogeneousInPlace(tVector<2, TVectorElement, vector::Cartesian> &vector) const
+void LegacySpecialized<3, 3, TElement>::MultHomogeneousInPlace(tVector<2, TVectorElement, vector::Cartesian> &vector) const
 {
   const tMatrix *that = reinterpret_cast<const tMatrix *>(this);
   vector = that->MultiplyHomogeneously(vector);
 }
 
-template <typename TElement, template <size_t, size_t, typename> class TData>
-void LegacySpecialized<3, 3, TElement, TData>::GetRotationAxis(tVector<3, TElement, vector::Cartesian> &axis, TElement &angle) const
+template <typename TElement>
+void LegacySpecialized<3, 3, TElement>::GetRotationAxis(tVector<3, TElement, vector::Cartesian> &axis, TElement &angle) const
 {
   const tMatrix *that = reinterpret_cast<const tMatrix *>(this);
   that->GetRotation(axis, angle);
@@ -156,10 +156,10 @@ void LegacySpecialized<3, 3, TElement, TData>::GetRotationAxis(tVector<3, TEleme
 /*!
  *
  */
-template <typename TElement, template <size_t, size_t, typename> class TData>
-class LegacySpecialized<4, 4, TElement, TData>
+template <typename TElement>
+class LegacySpecialized<4, 4, TElement>
 {
-  typedef math::tMatrix<4, 4, TElement, TData> tMatrix;
+  typedef math::tMatrix<4, 4, TElement> tMatrix;
 
 //----------------------------------------------------------------------
 // Public methods and typedefs
@@ -197,40 +197,40 @@ private:
 
 };
 
-template <typename TElement, template <size_t, size_t, typename> class TData>
+template <typename TElement>
 template <typename TVectorElement>
-const tVector < 2, decltype(TElement() + TVectorElement()), vector::Cartesian > LegacySpecialized<4, 4, TElement, TData>::MultHomogeneous(const tVector<2, TVectorElement, vector::Cartesian> &vector) const
+const tVector < 2, decltype(TElement() + TVectorElement()), vector::Cartesian > LegacySpecialized<4, 4, TElement>::MultHomogeneous(const tVector<2, TVectorElement, vector::Cartesian> &vector) const
 {
   const tMatrix *that = reinterpret_cast<const tMatrix *>(this);
   return tVector < 2, decltype(TElement() + TVectorElement()), vector::Cartesian > (that->MultiplyHomogeneously(tVector<3, TVectorElement, vector::Cartesian>(vector)));
 }
 
-template <typename TElement, template <size_t, size_t, typename> class TData>
+template <typename TElement>
 template <typename TVectorElement>
-void LegacySpecialized<4, 4, TElement, TData>::MultHomogeneousInPlace(tVector<2, TVectorElement, vector::Cartesian> &vector) const
+void LegacySpecialized<4, 4, TElement>::MultHomogeneousInPlace(tVector<2, TVectorElement, vector::Cartesian> &vector) const
 {
   const tMatrix *that = reinterpret_cast<const tMatrix *>(this);
   vector = that->MultHomogeneous(vector);
 }
 
-template <typename TElement, template <size_t, size_t, typename> class TData>
+template <typename TElement>
 template <typename TVectorElement>
-const tVector < 3, decltype(TElement() + TVectorElement()), vector::Cartesian > LegacySpecialized<4, 4, TElement, TData>::MultHomogeneous(const tVector<3, TVectorElement, vector::Cartesian> &vector) const
+const tVector < 3, decltype(TElement() + TVectorElement()), vector::Cartesian > LegacySpecialized<4, 4, TElement>::MultHomogeneous(const tVector<3, TVectorElement, vector::Cartesian> &vector) const
 {
   const tMatrix *that = reinterpret_cast<const tMatrix *>(this);
   return that->MultiplyHomogeneously(vector);
 }
 
-template <typename TElement, template <size_t, size_t, typename> class TData>
+template <typename TElement>
 template <typename TVectorElement>
-void LegacySpecialized<4, 4, TElement, TData>::MultHomogeneousInPlace(tVector<3, TVectorElement, vector::Cartesian> &vector) const
+void LegacySpecialized<4, 4, TElement>::MultHomogeneousInPlace(tVector<3, TVectorElement, vector::Cartesian> &vector) const
 {
   const tMatrix *that = reinterpret_cast<const tMatrix *>(this);
   vector = that->MultHomogeneous(vector);
 }
 
-template <typename TElement, template <size_t, size_t, typename> class TData>
-void LegacySpecialized<4, 4, TElement, TData>::GetRotationAxis(tVector<3, TElement, vector::Cartesian> &axis, TElement &angle) const
+template <typename TElement>
+void LegacySpecialized<4, 4, TElement>::GetRotationAxis(tVector<3, TElement, vector::Cartesian> &axis, TElement &angle) const
 {
   const tMatrix *that = reinterpret_cast<const tMatrix *>(this);
   that->GetRotation(axis, angle);

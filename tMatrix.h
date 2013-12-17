@@ -31,7 +31,7 @@
  *
  * tMatrix is a mathematical matrix implementation to be used in RRLib
  * context that heavily utilizes policy base template programming. Thus,
- * consisting of far less than 1k lines of code it features matricess of
+ * consisting of far less than 1k lines of code it features matrices of
  * arbitrary dimension and element data types. Included features are e.g.
  * type safety, conversion, basic mathematical operators.
  *
@@ -54,21 +54,12 @@ namespace rrlib
 {
 namespace math
 {
-template <size_t, size_t, typename, template <size_t, size_t, typename> class>
+template <size_t, size_t, typename>
 class tMatrix;
 }
 }
 
 #include "rrlib/math/matrix/data/Full.h"
-#include "rrlib/math/matrix/data/Symmetrical.h"
-#include "rrlib/math/matrix/data/LowerTriangle.h"
-#include "rrlib/math/matrix/data/UpperTriangle.h"
-
-
-#include "rrlib/math/matrix/data/OperatorsFull.h"
-#include "rrlib/math/matrix/data/OperatorsLowerTriangle.h"
-#include "rrlib/math/matrix/data/OperatorsUpperTriangle.h"
-#include "rrlib/math/matrix/data/OperatorsSymmetrical.h"
 
 #include "rrlib/math/matrix/data/OperatorsShared.h"
 
@@ -76,7 +67,6 @@ class tMatrix;
 #include "rrlib/math/matrix/data/ConstantValuesSpecialized.h"
 
 #include "rrlib/math/matrix/functionality/FunctionalityShared.h"
-#include "rrlib/math/matrix/functionality/FunctionalitySpecialized.h"
 #include "rrlib/math/matrix/functionality/SquareMatrixOperationsShared.h"
 #include "rrlib/math/matrix/functionality/SquareMatrixOperationsSpecialized.h"
 #include "rrlib/math/matrix/functionality/HomogeneousMultiplication.h"
@@ -107,25 +97,25 @@ namespace math
 // Forward declarations / typedefs / enums
 //----------------------------------------------------------------------
 
-typedef tMatrix<2, 2, double, matrix::Full> tMat2x2d;
-typedef tMatrix<3, 3, double, matrix::Full> tMat3x3d;
-typedef tMatrix<4, 4, double, matrix::Full> tMat4x4d;
+typedef tMatrix<2, 2, double> tMat2x2d;
+typedef tMatrix<3, 3, double> tMat3x3d;
+typedef tMatrix<4, 4, double> tMat4x4d;
 
-typedef tMatrix<2, 2, float, matrix::Full> tMat2x2f;
-typedef tMatrix<3, 3, float, matrix::Full> tMat3x3f;
-typedef tMatrix<4, 4, float, matrix::Full> tMat4x4f;
+typedef tMatrix<2, 2, float> tMat2x2f;
+typedef tMatrix<3, 3, float> tMat3x3f;
+typedef tMatrix<4, 4, float> tMat4x4f;
 
 //----------------------------------------------------------------------
 // Explicit template instantiation
 //----------------------------------------------------------------------
 
-extern template class tMatrix<2, 2, double, matrix::Full>;
-extern template class tMatrix<3, 3, double, matrix::Full>;
-extern template class tMatrix<4, 4, double, matrix::Full>;
+extern template class tMatrix<2, 2, double>;
+extern template class tMatrix<3, 3, double>;
+extern template class tMatrix<4, 4, double>;
 
-extern template class tMatrix<2, 2, float, matrix::Full>;
-extern template class tMatrix<3, 3, float, matrix::Full>;
-extern template class tMatrix<4, 4, float, matrix::Full>;
+extern template class tMatrix<2, 2, float>;
+extern template class tMatrix<3, 3, float>;
+extern template class tMatrix<4, 4, float>;
 
 //----------------------------------------------------------------------
 // End of namespace declaration

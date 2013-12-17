@@ -79,20 +79,14 @@ class tLUDecomposition
 public:
 
   template <size_t Trows>
-  tLUDecomposition(const tMatrix<Trows, Trank, TElement, matrix::Full> &matrix);
+  tLUDecomposition(const tMatrix<Trows, Trank, TElement> &matrix);
 
-  tLUDecomposition(const tMatrix<Trank, Trank, TElement, matrix::LowerTriangle> &matrix);
-
-  tLUDecomposition(const tMatrix<Trank, Trank, TElement, matrix::UpperTriangle> &matrix);
-
-  tLUDecomposition(const tMatrix<Trank, Trank, TElement, matrix::Symmetrical> &matrix);
-
-  inline const tMatrix<Trank, Trank, TElement, matrix::LowerTriangle> &L() const
+  inline const tMatrix<Trank, Trank, TElement> &L() const
   {
     return this->lower;
   }
 
-  inline const tMatrix<Trank, Trank, TElement, matrix::UpperTriangle> &U() const
+  inline const tMatrix<Trank, Trank, TElement> &U() const
   {
     return this->upper;
   }
@@ -105,12 +99,9 @@ public:
 //----------------------------------------------------------------------
 private:
 
-  tMatrix<Trank, Trank, TElement, matrix::LowerTriangle> lower;
-  tMatrix<Trank, Trank, TElement, matrix::UpperTriangle> upper;
+  tMatrix<Trank, Trank, TElement> lower;
+  tMatrix<Trank, Trank, TElement> upper;
   tVector<Trank, size_t> pivot;
-
-  template <size_t Trows, template <size_t, size_t, typename> class TData>
-  void FullMatrixDecomposition(const tMatrix<Trows, Trank, TElement, TData> &matrix);
 
 };
 
