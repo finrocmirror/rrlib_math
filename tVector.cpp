@@ -44,7 +44,14 @@
 //----------------------------------------------------------------------
 // Namespace usage
 //----------------------------------------------------------------------
-using namespace rrlib::math;
+
+//----------------------------------------------------------------------
+// Namespace declaration
+//----------------------------------------------------------------------
+namespace rrlib
+{
+namespace math
+{
 
 //----------------------------------------------------------------------
 // Forward declarations / typedefs / enums
@@ -85,3 +92,8 @@ template class tVector<3, double, vector::Polar, angle::Degree, angle::Signed>;
 
 template class tVector<2, float, vector::Polar, angle::Degree, angle::Signed>;
 template class tVector<3, float, vector::Polar, angle::Degree, angle::Signed>;
+//----------------------------------------------------------------------
+// End of namespace declaration
+//----------------------------------------------------------------------
+}
+}
