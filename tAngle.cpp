@@ -44,7 +44,14 @@
 //----------------------------------------------------------------------
 // Namespace usage
 //----------------------------------------------------------------------
-using namespace rrlib::math;
+
+//----------------------------------------------------------------------
+// Namespace declaration
+//----------------------------------------------------------------------
+namespace rrlib
+{
+namespace math
+{
 
 //----------------------------------------------------------------------
 // Forward declarations / typedefs / enums
@@ -63,3 +70,9 @@ template class tAngle<double, angle::Degree, angle::Signed>;
 
 template class tAngle<double, angle::Radian, angle::Unsigned>;
 template class tAngle<double, angle::Degree, angle::Unsigned>;
+
+//----------------------------------------------------------------------
+// End of namespace declaration
+//----------------------------------------------------------------------
+}
+}

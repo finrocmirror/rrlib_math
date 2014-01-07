@@ -44,7 +44,14 @@
 //----------------------------------------------------------------------
 // Namespace usage
 //----------------------------------------------------------------------
-using namespace rrlib::math;
+
+//----------------------------------------------------------------------
+// Namespace declaration
+//----------------------------------------------------------------------
+namespace rrlib
+{
+namespace math
+{
 
 //----------------------------------------------------------------------
 // Forward declarations / typedefs / enums
@@ -63,3 +70,9 @@ template class tCholeskyDecomposition<3, float>;
 
 template class tCholeskyDecomposition<2, double>;
 template class tCholeskyDecomposition<3, double>;
+
+//----------------------------------------------------------------------
+// End of namespace declaration
+//----------------------------------------------------------------------
+}
+}

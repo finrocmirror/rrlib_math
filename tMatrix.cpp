@@ -44,7 +44,14 @@
 //----------------------------------------------------------------------
 // Namespace usage
 //----------------------------------------------------------------------
-using namespace rrlib::math;
+
+//----------------------------------------------------------------------
+// Namespace declaration
+//----------------------------------------------------------------------
+namespace rrlib
+{
+namespace math
+{
 
 //----------------------------------------------------------------------
 // Forward declarations / typedefs / enums
@@ -65,3 +72,9 @@ template class tMatrix<4, 4, double, matrix::Full>;
 template class tMatrix<2, 2, float, matrix::Full>;
 template class tMatrix<3, 3, float, matrix::Full>;
 template class tMatrix<4, 4, float, matrix::Full>;
+
+//----------------------------------------------------------------------
+// End of namespace declaration
+//----------------------------------------------------------------------
+}
+}
