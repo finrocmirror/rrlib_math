@@ -87,7 +87,7 @@ struct tTrait<tVector<Tdimension, TElement, vector::Polar>>
 // IsEqual
 //----------------------------------------------------------------------
 template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
-bool IsEqual(const tVector<Tdimension, TElement, TData> &left, const tVector<Tdimension, TElement, TData> &right, float max_error = 1.0E-6, tFloatComparisonMethod method = eFCM_ABSOLUTE_ERROR)
+bool IsEqual(const tVector<Tdimension, TElement, TData> &left, const tVector<Tdimension, TElement, TData> &right, float max_error, tFloatComparisonMethod method)
 {
   for (size_t i = 0; i < tTrait<tVector<Tdimension, TElement, TData>>::eARRAY_DIMENSION; ++i)
   {
