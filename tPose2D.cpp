@@ -113,7 +113,7 @@ void tPose2D::SetOrientation(tAngleRad yaw)
 void tPose2D::SetOrientation(const tMat2x2d &matrix)
 {
   assert(IsEqual(matrix.Determinant(), 1.0));
-  this->yaw = std::atan2(matrix[0][0], matrix[1][0]);
+  this->yaw = std::atan2(matrix[1][0], matrix[0][0]);
 }
 
 //----------------------------------------------------------------------
