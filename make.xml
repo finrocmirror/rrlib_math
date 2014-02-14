@@ -70,4 +70,10 @@
     </sources>
   </unittest>
 
+  <unittest name="poses">
+    <sources>
+      test/unit_test_poses.cpp
+    </sources>
+  </unittest>
+
 </targets>
