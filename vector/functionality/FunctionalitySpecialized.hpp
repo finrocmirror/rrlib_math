@@ -193,7 +193,7 @@ const bool FunctionalitySpecialized<Tdimension, TElement, Cartesian>::IsZero(dou
   const tVector *that = reinterpret_cast<const tVector *>(this);
   for (size_t i = 0; i < Tdimension; ++i)
   {
-    if (!IsEqual((*that)[i], 0, epsilon, eFCM_ABSOLUTE_ERROR))
+    if (!IsEqual((*that)[i], TElement(0), epsilon, eFCM_ABSOLUTE_ERROR))
     {
       return false;
     }

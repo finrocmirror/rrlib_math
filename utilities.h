@@ -204,7 +204,6 @@ inline const T AbsoluteValue(T value)
  */
 const bool IsEqual(float a, float b, float max_error = 1.0E-6, tFloatComparisonMethod method = eFCM_ABSOLUTE_ERROR);
 
-
 /*! Function to extract the sign of an arbitrary number
  *
  * \param value   The number
