@@ -44,8 +44,7 @@
 #include <cstring>
 #include <sstream>
 #include <stdexcept>
-#include <boost/utility/enable_if.hpp>
-#include <boost/type_traits/is_scalar.hpp>
+#include <type_traits>
 
 //----------------------------------------------------------------------
 // Internal includes with ""
@@ -120,7 +119,7 @@ public:
       }
       std::memset(this, 0, sizeof(tVector));
       size_t size = std::min(Tdimension, Tother_dimension);
-      if (boost::is_same<TData<2, int, TAdditionalDataParameters...>, Cartesian<2, int>>::value)
+      if (std::is_same<TData<2, int, TAdditionalDataParameters...>, Cartesian<2, int>>::value)
       {
         for (size_t i = 0; i < size; ++i)
         {
@@ -143,10 +142,10 @@ public:
   inline const tVector &operator -= (const math::tVector<Tdimension, TOtherElement, TData, TAdditionalDataParameters...> &other) __attribute__((always_inline, flatten));
 
   template <typename TScalar>
-  inline const typename boost::enable_if<boost::is_scalar<TScalar>, tVector>::type &operator *= (const TScalar &scalar) __attribute__((always_inline, flatten));
+  inline const typename std::enable_if<std::is_scalar<TScalar>::value, tVector>::type &operator *= (const TScalar &scalar) __attribute__((always_inline, flatten));
 
   template <typename TScalar>
-  inline const typename boost::enable_if<boost::is_scalar<TScalar>, tVector>::type &operator /= (const TScalar &scalar) __attribute__((always_inline, flatten));
+  inline const typename std::enable_if<std::is_scalar<TScalar>::value, tVector>::type &operator /= (const TScalar &scalar) __attribute__((always_inline, flatten));
 
   inline void Normalize() __attribute__((always_inline, flatten));
 

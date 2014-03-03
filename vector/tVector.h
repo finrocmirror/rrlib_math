@@ -46,7 +46,7 @@
 #ifdef _LIB_OIV_PRESENT_
 #include <Inventor/SbVec2f.h>
 #include <Inventor/SbVec3f.h>
-#include <boost/utility/enable_if.hpp>
+#include <type_traits>
 #endif
 //----------------------------------------------------------------------
 // Internal includes with ""
@@ -120,10 +120,10 @@ public:
 #ifdef _LIB_OIV_PRESENT_
 
   template <typename T = int>
-  explicit inline tVector(const SbVec2f &v, typename boost::enable_if_c <(Tdimension == 2), T>::type = 0) __attribute__((always_inline, flatten));
+  explicit inline tVector(const SbVec2f &v, typename std::enable_if <(Tdimension == 2), T>::type = 0) __attribute__((always_inline, flatten));
 
   template <typename T = int>
-  explicit inline tVector(const SbVec3f &v, typename boost::enable_if_c <(Tdimension == 3), T>::type = 0) __attribute__((always_inline, flatten));
+  explicit inline tVector(const SbVec3f &v, typename std::enable_if <(Tdimension == 3), T>::type = 0) __attribute__((always_inline, flatten));
 
 #endif
 

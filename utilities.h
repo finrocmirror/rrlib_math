@@ -39,9 +39,7 @@
 //----------------------------------------------------------------------
 #include <cmath>
 #include <algorithm>
-#include <boost/utility/enable_if.hpp>
-#include <boost/type_traits/is_float.hpp>
-#include <boost/type_traits/is_integral.hpp>
+#include <type_traits>
 
 //----------------------------------------------------------------------
 // Internal includes with ""
@@ -88,7 +86,7 @@ enum tFloatComparisonMethod
  * \return The remainder of the operation
  */
 template <typename T>
-inline const typename boost::enable_if<boost::is_integral<T>, T>::type Modulo(T a, T b)
+inline const typename std::enable_if<std::is_integral<T>::value, T>::type Modulo(T a, T b)
 {
   T v = a % b;
   return v < 0 ? v + b : v;
@@ -108,7 +106,7 @@ inline const typename boost::enable_if<boost::is_integral<T>, T>::type Modulo(T 
  * \return The remainder of the operation
  */
 template <typename T>
-inline const typename boost::enable_if<boost::is_float<T>, T>::type Modulo(T a, T b)
+inline const typename std::enable_if<std::is_floating_point<T>::value, T>::type Modulo(T a, T b)
 {
   T v = std::fmod(a, b);
   return v < 0 ? v + b : v;

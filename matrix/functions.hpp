@@ -43,7 +43,7 @@
 //----------------------------------------------------------------------
 #include <cmath>
 #include <iostream>
-#include <boost/type_traits/is_floating_point.hpp>
+#include <type_traits>
 
 //----------------------------------------------------------------------
 // Internal includes with ""
@@ -97,7 +97,7 @@ const bool operator != (const tMatrix<Trows, Tcolumns, TElement> &left, const tM
 template <typename TElement>
 const tMatrix<2, 2, TElement> Get2DRotationMatrix(tAngleRad angle)
 {
-  static_assert(boost::is_floating_point<TElement>::value, "Instantiation of this method only valid for float or double!");
+  static_assert(std::is_floating_point<TElement>::value, "Instantiation of this method only valid for float or double!");
   TElement sin_angle, cos_angle;
   angle.SinCos(sin_angle, cos_angle);
   return tMatrix<2, 2, TElement>(cos_angle, -sin_angle, sin_angle, cos_angle);

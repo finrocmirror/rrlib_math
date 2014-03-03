@@ -40,7 +40,7 @@
 // External includes (system with <>, local with "")
 //----------------------------------------------------------------------
 #include <cmath>
-#include <boost/utility/enable_if.hpp>
+#include <type_traits>
 #include <iostream>
 
 #include "rrlib/util/variadic_templates.h"
@@ -233,7 +233,7 @@ const math::tVector < Tdimension, decltype(TElement() + TOtherElement()), Cartes
 //----------------------------------------------------------------------
 template <size_t Tdimension, typename TElement>
 template <size_t Tother_dimension, typename TOtherElement>
-typename boost::enable_if_c < Tdimension == 3 && Tother_dimension == 3, void >::type FunctionalitySpecialized<Tdimension, TElement, Cartesian>::CrossMultiply(const math::tVector<Tother_dimension, TOtherElement, Cartesian> &other)
+typename std::enable_if < Tdimension == 3 && Tother_dimension == 3, void >::type FunctionalitySpecialized<Tdimension, TElement, Cartesian>::CrossMultiply(const math::tVector<Tother_dimension, TOtherElement, Cartesian> &other)
 {
   tVector *that = reinterpret_cast<tVector *>(this);
   that->Set(that->Y() * other.Z() - that->Z() * other.Y(),
@@ -246,7 +246,7 @@ typename boost::enable_if_c < Tdimension == 3 && Tother_dimension == 3, void >::
 //----------------------------------------------------------------------
 template <size_t Tdimension, typename TElement>
 template <size_t Tother_dimension, typename TOtherElement>
-const typename boost::enable_if_c < Tdimension == 3 && Tother_dimension == 3, math::tVector < 3, decltype(TElement() + TOtherElement()), Cartesian > >::type FunctionalitySpecialized<Tdimension, TElement, Cartesian>::CrossMultiplied(const math::tVector<Tother_dimension, TOtherElement, Cartesian> &other) const
+const typename std::enable_if < Tdimension == 3 && Tother_dimension == 3, math::tVector < 3, decltype(TElement() + TOtherElement()), Cartesian > >::type FunctionalitySpecialized<Tdimension, TElement, Cartesian>::CrossMultiplied(const math::tVector<Tother_dimension, TOtherElement, Cartesian> &other) const
 {
   const tVector *that = reinterpret_cast<const tVector *>(this);
   math::tVector < Tdimension, decltype(TElement() + TOtherElement()), Cartesian > temp(*that);

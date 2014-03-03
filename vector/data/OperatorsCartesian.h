@@ -43,8 +43,7 @@
 //----------------------------------------------------------------------
 #include <ostream>
 #include <istream>
-#include <boost/utility/enable_if.hpp>
-#include <boost/type_traits/is_scalar.hpp>
+#include <type_traits>
 
 #ifdef _LIB_RRLIB_SERIALIZATION_PRESENT_
 #include "rrlib/serialization/serialization.h"
@@ -173,7 +172,7 @@ const tVector < Tdimension, decltype(TLeftElement() + TRightElement()), Cartesia
 }
 
 template <size_t Tdimension, typename TElement, typename TScalar>
-const typename boost::enable_if < boost::is_scalar<TScalar>, tVector < Tdimension, decltype(TElement() + TScalar()), Cartesian > >::type operator *(const tVector<Tdimension, TElement, Cartesian> &vector, const TScalar scalar)
+const typename std::enable_if < std::is_scalar<TScalar>::value, tVector < Tdimension, decltype(TElement() + TScalar()), Cartesian > >::type operator *(const tVector<Tdimension, TElement, Cartesian> &vector, const TScalar scalar)
 {
   typedef math::tVector < Tdimension, decltype(TElement() + TScalar()), Cartesian > tResult;
   typename tResult::tElement data[Tdimension];
@@ -184,7 +183,7 @@ const typename boost::enable_if < boost::is_scalar<TScalar>, tVector < Tdimensio
   return tResult(data);
 }
 template <size_t Tdimension, typename TElement, typename TScalar>
-const typename boost::enable_if < boost::is_scalar<TScalar>, tVector < Tdimension, decltype(TElement() + TScalar()), Cartesian > >::type operator *(const TScalar scalar, const tVector<Tdimension, TElement, Cartesian> &vector)
+const typename std::enable_if < std::is_scalar<TScalar>::value, tVector < Tdimension, decltype(TElement() + TScalar()), Cartesian > >::type operator *(const TScalar scalar, const tVector<Tdimension, TElement, Cartesian> &vector)
 {
   return vector * scalar;
 }

@@ -47,7 +47,7 @@
 
 #ifdef _LIB_OIV_PRESENT_
 #include <Inventor/SbMatrix.h>
-#include <boost/utility/enable_if.hpp>
+#include <type_traits>
 #endif
 //----------------------------------------------------------------------
 // Debugging
@@ -109,7 +109,7 @@ tMatrix<Trows, Tcolumns, TElement>::tMatrix(TElement value, TValues... values)
 
 template <size_t Trows, size_t Tcolumns, typename TElement>
 template <class T>
-tMatrix<Trows, Tcolumns, TElement>::tMatrix(const SbMatrix &m, typename boost::enable_if_c < (Trows == 4 && Tcolumns == 4), T >::type)
+tMatrix<Trows, Tcolumns, TElement>::tMatrix(const SbMatrix &m, typename std::enable_if < (Trows == 4 && Tcolumns == 4), T >::type)
 {
   FunctionalityShared::Set(m[0][0], m[1][0], m[2][0], m[3][0],
                            m[0][1], m[1][1], m[2][1], m[3][1],

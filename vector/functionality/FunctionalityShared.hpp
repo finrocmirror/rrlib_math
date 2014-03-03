@@ -42,8 +42,7 @@
 #include <cstring>
 #include <sstream>
 #include <stdexcept>
-#include <boost/utility/enable_if.hpp>
-#include <boost/type_traits/is_scalar.hpp>
+#include <type_traits>
 
 //----------------------------------------------------------------------
 // Internal includes with ""
@@ -115,7 +114,7 @@ const tVector<Tdimension, TElement, TData, TAdditionalDataParameters...> &Functi
 //----------------------------------------------------------------------
 template <size_t Tdimension, typename TElement, template <size_t, typename, typename ...> class TData, typename ... TAdditionalDataParameters>
 template <typename TScalar>
-const typename boost::enable_if<boost::is_scalar<TScalar>, tVector<Tdimension, TElement, TData, TAdditionalDataParameters...>>::type &FunctionalityShared<Tdimension, TElement, TData, TAdditionalDataParameters...>::operator *= (const TScalar &scalar)
+const typename std::enable_if<std::is_scalar<TScalar>::value, tVector<Tdimension, TElement, TData, TAdditionalDataParameters...>>::type &FunctionalityShared<Tdimension, TElement, TData, TAdditionalDataParameters...>::operator *= (const TScalar &scalar)
 {
   tVector *that = reinterpret_cast<tVector *>(this);
   *that = *that * scalar;
@@ -127,7 +126,7 @@ const typename boost::enable_if<boost::is_scalar<TScalar>, tVector<Tdimension, T
 //----------------------------------------------------------------------
 template <size_t Tdimension, typename TElement, template <size_t, typename, typename ...> class TData, typename ... TAdditionalDataParameters>
 template <typename TScalar>
-const typename boost::enable_if<boost::is_scalar<TScalar>, tVector<Tdimension, TElement, TData, TAdditionalDataParameters...>>::type &FunctionalityShared<Tdimension, TElement, TData, TAdditionalDataParameters...>::operator /= (const TScalar &scalar)
+const typename std::enable_if<std::is_scalar<TScalar>::value, tVector<Tdimension, TElement, TData, TAdditionalDataParameters...>>::type &FunctionalityShared<Tdimension, TElement, TData, TAdditionalDataParameters...>::operator /= (const TScalar &scalar)
 {
   tVector *that = reinterpret_cast<tVector *>(this);
   if (scalar == 0)

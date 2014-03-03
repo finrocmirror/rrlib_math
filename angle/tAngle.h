@@ -42,8 +42,7 @@
 // External includes (system with <>, local with "")
 //----------------------------------------------------------------------
 #include <iostream>
-#include <boost/utility/enable_if.hpp>
-#include <boost/type_traits/is_same.hpp>
+#include <type_traits>
 #include <stdexcept>
 #include <sstream>
 #include <cstring>
@@ -135,7 +134,7 @@ public:
   }
 
   template <typename TOtherUnitPolicy, typename TOtherSignPolicy>
-  inline typename boost::disable_if<boost::is_same<tAngle, tAngle<TElement, TOtherUnitPolicy, TOtherSignPolicy>>, tAngle>::type &operator += (const tAngle<TElement, TOtherUnitPolicy, TOtherSignPolicy> &other)
+  inline typename std::enable_if < !std::is_same<tAngle, tAngle<TElement, TOtherUnitPolicy, TOtherSignPolicy>>::value, tAngle >::type &operator += (const tAngle<TElement, TOtherUnitPolicy, TOtherSignPolicy> &other)
   {
     this->value = TSignPolicy::FitIntoRange(this->value + TUnitPolicy::ConvertFromUnit(static_cast<TElement>(other), TOtherUnitPolicy()), TUnitPolicy::RangeLimit());
     return *this;
@@ -148,7 +147,7 @@ public:
   }
 
   template <typename TOtherUnitPolicy, typename TOtherSignPolicy>
-  inline typename boost::disable_if<boost::is_same<tAngle, tAngle<TElement, TOtherUnitPolicy, TOtherSignPolicy>>, tAngle>::type &operator -= (const tAngle<TElement, TOtherUnitPolicy, TOtherSignPolicy> &other)
+  inline typename std::enable_if < !std::is_same<tAngle, tAngle<TElement, TOtherUnitPolicy, TOtherSignPolicy>>::value, tAngle >::type &operator -= (const tAngle<TElement, TOtherUnitPolicy, TOtherSignPolicy> &other)
   {
     this->value = TSignPolicy::FitIntoRange(this->value - TUnitPolicy::ConvertFromUnit(static_cast<TElement>(other), TOtherUnitPolicy()), TUnitPolicy::RangeLimit());
     return *this;

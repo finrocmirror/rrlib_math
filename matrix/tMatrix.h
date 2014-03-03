@@ -49,7 +49,7 @@
 
 #ifdef _LIB_OIV_PRESENT_
 #include <Inventor/SbMatrix.h>
-#include <boost/utility/enable_if.hpp>
+#include <type_traits>
 #endif
 //----------------------------------------------------------------------
 // Debugging
@@ -112,7 +112,7 @@ public:
 #ifdef _LIB_OIV_PRESENT_
 
   template <class T = int>
-  explicit inline tMatrix(const SbMatrix &m, typename boost::enable_if_c < (Trows == 4 && Tcolumns == 4), T >::type = 0) __attribute__((always_inline, flatten));
+  explicit inline tMatrix(const SbMatrix &m, typename std::enable_if < (Trows == 4 && Tcolumns == 4), T >::type = 0) __attribute__((always_inline, flatten));
 
 #endif
 

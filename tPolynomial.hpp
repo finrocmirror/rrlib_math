@@ -100,7 +100,7 @@ tPolynomial<Tdegree>::tPolynomial(const tPolynomial &other)
 
 template <size_t Tdegree>
 template <size_t Tlower_degree, typename T>
-tPolynomial<Tdegree>::tPolynomial(const tPolynomial<Tlower_degree> &other, typename boost::enable_if_c < (Tlower_degree < Tdegree), T >::type)
+tPolynomial<Tdegree>::tPolynomial(const tPolynomial<Tlower_degree> &other, typename std::enable_if < (Tlower_degree < Tdegree), T >::type)
 {
   std::memset(this->coefficients, 0, sizeof(this->coefficients));
   for (size_t i = 0; i < Tlower_degree; ++i)

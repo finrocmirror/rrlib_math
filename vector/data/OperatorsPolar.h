@@ -43,8 +43,7 @@
 //----------------------------------------------------------------------
 #include <ostream>
 #include <istream>
-#include <boost/utility/enable_if.hpp>
-#include <boost/type_traits/is_scalar.hpp>
+#include <type_traits>
 
 #ifdef _LIB_RRLIB_SERIALIZATION_PRESENT_
 #include "rrlib/serialization/serialization.h"
@@ -164,7 +163,7 @@ tVector < Tdimension, decltype(TLeftElement() - TRightElement()), Polar, TAdditi
 }
 
 template <size_t Tdimension, typename TElement, typename TScalar, typename ... TAdditionalDataParameters>
-typename boost::enable_if <boost::is_scalar<TScalar>, tVector <Tdimension, decltype(TElement() * TScalar()), Polar, TAdditionalDataParameters...>>::type operator * (const tVector<Tdimension, TElement, Polar, TAdditionalDataParameters...> &vector, const TScalar scalar)
+typename std::enable_if <std::is_scalar<TScalar>::value, tVector <Tdimension, decltype(TElement() * TScalar()), Polar, TAdditionalDataParameters...>>::type operator * (const tVector<Tdimension, TElement, Polar, TAdditionalDataParameters...> &vector, const TScalar scalar)
 {
   typedef math::tVector <Tdimension, decltype(TElement() * TScalar()), Polar, TAdditionalDataParameters...> tResult;
   tAngle<decltype(TElement() * TScalar()), TAdditionalDataParameters...> angles[Tdimension];
@@ -175,7 +174,7 @@ typename boost::enable_if <boost::is_scalar<TScalar>, tVector <Tdimension, declt
   return tResult(angles, vector.Length() * scalar);
 }
 template <size_t Tdimension, typename TElement, typename TScalar, typename ... TAdditionalDataParameters>
-typename boost::enable_if <boost::is_scalar<TScalar>, tVector <Tdimension, decltype(TElement() * TScalar()), Polar, TAdditionalDataParameters...>>::type operator * (const TScalar scalar, const tVector<Tdimension, TElement, Polar, TAdditionalDataParameters...> &vector)
+typename std::enable_if <std::is_scalar<TScalar>::value, tVector <Tdimension, decltype(TElement() * TScalar()), Polar, TAdditionalDataParameters...>>::type operator * (const TScalar scalar, const tVector<Tdimension, TElement, Polar, TAdditionalDataParameters...> &vector)
 {
   return vector * scalar;
 }

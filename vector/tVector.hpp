@@ -43,7 +43,7 @@
 #ifdef _LIB_OIV_PRESENT_
 #include <Inventor/SbVec2f.h>
 #include <Inventor/SbVec3f.h>
-#include <boost/utility/enable_if.hpp>
+#include <type_traits>
 #endif
 //----------------------------------------------------------------------
 // Internal includes with ""
@@ -134,14 +134,14 @@ tVector<Tdimension, TElement, TData, TAdditionalDataParameters...>::tVector(TVal
 
 template <size_t Tdimension, typename TElement, template <size_t, typename, typename ...> class TData, typename ... TAdditionalDataParameters>
 template <typename T>
-tVector<Tdimension, TElement, TData, TAdditionalDataParameters...>::tVector(const SbVec2f &v, typename boost::enable_if_c <(Tdimension == 2), T>::type)
+tVector<Tdimension, TElement, TData, TAdditionalDataParameters...>::tVector(const SbVec2f &v, typename std::enable_if <(Tdimension == 2), T>::type)
 {
   FunctionalitySpecialized::Set(v[0], v[1]);
 }
 
 template <size_t Tdimension, typename TElement, template <size_t, typename, typename ...> class TData, typename ... TAdditionalDataParameters>
 template <typename T>
-tVector<Tdimension, TElement, TData, TAdditionalDataParameters...>::tVector(const SbVec3f &v, typename boost::enable_if_c <(Tdimension == 3), T>::type)
+tVector<Tdimension, TElement, TData, TAdditionalDataParameters...>::tVector(const SbVec3f &v, typename std::enable_if <(Tdimension == 3), T>::type)
 {
   FunctionalitySpecialized::Set(v[0], v[1], v[2]);
 }

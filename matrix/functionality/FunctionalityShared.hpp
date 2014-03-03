@@ -40,8 +40,7 @@
 // External includes (system with <>, local with "")
 //----------------------------------------------------------------------
 #include <cstring>
-#include <boost/utility/enable_if.hpp>
-#include <boost/type_traits/is_scalar.hpp>
+#include <type_traits>
 
 #include "rrlib/util/variadic_templates.h"
 
@@ -219,7 +218,7 @@ const tMatrix<Trows, Tcolumns, TElement> &FunctionalityShared<Trows, Tcolumns, T
 
 template <size_t Trows, size_t Tcolumns, typename TElement>
 template <typename TScalar>
-const typename boost::enable_if<boost::is_scalar<TScalar>, tMatrix<Trows, Tcolumns, TElement>>::type &FunctionalityShared<Trows, Tcolumns, TElement>::operator *= (const TScalar &scalar)
+const typename std::enable_if<std::is_scalar<TScalar>::value, tMatrix<Trows, Tcolumns, TElement>>::type &FunctionalityShared<Trows, Tcolumns, TElement>::operator *= (const TScalar &scalar)
 {
   tMatrix *that = reinterpret_cast<tMatrix *>(this);
   *that = *that * scalar;
@@ -231,7 +230,7 @@ const typename boost::enable_if<boost::is_scalar<TScalar>, tMatrix<Trows, Tcolum
 //----------------------------------------------------------------------
 template <size_t Trows, size_t Tcolumns, typename TElement>
 template <typename TScalar>
-const typename boost::enable_if<boost::is_scalar<TScalar>, tMatrix<Trows, Tcolumns, TElement>>::type &FunctionalityShared<Trows, Tcolumns, TElement>::operator /= (const TScalar &scalar)
+const typename std::enable_if<std::is_scalar<TScalar>::value, tMatrix<Trows, Tcolumns, TElement>>::type &FunctionalityShared<Trows, Tcolumns, TElement>::operator /= (const TScalar &scalar)
 {
   tMatrix *that = reinterpret_cast<tMatrix *>(this);
   *that *= 1.0 / scalar;

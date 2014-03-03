@@ -43,8 +43,7 @@
 //----------------------------------------------------------------------
 #include <cmath>
 #include <stdexcept>
-#include <boost/utility/enable_if.hpp>
-#include <boost/type_traits/is_float.hpp>
+#include <type_traits>
 
 //----------------------------------------------------------------------
 // Internal includes with ""
@@ -116,7 +115,7 @@ public:
    * code taken from Coin 2.4.5 SbRotation.cpp
    */
   template <typename TVectorElement, typename TAngle>
-  typename boost::enable_if<boost::is_float<TAngle>, void>::type GetRotation(tVector<3, TVectorElement, vector::Cartesian> &axis, TAngle &angle) const
+  typename std::enable_if<std::is_floating_point<TAngle>::value, void>::type GetRotation(tVector<3, TVectorElement, vector::Cartesian> &axis, TAngle &angle) const
   {
     const tMatrix *that = reinterpret_cast<const tMatrix *>(this);
 
@@ -209,7 +208,7 @@ class Rotation<4, 4, TElement>
 public:
 
   template <typename TVectorElement, typename TAngle>
-  typename boost::enable_if<boost::is_float<TAngle>, void>::type GetRotation(tVector<3, TVectorElement, vector::Cartesian> &axis, TAngle &angle) const
+  typename std::enable_if<std::is_floating_point<TAngle>::value, void>::type GetRotation(tVector<3, TVectorElement, vector::Cartesian> &axis, TAngle &angle) const
   {
     const tMatrix *that = reinterpret_cast<const tMatrix *>(this);
     TElement data[3 * 3];

@@ -41,7 +41,7 @@
 //----------------------------------------------------------------------
 // External includes (system with <>, local with "")
 //----------------------------------------------------------------------
-#include <boost/utility/enable_if.hpp>
+#include <type_traits>
 
 //----------------------------------------------------------------------
 // Internal includes with ""
@@ -130,10 +130,10 @@ public:
   inline const math::tVector < Tdimension, decltype(TElement() + TOtherElement()), Cartesian > SchurMultiplied(const math::tVector<Tdimension, TOtherElement, Cartesian> &other) const __attribute__((always_inline, flatten));
 
   template <size_t Tother_dimension, typename TOtherElement>
-  inline typename boost::enable_if_c < Tdimension == 3 && Tother_dimension == 3, void >::type CrossMultiply(const math::tVector<Tother_dimension, TOtherElement, Cartesian> &other) __attribute__((always_inline, flatten));
+  inline typename std::enable_if < Tdimension == 3 && Tother_dimension == 3, void >::type CrossMultiply(const math::tVector<Tother_dimension, TOtherElement, Cartesian> &other) __attribute__((always_inline, flatten));
 
   template <size_t Tother_dimension, typename TOtherElement>
-  inline const typename boost::enable_if_c < Tdimension == 3 && Tother_dimension == 3, math::tVector < 3, decltype(TElement() + TOtherElement()), Cartesian > >::type CrossMultiplied(const math::tVector<Tother_dimension, TOtherElement, Cartesian> &other) const __attribute__((always_inline, flatten));
+  inline const typename std::enable_if < Tdimension == 3 && Tother_dimension == 3, math::tVector < 3, decltype(TElement() + TOtherElement()), Cartesian > >::type CrossMultiplied(const math::tVector<Tother_dimension, TOtherElement, Cartesian> &other) const __attribute__((always_inline, flatten));
 
 //----------------------------------------------------------------------
 // Protected methods

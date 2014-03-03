@@ -42,8 +42,7 @@
 // External includes (system with <>, local with "")
 //----------------------------------------------------------------------
 #include <cstring>
-#include <boost/utility/enable_if.hpp>
-#include <boost/type_traits/is_scalar.hpp>
+#include <type_traits>
 
 //----------------------------------------------------------------------
 // Internal includes with ""
@@ -148,10 +147,10 @@ public:
   inline const tMatrix &operator *= (const math::tMatrix<Tcolumns, Tcolumns, TOtherElement> &other) __attribute__((always_inline, flatten));
 
   template <typename TScalar>
-  inline const typename boost::enable_if<boost::is_scalar<TScalar>, tMatrix>::type &operator *= (const TScalar &scalar) __attribute__((always_inline, flatten));
+  inline const typename std::enable_if<std::is_scalar<TScalar>::value, tMatrix>::type &operator *= (const TScalar &scalar) __attribute__((always_inline, flatten));
 
   template <typename TScalar>
-  inline const typename boost::enable_if<boost::is_scalar<TScalar>, tMatrix>::type &operator /= (const TScalar &scalar) __attribute__((always_inline, flatten));
+  inline const typename std::enable_if<std::is_scalar<TScalar>::value, tMatrix>::type &operator /= (const TScalar &scalar) __attribute__((always_inline, flatten));
 
   inline const bool IsZero(double epsilon = 0) const __attribute__((always_inline, flatten));
 
