@@ -46,6 +46,7 @@
 #include <boost/type_traits/is_same.hpp>
 #include <stdexcept>
 #include <sstream>
+#include <cstring>
 
 #ifdef _LIB_RRLIB_SERIALIZATION_PRESENT_
 #include "rrlib/serialization/serialization.h"
