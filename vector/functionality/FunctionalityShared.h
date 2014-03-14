@@ -137,20 +137,20 @@ public:
   }
 
   template <typename TOtherElement>
-  inline const tVector &operator += (const math::tVector<Tdimension, TOtherElement, TData> &other) __attribute__((always_inline, flatten));
+  inline const tVector &operator += (const math::tVector<Tdimension, TOtherElement, TData> &other) __attribute__((always_inline));
 
   template <typename TOtherElement>
-  inline const tVector &operator -= (const math::tVector<Tdimension, TOtherElement, TData> &other) __attribute__((always_inline, flatten));
+  inline const tVector &operator -= (const math::tVector<Tdimension, TOtherElement, TData> &other) __attribute__((always_inline));
 
   template <typename TScalar>
-  inline const typename boost::enable_if<boost::is_scalar<TScalar>, tVector>::type &operator *= (const TScalar &scalar) __attribute__((always_inline, flatten));
+  inline const typename boost::enable_if<boost::is_scalar<TScalar>, tVector>::type &operator *= (const TScalar &scalar) __attribute__((always_inline));
 
   template <typename TScalar>
-  inline const typename boost::enable_if<boost::is_scalar<TScalar>, tVector>::type &operator /= (const TScalar &scalar) __attribute__((always_inline, flatten));
+  inline const typename boost::enable_if<boost::is_scalar<TScalar>, tVector>::type &operator /= (const TScalar &scalar) __attribute__((always_inline));
 
-  inline void Normalize() __attribute__((always_inline, flatten));
+  inline void Normalize() __attribute__((always_inline));
 
-  inline const tVector Normalized() const __attribute__((always_inline, flatten));
+  inline const tVector Normalized() const __attribute__((always_inline));
 
   template <typename TOtherElement>
   inline void Project(const math::tVector<Tdimension, TOtherElement, TData> &other)
@@ -170,16 +170,16 @@ public:
   }
 
   template <typename TOtherElement>
-  inline const math::tVector < Tdimension, decltype(TElement() + TOtherElement()), TData > Projected(const math::tVector<Tdimension, TOtherElement, TData> &other) const __attribute__((always_inline, flatten));
+  inline const math::tVector < Tdimension, decltype(TElement() + TOtherElement()), TData > Projected(const math::tVector<Tdimension, TOtherElement, TData> &other) const __attribute__((always_inline));
 
 //----------------------------------------------------------------------
 // Protected methods
 //----------------------------------------------------------------------
 protected:
 
-  inline FunctionalityShared() __attribute__((always_inline, flatten));
+  inline FunctionalityShared() __attribute__((always_inline));
 
-  inline FunctionalityShared(const tVector &other) __attribute__((always_inline, flatten));
+  inline FunctionalityShared(const tVector &other) __attribute__((always_inline));
 
 //----------------------------------------------------------------------
 // Private fields and methods

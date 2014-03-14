@@ -86,9 +86,9 @@ class FunctionalityShared
 //----------------------------------------------------------------------
 public:
 
-  inline const typename tData::Accessor operator [](size_t row) const __attribute__((always_inline, flatten));
+  inline const typename tData::Accessor operator [](size_t row) const __attribute__((always_inline));
 
-  inline typename tData::Accessor operator [](size_t row) __attribute__((always_inline, flatten));
+  inline typename tData::Accessor operator [](size_t row) __attribute__((always_inline));
 
   inline FunctionalityShared &operator = (const FunctionalityShared &other)
   {
@@ -132,29 +132,29 @@ public:
   }
 
   template <typename ... TValues>
-  inline void Set(TValues... values) __attribute__((always_inline, flatten));
+  inline void Set(TValues... values) __attribute__((always_inline));
 
   template <typename TOtherElement, template <size_t, size_t, typename> class TOtherData>
-  inline void SetFromMatrix(const math::tMatrix<Trows, Tcolumns, TOtherElement, TOtherData> &source) __attribute__((always_inline, flatten));
+  inline void SetFromMatrix(const math::tMatrix<Trows, Tcolumns, TOtherElement, TOtherData> &source) __attribute__((always_inline));
 
-  inline void SetIdentity() __attribute__((always_inline, flatten));
-
-  template <typename TOtherElement, template <size_t, size_t, typename> class TOtherData>
-  inline const tMatrix &operator += (const math::tMatrix<Trows, Tcolumns, TOtherElement, TOtherData> &other) __attribute__((always_inline, flatten));
+  inline void SetIdentity() __attribute__((always_inline));
 
   template <typename TOtherElement, template <size_t, size_t, typename> class TOtherData>
-  inline const tMatrix &operator -= (const math::tMatrix<Trows, Tcolumns, TOtherElement, TOtherData> &other) __attribute__((always_inline, flatten));
+  inline const tMatrix &operator += (const math::tMatrix<Trows, Tcolumns, TOtherElement, TOtherData> &other) __attribute__((always_inline));
 
   template <typename TOtherElement, template <size_t, size_t, typename> class TOtherData>
-  inline const tMatrix &operator *= (const math::tMatrix<Tcolumns, Tcolumns, TOtherElement, TOtherData> &other) __attribute__((always_inline, flatten));
+  inline const tMatrix &operator -= (const math::tMatrix<Trows, Tcolumns, TOtherElement, TOtherData> &other) __attribute__((always_inline));
+
+  template <typename TOtherElement, template <size_t, size_t, typename> class TOtherData>
+  inline const tMatrix &operator *= (const math::tMatrix<Tcolumns, Tcolumns, TOtherElement, TOtherData> &other) __attribute__((always_inline));
 
   template <typename TScalar>
-  inline const typename boost::enable_if<boost::is_scalar<TScalar>, tMatrix>::type &operator *= (const TScalar &scalar) __attribute__((always_inline, flatten));
+  inline const typename boost::enable_if<boost::is_scalar<TScalar>, tMatrix>::type &operator *= (const TScalar &scalar) __attribute__((always_inline));
 
   template <typename TScalar>
-  inline const typename boost::enable_if<boost::is_scalar<TScalar>, tMatrix>::type &operator /= (const TScalar &scalar) __attribute__((always_inline, flatten));
+  inline const typename boost::enable_if<boost::is_scalar<TScalar>, tMatrix>::type &operator /= (const TScalar &scalar) __attribute__((always_inline));
 
-  inline const bool IsZero(double epsilon = 0) const __attribute__((always_inline, flatten));
+  inline const bool IsZero(double epsilon = 0) const __attribute__((always_inline));
 
   inline tVector<Tcolumns, TElement, vector::Cartesian> GetRow(size_t row) const;
 
@@ -165,20 +165,20 @@ public:
 //----------------------------------------------------------------------
 protected:
 
-  inline FunctionalityShared() __attribute__((always_inline, flatten));
+  inline FunctionalityShared() __attribute__((always_inline));
 
-  inline FunctionalityShared(const tMatrix &other) __attribute__((always_inline, flatten));
+  inline FunctionalityShared(const tMatrix &other) __attribute__((always_inline));
 
-  explicit inline FunctionalityShared(const TElement data[Trows * Tcolumns]) __attribute__((always_inline, flatten));
+  explicit inline FunctionalityShared(const TElement data[Trows * Tcolumns]) __attribute__((always_inline));
 
   template <typename TOtherElement>
-  explicit inline FunctionalityShared(const math::tMatrix<Trows, Tcolumns, TOtherElement, TData> &other) __attribute__((always_inline, flatten));
+  explicit inline FunctionalityShared(const math::tMatrix<Trows, Tcolumns, TOtherElement, TData> &other) __attribute__((always_inline));
 
   template <typename TOtherElement, template <size_t, size_t, typename> class TOtherData>
-  explicit inline FunctionalityShared(const math::tMatrix<Trows, Tcolumns, TOtherElement, TOtherData> &other) __attribute__((always_inline, flatten));
+  explicit inline FunctionalityShared(const math::tMatrix<Trows, Tcolumns, TOtherElement, TOtherData> &other) __attribute__((always_inline));
 
   template <typename TLeftElement, typename TRightElement>
-  inline FunctionalityShared(const tVector<Trows, TLeftElement, vector::Cartesian> &left, const tVector<Tcolumns, TRightElement, vector::Cartesian> &right) __attribute__((always_inline, flatten));
+  inline FunctionalityShared(const tVector<Trows, TLeftElement, vector::Cartesian> &left, const tVector<Tcolumns, TRightElement, vector::Cartesian> &right) __attribute__((always_inline));
 
 //----------------------------------------------------------------------
 // Private fields and methods

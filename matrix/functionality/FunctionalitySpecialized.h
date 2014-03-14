@@ -107,7 +107,7 @@ class FunctionalitySpecialized<Trows, Tcolumns, TElement, Full>
 //----------------------------------------------------------------------
 public:
 
-  inline const math::tMatrix<Tcolumns, Trows, TElement, Full> Transposed() const __attribute__((always_inline, flatten))
+  inline const math::tMatrix<Tcolumns, Trows, TElement, Full> Transposed() const __attribute__((always_inline))
   {
     const tMatrix *that = reinterpret_cast<const tMatrix *>(this);
     math::tMatrix<Tcolumns, Trows, TElement, Full> result;
@@ -152,7 +152,7 @@ class FunctionalitySpecialized<Trows, Tcolumns, TElement, LowerTriangle>
 //----------------------------------------------------------------------
 public:
 
-  inline const math::tMatrix<Tcolumns, Trows, TElement, UpperTriangle> Transposed() const __attribute__((always_inline, flatten))
+  inline const math::tMatrix<Tcolumns, Trows, TElement, UpperTriangle> Transposed() const __attribute__((always_inline))
   {
     const tMatrix *that = reinterpret_cast<const tMatrix *>(this);
     math::tMatrix<Tcolumns, Trows, TElement, UpperTriangle> result;
@@ -197,7 +197,7 @@ class FunctionalitySpecialized<Trows, Tcolumns, TElement, UpperTriangle>
 //----------------------------------------------------------------------
 public:
 
-  inline const math::tMatrix<Tcolumns, Trows, TElement, LowerTriangle> Transposed() const __attribute__((always_inline, flatten))
+  inline const math::tMatrix<Tcolumns, Trows, TElement, LowerTriangle> Transposed() const __attribute__((always_inline))
   {
     const tMatrix *that = reinterpret_cast<const tMatrix *>(this);
     math::tMatrix<Tcolumns, Trows, TElement, LowerTriangle> result;
@@ -242,7 +242,7 @@ class FunctionalitySpecialized<Trows, Tcolumns, TElement, Symmetrical>
 //----------------------------------------------------------------------
 public:
 
-  inline const math::tMatrix<Tcolumns, Trows, TElement, Symmetrical> &Transposed() const __attribute__((always_inline, flatten))
+  inline const math::tMatrix<Tcolumns, Trows, TElement, Symmetrical> &Transposed() const __attribute__((always_inline))
   {
     return reinterpret_cast<const tMatrix &>(*this);
   }

@@ -106,9 +106,9 @@ class ConstantValuesSpecialized<2, TElement, Cartesian>
 //----------------------------------------------------------------------
 public:
 
-  static const tVector &XDirection() __attribute__((always_inline, flatten));
+  static const tVector &XDirection() __attribute__((always_inline));
 
-  static const tVector &YDirection() __attribute__((always_inline, flatten));
+  static const tVector &YDirection() __attribute__((always_inline));
 
 //----------------------------------------------------------------------
 // Protected methods
@@ -141,11 +141,11 @@ class ConstantValuesSpecialized<3, TElement, Cartesian>
 //----------------------------------------------------------------------
 public:
 
-  static inline const tVector &XDirection() __attribute__((always_inline, flatten));
+  static inline const tVector &XDirection() __attribute__((always_inline));
 
-  static inline const tVector &YDirection() __attribute__((always_inline, flatten));
+  static inline const tVector &YDirection() __attribute__((always_inline));
 
-  static inline const tVector &ZDirection() __attribute__((always_inline, flatten));
+  static inline const tVector &ZDirection() __attribute__((always_inline));
 
 //----------------------------------------------------------------------
 // Protected methods

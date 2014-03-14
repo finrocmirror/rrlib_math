@@ -86,7 +86,7 @@ public:
 
   typedef TElement tElement;
 
-  static inline const tMatrix &Zero() __attribute__((always_inline, flatten));
+  static inline const tMatrix &Zero() __attribute__((always_inline));
 
 //----------------------------------------------------------------------
 // Protected methods
