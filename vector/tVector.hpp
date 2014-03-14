@@ -69,13 +69,13 @@ namespace math
 // Const values
 //----------------------------------------------------------------------
 template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
-const typename tVector<Tdimension, TElement, TData>::tMetric tVector<Tdimension, TElement, TData>::cEUCLIDEAN_DISTANCE = [](const tVector &a, const tVector &b)
+TElement tVector<Tdimension, TElement, TData>::EuclideanDistance(const tVector &a, const tVector &b)
 {
   return (a - b).Length();
-};
+}
 
 //template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
-//const typename tVector<Tdimension, TElement, TData>::tMetric tVector<Tdimension, TElement, TData>::cMANHATTAN_DISTANCE = [](const tVector &a, const tVector &b)
+//TElement tVector<Tdimension, TElement, TData>::ManhattanDistance(const tVector &a, const tVector &b)
 //{
 //  TElement result = 0;
 //  for (size_t i = 0; i < Tdimension; ++i)
@@ -85,8 +85,8 @@ const typename tVector<Tdimension, TElement, TData>::tMetric tVector<Tdimension,
 //  return result;
 //};
 //
-//template <size_t Tdimension, typename TElement>
-//const typename tVector<Tdimension, TElement, vector::Cartesian>::tMetric tVector<Tdimension, TElement, vector::Cartesian>::cCHEBYSHEV_DISTANCE = [](const tVector &a, const tVector &b)
+//template <size_t Tdimension, typename TElement, template <size_t, typename> class TData>
+//TElement tVector<Tdimension, TElement, TData>::ChebyshevDistance(const tVector &a, const tVector &b)
 //{
 //  TElement result = 0;
 //  for (size_t i = 0; i < Tdimension; ++i)

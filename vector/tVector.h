@@ -98,11 +98,9 @@ class tVector : public TData<Tdimension, TElement>,
 //----------------------------------------------------------------------
 public:
 
-  typedef std::function <TElement(const tVector &, const tVector &)> tMetric;
-
-  static const tMetric cEUCLIDEAN_DISTANCE;
-  static const tMetric cMANHATTAN_DISTANCE;
-  static const tMetric cCHEBYSHEV_DISTANCE;
+  static TElement EuclideanDistance(const tVector &a, const tVector &b);
+//  static TElement ManhattanDistance(const tVector &a, const tVector &b);
+//  static TElement ChebyshevDistance(const tVector &a, const tVector &b);
 
   inline tVector() __attribute__((always_inline));
 
