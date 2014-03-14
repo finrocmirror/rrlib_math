@@ -106,7 +106,7 @@ class ConstantValuesSpecialized<Tdimension, Tdimension, TElement>
 //----------------------------------------------------------------------
 public:
 
-  static inline const tMatrix &Identity() __attribute__((always_inline, flatten));
+  static inline const tMatrix &Identity() __attribute__((always_inline));
 
 //----------------------------------------------------------------------
 // Protected methods
@@ -124,7 +124,7 @@ private:
   ConstantValuesSpecialized(const ConstantValuesSpecialized &other);
   ConstantValuesSpecialized &operator = (const ConstantValuesSpecialized &);
 
-  static inline const tMatrix &InitializeIdentity() __attribute__((always_inline, flatten));
+  static inline const tMatrix &InitializeIdentity() __attribute__((always_inline));
 
 };
 

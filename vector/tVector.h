@@ -100,37 +100,37 @@ public:
 
   typedef std::function <TElement(const tVector<Tdimension, TElement, TData, TAdditionalDataParameters...> &, const tVector &)> tMetric;
 
-  static const tMetric cEUCLIDEAN_DISTANCE;
-  static const tMetric cMANHATTAN_DISTANCE;
-  static const tMetric cCHEBYSHEV_DISTANCE;
+  static TElement EuclideanDistance(const tVector &a, const tVector &b);
+//  static TElement ManhattanDistance(const tVector &a, const tVector &b);
+//  static TElement ChebyshevDistance(const tVector &a, const tVector &b);
 
-  inline tVector() __attribute__((always_inline, flatten));
+  inline tVector() __attribute__((always_inline));
 
   inline tVector(const tVector &other) __attribute__((always_inline));
 
   template <size_t Tother_dimension, typename TOtherElement>
-  inline tVector(const tVector<Tother_dimension, TOtherElement> &other) __attribute__((always_inline, flatten));
+  inline tVector(const tVector<Tother_dimension, TOtherElement> &other) __attribute__((always_inline));
 
   template <typename TOtherUnitPolicy, typename TOtherSignPolicy>
-  inline tVector(const tVector<Tdimension, TElement, TData, TOtherUnitPolicy, TOtherSignPolicy> &other) __attribute__((always_inline, flatten));
+  inline tVector(const tVector<Tdimension, TElement, TData, TOtherUnitPolicy, TOtherSignPolicy> &other) __attribute__((always_inline));
 
   template <typename ... TValues>
-  explicit inline tVector(TValues... values) __attribute__((always_inline, flatten));
+  explicit inline tVector(TValues... values) __attribute__((always_inline));
 
 #ifdef _LIB_OIV_PRESENT_
 
   template <typename T = int>
-  explicit inline tVector(const SbVec2f &v, typename std::enable_if <(Tdimension == 2), T>::type = 0) __attribute__((always_inline, flatten));
+  explicit inline tVector(const SbVec2f &v, typename std::enable_if <(Tdimension == 2), T>::type = 0) __attribute__((always_inline));
 
   template <typename T = int>
-  explicit inline tVector(const SbVec3f &v, typename std::enable_if <(Tdimension == 3), T>::type = 0) __attribute__((always_inline, flatten));
+  explicit inline tVector(const SbVec3f &v, typename std::enable_if <(Tdimension == 3), T>::type = 0) __attribute__((always_inline));
 
 #endif
 
-  inline tVector &operator = (const tVector &other) __attribute__((always_inline, flatten));
+  inline tVector &operator = (const tVector &other) __attribute__((always_inline));
 
   template <size_t Tother_dimension, typename TOtherElement>
-  inline tVector &operator = (const tVector<Tother_dimension, TOtherElement, TData, TAdditionalDataParameters...> &other) __attribute__((always_inline, flatten));
+  inline tVector &operator = (const tVector<Tother_dimension, TOtherElement, TData, TAdditionalDataParameters...> &other) __attribute__((always_inline));
 
 };
 

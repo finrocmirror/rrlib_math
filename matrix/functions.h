@@ -64,13 +64,13 @@ namespace math
 
 
 template <size_t Trows, size_t Tcolumns, typename TElement>
-inline bool IsEqual(const tMatrix<Trows, Tcolumns, TElement> &left, const tMatrix<Trows, Tcolumns, TElement> &right, float max_error = 1.0E-6, tFloatComparisonMethod method = eFCM_ABSOLUTE_ERROR) __attribute__((always_inline, flatten));
+inline bool IsEqual(const tMatrix<Trows, Tcolumns, TElement> &left, const tMatrix<Trows, Tcolumns, TElement> &right, float max_error = 1.0E-6, tFloatComparisonMethod method = eFCM_ABSOLUTE_ERROR) __attribute__((always_inline));
 
 template <size_t Trows, size_t Tcolumns, typename TElement>
-inline const bool operator == (const tMatrix<Trows, Tcolumns, TElement> &left, const tMatrix<Trows, Tcolumns, TElement> &right) __attribute__((always_inline, flatten));
+inline const bool operator == (const tMatrix<Trows, Tcolumns, TElement> &left, const tMatrix<Trows, Tcolumns, TElement> &right) __attribute__((always_inline));
 
 template <size_t Trows, size_t Tcolumns, typename TElement>
-inline const bool operator != (const tMatrix<Trows, Tcolumns, TElement> &left, const tMatrix<Trows, Tcolumns, TElement> &right) __attribute__((always_inline, flatten));
+inline const bool operator != (const tMatrix<Trows, Tcolumns, TElement> &left, const tMatrix<Trows, Tcolumns, TElement> &right) __attribute__((always_inline));
 
 template <typename TElement>
 const tMatrix<2, 2, TElement> Get2DRotationMatrix(tAngleRad angle);

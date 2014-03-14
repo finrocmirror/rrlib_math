@@ -109,31 +109,31 @@ class FunctionalitySpecialized<Tdimension, TElement, Cartesian>
 //----------------------------------------------------------------------
 public:
 
-  inline const TElement &operator [](size_t i) const __attribute__((always_inline, flatten));
-  inline TElement &operator [](size_t i) __attribute__((always_inline, flatten));
+  inline const TElement &operator [](size_t i) const __attribute__((always_inline));
+  inline TElement &operator [](size_t i) __attribute__((always_inline));
 
   template <typename ... TValues>
-  inline void Set(TValues... values) __attribute__((always_inline, flatten));
+  inline void Set(TValues... values) __attribute__((always_inline));
 
-  static inline const tVector Direction(size_t i) __attribute__((always_inline, flatten));
+  static inline const tVector Direction(size_t i) __attribute__((always_inline));
 
-  inline const TElement Length() const __attribute__((always_inline, flatten));
+  inline const TElement Length() const __attribute__((always_inline));
 
-  inline const TElement SquaredLength() const __attribute__((always_inline, flatten));
+  inline const TElement SquaredLength() const __attribute__((always_inline));
 
-  inline const bool IsZero(double epsilon = 0) const __attribute__((always_inline, flatten));
-
-  template <typename TOtherElement>
-  inline void SchurMultiply(const math::tVector<Tdimension, TOtherElement, Cartesian> &other) __attribute__((always_inline, flatten));
+  inline const bool IsZero(double epsilon = 0) const __attribute__((always_inline));
 
   template <typename TOtherElement>
-  inline const math::tVector < Tdimension, decltype(TElement() + TOtherElement()), Cartesian > SchurMultiplied(const math::tVector<Tdimension, TOtherElement, Cartesian> &other) const __attribute__((always_inline, flatten));
+  inline void SchurMultiply(const math::tVector<Tdimension, TOtherElement, Cartesian> &other) __attribute__((always_inline));
+
+  template <typename TOtherElement>
+  inline const math::tVector < Tdimension, decltype(TElement() + TOtherElement()), Cartesian > SchurMultiplied(const math::tVector<Tdimension, TOtherElement, Cartesian> &other) const __attribute__((always_inline));
 
   template <size_t Tother_dimension, typename TOtherElement>
-  inline typename std::enable_if < Tdimension == 3 && Tother_dimension == 3, void >::type CrossMultiply(const math::tVector<Tother_dimension, TOtherElement, Cartesian> &other) __attribute__((always_inline, flatten));
+  inline typename std::enable_if < Tdimension == 3 && Tother_dimension == 3, void >::type CrossMultiply(const math::tVector<Tother_dimension, TOtherElement, Cartesian> &other) __attribute__((always_inline));
 
   template <size_t Tother_dimension, typename TOtherElement>
-  inline const typename std::enable_if < Tdimension == 3 && Tother_dimension == 3, math::tVector < 3, decltype(TElement() + TOtherElement()), Cartesian > >::type CrossMultiplied(const math::tVector<Tother_dimension, TOtherElement, Cartesian> &other) const __attribute__((always_inline, flatten));
+  inline const typename std::enable_if < Tdimension == 3 && Tother_dimension == 3, math::tVector < 3, decltype(TElement() + TOtherElement()), Cartesian > >::type CrossMultiplied(const math::tVector<Tother_dimension, TOtherElement, Cartesian> &other) const __attribute__((always_inline));
 
 //----------------------------------------------------------------------
 // Protected methods
@@ -143,16 +143,16 @@ protected:
   inline FunctionalitySpecialized()
   {}
 
-  explicit inline FunctionalitySpecialized(const TElement data[Tdimension]) __attribute__((always_inline, flatten));
+  explicit inline FunctionalitySpecialized(const TElement data[Tdimension]) __attribute__((always_inline));
 
   template <typename TOtherElement>
-  explicit inline FunctionalitySpecialized(const TOtherElement data[Tdimension]) __attribute__((always_inline, flatten));
+  explicit inline FunctionalitySpecialized(const TOtherElement data[Tdimension]) __attribute__((always_inline));
 
   template <size_t Tother_dimension, typename TOtherElement>
-  explicit inline FunctionalitySpecialized(const math::tVector<Tother_dimension, TOtherElement, Cartesian> &other) __attribute__((always_inline, flatten));
+  explicit inline FunctionalitySpecialized(const math::tVector<Tother_dimension, TOtherElement, Cartesian> &other) __attribute__((always_inline));
 
   template <typename ... TValues>
-  explicit inline FunctionalitySpecialized(TElement value, TValues... values) __attribute__((always_inline, flatten));
+  explicit inline FunctionalitySpecialized(TElement value, TValues... values) __attribute__((always_inline));
 
 //----------------------------------------------------------------------
 // Private fields and methods
@@ -178,15 +178,15 @@ class FunctionalitySpecialized<Tdimension, TElement, Polar, TAdditionalDataParam
 //----------------------------------------------------------------------
 public:
 
-  inline const tAngle &operator [](size_t i) const __attribute__((always_inline, flatten));
-  inline tAngle &operator [](size_t i) __attribute__((always_inline, flatten));
+  inline const tAngle &operator [](size_t i) const __attribute__((always_inline));
+  inline tAngle &operator [](size_t i) __attribute__((always_inline));
 
   template <typename ... TValues>
-  inline void Set(TValues... values) __attribute__((always_inline, flatten));
+  inline void Set(TValues... values) __attribute__((always_inline));
 
-  inline const TElement SquaredLength() const __attribute__((always_inline, flatten));
+  inline const TElement SquaredLength() const __attribute__((always_inline));
 
-  inline const bool IsZero(double epsilon = 0) const __attribute__((always_inline, flatten));
+  inline const bool IsZero(double epsilon = 0) const __attribute__((always_inline));
 
 //----------------------------------------------------------------------
 // Protected methods
@@ -197,16 +197,16 @@ protected:
   {}
 
   template <typename TOtherElement>
-  explicit inline FunctionalitySpecialized(const tAngle angles[Tdimension - 1], TOtherElement length) __attribute__((always_inline, flatten));
+  explicit inline FunctionalitySpecialized(const tAngle angles[Tdimension - 1], TOtherElement length) __attribute__((always_inline));
 
   template <size_t Tother_dimension, typename TOtherElement>
-  explicit inline FunctionalitySpecialized(const math::tVector<Tother_dimension, TOtherElement, Polar, TAdditionalDataParameters...> &other) __attribute__((always_inline, flatten));
+  explicit inline FunctionalitySpecialized(const math::tVector<Tother_dimension, TOtherElement, Polar, TAdditionalDataParameters...> &other) __attribute__((always_inline));
 
   template <typename TOtherUnitPolicy, typename TOtherSignPolicy>
-  explicit inline FunctionalitySpecialized(const math::tVector<Tdimension, TElement, Polar, TOtherUnitPolicy, TOtherSignPolicy> &other) __attribute__((always_inline, flatten));
+  explicit inline FunctionalitySpecialized(const math::tVector<Tdimension, TElement, Polar, TOtherUnitPolicy, TOtherSignPolicy> &other) __attribute__((always_inline));
 
   template <typename ... TValues>
-  explicit inline FunctionalitySpecialized(tAngle value, TValues... values) __attribute__((always_inline, flatten));
+  explicit inline FunctionalitySpecialized(tAngle value, TValues... values) __attribute__((always_inline));
 
 //----------------------------------------------------------------------
 // Private fields and methods

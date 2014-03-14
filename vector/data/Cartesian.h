@@ -107,13 +107,13 @@ class Cartesian<2, TElement>
 //----------------------------------------------------------------------
 public:
 
-  inline TElement X() const __attribute__((always_inline, flatten));
+  inline TElement X() const __attribute__((always_inline));
 
-  inline TElement &X() __attribute__((always_inline, flatten));
+  inline TElement &X() __attribute__((always_inline));
 
-  inline TElement Y() const __attribute__((always_inline, flatten));
+  inline TElement Y() const __attribute__((always_inline));
 
-  inline TElement &Y() __attribute__((always_inline, flatten));
+  inline TElement &Y() __attribute__((always_inline));
 
 //----------------------------------------------------------------------
 // Protected methods
@@ -148,17 +148,17 @@ class Cartesian<3, TElement>
 //----------------------------------------------------------------------
 public:
 
-  inline TElement X() const __attribute__((always_inline, flatten));
+  inline TElement X() const __attribute__((always_inline));
 
-  inline TElement &X() __attribute__((always_inline, flatten));
+  inline TElement &X() __attribute__((always_inline));
 
-  inline TElement Y() const __attribute__((always_inline, flatten));
+  inline TElement Y() const __attribute__((always_inline));
 
-  inline TElement &Y() __attribute__((always_inline, flatten));
+  inline TElement &Y() __attribute__((always_inline));
 
-  inline TElement Z() const __attribute__((always_inline, flatten));
+  inline TElement Z() const __attribute__((always_inline));
 
-  inline TElement &Z() __attribute__((always_inline, flatten));
+  inline TElement &Z() __attribute__((always_inline));
 
 //----------------------------------------------------------------------
 // Protected methods

@@ -111,14 +111,14 @@ class Conversions<2, TElement, Cartesian>
 public:
 
   template <typename TPolarUnitPolicy = angle::Radian, typename TPolarSignPolicy = angle::Signed>
-  __attribute__((always_inline, flatten)) inline const tVector<2, TElement, Polar, TPolarUnitPolicy, TPolarSignPolicy> GetPolarVector() const
+  __attribute__((always_inline)) inline const tVector<2, TElement, Polar, TPolarUnitPolicy, TPolarSignPolicy> GetPolarVector() const
   {
     const tVector<2, TElement, Cartesian> *that = reinterpret_cast<const tVector<2, TElement, Cartesian> *>(this);
     return tVector<2, TElement, Polar, TPolarUnitPolicy, TPolarSignPolicy>(tAngleRad(std::atan2(that->Y(), that->X())), that->Length());
   }
 
 #ifdef _LIB_OIV_PRESENT_
-  inline const SbVec2f GetCoinVector() const __attribute__((always_inline, flatten))
+  inline const SbVec2f GetCoinVector() const __attribute__((always_inline))
   {
     const tVector<2, TElement, Cartesian> *that = reinterpret_cast<const tVector<3, TElement, Cartesian> *>(this);
     return SbVec2f(that->X(), that->Y());
@@ -156,7 +156,7 @@ class Conversions<3, TElement, Cartesian>
 public:
 
   template <typename TPolarUnitPolicy = angle::Radian, typename TPolarSignPolicy = angle::Signed>
-  __attribute__((always_inline, flatten)) inline const tVector<3, TElement, Polar, TPolarUnitPolicy, TPolarSignPolicy> GetPolarVector() const
+  __attribute__((always_inline)) inline const tVector<3, TElement, Polar, TPolarUnitPolicy, TPolarSignPolicy> GetPolarVector() const
   {
     const tVector<3, TElement, Cartesian> *that = reinterpret_cast<const tVector<3, TElement, Cartesian> *>(this);
     TElement length = that->Length();
@@ -164,7 +164,7 @@ public:
   }
 
 #ifdef _LIB_OIV_PRESENT_
-  inline const SbVec3f GetCoinVector() const __attribute__((always_inline, flatten))
+  inline const SbVec3f GetCoinVector() const __attribute__((always_inline))
   {
     const tVector<3, TElement, Cartesian> *that = reinterpret_cast<const tVector<3, TElement, Cartesian> *>(this);
     return SbVec3f(that->X(), that->Y(), that->Z());
@@ -201,14 +201,14 @@ class Conversions<2, TElement, Polar, TAdditionalDataParameters...>
 //----------------------------------------------------------------------
 public:
 
-  inline const tVector<2, TElement, Cartesian> GetCartesianVector() const __attribute__((always_inline, flatten))
+  inline const tVector<2, TElement, Cartesian> GetCartesianVector() const __attribute__((always_inline))
   {
     const tVector<2, TElement, Polar, TAdditionalDataParameters...> *that = reinterpret_cast<const tVector<2, TElement, Polar, TAdditionalDataParameters...> *>(this);
     return tVector<2, TElement, Cartesian>(that->Length() * that->Alpha().Cosine(), that->Length() * that->Alpha().Sine());
   }
 
 #ifdef _LIB_OIV_PRESENT_
-  inline const SbVec2f GetCoinVector() const __attribute__((always_inline, flatten))
+  inline const SbVec2f GetCoinVector() const __attribute__((always_inline))
   {
     const tVector<2, TElement, Cartesian> *that = this->GetCartesianVector();
     return SbVec2f(that->X(), that->Y());
@@ -245,7 +245,7 @@ class Conversions<3, TElement, Polar, TAdditionalDataParameters...>
 //----------------------------------------------------------------------
 public:
 
-  inline const tVector<3, TElement, Cartesian> GetCartesianVector() const __attribute__((always_inline, flatten))
+  inline const tVector<3, TElement, Cartesian> GetCartesianVector() const __attribute__((always_inline))
   {
     const tVector<3, TElement, Polar, TAdditionalDataParameters...> *that = reinterpret_cast<const tVector<3, TElement, Polar, TAdditionalDataParameters...> *>(this);
     TElement sin_alpha = that->Alpha().Sine();
@@ -256,7 +256,7 @@ public:
   }
 
 #ifdef _LIB_OIV_PRESENT_
-  inline const SbVec3f GetCoinVector() const __attribute__((always_inline, flatten))
+  inline const SbVec3f GetCoinVector() const __attribute__((always_inline))
   {
     const tVector<2, TElement, Cartesian> *that = this->GetCartesianVector();
     return SbVec3f(that->X(), that->Y(), that->Z());

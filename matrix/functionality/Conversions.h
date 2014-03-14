@@ -110,7 +110,7 @@ class Conversions<4, 4, TElement>
 public:
 
 #ifdef _LIB_OIV_PRESENT_
-  inline const SbMatrix GetCoinMatrix() const __attribute__((always_inline, flatten))
+  inline const SbMatrix GetCoinMatrix() const __attribute__((always_inline))
   {
     const math::tMatrix<4, 4, TElement> *that = reinterpret_cast<const math::tMatrix<4, 4, TElement> *>(this);
     return SbMatrix(

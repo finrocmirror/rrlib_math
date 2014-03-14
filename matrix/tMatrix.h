@@ -107,19 +107,19 @@ public:
   inline tMatrix(const tVector<Trows, TLeftElement, vector::Cartesian> &left, const tVector<Tcolumns, TRightElement, vector::Cartesian> &right) __attribute__((always_inline));
 
   template <typename ... TValues>
-  explicit inline tMatrix(TElement value, TValues... values) __attribute__((always_inline, flatten));
+  explicit inline tMatrix(TElement value, TValues... values) __attribute__((always_inline));
 
 #ifdef _LIB_OIV_PRESENT_
 
   template <class T = int>
-  explicit inline tMatrix(const SbMatrix &m, typename std::enable_if < (Trows == 4 && Tcolumns == 4), T >::type = 0) __attribute__((always_inline, flatten));
+  explicit inline tMatrix(const SbMatrix &m, typename std::enable_if < (Trows == 4 && Tcolumns == 4), T >::type = 0) __attribute__((always_inline));
 
 #endif
 
-  inline tMatrix &operator = (const tMatrix &other) __attribute__((always_inline, flatten));
+  inline tMatrix &operator = (const tMatrix &other) __attribute__((always_inline));
 
   template <typename TOtherElement>
-  inline tMatrix &operator = (const tMatrix<Trows, Tcolumns, TOtherElement> &other) __attribute__((always_inline, flatten));
+  inline tMatrix &operator = (const tMatrix<Trows, Tcolumns, TOtherElement> &other) __attribute__((always_inline));
 
 };
 

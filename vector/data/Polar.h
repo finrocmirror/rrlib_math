@@ -85,9 +85,9 @@ public:
 
   typedef math::tAngle<TElement, TUnitPolicy, TSignPolicy> tAngle;
 
-  inline TElement &Length() const __attribute__((always_inline, flatten));
+  inline TElement &Length() const __attribute__((always_inline));
 
-  inline TElement &Length() __attribute__((always_inline, flatten));
+  inline TElement &Length() __attribute__((always_inline));
 
 //----------------------------------------------------------------------
 // Protected methods
@@ -124,13 +124,13 @@ public:
 
   typedef math::tAngle<TElement, TUnitPolicy, TSignPolicy> tAngle;
 
-  inline tAngle Alpha() const __attribute__((always_inline, flatten));
+  inline tAngle Alpha() const __attribute__((always_inline));
 
-  inline tAngle &Alpha() __attribute__((always_inline, flatten));
+  inline tAngle &Alpha() __attribute__((always_inline));
 
-  inline const TElement &Length() const __attribute__((always_inline, flatten));
+  inline const TElement &Length() const __attribute__((always_inline));
 
-  inline TElement &Length() __attribute__((always_inline, flatten));
+  inline TElement &Length() __attribute__((always_inline));
 
 //----------------------------------------------------------------------
 // Protected methods
@@ -167,17 +167,17 @@ public:
 
   typedef math::tAngle<TElement, TUnitPolicy, TSignPolicy> tAngle;
 
-  inline tAngle Alpha() const __attribute__((always_inline, flatten));
+  inline tAngle Alpha() const __attribute__((always_inline));
 
-  inline tAngle &Alpha() __attribute__((always_inline, flatten));
+  inline tAngle &Alpha() __attribute__((always_inline));
 
-  inline tAngle Beta() const __attribute__((always_inline, flatten));
+  inline tAngle Beta() const __attribute__((always_inline));
 
-  inline tAngle &Beta() __attribute__((always_inline, flatten));
+  inline tAngle &Beta() __attribute__((always_inline));
 
-  inline const TElement &Length() const __attribute__((always_inline, flatten));
+  inline const TElement &Length() const __attribute__((always_inline));
 
-  inline TElement &Length() __attribute__((always_inline, flatten));
+  inline TElement &Length() __attribute__((always_inline));
 
 //----------------------------------------------------------------------
 // Protected methods
