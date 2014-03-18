@@ -94,7 +94,7 @@ public:
 
   tPose2D(double x, double y, tAngleRad yaw = 0);
 
-  tPose2D(const tMat3x3d &matrix);
+  tPose2D(const tMat3x3d &matrix, double max_error = 1E-6);
 
   tPose2D(const tPose3D &other);
 
@@ -145,13 +145,13 @@ public:
 
   void SetOrientation(tAngleRad yaw);
 
-  void SetOrientation(const tMat2x2d &matrix);
+  void SetOrientation(const tMat2x2d &matrix, double max_error = 1E-6);
 
   void Set(const tVec2d &position, tAngleRad yaw = 0);
 
   void Set(double x, double y, tAngleRad yaw = 0);
 
-  void Set(const tMat3x3d &matrix);
+  void Set(const tMat3x3d &matrix, double max_error = 1E-6);
 
   void Reset();
 

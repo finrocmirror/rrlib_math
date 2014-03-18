@@ -104,12 +104,12 @@ tPose3D::tPose3D(const tPose2D &pose_2d)
     yaw(pose_2d.Yaw())
 {}
 
-tPose3D::tPose3D(const tMat4x4d &matrix, bool use_second_solution)
+tPose3D::tPose3D(const tMat4x4d &matrix, bool use_second_solution, double max_error)
   : roll(0),
     pitch(0),
     yaw(0)
 {
-  this->Set(matrix, use_second_solution);
+  this->Set(matrix, use_second_solution, max_error);
 }
 
 //----------------------------------------------------------------------
@@ -135,21 +135,9 @@ void tPose3D::SetOrientation(tAngleRad roll, tAngleRad pitch, tAngleRad yaw)
   this->yaw = yaw;
 }
 
-void tPose3D::SetOrientation(const tMat3x3d &matrix, bool use_second_solution, double max_error_for_matrix_check)
+void tPose3D::SetOrientation(const tMat3x3d &matrix, bool use_second_solution, double max_error)
 {
-  assert(IsEqual(matrix.Determinant(), 1.0, max_error_for_matrix_check));
-  if (!use_second_solution)
-  {
-    this->roll = std::atan2(matrix[2][1], matrix[2][2]);
-  }
-  else
-  {
-    this->roll = std::atan2(-matrix[2][1], -matrix[2][2]);
-  }
-  double sin_roll, cos_roll;
-  this->roll.SinCos(sin_roll, cos_roll);
-  this->pitch = std::atan2(-matrix[2][0], sin_roll * matrix[2][1] + cos_roll * matrix[2][2]);
-  this->yaw = std::atan2(sin_roll * matrix[0][2] - cos_roll * matrix[0][1], cos_roll * matrix[1][1] - sin_roll * matrix[1][2]);
+  matrix.ExtractRollPitchYaw(this->roll, this->pitch, this->yaw, use_second_solution, max_error);
 }
 
 //----------------------------------------------------------------------
@@ -177,13 +165,13 @@ void tPose3D::Set(double x, double y, double z)
   this->position.Set(x, y, z);
 }
 
-void tPose3D::Set(const tMat4x4d &matrix, bool use_second_solution)
+void tPose3D::Set(const tMat4x4d &matrix, bool use_second_solution, double max_error)
 {
-  assert(IsEqual(matrix[3][0], 0.0) && IsEqual(matrix[3][1], 0.0) && IsEqual(matrix[3][2], 0.0) && IsEqual(matrix[3][3], 1.0));
+  assert(IsEqual(matrix[3][0], 0.0, max_error) && IsEqual(matrix[3][1], 0.0, max_error) && IsEqual(matrix[3][2], 0.0, max_error) && IsEqual(matrix[3][3], 1.0, max_error));
   this->position.Set(matrix[0][3], matrix[1][3], matrix[2][3]);
   this->SetOrientation(tMat3x3d(matrix[0][0], matrix[0][1], matrix[0][2],
                                 matrix[1][0], matrix[1][1], matrix[1][2],
-                                matrix[2][0], matrix[2][1], matrix[2][2]));
+                                matrix[2][0], matrix[2][1], matrix[2][2]), use_second_solution, max_error);
 }
 
 //----------------------------------------------------------------------
@@ -402,7 +390,10 @@ const tPose3D rrlib::math::operator - (const tPose3D &left, const tPose3D &right
 //----------------------------------------------------------------------
 bool rrlib::math::IsEqual(const tPose3D &left, const tPose3D &right, float max_error, tFloatComparisonMethod method)
 {
-  return IsEqual(left.Position(), right.Position()) && IsEqual(left.Roll(), right.Roll()) && IsEqual(left.Pitch(), right.Pitch()) && IsEqual(left.Yaw(), right.Yaw());
+  return IsEqual(left.Position(), right.Position(), max_error, method)
+         && IsEqual(left.Roll(), right.Roll(), max_error, method)
+         && IsEqual(left.Pitch(), right.Pitch(), max_error, method)
+         && IsEqual(left.Yaw(), right.Yaw(), max_error, method);
 }
 
 //----------------------------------------------------------------------

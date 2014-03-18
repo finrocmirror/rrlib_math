@@ -78,10 +78,10 @@ tPose2D::tPose2D(double x, double y, tAngleRad yaw)
     yaw(yaw)
 {}
 
-tPose2D::tPose2D(const tMat3x3d &matrix)
+tPose2D::tPose2D(const tMat3x3d &matrix, double max_error)
   : yaw(0)
 {
-  this->Set(matrix);
+  this->Set(matrix, max_error);
 }
 
 tPose2D::tPose2D(const tPose3D &other)
@@ -110,9 +110,9 @@ void tPose2D::SetOrientation(tAngleRad yaw)
   this->yaw = yaw;
 }
 
-void tPose2D::SetOrientation(const tMat2x2d &matrix)
+void tPose2D::SetOrientation(const tMat2x2d &matrix, double max_error)
 {
-  assert(IsEqual(matrix.Determinant(), 1.0));
+  assert(IsEqual(matrix.Determinant(), 1.0, max_error));
   this->yaw = std::atan2(matrix[1][0], matrix[0][0]);
 }
 
@@ -131,11 +131,11 @@ void tPose2D::Set(double x, double y, tAngleRad yaw)
   this->SetOrientation(yaw);
 }
 
-void tPose2D::Set(const tMat3x3d &matrix)
+void tPose2D::Set(const tMat3x3d &matrix, double max_error)
 {
   assert(IsEqual(matrix[2][0], 0.0) && IsEqual(matrix[2][1], 0.0) && IsEqual(matrix[2][2], 1.0));
   this->position.Set(matrix[0][2], matrix[1][2]);
-  this->SetOrientation(tMat2x2d(matrix[0][0], matrix[0][1], matrix[1][0], matrix[1][1]));
+  this->SetOrientation(tMat2x2d(matrix[0][0], matrix[0][1], matrix[1][0], matrix[1][1]), max_error);
 }
 
 //----------------------------------------------------------------------
@@ -339,7 +339,8 @@ const tPose2D rrlib::math::operator - (const tPose2D &left, const tPose2D &right
 //----------------------------------------------------------------------
 bool rrlib::math::IsEqual(const tPose2D &left, const tPose2D &right, float max_error, tFloatComparisonMethod method)
 {
-  return IsEqual(left.Position(), right.Position()) && IsEqual(left.Yaw(), right.Yaw());
+  return IsEqual(left.Position(), right.Position(), max_error, method)
+         && IsEqual(left.Yaw(), right.Yaw(), max_error, method);
 }
 
 //----------------------------------------------------------------------

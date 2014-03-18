@@ -176,6 +176,26 @@ public:
     }
   }
 
+  template <typename TAngleElement, typename TUnitPolicy, typename TSignPolicy>
+  void ExtractRollPitchYaw(tAngle<TAngleElement, TUnitPolicy, TSignPolicy> &roll, tAngle<TAngleElement, TUnitPolicy, TSignPolicy> &pitch, tAngle<TAngleElement, TUnitPolicy, TSignPolicy> &yaw, bool use_second_solution = false, double max_error = 1E-6) const
+  {
+    const tMatrix *that = reinterpret_cast<const tMatrix *>(this);
+
+    assert(IsEqual(that->Determinant(), 1.0, max_error));
+    if (!use_second_solution)
+    {
+      roll = std::atan2((*that)[2][1], (*that)[2][2]);
+    }
+    else
+    {
+      roll = std::atan2(-(*that)[2][1], -(*that)[2][2]);
+    }
+    double sin_roll, cos_roll;
+    roll.SinCos(sin_roll, cos_roll);
+    pitch = std::atan2(-(*that)[2][0], sin_roll * (*that)[2][1] + cos_roll * (*that)[2][2]);
+    yaw = std::atan2(sin_roll * (*that)[0][2] - cos_roll * (*that)[0][1], cos_roll * (*that)[1][1] - sin_roll * (*that)[1][2]);
+  }
+
 //----------------------------------------------------------------------
 // Protected methods
 //----------------------------------------------------------------------
@@ -220,6 +240,21 @@ public:
       }
     }
     math::tMatrix<3, 3, TElement>(data).GetRotation(axis, angle);
+  }
+
+  template <typename TAngleElement, typename TUnitPolicy, typename TSignPolicy>
+  void ExtractRollPitchYaw(tAngle<TAngleElement, TUnitPolicy, TSignPolicy> &roll, tAngle<TAngleElement, TUnitPolicy, TSignPolicy> &pitch, tAngle<TAngleElement, TUnitPolicy, TSignPolicy> &yaw, bool use_second_solution = false, double max_error = 1E-6) const
+  {
+    const tMatrix *that = reinterpret_cast<const tMatrix *>(this);
+    TElement data[3 * 3];
+    for (size_t row = 0; row < 3; ++row)
+    {
+      for (size_t column = 0; column < 3; ++column)
+      {
+        data[row * 3 + column] = (*that)[row][column];
+      }
+    }
+    math::tMatrix<3, 3, TElement>(data).ExtractRollPitchYaw(roll, pitch, yaw, use_second_solution, max_error);
   }
 
   /*! Sets this matrix to represent a homogeneous rotation matrix

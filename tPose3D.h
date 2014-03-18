@@ -101,7 +101,7 @@ public:
 
   explicit tPose3D(const tPose2D &pose_2d);
 
-  explicit tPose3D(const tMat4x4d &matrix, bool use_second_solution = false);
+  explicit tPose3D(const tMat4x4d &matrix, bool use_second_solution = false, double max_error = 1E-6);
 
   inline const char *GetDescription() const
   {
@@ -178,7 +178,7 @@ public:
 
   void SetOrientation(tAngleRad roll, tAngleRad pitch, tAngleRad yaw);
 
-  void SetOrientation(const tMat3x3d &matrix, bool use_second_solution = false, double max_error_for_matrix_check = 1E-6);
+  void SetOrientation(const tMat3x3d &matrix, bool use_second_solution = false, double max_error = 1E-6);
 
   void Set(const tVec3d &position, tAngleRad roll, tAngleRad pitch, tAngleRad yaw);
 
@@ -188,7 +188,7 @@ public:
 
   void Set(double x, double y, double z);
 
-  void Set(const tMat4x4d &matrix, bool use_second_solution = false);
+  void Set(const tMat4x4d &matrix, bool use_second_solution = false, double max_error = 1E-6);
 
   void Reset();
 
