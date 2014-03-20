@@ -210,6 +210,16 @@ public:
 
   const tPose3D GetPoseInLocalFrame(const tPose3D &reference) const;
 
+  /*! Transform given 3D points to a coordinate system defined by a reference pose
+   *
+   * \param points_begin    Begin iterator of the points to transform
+   * \param points_begin    End iterator of the points to transform
+   * \param in_local_frame  Assume that "reference" describes the pose of a coordinate system B in the coordinate system A:
+   *                        Choose true if you want to convert points from system A to B, false if you want to transform points from B to A
+   */
+  template<typename TIterator>
+  void TransformCoordinateSystem(TIterator points_begin, TIterator points_end, bool in_local_frame) const;
+
   tPose3D &Translate(const tVec3d &translation);
 
   tPose3D Translated(const tVec3d &translation) const;
@@ -281,5 +291,7 @@ serialization::tStringInputStream &operator >> (serialization::tStringInputStrea
 //----------------------------------------------------------------------
 }
 }
+
+#include "rrlib/math/tPose3D.hpp"
 
 #endif
