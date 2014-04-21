@@ -169,10 +169,10 @@ const TElement FunctionalitySpecialized<Tdimension, TElement, Cartesian>::Length
 // FunctionalitySpecialized Cartesian SquaredLength
 //----------------------------------------------------------------------
 template <size_t Tdimension, typename TElement>
-const TElement FunctionalitySpecialized<Tdimension, TElement, Cartesian>::SquaredLength() const
+const decltype(TElement() * TElement()) FunctionalitySpecialized<Tdimension, TElement, Cartesian>::SquaredLength() const
 {
   const tVector *that = reinterpret_cast<const tVector *>(this);
-  TElement result = 0;
+  decltype(TElement() * TElement()) result = 0;
   for (size_t i = 0; i < Tdimension; ++i)
   {
     result += (*that)[i] * (*that)[i];
@@ -323,7 +323,7 @@ void FunctionalitySpecialized<Tdimension, TElement, Polar>::Set(TValues... value
 // FunctionalitySpecialized Polar SquaredLength
 //----------------------------------------------------------------------
 template <size_t Tdimension, typename TElement>
-const TElement FunctionalitySpecialized<Tdimension, TElement, Polar>::SquaredLength() const
+const decltype(TElement() * TElement()) FunctionalitySpecialized<Tdimension, TElement, Polar>::SquaredLength() const
 {
   const tVector *that = reinterpret_cast<const tVector *>(this);
   return that->Length() * that->Length();
