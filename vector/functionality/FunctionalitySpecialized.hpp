@@ -162,7 +162,7 @@ const tVector<Tdimension, TElement, Cartesian> FunctionalitySpecialized<Tdimensi
 template <size_t Tdimension, typename TElement>
 const TElement FunctionalitySpecialized<Tdimension, TElement, Cartesian>::Length() const
 {
-  return std::sqrt(this->SquaredLength());
+  return std::sqrt(static_cast<double>(this->SquaredLength()));
 }
 
 //----------------------------------------------------------------------
