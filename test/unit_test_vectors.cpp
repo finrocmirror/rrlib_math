@@ -128,6 +128,7 @@ private:
     RRLIB_UNIT_TESTS_EQUALITY_MESSAGE("Result of multiplication w/ scalar must be correct", tVec(2, 2), tVec(1, 1) * 2);
 
     RRLIB_UNIT_TESTS_EQUALITY_MESSAGE("Result of Length() must be correct", (unsigned int) 5, tVec(5, 0).Length());
+    RRLIB_UNIT_TESTS_EQUALITY_MESSAGE("Result of SquaredLength() must be correct", (unsigned int) 25, tVec(5, 0).SquaredLength());
     RRLIB_UNIT_TESTS_EQUALITY_MESSAGE("Result of Length() must be correct", (unsigned int) 5, tVec(0, 5).Length());
 
 #if 0
@@ -183,6 +184,7 @@ private:
     RRLIB_UNIT_TESTS_EQUALITY_MESSAGE("Result of multiplication w/ scalar must be correct", tVec(2, 2), tVec(2, 1) * 2);
 
     RRLIB_UNIT_TESTS_EQUALITY_MESSAGE("Result of Length() must be correct", 5.0, tVec(0, 5).Length());
+    RRLIB_UNIT_TESTS_EQUALITY_MESSAGE("Result of SquaredLength() must be correct", 25.0, tVec(0, 5).SquaredLength());
     RRLIB_UNIT_TESTS_EQUALITY_MESSAGE("Result of Length() must be correct", 5.0, tVec(M_PI / 2, 5).Length());
     RRLIB_UNIT_TESTS_EQUALITY_MESSAGE("Result of Length() must be correct", 5.0, tVec(M_PI, 5).Length());
 

@@ -119,7 +119,7 @@ public:
 
   inline const TElement Length() const __attribute__((always_inline));
 
-  inline const TElement SquaredLength() const __attribute__((always_inline));
+  inline const decltype(TElement() * TElement()) SquaredLength() const __attribute__((always_inline));
 
   inline const bool IsZero(double epsilon = 0) const __attribute__((always_inline));
 
@@ -184,7 +184,7 @@ public:
   template <typename ... TValues>
   inline void Set(TValues... values) __attribute__((always_inline));
 
-  inline const TElement SquaredLength() const __attribute__((always_inline));
+  inline const decltype(TElement() * TElement()) SquaredLength() const __attribute__((always_inline));
 
   inline const bool IsZero(double epsilon = 0) const __attribute__((always_inline));
 

@@ -166,17 +166,17 @@ const tVector<Tdimension, TElement, Cartesian> FunctionalitySpecialized<Tdimensi
 template <size_t Tdimension, typename TElement>
 const TElement FunctionalitySpecialized<Tdimension, TElement, Cartesian>::Length() const
 {
-  return std::sqrt(this->SquaredLength());
+  return std::sqrt(static_cast<double>(this->SquaredLength()));
 }
 
 //----------------------------------------------------------------------
 // FunctionalitySpecialized Cartesian SquaredLength
 //----------------------------------------------------------------------
 template <size_t Tdimension, typename TElement>
-const TElement FunctionalitySpecialized<Tdimension, TElement, Cartesian>::SquaredLength() const
+const decltype(TElement() * TElement()) FunctionalitySpecialized<Tdimension, TElement, Cartesian>::SquaredLength() const
 {
   const tVector *that = reinterpret_cast<const tVector *>(this);
-  TElement result = 0;
+  decltype(TElement() * TElement()) result = 0;
   for (size_t i = 0; i < Tdimension; ++i)
   {
     result += (*that)[i] * (*that)[i];
@@ -344,7 +344,7 @@ void FunctionalitySpecialized<Tdimension, TElement, Polar, TAdditionalDataParame
 // FunctionalitySpecialized Polar SquaredLength
 //----------------------------------------------------------------------
 template <size_t Tdimension, typename TElement, typename ... TAdditionalDataParameters>
-const TElement FunctionalitySpecialized<Tdimension, TElement, Polar, TAdditionalDataParameters...>::SquaredLength() const
+const decltype(TElement() * TElement()) FunctionalitySpecialized<Tdimension, TElement, Polar, TAdditionalDataParameters...>::SquaredLength() const
 {
   const tVector *that = reinterpret_cast<const tVector *>(this);
   return that->Length() * that->Length();
