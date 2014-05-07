@@ -198,13 +198,13 @@ private:
 };
 
 template <typename TElement, typename TUnitPolicy, typename TSignPolicy>
-inline const tAngle<TElement, TUnitPolicy, TSignPolicy> operator - (const tAngle<TElement, TUnitPolicy, TSignPolicy> &angle)
+inline tAngle<TElement, TUnitPolicy, TSignPolicy> operator - (const tAngle<TElement, TUnitPolicy, TSignPolicy> &angle)
 {
   return tAngle<TElement, TUnitPolicy, TSignPolicy>(-static_cast<double>(angle));
 }
 
 template <typename TElement, typename TUnitPolicy, typename TSignPolicy>
-inline const tAngle<TElement, TUnitPolicy, TSignPolicy> operator + (const tAngle<TElement, TUnitPolicy, TSignPolicy> &left, const tAngle<TElement, TUnitPolicy, TSignPolicy> &right)
+inline tAngle<TElement, TUnitPolicy, TSignPolicy> operator + (const tAngle<TElement, TUnitPolicy, TSignPolicy> &left, const tAngle<TElement, TUnitPolicy, TSignPolicy> &right)
 {
   tAngle<TElement, TUnitPolicy, TSignPolicy> temp(left);
   temp += right;
@@ -212,7 +212,7 @@ inline const tAngle<TElement, TUnitPolicy, TSignPolicy> operator + (const tAngle
 }
 
 template <typename TElement, typename TLeftUnitPolicy, typename TRightUnitPolicy, typename TSignPolicy>
-inline const tAngle<TElement, angle::Radian, TSignPolicy> operator + (const tAngle<TElement, TLeftUnitPolicy, TSignPolicy> &left, const tAngle<TElement, TRightUnitPolicy, TSignPolicy> &right)
+inline tAngle<TElement, angle::Radian, TSignPolicy> operator + (const tAngle<TElement, TLeftUnitPolicy, TSignPolicy> &left, const tAngle<TElement, TRightUnitPolicy, TSignPolicy> &right)
 {
   tAngle<TElement, angle::Radian, TSignPolicy> temp(left);
   temp += tAngle<TElement, angle::Radian, TSignPolicy>(right);
@@ -220,7 +220,7 @@ inline const tAngle<TElement, angle::Radian, TSignPolicy> operator + (const tAng
 }
 
 template <typename TElement, typename TLeftUnitPolicy, typename TRightUnitPolicy, typename TLeftSignPolicy, typename TRightSignPolicy>
-inline const tAngle<TElement, angle::Radian, angle::Unsigned> operator + (const tAngle<TElement, TLeftUnitPolicy, TLeftSignPolicy> &left, const tAngle<TElement, TRightUnitPolicy, TRightSignPolicy> &right)
+inline tAngle<TElement, angle::Radian, angle::Unsigned> operator + (const tAngle<TElement, TLeftUnitPolicy, TLeftSignPolicy> &left, const tAngle<TElement, TRightUnitPolicy, TRightSignPolicy> &right)
 {
   tAngle<TElement, angle::Radian, angle::Unsigned> temp(left);
   temp += tAngle<TElement, angle::Radian, angle::Unsigned>(right);
@@ -228,7 +228,7 @@ inline const tAngle<TElement, angle::Radian, angle::Unsigned> operator + (const 
 }
 
 template <typename TElement, typename TUnitPolicy, typename TSignPolicy>
-inline const tAngle<TElement, TUnitPolicy, TSignPolicy> operator - (const tAngle<TElement, TUnitPolicy, TSignPolicy> &left, const tAngle<TElement, TUnitPolicy, TSignPolicy> &right)
+inline tAngle<TElement, TUnitPolicy, TSignPolicy> operator - (const tAngle<TElement, TUnitPolicy, TSignPolicy> &left, const tAngle<TElement, TUnitPolicy, TSignPolicy> &right)
 {
   tAngle<TElement, TUnitPolicy, TSignPolicy> temp(left);
   temp -= right;
@@ -236,7 +236,7 @@ inline const tAngle<TElement, TUnitPolicy, TSignPolicy> operator - (const tAngle
 }
 
 template <typename TElement, typename TLeftUnitPolicy, typename TRightUnitPolicy, typename TSignPolicy>
-inline const tAngle<TElement, angle::Radian, TSignPolicy> operator - (const tAngle<TElement, TLeftUnitPolicy, TSignPolicy> &left, const tAngle<TElement, TRightUnitPolicy, TSignPolicy> &right)
+inline tAngle<TElement, angle::Radian, TSignPolicy> operator - (const tAngle<TElement, TLeftUnitPolicy, TSignPolicy> &left, const tAngle<TElement, TRightUnitPolicy, TSignPolicy> &right)
 {
   tAngle<TElement, angle::Radian, TSignPolicy> temp(left);
   temp -= tAngle<TElement, angle::Radian, TSignPolicy>(right);
@@ -244,7 +244,7 @@ inline const tAngle<TElement, angle::Radian, TSignPolicy> operator - (const tAng
 }
 
 template <typename TElement, typename TLeftUnitPolicy, typename TRightUnitPolicy, typename TLeftSignPolicy, typename TRightSignPolicy>
-inline const tAngle<TElement, angle::Radian, angle::Unsigned> operator - (const tAngle<TElement, TLeftUnitPolicy, TLeftSignPolicy> &left, const tAngle<TElement, TRightUnitPolicy, TRightSignPolicy> &right)
+inline tAngle<TElement, angle::Radian, angle::Unsigned> operator - (const tAngle<TElement, TLeftUnitPolicy, TLeftSignPolicy> &left, const tAngle<TElement, TRightUnitPolicy, TRightSignPolicy> &right)
 {
   tAngle<TElement, angle::Radian, angle::Unsigned> temp(left);
   temp -= tAngle<TElement, angle::Radian, angle::Unsigned>(right);
@@ -252,20 +252,20 @@ inline const tAngle<TElement, angle::Radian, angle::Unsigned> operator - (const 
 }
 
 //template <typename TUnitPolicy, typename TSignPolicy>
-//inline const tAngle<TUnitPolicy, TSignPolicy> operator *(const tAngle<TUnitPolicy, TSignPolicy> &angle, double factor)
+//inline tAngle<TUnitPolicy, TSignPolicy> operator *(const tAngle<TUnitPolicy, TSignPolicy> &angle, double factor)
 //{
 //  tAngle<TUnitPolicy, TSignPolicy> temp(angle);
 //  temp *= factor;
 //  return temp;
 //}
 //template <typename TUnitPolicy, typename TSignPolicy>
-//inline const tAngle<TUnitPolicy, TSignPolicy> operator *(double factor, const tAngle<TUnitPolicy, TSignPolicy> &angle)
+//inline tAngle<TUnitPolicy, TSignPolicy> operator *(double factor, const tAngle<TUnitPolicy, TSignPolicy> &angle)
 //{
 //  return angle * factor;
 //}
 
 //template <typename TUnitPolicy, typename TSignPolicy>
-//inline const tAngle<TUnitPolicy, TSignPolicy> operator / (const tAngle<TUnitPolicy, TSignPolicy> &angle, double divider)
+//inline tAngle<TUnitPolicy, TSignPolicy> operator / (const tAngle<TUnitPolicy, TSignPolicy> &angle, double divider)
 //{
 //  tAngle<TUnitPolicy, TSignPolicy> temp(angle);
 //  temp /= divider;
@@ -273,37 +273,37 @@ inline const tAngle<TElement, angle::Radian, angle::Unsigned> operator - (const 
 //}
 
 template <typename TElement, typename TLeftUnitPolicy, typename TRightUnitPolicy, typename TSignPolicy>
-inline const bool operator == (const tAngle<TElement, TLeftUnitPolicy, TSignPolicy> &left, const tAngle<TElement, TRightUnitPolicy, TSignPolicy> &right)
+inline bool operator == (const tAngle<TElement, TLeftUnitPolicy, TSignPolicy> &left, const tAngle<TElement, TRightUnitPolicy, TSignPolicy> &right)
 {
   return static_cast<TElement>(tAngle<TElement, TLeftUnitPolicy, TSignPolicy>(left)) == static_cast<TElement>(tAngle<TElement, TLeftUnitPolicy, TSignPolicy>(right));
 }
 
 template <typename TElement, typename TLeftUnitPolicy, typename TRightUnitPolicy, typename TSignPolicy>
-const bool operator != (const tAngle<TElement, TLeftUnitPolicy, TSignPolicy> &left, const tAngle<TElement, TRightUnitPolicy, TSignPolicy> &right)
+bool operator != (const tAngle<TElement, TLeftUnitPolicy, TSignPolicy> &left, const tAngle<TElement, TRightUnitPolicy, TSignPolicy> &right)
 {
   return !(left == right);
 }
 
 template <typename TElement, typename TLeftUnitPolicy, typename TRightUnitPolicy, typename TSignPolicy>
-const bool operator < (const tAngle<TElement, TLeftUnitPolicy, TSignPolicy> &left, const tAngle<TElement, TRightUnitPolicy, TSignPolicy> &right)
+bool operator < (const tAngle<TElement, TLeftUnitPolicy, TSignPolicy> &left, const tAngle<TElement, TRightUnitPolicy, TSignPolicy> &right)
 {
   return static_cast<TElement>(tAngle<TElement, TLeftUnitPolicy, TSignPolicy>(left)) < static_cast<TElement>(tAngle<TElement, TLeftUnitPolicy, TSignPolicy>(right));
 }
 
 template <typename TElement, typename TLeftUnitPolicy, typename TRightUnitPolicy, typename TSignPolicy>
-const bool operator > (const tAngle<TElement, TLeftUnitPolicy, TSignPolicy> &left, const tAngle<TElement, TRightUnitPolicy, TSignPolicy> &right)
+bool operator > (const tAngle<TElement, TLeftUnitPolicy, TSignPolicy> &left, const tAngle<TElement, TRightUnitPolicy, TSignPolicy> &right)
 {
   return static_cast<TElement>(tAngle<TElement, TLeftUnitPolicy, TSignPolicy>(left)) > static_cast<TElement>(tAngle<TElement, TLeftUnitPolicy, TSignPolicy>(right));
 }
 
 template <typename TElement, typename TLeftUnitPolicy, typename TRightUnitPolicy, typename TSignPolicy>
-const bool operator <= (const tAngle<TElement, TLeftUnitPolicy, TSignPolicy> &left, const tAngle<TElement, TRightUnitPolicy, TSignPolicy> &right)
+bool operator <= (const tAngle<TElement, TLeftUnitPolicy, TSignPolicy> &left, const tAngle<TElement, TRightUnitPolicy, TSignPolicy> &right)
 {
   return !(left > right);
 }
 
 template <typename TElement, typename TLeftUnitPolicy, typename TRightUnitPolicy, typename TSignPolicy>
-const bool operator >= (const tAngle<TElement, TLeftUnitPolicy, TSignPolicy> &left, const tAngle<TElement, TRightUnitPolicy, TSignPolicy> &right)
+bool operator >= (const tAngle<TElement, TLeftUnitPolicy, TSignPolicy> &left, const tAngle<TElement, TRightUnitPolicy, TSignPolicy> &right)
 {
   return !(left < right);
 }
