@@ -166,10 +166,10 @@ const tVector<Tdimension, TElement, TData, TAdditionalDataParameters...> Functio
 //----------------------------------------------------------------------
 template <size_t Tdimension, typename TElement, template <size_t, typename, typename ...> class TData, typename ... TAdditionalDataParameters>
 template <typename TOtherElement>
-const math::tVector < Tdimension, decltype(TElement() + TOtherElement()), TData, TAdditionalDataParameters... > FunctionalityShared<Tdimension, TElement, TData, TAdditionalDataParameters...>::Projected(const math::tVector<Tdimension, TOtherElement, TData, TAdditionalDataParameters...> &other) const
+const math::tVector <Tdimension, decltype(TElement() * double()), TData, TAdditionalDataParameters...> FunctionalityShared<Tdimension, TElement, TData, TAdditionalDataParameters...>::Projected(const math::tVector<Tdimension, TOtherElement, TData, TAdditionalDataParameters...> &other) const
 {
   const tVector *that = reinterpret_cast<const tVector *>(this);
-  math::tVector < Tdimension, decltype(TElement() + TOtherElement()), TData, TAdditionalDataParameters... > temp(*that);
+  math::tVector <Tdimension, decltype(TElement() * double()), TData, TAdditionalDataParameters...> temp(*that);
   temp.Project(other);
   return temp;
 }

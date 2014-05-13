@@ -127,13 +127,13 @@ public:
   inline void SchurMultiply(const math::tVector<Tdimension, TOtherElement, Cartesian> &other) __attribute__((always_inline));
 
   template <typename TOtherElement>
-  inline const math::tVector < Tdimension, decltype(TElement() + TOtherElement()), Cartesian > SchurMultiplied(const math::tVector<Tdimension, TOtherElement, Cartesian> &other) const __attribute__((always_inline));
+  inline const math::tVector <Tdimension, decltype(TElement() * TOtherElement()), Cartesian> SchurMultiplied(const math::tVector<Tdimension, TOtherElement, Cartesian> &other) const __attribute__((always_inline));
 
   template <size_t Tother_dimension, typename TOtherElement>
   inline typename std::enable_if < Tdimension == 3 && Tother_dimension == 3, void >::type CrossMultiply(const math::tVector<Tother_dimension, TOtherElement, Cartesian> &other) __attribute__((always_inline));
 
   template <size_t Tother_dimension, typename TOtherElement>
-  inline const typename std::enable_if < Tdimension == 3 && Tother_dimension == 3, math::tVector < 3, decltype(TElement() + TOtherElement()), Cartesian > >::type CrossMultiplied(const math::tVector<Tother_dimension, TOtherElement, Cartesian> &other) const __attribute__((always_inline));
+  inline const typename std::enable_if < Tdimension == 3 && Tother_dimension == 3, math::tVector <3, decltype(TElement() * TOtherElement()), Cartesian> >::type CrossMultiplied(const math::tVector<Tother_dimension, TOtherElement, Cartesian> &other) const __attribute__((always_inline));
 
 //----------------------------------------------------------------------
 // Protected methods

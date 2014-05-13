@@ -220,10 +220,10 @@ void FunctionalitySpecialized<Tdimension, TElement, Cartesian>::SchurMultiply(co
 //----------------------------------------------------------------------
 template <size_t Tdimension, typename TElement>
 template <typename TOtherElement>
-const math::tVector < Tdimension, decltype(TElement() + TOtherElement()), Cartesian > FunctionalitySpecialized<Tdimension, TElement, Cartesian>::SchurMultiplied(const math::tVector<Tdimension, TOtherElement, Cartesian> &other) const
+const math::tVector <Tdimension, decltype(TElement() * TOtherElement()), Cartesian> FunctionalitySpecialized<Tdimension, TElement, Cartesian>::SchurMultiplied(const math::tVector<Tdimension, TOtherElement, Cartesian> &other) const
 {
   const tVector *that = reinterpret_cast<const tVector *>(this);
-  math::tVector < Tdimension, decltype(TElement() + TOtherElement()), Cartesian > temp(*that);
+  math::tVector <Tdimension, decltype(TElement() * TOtherElement()), Cartesian> temp(*that);
   temp.SchurMultiply(other);
   return temp;
 }
@@ -246,10 +246,10 @@ typename std::enable_if < Tdimension == 3 && Tother_dimension == 3, void >::type
 //----------------------------------------------------------------------
 template <size_t Tdimension, typename TElement>
 template <size_t Tother_dimension, typename TOtherElement>
-const typename std::enable_if < Tdimension == 3 && Tother_dimension == 3, math::tVector < 3, decltype(TElement() + TOtherElement()), Cartesian > >::type FunctionalitySpecialized<Tdimension, TElement, Cartesian>::CrossMultiplied(const math::tVector<Tother_dimension, TOtherElement, Cartesian> &other) const
+const typename std::enable_if < Tdimension == 3 && Tother_dimension == 3, math::tVector <3, decltype(TElement() * TOtherElement()), Cartesian> >::type FunctionalitySpecialized<Tdimension, TElement, Cartesian>::CrossMultiplied(const math::tVector<Tother_dimension, TOtherElement, Cartesian> &other) const
 {
   const tVector *that = reinterpret_cast<const tVector *>(this);
-  math::tVector < Tdimension, decltype(TElement() + TOtherElement()), Cartesian > temp(*that);
+  math::tVector <Tdimension, decltype(TElement() * TOtherElement()), Cartesian> temp(*that);
   temp.CrossMultiply(other);
   return temp;
 }

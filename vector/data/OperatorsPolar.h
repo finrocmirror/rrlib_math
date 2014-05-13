@@ -163,7 +163,7 @@ tVector < Tdimension, decltype(TLeftElement() - TRightElement()), Polar, TAdditi
 }
 
 template <size_t Tdimension, typename TElement, typename TScalar, typename ... TAdditionalDataParameters>
-typename std::enable_if <std::is_scalar<TScalar>::value, tVector <Tdimension, decltype(TElement() * TScalar()), Polar, TAdditionalDataParameters...>>::type operator * (const tVector<Tdimension, TElement, Polar, TAdditionalDataParameters...> &vector, const TScalar scalar)
+typename std::enable_if<std::is_scalar<TScalar>::value, tVector <Tdimension, decltype(TElement() * TScalar()), Polar, TAdditionalDataParameters...>>::type operator * (const tVector<Tdimension, TElement, Polar, TAdditionalDataParameters...> &vector, const TScalar scalar)
 {
   typedef math::tVector <Tdimension, decltype(TElement() * TScalar()), Polar, TAdditionalDataParameters...> tResult;
   tAngle<decltype(TElement() * TScalar()), TAdditionalDataParameters...> angles[Tdimension];
@@ -174,7 +174,7 @@ typename std::enable_if <std::is_scalar<TScalar>::value, tVector <Tdimension, de
   return tResult(angles, vector.Length() * scalar);
 }
 template <size_t Tdimension, typename TElement, typename TScalar, typename ... TAdditionalDataParameters>
-typename std::enable_if <std::is_scalar<TScalar>::value, tVector <Tdimension, decltype(TElement() * TScalar()), Polar, TAdditionalDataParameters...>>::type operator * (const TScalar scalar, const tVector<Tdimension, TElement, Polar, TAdditionalDataParameters...> &vector)
+typename std::enable_if<std::is_scalar<TScalar>::value, tVector <Tdimension, decltype(TElement() * TScalar()), Polar, TAdditionalDataParameters...>>::type operator * (const TScalar scalar, const tVector<Tdimension, TElement, Polar, TAdditionalDataParameters...> &vector)
 {
   return vector * scalar;
 }
