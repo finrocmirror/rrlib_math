@@ -158,7 +158,7 @@ tVector < Tdimension, decltype(TLeftElement() + TRightElement()), Polar > operat
 }
 
 template <size_t Tdimension, typename TLeftElement, typename TRightElement>
-tVector < Tdimension, decltype(TLeftElement() + TRightElement()), Polar > operator - (const tVector<Tdimension, TLeftElement, Polar> &left, const tVector<Tdimension, TRightElement, Polar> &right)
+tVector < Tdimension, decltype(TLeftElement() - TRightElement()), Polar > operator - (const tVector<Tdimension, TLeftElement, Polar> &left, const tVector<Tdimension, TRightElement, Polar> &right)
 {
   return (left.GetCartesianVector() - right.GetCartesianVector()).GetPolarVector();
 }
@@ -166,7 +166,7 @@ tVector < Tdimension, decltype(TLeftElement() + TRightElement()), Polar > operat
 template <size_t Tdimension, typename TElement, typename TScalar>
 typename boost::enable_if < boost::is_scalar<TScalar>, tVector < Tdimension, decltype(TElement() + TScalar()), Polar >>::type operator * (const tVector<Tdimension, TElement, Polar> &vector, const TScalar scalar)
 {
-  typedef math::tVector < Tdimension, decltype(TElement() + TScalar()), Polar > tResult;
+  typedef math::tVector <Tdimension, decltype(TElement() * TScalar()), Polar> tResult;
   tAngleRad angles[Tdimension];
   for (size_t i = 0; i < Tdimension - 1; ++i)
   {
@@ -175,13 +175,13 @@ typename boost::enable_if < boost::is_scalar<TScalar>, tVector < Tdimension, dec
   return tResult(angles, vector.Length() * scalar);
 }
 template <size_t Tdimension, typename TElement, typename TScalar>
-typename boost::enable_if < boost::is_scalar<TScalar>, tVector < Tdimension, decltype(TElement() + TScalar()), Polar >>::type operator * (const TScalar scalar, const tVector<Tdimension, TElement, Polar> &vector)
+typename boost::enable_if <boost::is_scalar<TScalar>, tVector <Tdimension, decltype(TElement() * TScalar()), Polar>>::type operator * (const TScalar scalar, const tVector<Tdimension, TElement, Polar> &vector)
 {
   return vector * scalar;
 }
 
 template <size_t Tdimension, typename TLeftElement, typename TRightElement>
-decltype(TLeftElement() + TRightElement()) operator *(const tVector<Tdimension, TLeftElement, Polar> &left, const tVector<Tdimension, TRightElement, Polar> &right)
+decltype(TLeftElement() * TRightElement()) operator *(const tVector<Tdimension, TLeftElement, Polar> &left, const tVector<Tdimension, TRightElement, Polar> &right)
 {
   return left.GetCartesianVector() * right.GetCartesianVector();
 }

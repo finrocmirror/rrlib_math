@@ -161,9 +161,9 @@ const tVector < Tdimension, decltype(TLeftElement() + TRightElement()), Cartesia
 }
 
 template <size_t Tdimension, typename TLeftElement, typename TRightElement>
-const tVector < Tdimension, decltype(TLeftElement() + TRightElement()), Cartesian > operator - (const tVector<Tdimension, TLeftElement, Cartesian> &left, const tVector<Tdimension, TRightElement, Cartesian> &right)
+const tVector < Tdimension, decltype(TLeftElement() - TRightElement()), Cartesian > operator - (const tVector<Tdimension, TLeftElement, Cartesian> &left, const tVector<Tdimension, TRightElement, Cartesian> &right)
 {
-  typedef math::tVector < Tdimension, decltype(TLeftElement() + TRightElement()), Cartesian > tResult;
+  typedef math::tVector < Tdimension, decltype(TLeftElement() - TRightElement()), Cartesian > tResult;
   typename tResult::tElement data[Tdimension];
   for (size_t i = 0; i < Tdimension; ++i)
   {
@@ -173,9 +173,9 @@ const tVector < Tdimension, decltype(TLeftElement() + TRightElement()), Cartesia
 }
 
 template <size_t Tdimension, typename TElement, typename TScalar>
-const typename boost::enable_if < boost::is_scalar<TScalar>, tVector < Tdimension, decltype(TElement() + TScalar()), Cartesian > >::type operator *(const tVector<Tdimension, TElement, Cartesian> &vector, const TScalar scalar)
+const typename boost::enable_if <boost::is_scalar<TScalar>, tVector <Tdimension, decltype(TElement() * TScalar()), Cartesian>>::type operator *(const tVector<Tdimension, TElement, Cartesian> &vector, const TScalar scalar)
 {
-  typedef math::tVector < Tdimension, decltype(TElement() + TScalar()), Cartesian > tResult;
+  typedef math::tVector <Tdimension, decltype(TElement() * TScalar()), Cartesian> tResult;
   typename tResult::tElement data[Tdimension];
   for (size_t i = 0; i < Tdimension; ++i)
   {
@@ -184,15 +184,15 @@ const typename boost::enable_if < boost::is_scalar<TScalar>, tVector < Tdimensio
   return tResult(data);
 }
 template <size_t Tdimension, typename TElement, typename TScalar>
-const typename boost::enable_if < boost::is_scalar<TScalar>, tVector < Tdimension, decltype(TElement() + TScalar()), Cartesian > >::type operator *(const TScalar scalar, const tVector<Tdimension, TElement, Cartesian> &vector)
+const typename boost::enable_if <boost::is_scalar<TScalar>, tVector <Tdimension, decltype(TElement() * TScalar()), Cartesian>>::type operator *(const TScalar scalar, const tVector<Tdimension, TElement, Cartesian> &vector)
 {
   return vector * scalar;
 }
 
 template <size_t Tdimension, typename TLeftElement, typename TRightElement>
-const decltype(TLeftElement() + TRightElement()) operator *(const tVector<Tdimension, TLeftElement, Cartesian> &left, const tVector<Tdimension, TRightElement, Cartesian> &right)
+const decltype(TLeftElement() * TRightElement()) operator *(const tVector<Tdimension, TLeftElement, Cartesian> &left, const tVector<Tdimension, TRightElement, Cartesian> &right)
 {
-  decltype(TLeftElement() + TRightElement()) result = 0;
+  decltype(TLeftElement() * TRightElement()) result = 0;
   for (size_t i = 0; i < Tdimension; ++i)
   {
     result += reinterpret_cast<const TLeftElement *>(&left)[i] * reinterpret_cast<const TRightElement *>(&right)[i];

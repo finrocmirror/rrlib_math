@@ -105,7 +105,7 @@ class LegacySpecialized<3, 3, TElement, TData>
 public:
 
   template <typename TVectorElement>
-  const tVector < 2, decltype(TElement() + TVectorElement()), vector::Cartesian > MultHomogeneous(const tVector<2, TVectorElement, vector::Cartesian> &vector) const __attribute__((deprecated));
+  const tVector < 2, decltype((TElement() * TVectorElement()) + (TElement() * TVectorElement())), vector::Cartesian > MultHomogeneous(const tVector<2, TVectorElement, vector::Cartesian> &vector) const __attribute__((deprecated));
 
   template <typename TVectorElement>
   void MultHomogeneousInPlace(tVector<2, TVectorElement, vector::Cartesian> &vector) const __attribute__((deprecated));
@@ -132,7 +132,7 @@ private:
 
 template <typename TElement, template <size_t, size_t, typename> class TData>
 template <typename TVectorElement>
-const tVector < 2, decltype(TElement() + TVectorElement()), vector::Cartesian > LegacySpecialized<3, 3, TElement, TData>::MultHomogeneous(const tVector<2, TVectorElement, vector::Cartesian> &vector) const
+const tVector < 2, decltype((TElement() * TVectorElement()) + (TElement() * TVectorElement())), vector::Cartesian > LegacySpecialized<3, 3, TElement, TData>::MultHomogeneous(const tVector<2, TVectorElement, vector::Cartesian> &vector) const
 {
   const tMatrix *that = reinterpret_cast<const tMatrix *>(this);
   return that->MultiplyHomogeneously(vector);
@@ -167,13 +167,13 @@ class LegacySpecialized<4, 4, TElement, TData>
 public:
 
   template <typename TVectorElement>
-  const tVector < 2, decltype(TElement() + TVectorElement()), vector::Cartesian > MultHomogeneous(const tVector<2, TVectorElement, vector::Cartesian> &vector) const __attribute__((deprecated));
+  const tVector < 2, decltype((TElement() * TVectorElement()) + (TElement() * TVectorElement())), vector::Cartesian > MultHomogeneous(const tVector<2, TVectorElement, vector::Cartesian> &vector) const __attribute__((deprecated));
 
   template <typename TVectorElement>
   void MultHomogeneousInPlace(tVector<2, TVectorElement, vector::Cartesian> &vector) const __attribute__((deprecated));
 
   template <typename TVectorElement>
-  const tVector < 3, decltype(TElement() + TVectorElement()), vector::Cartesian > MultHomogeneous(const tVector<3, TVectorElement, vector::Cartesian> &vector) const __attribute__((deprecated));
+  const tVector < 3, decltype((TElement() * TVectorElement()) + (TElement() * TVectorElement())), vector::Cartesian > MultHomogeneous(const tVector<3, TVectorElement, vector::Cartesian> &vector) const __attribute__((deprecated));
 
   template <typename TVectorElement>
   void MultHomogeneousInPlace(tVector<3, TVectorElement, vector::Cartesian> &vector) const __attribute__((deprecated));
@@ -199,10 +199,10 @@ private:
 
 template <typename TElement, template <size_t, size_t, typename> class TData>
 template <typename TVectorElement>
-const tVector < 2, decltype(TElement() + TVectorElement()), vector::Cartesian > LegacySpecialized<4, 4, TElement, TData>::MultHomogeneous(const tVector<2, TVectorElement, vector::Cartesian> &vector) const
+const tVector < 2, decltype((TElement() * TVectorElement()) + (TElement() * TVectorElement())), vector::Cartesian > LegacySpecialized<4, 4, TElement, TData>::MultHomogeneous(const tVector<2, TVectorElement, vector::Cartesian> &vector) const
 {
   const tMatrix *that = reinterpret_cast<const tMatrix *>(this);
-  return tVector < 2, decltype(TElement() + TVectorElement()), vector::Cartesian > (that->MultiplyHomogeneously(tVector<3, TVectorElement, vector::Cartesian>(vector)));
+  return tVector < 2, decltype((TElement() * TVectorElement()) + (TElement() * TVectorElement())), vector::Cartesian > (that->MultiplyHomogeneously(tVector<3, TVectorElement, vector::Cartesian>(vector)));
 }
 
 template <typename TElement, template <size_t, size_t, typename> class TData>
@@ -215,7 +215,7 @@ void LegacySpecialized<4, 4, TElement, TData>::MultHomogeneousInPlace(tVector<2,
 
 template <typename TElement, template <size_t, size_t, typename> class TData>
 template <typename TVectorElement>
-const tVector < 3, decltype(TElement() + TVectorElement()), vector::Cartesian > LegacySpecialized<4, 4, TElement, TData>::MultHomogeneous(const tVector<3, TVectorElement, vector::Cartesian> &vector) const
+const tVector < 3, decltype((TElement() * TVectorElement()) + (TElement() * TVectorElement())), vector::Cartesian > LegacySpecialized<4, 4, TElement, TData>::MultHomogeneous(const tVector<3, TVectorElement, vector::Cartesian> &vector) const
 {
   const tMatrix *that = reinterpret_cast<const tMatrix *>(this);
   return that->MultiplyHomogeneously(vector);

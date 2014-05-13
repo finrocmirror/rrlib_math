@@ -135,9 +135,9 @@ const math::tMatrix < Trows, Tcolumns, decltype(TLeftElement() + TRightElement()
 }
 
 template <size_t Trows, size_t Tconnection, size_t Tcolumns, typename TLeftElement, typename TRightElement, template <size_t, size_t, typename> class TRightData>
-const math::tMatrix < Trows, Tcolumns, decltype(TLeftElement() + TRightElement()), Full > operator *(const math::tMatrix<Trows, Tconnection, TLeftElement, Full> &left, const math::tMatrix<Tconnection, Tcolumns, TRightElement, TRightData> &right)
+const math::tMatrix < Trows, Tcolumns, decltype((TLeftElement() * TRightElement()) + (TLeftElement() * TRightElement())), Full > operator *(const math::tMatrix<Trows, Tconnection, TLeftElement, Full> &left, const math::tMatrix<Tconnection, Tcolumns, TRightElement, TRightData> &right)
 {
-  typedef math::tMatrix < Trows, Tcolumns, decltype(TLeftElement() + TRightElement()), Full > tResult;
+  typedef math::tMatrix < Trows, Tcolumns, decltype((TLeftElement() * TRightElement()) + (TLeftElement() * TRightElement())), Full > tResult;
   typename tResult::tElement data[Trows * Tcolumns];
   std::memset(data, 0, sizeof(data));
   size_t index = 0;
@@ -157,9 +157,9 @@ const math::tMatrix < Trows, Tcolumns, decltype(TLeftElement() + TRightElement()
 }
 
 template <size_t Trows, size_t Tconnection, size_t Tcolumns, typename TLeftElement, typename TRightElement>
-const math::tMatrix < Trows, Tcolumns, decltype(TLeftElement() + TRightElement()), Full > operator *(const math::tMatrix<Trows, Tconnection, TLeftElement, Full> &left, const math::tMatrix<Tconnection, Tcolumns, TRightElement, LowerTriangle> &right)
+const math::tMatrix < Trows, Tcolumns, decltype((TLeftElement() * TRightElement()) + (TLeftElement() * TRightElement())), Full > operator *(const math::tMatrix<Trows, Tconnection, TLeftElement, Full> &left, const math::tMatrix<Tconnection, Tcolumns, TRightElement, LowerTriangle> &right)
 {
-  typedef math::tMatrix < Trows, Tcolumns, decltype(TLeftElement() + TRightElement()), Full > tResult;
+  typedef math::tMatrix < Trows, Tcolumns, decltype((TLeftElement() * TRightElement()) + (TLeftElement() * TRightElement())), Full > tResult;
   typename tResult::tElement data[Trows * Tcolumns];
   std::memset(data, 0, sizeof(data));
   size_t index = 0;
@@ -179,9 +179,9 @@ const math::tMatrix < Trows, Tcolumns, decltype(TLeftElement() + TRightElement()
 }
 
 template <size_t Trows, size_t Tconnection, size_t Tcolumns, typename TLeftElement, typename TRightElement>
-const math::tMatrix < Trows, Tcolumns, decltype(TLeftElement() + TRightElement()), Full > operator *(const math::tMatrix<Trows, Tconnection, TLeftElement, Full> &left, const math::tMatrix<Tconnection, Tcolumns, TRightElement, UpperTriangle> &right)
+const math::tMatrix < Trows, Tcolumns, decltype((TLeftElement() * TRightElement()) + (TLeftElement() * TRightElement())), Full > operator *(const math::tMatrix<Trows, Tconnection, TLeftElement, Full> &left, const math::tMatrix<Tconnection, Tcolumns, TRightElement, UpperTriangle> &right)
 {
-  typedef math::tMatrix < Trows, Tcolumns, decltype(TLeftElement() + TRightElement()), Full > tResult;
+  typedef math::tMatrix < Trows, Tcolumns, decltype((TLeftElement() * TRightElement()) + (TLeftElement() * TRightElement())), Full > tResult;
   typename tResult::tElement data[Trows * Tcolumns];
   std::memset(data, 0, sizeof(data));
   size_t index = 0;
@@ -202,9 +202,9 @@ const math::tMatrix < Trows, Tcolumns, decltype(TLeftElement() + TRightElement()
 }
 
 template <size_t Trows, size_t Tcolumns, typename TMatrixElement, typename TVectorElement>
-const tVector < Trows, decltype(TMatrixElement() + TVectorElement()), vector::Cartesian > operator *(const math::tMatrix<Trows, Tcolumns, TMatrixElement, Full> &matrix, const tVector<Tcolumns, TVectorElement, vector::Cartesian> &vector)
+const tVector < Trows, decltype((TMatrixElement() * TVectorElement()) + (TMatrixElement() * TVectorElement())), vector::Cartesian > operator *(const math::tMatrix<Trows, Tcolumns, TMatrixElement, Full> &matrix, const tVector<Tcolumns, TVectorElement, vector::Cartesian> &vector)
 {
-  typedef tVector < Trows, decltype(TMatrixElement() + TVectorElement()), vector::Cartesian > tResult;
+  typedef tVector < Trows, decltype((TMatrixElement() * TVectorElement()) + (TMatrixElement() * TVectorElement())), vector::Cartesian > tResult;
   typename tResult::tElement data[Trows];
   for (size_t row = 0; row < Trows; ++row)
   {
@@ -219,9 +219,9 @@ const tVector < Trows, decltype(TMatrixElement() + TVectorElement()), vector::Ca
 }
 
 template <size_t Trows, size_t Tcolumns, typename TMatrixElement, typename TVectorElement>
-const tVector < Tcolumns, decltype(TMatrixElement() + TVectorElement()), vector::Cartesian > operator *(const tVector<Trows, TVectorElement, vector::Cartesian> &vector, const math::tMatrix<Trows, Tcolumns, TMatrixElement, Full> &matrix)
+const tVector < Tcolumns, decltype((TVectorElement() * TMatrixElement()) + (TVectorElement() * TMatrixElement())), vector::Cartesian > operator *(const tVector<Trows, TVectorElement, vector::Cartesian> &vector, const math::tMatrix<Trows, Tcolumns, TMatrixElement, Full> &matrix)
 {
-  typedef tVector < Tcolumns, decltype(TMatrixElement() + TVectorElement()), vector::Cartesian > tResult;
+  typedef tVector < Tcolumns, decltype((TVectorElement() * TMatrixElement()) + (TVectorElement() * TMatrixElement())), vector::Cartesian > tResult;
   typename tResult::tElement data[Tcolumns];
   for (size_t column = 0; column < Tcolumns; ++column)
   {

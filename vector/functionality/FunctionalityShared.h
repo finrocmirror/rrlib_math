@@ -156,21 +156,21 @@ public:
   inline void Project(const math::tVector<Tdimension, TOtherElement, TData> &other)
   {
     tVector *that = reinterpret_cast<tVector *>(this);
-    TOtherElement others_norm = other.SquaredLength();
+    double others_norm = static_cast<double>(other.SquaredLength());
     if (others_norm == 0)
     {
       *that = tVector::Zero();
     }
     else
     {
-      double projection_factor = *that * other / others_norm;
+      double projection_factor = static_cast<double>(*that * other) / others_norm;
       *that = other;
       *that *= projection_factor;
     }
   }
 
   template <typename TOtherElement>
-  inline const math::tVector < Tdimension, decltype(TElement() + TOtherElement()), TData > Projected(const math::tVector<Tdimension, TOtherElement, TData> &other) const __attribute__((always_inline));
+  inline const math::tVector <Tdimension, decltype(TElement() * double()), TData> Projected(const math::tVector<Tdimension, TOtherElement, TData> &other) const __attribute__((always_inline));
 
 //----------------------------------------------------------------------
 // Protected methods
