@@ -488,8 +488,7 @@ rrlib::serialization::tStringOutputStream &rrlib::math::operator << (rrlib::seri
 
 rrlib::serialization::tStringInputStream &rrlib::math::operator >> (rrlib::serialization::tStringInputStream &stream, tPose3D &pose)
 {
-  std::istringstream s(stream.ReadLine());
-  s >> pose;
+  stream.GetWrappedStringStream() >> pose;
   return stream;
 }
 

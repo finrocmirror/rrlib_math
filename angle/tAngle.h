@@ -371,8 +371,7 @@ serialization::tStringOutputStream &operator << (serialization::tStringOutputStr
 template <typename TElement, typename TUnitPolicy, typename TSignPolicy>
 serialization::tStringInputStream &operator >> (serialization::tStringInputStream &stream, tAngle<TElement, TUnitPolicy, TSignPolicy> &angle)
 {
-  std::istringstream string_stream(stream.ReadLine());
-  string_stream >> angle;
+  stream.GetWrappedStringStream() >> angle;
   return stream;
 }
 
