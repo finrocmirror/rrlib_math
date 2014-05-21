@@ -175,8 +175,7 @@ serialization::tStringOutputStream &operator << (serialization::tStringOutputStr
 template <size_t Trows, size_t Tcolumns, typename TElement>
 serialization::tStringInputStream &operator >> (serialization::tStringInputStream &stream, math::tMatrix<Trows, Tcolumns, TElement> &matrix)
 {
-  std::istringstream string_stream(stream.ReadLine());
-  string_stream >> matrix;
+  stream.GetWrappedStringStream() >> matrix;
   return stream;
 }
 
