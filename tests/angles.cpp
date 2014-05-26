@@ -22,6 +22,7 @@
 /*!\file    rrlib/math/test/unit_test_angles.cpp
  *
  * \author  Michael Arndt
+ * \author  Tobias Föhst
  *
  * \date    2013-06-14
  *
@@ -31,15 +32,15 @@
 //----------------------------------------------------------------------
 // External includes (system with <>, local with "")
 //----------------------------------------------------------------------
-#include <cstdlib>
-#include <iostream>
-
 #include "rrlib/util/tUnitTestSuite.h"
+
+#include <cstring>
+
+#include "rrlib/math/tAngle.h"
 
 //----------------------------------------------------------------------
 // Internal includes with ""
 //----------------------------------------------------------------------
-#include "rrlib/math/tAngle.h"
 
 //----------------------------------------------------------------------
 // Debugging
@@ -49,7 +50,14 @@
 //----------------------------------------------------------------------
 // Namespace usage
 //----------------------------------------------------------------------
-using namespace rrlib::math;
+
+//----------------------------------------------------------------------
+// Namespace declaration
+//----------------------------------------------------------------------
+namespace rrlib
+{
+namespace math
+{
 
 //----------------------------------------------------------------------
 // Forward declarations / typedefs / enums
@@ -65,7 +73,10 @@ using namespace rrlib::math;
 class tTestAngles : public rrlib::util::tUnitTestSuite
 {
   RRLIB_UNIT_TESTS_BEGIN_SUITE(tTestAngles);
-  RRLIB_UNIT_TESTS_ADD_TEST(Test);
+  RRLIB_UNIT_TESTS_ADD_TEST(Constructors);
+  RRLIB_UNIT_TESTS_ADD_TEST(ComparisonOperators);
+  RRLIB_UNIT_TESTS_ADD_TEST(Conversions);
+  RRLIB_UNIT_TESTS_ADD_TEST(AssignmentOperators);
   RRLIB_UNIT_TESTS_ADD_TEST(TestFunctions);
   RRLIB_UNIT_TESTS_END_SUITE;
 
@@ -74,24 +85,49 @@ private:
   virtual void InitializeTests() {}
   virtual void CleanUp() {}
 
-  virtual void Test()
+  void Constructors()
   {
+    double raw = 0.0;
 
-    tAngleRad angle;
+    tAngleRad rad;
+    RRLIB_UNIT_TESTS_EQUALITY(sizeof(double), sizeof(tAngleRad));
+    RRLIB_UNIT_TESTS_ASSERT(memcmp(&rad, &raw, sizeof(rad)) == 0);
 
-    RRLIB_UNIT_TESTS_EQUALITY_MESSAGE("Angle must be zero after initialization", 0.0, (double) angle);
+    tAngleRadUnsigned rad_unsigned;
+    RRLIB_UNIT_TESTS_EQUALITY(sizeof(double), sizeof(tAngleRadUnsigned));
+    RRLIB_UNIT_TESTS_ASSERT(memcmp(&rad_unsigned, &raw, sizeof(rad_unsigned)) == 0);
 
-    angle = tAngleRad(M_PI / 2);
+    tAngleRad deg;
+    RRLIB_UNIT_TESTS_EQUALITY(sizeof(double), sizeof(tAngleDeg));
+    RRLIB_UNIT_TESTS_ASSERT(memcmp(&deg, &raw, sizeof(deg)) == 0);
 
-    RRLIB_UNIT_TESTS_EQUALITY_DOUBLE_MESSAGE("Angle must be correct after assignment", M_PI / 2, (double) angle, 1E-9);
-
-    // FIXME: many more
-
+    tAngleDegUnsigned deg_unsigned;
+    RRLIB_UNIT_TESTS_EQUALITY(sizeof(double), sizeof(tAngleDegUnsigned));
+    RRLIB_UNIT_TESTS_ASSERT(memcmp(&deg_unsigned, &raw, sizeof(deg_unsigned)) == 0);
   }
 
-  virtual void TestFunctions()
+  void ComparisonOperators()
   {
+    RRLIB_UNIT_TESTS_ASSERT(tAngleRad(0.1) == tAngleRad(0.1));
+    RRLIB_UNIT_TESTS_ASSERT(tAngleRad(0.1) != tAngleRad(0.2));
+    RRLIB_UNIT_TESTS_ASSERT(tAngleDeg(0.1) == tAngleDeg(0.1));
+    RRLIB_UNIT_TESTS_ASSERT(tAngleDeg(0.1) != tAngleDeg(0.2));
+  }
 
+  void Conversions()
+  {
+    RRLIB_UNIT_TESTS_EQUALITY(tAngleRad(M_PI_2), tAngleRad(tAngleDeg(90)));
+  }
+
+  void AssignmentOperators()
+  {
+    tAngleRad rad;
+    rad = tAngleDeg(90);
+    RRLIB_UNIT_TESTS_EQUALITY(tAngleRad(M_PI_2), rad);
+  }
+
+  void TestFunctions()
+  {
     RRLIB_UNIT_TESTS_EQUALITY_MESSAGE("Angle between 0 deg and 30 deg must be 30 deg (unsigned)", tAngleDegUnsigned(30), GetAngleInbetween(tAngleDeg(0), tAngleDeg(30)));
     RRLIB_UNIT_TESTS_EQUALITY_MESSAGE("Angle between 0 deg and 30 deg must be 30 deg (signed)", tAngleDegUnsigned(30), GetAngleInbetween(tAngleDegSigned(0), tAngleDegSigned(30)));
     RRLIB_UNIT_TESTS_EQUALITY_DOUBLE_MESSAGE("Angle between 0 and pi must be pi", tAngleRadUnsigned(M_PI), GetAngleInbetween(tAngleRad(0), tAngleRad(M_PI)), 1E-9);
@@ -132,11 +168,13 @@ private:
     RRLIB_UNIT_TESTS_EQUALITY_MESSAGE("10 deg must not be between 190 deg and 200 deg", false, IsAngleInbetween(tAngleDeg(10), tAngleDeg(190), tAngleDeg(200)));
 
     RRLIB_UNIT_TESTS_EQUALITY_MESSAGE("10 deg must not be between 190 deg and 200 deg", false, IsAngleInbetween(tAngleDegUnsigned(10), tAngleDegUnsigned(190), tAngleDegUnsigned(200)));
-
   }
-
-
-
 };
 
 RRLIB_UNIT_TESTS_REGISTER_SUITE(tTestAngles);
+
+//----------------------------------------------------------------------
+// End of namespace declaration
+//----------------------------------------------------------------------
+}
+}

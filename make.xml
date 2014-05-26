@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE targets PUBLIC "-//RRLIB//DTD make 1.0" "http://rrlib.org/xml/1.0/make.dtd">
+<!DOCTYPE targets PUBLIC "-//RRLIB//DTD make 14.05" "http://finroc.org/xml/14.05/make.dtd">
 <targets>
 
-  <rrlib>
+  <library optionallibs="oiv">
     <sources>
       rtti.cpp
       tAngle.cpp
@@ -18,62 +18,12 @@
       matrix/**
       vector/**
     </sources>
-  </rrlib>
+  </library>
 
-  <rrlib name="random">
+  <library name="random">
     <sources>
       tMultivariateNormalDistribution.h
     </sources>
-  </rrlib>
-
-  <testprogram name="vectors"
-        optionallibs="oiv">
-    <sources>
-      test/test_vectors.cpp
-    </sources>
-  </testprogram>
-
-  <testprogram name="matrices"
-        optionallibs="oiv">
-    <sources>
-      test/test_matrices.cpp
-    </sources>
-  </testprogram>
-
-  <testprogram name="angles">
-    <sources>
-      test/test_angles.cpp
-    </sources>
-  </testprogram>
-
-  <unittest name="utilities">
-    <sources>
-      test/unit_test_utilities.cpp
-    </sources>
-  </unittest>
-  
-  <unittest name="angles">
-    <sources>
-      test/unit_test_angles.cpp
-    </sources>
-  </unittest>
-  
-  <unittest name="vectors">
-    <sources>
-      test/unit_test_vectors.cpp
-    </sources>
-  </unittest>
-
-  <unittest name="decompositions">
-    <sources>
-      test/unit_test_decompositions.cpp
-    </sources>
-  </unittest>
-
-  <unittest name="poses">
-    <sources>
-      test/unit_test_poses.cpp
-    </sources>
-  </unittest>
+  </library>
 
 </targets>

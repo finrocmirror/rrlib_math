@@ -22,6 +22,7 @@
 /*!\file    rrlib/math/test/unit_test_vectors.cpp
  *
  * \author  Michael Arndt
+ * \author  Tobias Föhst
  *
  * \date    2013-06-14
  *
@@ -31,15 +32,17 @@
 //----------------------------------------------------------------------
 // External includes (system with <>, local with "")
 //----------------------------------------------------------------------
-#include <cstdlib>
-#include <iostream>
-
 #include "rrlib/util/tUnitTestSuite.h"
+
+#include "rrlib/math/tVector.h"
+
+#ifdef _LIB_OIV_PRESENT_
+#include <Inventor/SbVec3f.h>
+#endif
 
 //----------------------------------------------------------------------
 // Internal includes with ""
 //----------------------------------------------------------------------
-#include "rrlib/math/tVector.h"
 
 //----------------------------------------------------------------------
 // Debugging
@@ -49,7 +52,14 @@
 //----------------------------------------------------------------------
 // Namespace usage
 //----------------------------------------------------------------------
-using namespace rrlib::math;
+
+//----------------------------------------------------------------------
+// Namespace declaration
+//----------------------------------------------------------------------
+namespace rrlib
+{
+namespace math
+{
 
 //----------------------------------------------------------------------
 // Forward declarations / typedefs / enums
@@ -62,16 +72,23 @@ using namespace rrlib::math;
 //----------------------------------------------------------------------
 // Implementation
 //----------------------------------------------------------------------
-
 class tTestVectors : public rrlib::util::tUnitTestSuite
 {
   RRLIB_UNIT_TESTS_BEGIN_SUITE(tTestVectors);
-  RRLIB_UNIT_TESTS_ADD_TEST(TestCartesian2D);
-  RRLIB_UNIT_TESTS_ADD_TEST(TestPolarDefault);
-  RRLIB_UNIT_TESTS_ADD_TEST(TestPolarRadianSigned);
-  RRLIB_UNIT_TESTS_ADD_TEST(TestPolarDegreeSigned);
-  RRLIB_UNIT_TESTS_ADD_TEST(TestPolarAssignments);
-  RRLIB_UNIT_TESTS_ADD_TEST(TestPolarOperators);
+  RRLIB_UNIT_TESTS_ADD_TEST(Constructors);
+  RRLIB_UNIT_TESTS_ADD_TEST(AccessOperators);
+  RRLIB_UNIT_TESTS_ADD_TEST(ComparisonOperators);
+  RRLIB_UNIT_TESTS_ADD_TEST(AssignmentOperators);
+  RRLIB_UNIT_TESTS_ADD_TEST(ArithmeticOperators);
+  RRLIB_UNIT_TESTS_ADD_TEST(Cartesian2D);
+  RRLIB_UNIT_TESTS_ADD_TEST(PolarDefault);
+  RRLIB_UNIT_TESTS_ADD_TEST(PolarRadianSigned);
+  RRLIB_UNIT_TESTS_ADD_TEST(PolarDegreeSigned);
+  RRLIB_UNIT_TESTS_ADD_TEST(PolarAssignments);
+  RRLIB_UNIT_TESTS_ADD_TEST(PolarOperators);
+#ifdef _LIB_OIV_PRESENT_
+  RRLIB_UNIT_TESTS_ADD_TEST(CoinConversions);
+#endif
   RRLIB_UNIT_TESTS_END_SUITE;
 
 private:
@@ -79,24 +96,78 @@ private:
   virtual void InitializeTests() {}
   virtual void CleanUp() {}
 
-  virtual void TestCartesian2D()
+  void Constructors()
+  {
+    tVector<2, double> zero_vector;
+    double zero_array[2] = { 0.0, 0.0 };
+    RRLIB_UNIT_TESTS_EQUALITY(2 * sizeof(double), sizeof(zero_vector));
+    RRLIB_UNIT_TESTS_ASSERT(std::memcmp(&zero_vector, zero_array, sizeof(zero_vector)) == 0);
+
+    double raw[] = { 1.0, 2.0, 3.0, 4.0 };
+    tVector<4, double> vector(1, 2, 3, 4);
+    RRLIB_UNIT_TESTS_ASSERT(std::memcmp(&vector, raw, sizeof(vector)) == 0);
+
+    tVector<4, double> copy(vector);
+    RRLIB_UNIT_TESTS_ASSERT(std::memcmp(&copy, &vector, sizeof(copy)) == 0);
+
+    tVector<4, float> converted(vector);
+    float converted_raw[] = { 1.0, 2.0, 3.0, 4.0 };
+    RRLIB_UNIT_TESTS_ASSERT(std::memcmp(&converted, &converted_raw, sizeof(converted)) == 0);
+  }
+
+  void AccessOperators()
+  {
+    tVector<4, double> vector(1, 2, 3, 4);
+
+    RRLIB_UNIT_TESTS_EQUALITY(1.0, vector[0]);
+    RRLIB_UNIT_TESTS_EQUALITY(2.0, vector[1]);
+    RRLIB_UNIT_TESTS_EQUALITY(3.0, vector[2]);
+    RRLIB_UNIT_TESTS_EQUALITY(4.0, vector[3]);
+
+    vector[1] = 5.0;
+    RRLIB_UNIT_TESTS_EQUALITY(5.0, vector[1]);
+  }
+
+  void ComparisonOperators()
+  {
+    typedef math::tVector<4, double> tVector;
+    RRLIB_UNIT_TESTS_ASSERT(tVector(1, 2, 3, 4) == tVector(1, 2, 3, 4));
+    RRLIB_UNIT_TESTS_ASSERT(tVector(1, 2, 3, 4) != tVector(1, 3, 3, 4));
+  }
+
+  void AssignmentOperators()
+  {
+    tVector<4, double> vector;
+    vector = tVector<4, double>(1, 2, 3, 4);
+    RRLIB_UNIT_TESTS_EQUALITY((tVector<4, double>(1, 2, 3, 4)), vector);
+    vector = tVector<4, float>(2, 3, 4, 5);
+    RRLIB_UNIT_TESTS_EQUALITY((tVector<4, double>(2, 3, 4, 5)), vector);
+    vector.Set(3, 4, 5, 6);
+    RRLIB_UNIT_TESTS_EQUALITY((tVector<4, double>(3, 4, 5, 6)), vector);
+  }
+
+  void ArithmeticOperators()
+  {
+    typedef math::tVector<4, double> tVector;
+    RRLIB_UNIT_TESTS_EQUALITY(-tVector(1, 2, 3, 4), tVector(-1, -2, -3, -4));
+    RRLIB_UNIT_TESTS_EQUALITY(tVector(1, 2, 3, 4) + tVector(2, 3, 4, 5), tVector(1 + 2, 2 + 3, 3 + 4, 4 + 5));
+    RRLIB_UNIT_TESTS_EQUALITY(tVector(1, 2, 3, 4) - tVector(2, 3, 4, 5), tVector(1 - 2, 2 - 3, 3 - 4, 4 - 5));
+    RRLIB_UNIT_TESTS_EQUALITY(tVector(1, 2, 3, 4) * tVector(2, 3, 4, 5), 40.0);
+    RRLIB_UNIT_TESTS_EQUALITY(tVector(1, 2, 3, 4) * 2.0, tVector(1 * 2.0, 2 * 2.0, 3 * 2.0, 4 * 2.0));
+    RRLIB_UNIT_TESTS_EQUALITY(2.0 * tVector(1, 2, 3, 4), tVector(1, 2, 3, 4) * 2.0);
+  }
+
+  void Cartesian2D()
   {
 
     typedef tVec2u tVec;
 
-    tVec vec;
-
-    RRLIB_UNIT_TESTS_EQUALITY_MESSAGE("Vector must be zero after initialization", tVec(0, 0), vec);
-
-    vec = tVec(1, 2);
-    RRLIB_UNIT_TESTS_EQUALITY_MESSAGE("Vector must be correct after assignment", tVec(1, 2), vec);
-
+    tVec vec(1, 2);
     RRLIB_UNIT_TESTS_EQUALITY_MESSAGE("X coordinate must be correct", (unsigned int) 1, vec.X());
     RRLIB_UNIT_TESTS_EQUALITY_MESSAGE("Y coordinate must be correct", (unsigned int) 2, vec.Y());
 
     vec.X() = 99;
     vec.Y() = 100;
-
     RRLIB_UNIT_TESTS_EQUALITY_MESSAGE("Vector must be correct after assignment", vec, tVec(99, 100));
 
 
@@ -120,13 +191,6 @@ private:
       RRLIB_UNIT_TESTS_EQUALITY_MESSAGE("Polar vector (Degree) must be correct", (tVector<2, double, vector::Polar, angle::Degree, angle::Signed>(45, std::sqrt(2))), polar);
     }
 
-
-    RRLIB_UNIT_TESTS_EQUALITY_MESSAGE("Result of addition must be correct", tVec(100, 100), tVec(99, 99) + tVec(1, 1));
-    RRLIB_UNIT_TESTS_EQUALITY_MESSAGE("Result of subtraction must be correct", tVec(98, 98), tVec(99, 99) - tVec(1, 1));
-    RRLIB_UNIT_TESTS_EQUALITY_MESSAGE("Result of inverse must be correct", tVec(-1, -1), - tVec(1, 1));
-    RRLIB_UNIT_TESTS_EQUALITY_MESSAGE("Result of multiplication w/ scalar must be correct", tVec(2, 2), 2 * tVec(1, 1));
-    RRLIB_UNIT_TESTS_EQUALITY_MESSAGE("Result of multiplication w/ scalar must be correct", tVec(2, 2), tVec(1, 1) * 2);
-
     RRLIB_UNIT_TESTS_EQUALITY_MESSAGE("Result of Length() must be correct", (unsigned int) 5, tVec(5, 0).Length());
     RRLIB_UNIT_TESTS_EQUALITY_MESSAGE("Result of SquaredLength() must be correct", (unsigned int) 25, tVec(5, 0).SquaredLength());
     RRLIB_UNIT_TESTS_EQUALITY_MESSAGE("Result of Length() must be correct", (unsigned int) 5, tVec(0, 5).Length());
@@ -143,7 +207,7 @@ private:
     // FIXME: many more
   }
 
-  virtual void TestPolarRadianSigned()
+  void PolarRadianSigned()
   {
     typedef tVector<2, double, vector::Polar, angle::Radian, angle::Signed> tVec;
     tVec vec;
@@ -204,7 +268,7 @@ private:
 
   }
 
-  virtual void TestPolarDefault()
+  void PolarDefault()
   {
 #if 1
     typedef tVector<2, double, vector::Polar> tVec;
@@ -251,7 +315,7 @@ private:
 #endif
   }
 
-  virtual void TestPolarDegreeSigned()
+  void PolarDegreeSigned()
   {
     typedef tVector<2, double, vector::Polar, angle::Degree, angle::Signed> tVec;
     tVec vec;
@@ -302,7 +366,7 @@ private:
 
   }
 
-  virtual void TestPolarAssignments()
+  void PolarAssignments()
   {
     typedef tVector<3, double, vector::Polar, angle::Degree, angle::Signed> tVecDegSigned;
     typedef tVector<3, double, vector::Polar, angle::Radian, angle::Signed> tVecRadSigned;
@@ -328,7 +392,7 @@ private:
 
   }
 
-  virtual void TestPolarOperators()
+  void PolarOperators()
   {
 #if 0
     typedef tVector<3, double, vector::Polar, angle::Degree, angle::Signed> tVecDegSigned;
@@ -344,6 +408,22 @@ private:
 #endif
   }
 
+#ifdef _LIB_OIV_PRESENT_
+  void CoinConversions()
+  {
+    tVector<3, double> rrlib_vector(1, 2, 3);
+    SbVec3f sb_vector = rrlib_vector.GetCoinVector();
+    RRLIB_UNIT_TESTS_ASSERT(sb_vector.equals(SbVec3f(1, 2, 3), 1E-6));
+    RRLIB_UNIT_TESTS_EQUALITY(rrlib_vector, (tVector<3, double>(sb_vector)));
+  }
+#endif
+
 };
 
 RRLIB_UNIT_TESTS_REGISTER_SUITE(tTestVectors);
+
+//----------------------------------------------------------------------
+// End of namespace declaration
+//----------------------------------------------------------------------
+}
+}

@@ -32,15 +32,13 @@
 //----------------------------------------------------------------------
 // External includes (system with <>, local with "")
 //----------------------------------------------------------------------
-#include <cstdlib>
-#include <iostream>
-
 #include "rrlib/util/tUnitTestSuite.h"
+
+#include "rrlib/math/utilities.h"
 
 //----------------------------------------------------------------------
 // Internal includes with ""
 //----------------------------------------------------------------------
-#include "rrlib/math/utilities.h"
 
 //----------------------------------------------------------------------
 // Debugging
@@ -50,7 +48,14 @@
 //----------------------------------------------------------------------
 // Namespace usage
 //----------------------------------------------------------------------
-using namespace rrlib::math;
+
+//----------------------------------------------------------------------
+// Namespace declaration
+//----------------------------------------------------------------------
+namespace rrlib
+{
+namespace math
+{
 
 //----------------------------------------------------------------------
 // Forward declarations / typedefs / enums
@@ -63,12 +68,12 @@ using namespace rrlib::math;
 //----------------------------------------------------------------------
 // Implementation
 //----------------------------------------------------------------------
-
 class tTestUtilities : public rrlib::util::tUnitTestSuite
 {
   RRLIB_UNIT_TESTS_BEGIN_SUITE(tTestUtilities);
   RRLIB_UNIT_TESTS_ADD_TEST(TestSignum);
   RRLIB_UNIT_TESTS_ADD_TEST(TestLimitedValue);
+  RRLIB_UNIT_TESTS_ADD_TEST(TestBinomialCoefficient);
   RRLIB_UNIT_TESTS_END_SUITE;
 
 private:
@@ -90,6 +95,27 @@ private:
     RRLIB_UNIT_TESTS_EQUALITY(LimitedValue(1234, 12, 123), 123);
   }
 
+  void TestBinomialCoefficient()
+  {
+    RRLIB_UNIT_TESTS_EQUALITY(static_cast<unsigned int>(1), BinomialCoefficient(0, 0));
+    RRLIB_UNIT_TESTS_EQUALITY(static_cast<unsigned int>(0), BinomialCoefficient(0, 1));
+    RRLIB_UNIT_TESTS_EQUALITY(static_cast<unsigned int>(1), BinomialCoefficient(1, 0));
+    RRLIB_UNIT_TESTS_EQUALITY(static_cast<unsigned int>(1), BinomialCoefficient(1, 1));
+    RRLIB_UNIT_TESTS_EQUALITY(static_cast<unsigned int>(1), BinomialCoefficient(2, 0));
+    RRLIB_UNIT_TESTS_EQUALITY(static_cast<unsigned int>(2), BinomialCoefficient(2, 1));
+    RRLIB_UNIT_TESTS_EQUALITY(static_cast<unsigned int>(1), BinomialCoefficient(2, 2));
+    RRLIB_UNIT_TESTS_EQUALITY(static_cast<unsigned int>(1), BinomialCoefficient(3, 0));
+    RRLIB_UNIT_TESTS_EQUALITY(static_cast<unsigned int>(3), BinomialCoefficient(3, 1));
+    RRLIB_UNIT_TESTS_EQUALITY(static_cast<unsigned int>(3), BinomialCoefficient(3, 2));
+    RRLIB_UNIT_TESTS_EQUALITY(static_cast<unsigned int>(1), BinomialCoefficient(3, 3));
+    RRLIB_UNIT_TESTS_EQUALITY(static_cast<unsigned int>(10), BinomialCoefficient(5, 3));
+  }
 };
 
 RRLIB_UNIT_TESTS_REGISTER_SUITE(tTestUtilities);
+
+//----------------------------------------------------------------------
+// End of namespace declaration
+//----------------------------------------------------------------------
+}
+}

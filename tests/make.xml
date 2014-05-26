@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE targets PUBLIC "-//RRLIB//DTD make 14.05" "http://finroc.org/xml/14.05/make.dtd">
+<targets>
+
+<!--
+  <program name="vectors" optionallibs="oiv" sources="test_vectors.cpp" />
+  <program name="angles" sources="test_angles.cpp" />
+-->
+  <program name="angles" sources="angles.cpp" />
+  <program name="matrices" sources="matrices.cpp" />
+  <program name="poses" sources="poses.cpp" />
+  <program name="utilities" sources="utilities.cpp" />
+  <program name="vectors" sources="vectors.cpp" />
+
+</targets>
