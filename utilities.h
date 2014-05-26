@@ -229,7 +229,38 @@ inline T LimitedValue(T value, T min_value, T max_value)
   return std::min(std::max(value, min_value), max_value);
 }
 
+/*! Compute the binomial coefficient or "from n choose k"
+ *
+ * \param n   The size of the set of objects
+ * \param k   The number of selected objects
+ *
+ * \returns The possibilities to select \a k objects from a total set of \a n without replacement
+ */
+inline unsigned int BinomialCoefficient(unsigned int n, unsigned int k)
+{
+  if (k > n)
+  {
+    return 0;
+  }
 
+  if (k == 0)
+  {
+    return 1;
+  }
+
+  if (2 * k > n)
+  {
+    return BinomialCoefficient(n, n - k);
+  }
+
+  unsigned int result = n - k + 1;
+  for (unsigned int i = 2; i <= k; ++i)
+  {
+    result *= n - k + i;
+    result /= i;
+  }
+  return result;
+}
 
 //----------------------------------------------------------------------
 // End of namespace declaration
