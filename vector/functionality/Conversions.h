@@ -114,7 +114,7 @@ public:
   __attribute__((always_inline)) inline const tVector<2, TElement, Polar, TPolarUnitPolicy, TPolarSignPolicy> GetPolarVector() const
   {
     const tVector<2, TElement, Cartesian> *that = reinterpret_cast<const tVector<2, TElement, Cartesian> *>(this);
-    return tVector<2, TElement, Polar, TPolarUnitPolicy, TPolarSignPolicy>(tAngleRad(std::atan2(that->Y(), that->X())), that->Length());
+    return tVector<2, TElement, Polar, TPolarUnitPolicy, TPolarSignPolicy>(tAngle<TElement, angle::Radian>(std::atan2(that->Y(), that->X())), that->Length());
   }
 
 #ifdef _LIB_OIV_PRESENT_
@@ -160,7 +160,7 @@ public:
   {
     const tVector<3, TElement, Cartesian> *that = reinterpret_cast<const tVector<3, TElement, Cartesian> *>(this);
     TElement length = that->Length();
-    return tVector<3, TElement, Polar, TPolarUnitPolicy, TPolarSignPolicy>(tAngleRad(std::atan2(that->Y(), that->X())), tAngleRad(std::acos(that->Z() / length)), length);
+    return tVector<3, TElement, Polar, TPolarUnitPolicy, TPolarSignPolicy>(tAngle<TElement, angle::Radian>(std::atan2(that->Y(), that->X())), tAngle<TElement, angle::Radian>(std::acos(that->Z() / length)), length);
   }
 
 #ifdef _LIB_OIV_PRESENT_

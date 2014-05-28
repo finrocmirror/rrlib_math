@@ -337,7 +337,7 @@ void FunctionalitySpecialized<Tdimension, TElement, Polar, TAdditionalDataParame
   {
     *p++ = x;
   },
-  values...);
+  static_cast<TElement>(values)...);
 }
 
 //----------------------------------------------------------------------

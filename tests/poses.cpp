@@ -79,7 +79,7 @@ private:
   virtual void InitializeTests() {}
   virtual void CleanUp() {}
 
-  virtual void TestAngles()
+  void TestAngles()
   {
     tPose2D pose2d;
     pose2d.SetOrientation(tMat2x2d(1, 0, 0, 1));

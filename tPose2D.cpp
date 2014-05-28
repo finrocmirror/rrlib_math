@@ -299,7 +299,7 @@ void tPose2D::ApplyPose(const tPose2D &relative_transformation)
 //----------------------------------------------------------------------
 const double tPose2D::GetEuclideanNorm() const
 {
-  return tVector<3, double>(this->position.X(), this->position.Y(), this->yaw).Length();
+  return tVector<3, double>(this->position.X(), this->position.Y(), this->yaw.Value()).Length();
 }
 
 //----------------------------------------------------------------------

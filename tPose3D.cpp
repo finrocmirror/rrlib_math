@@ -350,7 +350,7 @@ void tPose3D::ApplyPose(const tPose3D &relative_transformation)
 //----------------------------------------------------------------------
 const double tPose3D::GetEuclideanNorm() const
 {
-  return tVector<6, double>(this->position.X(), this->position.Y(), this->position.Z(), this->roll, this->pitch, this->yaw).Length();
+  return tVector<6, double>(this->position.X(), this->position.Y(), this->position.Z(), this->roll.Value(), this->pitch.Value(), this->yaw.Value()).Length();
 }
 
 //----------------------------------------------------------------------
