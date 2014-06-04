@@ -252,7 +252,7 @@ const tAngleRad EnclosedAngle(const tVector<2, TLeftElement, TData, TAdditionalD
 {
   if (CrossProduct(tVector<3, TLeftElement, TData, TAdditionalDataParameters...>(left), tVector<3, TRightElement, TData, TAdditionalDataParameters...>(right)).Z() < 0)
   {
-    return 2 * M_PI - EnclosedAngle(tVector<3, TLeftElement, TData, TAdditionalDataParameters...>(left), tVector<3, TRightElement, TData, TAdditionalDataParameters...>(right));
+    return -EnclosedAngle(tVector<3, TLeftElement, TData, TAdditionalDataParameters...>(left), tVector<3, TRightElement, TData, TAdditionalDataParameters...>(right));
   }
   return EnclosedAngle(tVector<3, TLeftElement, TData, TAdditionalDataParameters...>(left), tVector<3, TRightElement, TData, TAdditionalDataParameters...>(right));
 }
