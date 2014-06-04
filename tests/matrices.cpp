@@ -157,14 +157,14 @@ private:
   {
     typedef math::tMatrix<2, 2, double> tMatrix;
     typedef math::tVector<2, double> tVector;
-    RRLIB_UNIT_TESTS_EQUALITY(-tMatrix(1, 2, 3, 4), tMatrix(-1, -2, -3, -4));
-    RRLIB_UNIT_TESTS_EQUALITY(tMatrix(1, 2, 3, 4) + tMatrix(2, 3, 4, 5), tMatrix(1 + 2, 2 + 3, 3 + 4, 4 + 5));
-    RRLIB_UNIT_TESTS_EQUALITY(tMatrix(1, 2, 3, 4) - tMatrix(2, 3, 4, 5), tMatrix(1 - 2, 2 - 3, 3 - 4, 4 - 5));
-    RRLIB_UNIT_TESTS_EQUALITY(tMatrix(1, 2, 3, 4) * tMatrix(2, 3, 4, 5), tMatrix(1 * 2 + 2 * 4, 1 * 3 + 2 * 5, 3 * 2 + 4 * 4, 3 * 3 + 4 * 5));
-    RRLIB_UNIT_TESTS_EQUALITY(tMatrix(1, 2, 3, 4) * tVector(2, 4), tVector(1 * 2 + 2 * 4, 3 * 2 + 4 * 4));
-    RRLIB_UNIT_TESTS_EQUALITY(tVector(2, 4) * tMatrix(1, 2, 3, 4), tVector(2 * 1 + 4 * 3, 2 * 2 + 4 * 4));
-    RRLIB_UNIT_TESTS_EQUALITY(tMatrix(1, 2, 3, 4) * 2.0, tMatrix(1 * 2.0, 2 * 2.0, 3 * 2.0, 4 * 2.0));
-    RRLIB_UNIT_TESTS_EQUALITY(2.0 * tMatrix(1, 2, 3, 4), tMatrix(1, 2, 3, 4) * 2.0);
+    RRLIB_UNIT_TESTS_EQUALITY(tMatrix(-1, -2, -3, -4), -tMatrix(1, 2, 3, 4));
+    RRLIB_UNIT_TESTS_EQUALITY(tMatrix(1 + 2, 2 + 3, 3 + 4, 4 + 5), tMatrix(1, 2, 3, 4) + tMatrix(2, 3, 4, 5));
+    RRLIB_UNIT_TESTS_EQUALITY(tMatrix(1 - 2, 2 - 3, 3 - 4, 4 - 5), tMatrix(1, 2, 3, 4) - tMatrix(2, 3, 4, 5));
+    RRLIB_UNIT_TESTS_EQUALITY(tMatrix(1 * 2 + 2 * 4, 1 * 3 + 2 * 5, 3 * 2 + 4 * 4, 3 * 3 + 4 * 5), tMatrix(1, 2, 3, 4) * tMatrix(2, 3, 4, 5));
+    RRLIB_UNIT_TESTS_EQUALITY(tVector(1 * 2 + 2 * 4, 3 * 2 + 4 * 4), tMatrix(1, 2, 3, 4) * tVector(2, 4));
+    RRLIB_UNIT_TESTS_EQUALITY(tVector(2 * 1 + 4 * 3, 2 * 2 + 4 * 4), tVector(2, 4) * tMatrix(1, 2, 3, 4));
+    RRLIB_UNIT_TESTS_EQUALITY(tMatrix(1 * 2.0, 2 * 2.0, 3 * 2.0, 4 * 2.0), tMatrix(1, 2, 3, 4) * 2.0);
+    RRLIB_UNIT_TESTS_EQUALITY(tMatrix(1, 2, 3, 4) * 2.0, 2.0 * tMatrix(1, 2, 3, 4));
   }
 
   void Transpose()

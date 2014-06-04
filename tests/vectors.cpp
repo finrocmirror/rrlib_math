@@ -149,12 +149,12 @@ private:
   void ArithmeticOperators()
   {
     typedef math::tVector<4, double> tVector;
-    RRLIB_UNIT_TESTS_EQUALITY(-tVector(1, 2, 3, 4), tVector(-1, -2, -3, -4));
-    RRLIB_UNIT_TESTS_EQUALITY(tVector(1, 2, 3, 4) + tVector(2, 3, 4, 5), tVector(1 + 2, 2 + 3, 3 + 4, 4 + 5));
-    RRLIB_UNIT_TESTS_EQUALITY(tVector(1, 2, 3, 4) - tVector(2, 3, 4, 5), tVector(1 - 2, 2 - 3, 3 - 4, 4 - 5));
-    RRLIB_UNIT_TESTS_EQUALITY(tVector(1, 2, 3, 4) * tVector(2, 3, 4, 5), 40.0);
-    RRLIB_UNIT_TESTS_EQUALITY(tVector(1, 2, 3, 4) * 2.0, tVector(1 * 2.0, 2 * 2.0, 3 * 2.0, 4 * 2.0));
-    RRLIB_UNIT_TESTS_EQUALITY(2.0 * tVector(1, 2, 3, 4), tVector(1, 2, 3, 4) * 2.0);
+    RRLIB_UNIT_TESTS_EQUALITY(tVector(-1, -2, -3, -4), -tVector(1, 2, 3, 4));
+    RRLIB_UNIT_TESTS_EQUALITY(tVector(1 + 2, 2 + 3, 3 + 4, 4 + 5), tVector(1, 2, 3, 4) + tVector(2, 3, 4, 5));
+    RRLIB_UNIT_TESTS_EQUALITY(tVector(1 - 2, 2 - 3, 3 - 4, 4 - 5), tVector(1, 2, 3, 4) - tVector(2, 3, 4, 5));
+    RRLIB_UNIT_TESTS_EQUALITY(40.0, tVector(1, 2, 3, 4) * tVector(2, 3, 4, 5));
+    RRLIB_UNIT_TESTS_EQUALITY(tVector(1 * 2.0, 2 * 2.0, 3 * 2.0, 4 * 2.0), tVector(1, 2, 3, 4) * 2.0);
+    RRLIB_UNIT_TESTS_EQUALITY(tVector(1, 2, 3, 4) * 2.0, 2.0 * tVector(1, 2, 3, 4));
   }
 
   void Cartesian2D()
