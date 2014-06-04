@@ -364,7 +364,7 @@ const bool rrlib::math::operator != (const tPose2D &left, const tPose2D &right)
 //----------------------------------------------------------------------
 const bool rrlib::math::operator < (const tPose2D &left, const tPose2D &right)
 {
-  return left.Position() < right.Position() || (left.Position() == right.Position() && left.Yaw() < right.Yaw());
+  return left.Position() < right.Position() || (left.Position() == right.Position() && left.Yaw().Value() < right.Yaw().Value());
 }
 
 //----------------------------------------------------------------------

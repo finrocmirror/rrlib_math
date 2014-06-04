@@ -176,8 +176,8 @@ public:
     }
   }
 
-  template <typename TAngleElement, typename TUnitPolicy, typename TSignPolicy>
-  void ExtractRollPitchYaw(tAngle<TAngleElement, TUnitPolicy, TSignPolicy> &roll, tAngle<TAngleElement, TUnitPolicy, TSignPolicy> &pitch, tAngle<TAngleElement, TUnitPolicy, TSignPolicy> &yaw, bool use_second_solution = false, double max_error = 1E-6) const
+  template <typename TAngleElement, typename TUnitPolicy, typename TAutoWrapPolicy>
+  void ExtractRollPitchYaw(tAngle<TAngleElement, TUnitPolicy, TAutoWrapPolicy> &roll, tAngle<TAngleElement, TUnitPolicy, TAutoWrapPolicy> &pitch, tAngle<TAngleElement, TUnitPolicy, TAutoWrapPolicy> &yaw, bool use_second_solution = false, double max_error = 1E-6) const
   {
     const tMatrix *that = reinterpret_cast<const tMatrix *>(this);
 
@@ -242,8 +242,8 @@ public:
     math::tMatrix<3, 3, TElement>(data).GetRotation(axis, angle);
   }
 
-  template <typename TAngleElement, typename TUnitPolicy, typename TSignPolicy>
-  void ExtractRollPitchYaw(tAngle<TAngleElement, TUnitPolicy, TSignPolicy> &roll, tAngle<TAngleElement, TUnitPolicy, TSignPolicy> &pitch, tAngle<TAngleElement, TUnitPolicy, TSignPolicy> &yaw, bool use_second_solution = false, double max_error = 1E-6) const
+  template <typename TAngleElement, typename TUnitPolicy, typename TAutoWrapPolicy>
+  void ExtractRollPitchYaw(tAngle<TAngleElement, TUnitPolicy, TAutoWrapPolicy> &roll, tAngle<TAngleElement, TUnitPolicy, TAutoWrapPolicy> &pitch, tAngle<TAngleElement, TUnitPolicy, TAutoWrapPolicy> &yaw, bool use_second_solution = false, double max_error = 1E-6) const
   {
     const tMatrix *that = reinterpret_cast<const tMatrix *>(this);
     TElement data[3 * 3];

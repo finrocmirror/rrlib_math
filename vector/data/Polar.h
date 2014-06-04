@@ -74,7 +74,7 @@ namespace vector
  */
 
 
-template <size_t Tdimension, typename TElement, typename TUnitPolicy = angle::Radian, typename TSignPolicy = angle::Signed>
+template <size_t Tdimension, typename TElement, typename TUnitPolicy = angle::Radian, typename TAutoWrapPolicy = angle::Signed>
 class Polar
 {
 
@@ -83,7 +83,7 @@ class Polar
 //----------------------------------------------------------------------
 public:
 
-  typedef math::tAngle<TElement, TUnitPolicy, TSignPolicy> tAngle;
+  typedef math::tAngle<TElement, TUnitPolicy, TAutoWrapPolicy> tAngle;
 
   inline TElement &Length() const __attribute__((always_inline));
 
@@ -113,8 +113,8 @@ private:
 /*!
  *
  */
-template <typename TElement, typename TUnitPolicy, typename TSignPolicy>
-class Polar<2, TElement, TUnitPolicy, TSignPolicy>
+template <typename TElement, typename TUnitPolicy, typename TAutoWrapPolicy>
+class Polar<2, TElement, TUnitPolicy, TAutoWrapPolicy>
 {
 
 //----------------------------------------------------------------------
@@ -122,7 +122,7 @@ class Polar<2, TElement, TUnitPolicy, TSignPolicy>
 //----------------------------------------------------------------------
 public:
 
-  typedef math::tAngle<TElement, TUnitPolicy, TSignPolicy> tAngle;
+  typedef math::tAngle<TElement, TUnitPolicy, TAutoWrapPolicy> tAngle;
 
   inline tAngle Alpha() const __attribute__((always_inline));
 
@@ -156,8 +156,8 @@ private:
 /*!
  *
  */
-template <typename TElement, typename TUnitPolicy, typename TSignPolicy>
-class Polar<3, TElement, TUnitPolicy, TSignPolicy>
+template <typename TElement, typename TUnitPolicy, typename TAutoWrapPolicy>
+class Polar<3, TElement, TUnitPolicy, TAutoWrapPolicy>
 {
 
 //----------------------------------------------------------------------
@@ -165,7 +165,7 @@ class Polar<3, TElement, TUnitPolicy, TSignPolicy>
 //----------------------------------------------------------------------
 public:
 
-  typedef math::tAngle<TElement, TUnitPolicy, TSignPolicy> tAngle;
+  typedef math::tAngle<TElement, TUnitPolicy, TAutoWrapPolicy> tAngle;
 
   inline tAngle Alpha() const __attribute__((always_inline));
 

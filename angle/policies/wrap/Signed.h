@@ -19,7 +19,7 @@
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 //
 //----------------------------------------------------------------------
-/*!\file    rrlib/math/angle/policies/signedness/Signed.h
+/*!\file    rrlib/math/angle/policies/wrap/Signed.h
  *
  * \author  Tobias Foehst
  *
@@ -35,8 +35,8 @@
 #error Invalid include directive. Try #include "rrlib/math/tAngle.h" instead.
 #endif
 
-#ifndef __rrlib__math__angle__policies__signedness__Signed_h__
-#define __rrlib__math__angle__policies__signedness__Signed_h__
+#ifndef __rrlib__math__angle__policies__wrap__Signed_h__
+#define __rrlib__math__angle__policies__wrap__Signed_h__
 
 //----------------------------------------------------------------------
 // External includes (system with <>, local with "")
@@ -45,7 +45,6 @@
 //----------------------------------------------------------------------
 // Internal includes with ""
 //----------------------------------------------------------------------
-#include "rrlib/math/utilities.h"
 
 //----------------------------------------------------------------------
 // Debugging
@@ -74,13 +73,11 @@ namespace angle
  */
 struct Signed
 {
-
-  static inline const double FitIntoRange(double value, double range)
+  template <typename T>
+  static inline void Wrap(T &angle)
   {
-    double half_range = range / 2;
-    return Modulo(value + half_range, range) - half_range;
+    angle.WrapSigned();
   }
-
 };
 
 

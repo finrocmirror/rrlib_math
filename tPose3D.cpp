@@ -418,9 +418,9 @@ const bool rrlib::math::operator != (const tPose3D &left, const tPose3D &right)
 const bool rrlib::math::operator < (const tPose3D &left, const tPose3D &right)
 {
   return left.Position() < right.Position() ||
-         (left.Position() == right.Position() && left.Roll() < right.Roll()) ||
-         (left.Position() == right.Position() && left.Roll() == right.Roll() && left.Pitch() < right.Pitch()) ||
-         (left.Position() == right.Position() && left.Roll() == right.Roll() && left.Pitch() == right.Pitch() && left.Yaw() < right.Yaw());
+         (left.Position() == right.Position() && left.Roll().Value() < right.Roll().Value()) ||
+         (left.Position() == right.Position() && left.Roll().Value() == right.Roll().Value() && left.Pitch().Value() < right.Pitch().Value()) ||
+         (left.Position() == right.Position() && left.Roll().Value() == right.Roll().Value() && left.Pitch().Value() == right.Pitch().Value() && left.Yaw().Value() < right.Yaw().Value());
 }
 
 //----------------------------------------------------------------------

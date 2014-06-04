@@ -212,10 +212,10 @@ private:
 /*!
  *
  */
-template <typename TElement, typename TUnitPolicy, typename TSignPolicy>
-class Rotation<2, TElement, Polar, TUnitPolicy, TSignPolicy>
+template <typename TElement, typename TUnitPolicy, typename TAutoWrapPolicy>
+class Rotation<2, TElement, Polar, TUnitPolicy, TAutoWrapPolicy>
 {
-  typedef math::tVector<2, TElement, Polar, TUnitPolicy, TSignPolicy> tVector;
+  typedef math::tVector<2, TElement, Polar, TUnitPolicy, TAutoWrapPolicy> tVector;
 
 //----------------------------------------------------------------------
 // Protected methods
@@ -238,10 +238,10 @@ private:
 /*!
  *
  */
-template <typename TElement, typename TUnitPolicy, typename TSignPolicy>
-class Rotation<3, TElement, Polar, TUnitPolicy, TSignPolicy>
+template <typename TElement, typename TUnitPolicy, typename TAutoWrapPolicy>
+class Rotation<3, TElement, Polar, TUnitPolicy, TAutoWrapPolicy>
 {
-  typedef math::tVector<3, TElement, Polar, TUnitPolicy, TSignPolicy> tVector;
+  typedef math::tVector<3, TElement, Polar, TUnitPolicy, TAutoWrapPolicy> tVector;
 
 //----------------------------------------------------------------------
 // Protected methods

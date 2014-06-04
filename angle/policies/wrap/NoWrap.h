@@ -19,11 +19,11 @@
 // 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 //
 //----------------------------------------------------------------------
-/*!\file    rrlib/math/angle/policies/unit/Degree.h
+/*!\file    rrlib/math/angle/policies/wrap/NoWrap.h
  *
  * \author  Tobias Foehst
  *
- * \date    2010-12-06
+ * \date    2014-05-26
  *
  * \brief
  *
@@ -35,13 +35,12 @@
 #error Invalid include directive. Try #include "rrlib/math/tAngle.h" instead.
 #endif
 
-#ifndef __rrlib__math__angle__policies__unit__Degree_h__
-#define __rrlib__math__angle__policies__unit__Degree_h__
+#ifndef __rrlib__math__angle__policies__wrap__NoWrap_h__
+#define __rrlib__math__angle__policies__wrap__NoWrap_h__
 
 //----------------------------------------------------------------------
 // External includes (system with <>, local with "")
 //----------------------------------------------------------------------
-#include <cmath>
 
 //----------------------------------------------------------------------
 // Internal includes with ""
@@ -64,7 +63,6 @@ namespace angle
 //----------------------------------------------------------------------
 // Forward declarations / typedefs / enums
 //----------------------------------------------------------------------
-struct Radian;
 
 //----------------------------------------------------------------------
 // Class declaration
@@ -73,32 +71,14 @@ struct Radian;
 /*!
  *
  */
-struct Degree
+struct NoWrap
 {
-
-  static inline double FullRotation()
-  {
-    return 360.0;
-  }
-
-  static inline const char *UnitString()
-  {
-    return "°";
-  }
-
   template <typename T>
-  static inline T ConvertFromUnit(T value, const Radian &)
-  {
-    return value * 180.0 / M_PI;
-  }
-
-  template <typename T>
-  static inline T ConvertFromUnit(T value, const Degree &)
-  {
-    return value;
-  }
-
+  static inline void Wrap(T &angle)
+  {}
 };
+
+
 
 //----------------------------------------------------------------------
 // End of namespace declaration

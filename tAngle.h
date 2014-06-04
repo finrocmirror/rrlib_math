@@ -47,8 +47,9 @@
 #include "rrlib/math/angle/policies/unit/Radian.h"
 #include "rrlib/math/angle/policies/unit/Degree.h"
 
-#include "rrlib/math/angle/policies/signedness/Signed.h"
-#include "rrlib/math/angle/policies/signedness/Unsigned.h"
+#include "rrlib/math/angle/policies/wrap/Signed.h"
+#include "rrlib/math/angle/policies/wrap/Unsigned.h"
+#include "rrlib/math/angle/policies/wrap/NoWrap.h"
 
 #include "rrlib/math/angle/tAngle.h"
 

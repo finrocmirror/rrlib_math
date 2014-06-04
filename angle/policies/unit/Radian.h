@@ -41,7 +41,6 @@
 //----------------------------------------------------------------------
 // External includes (system with <>, local with "")
 //----------------------------------------------------------------------
-#include <string>
 #include <cmath>
 
 //----------------------------------------------------------------------
@@ -77,32 +76,24 @@ struct Degree;
 struct Radian
 {
 
-  static inline const double RangeLimit()
+  static inline double FullRotation()
   {
     return 2 * M_PI;
   }
 
-  static inline const double UnitDivider()
+  static inline const char *UnitString()
   {
-    return M_PI;
+    return 0;
   }
 
-  static inline const char* UnitString()
-  {
-    return "pi";
-  }
-
-  static inline const bool PadUnitString()
-  {
-    return true;
-  }
-
-  static inline const double ConvertFromUnit(double value, const Radian &)
+  template <typename T>
+  static inline T ConvertFromUnit(T value, const Radian &)
   {
     return value;
   }
 
-  static inline const double ConvertFromUnit(double value, const Degree &)
+  template <typename T>
+  static inline T ConvertFromUnit(T value, const Degree &)
   {
     return value * M_PI / 180.0;
   }

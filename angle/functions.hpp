@@ -64,8 +64,8 @@ namespace math
 //----------------------------------------------------------------------
 // Implementation
 //----------------------------------------------------------------------
-template <template <typename, typename, typename> class TAngle, typename TElement, typename TUnitPolicy, typename TSignPolicy>
-bool IsAngleInbetween(const TAngle<TElement, TUnitPolicy, TSignPolicy> &test, const TAngle<TElement, TUnitPolicy, TSignPolicy> &first, const TAngle<TElement, TUnitPolicy, TSignPolicy> &second)
+template <template <typename, typename, typename> class TAngle, typename TElement, typename TUnitPolicy, typename TAutoWrapPolicy>
+bool IsAngleInbetween(const TAngle<TElement, TUnitPolicy, TAutoWrapPolicy> &test, const TAngle<TElement, TUnitPolicy, TAutoWrapPolicy> &first, const TAngle<TElement, TUnitPolicy, TAutoWrapPolicy> &second)
 {
   /* important: this algorithm operates on signed types! */
   TAngle<TElement, TUnitPolicy, angle::Signed> test_(test);
@@ -82,8 +82,8 @@ bool IsAngleInbetween(const TAngle<TElement, TUnitPolicy, TSignPolicy> &test, co
   return test_ >= first_ && test_ < second_;
 }
 
-template <template <typename, typename, typename> class TAngle, typename TElement, typename TUnitPolicy, typename TSignPolicy>
-TAngle<TElement, TUnitPolicy, angle::Unsigned> GetAngleInbetween(const TAngle<TElement, TUnitPolicy, TSignPolicy> &first, const TAngle<TElement, TUnitPolicy, TSignPolicy> &second)
+template <template <typename, typename, typename> class TAngle, typename TElement, typename TUnitPolicy, typename TAutoWrapPolicy>
+TAngle<TElement, TUnitPolicy, angle::Unsigned> GetAngleInbetween(const TAngle<TElement, TUnitPolicy, TAutoWrapPolicy> &first, const TAngle<TElement, TUnitPolicy, TAutoWrapPolicy> &second)
 {
   /* important: this function operates on UNsigned types! */
   return TAngle<TElement, TUnitPolicy, angle::Unsigned>((double) tAngle<TElement, TUnitPolicy, angle::Unsigned>(second) - (double) tAngle<TElement, TUnitPolicy, angle::Unsigned>(first));
