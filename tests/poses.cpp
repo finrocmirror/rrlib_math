@@ -68,16 +68,13 @@ namespace math
 //----------------------------------------------------------------------
 // Implementation
 //----------------------------------------------------------------------
-class tTestPoses : public rrlib::util::tUnitTestSuite
+class TestPoses : public util::tUnitTestSuite
 {
-  RRLIB_UNIT_TESTS_BEGIN_SUITE(tTestPoses);
+  RRLIB_UNIT_TESTS_BEGIN_SUITE(TestPoses);
   RRLIB_UNIT_TESTS_ADD_TEST(TestAngles);
   RRLIB_UNIT_TESTS_END_SUITE;
 
 private:
-
-  virtual void InitializeTests() {}
-  virtual void CleanUp() {}
 
   void TestAngles()
   {
@@ -100,7 +97,7 @@ private:
 
 };
 
-RRLIB_UNIT_TESTS_REGISTER_SUITE(tTestPoses);
+RRLIB_UNIT_TESTS_REGISTER_SUITE(TestPoses);
 
 //----------------------------------------------------------------------
 // End of namespace declaration

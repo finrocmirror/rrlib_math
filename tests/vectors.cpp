@@ -72,9 +72,9 @@ namespace math
 //----------------------------------------------------------------------
 // Implementation
 //----------------------------------------------------------------------
-class tTestVectors : public rrlib::util::tUnitTestSuite
+class TestVectors : public util::tUnitTestSuite
 {
-  RRLIB_UNIT_TESTS_BEGIN_SUITE(tTestVectors);
+  RRLIB_UNIT_TESTS_BEGIN_SUITE(TestVectors);
   RRLIB_UNIT_TESTS_ADD_TEST(Constructors);
   RRLIB_UNIT_TESTS_ADD_TEST(AccessOperators);
   RRLIB_UNIT_TESTS_ADD_TEST(ComparisonOperators);
@@ -92,9 +92,6 @@ class tTestVectors : public rrlib::util::tUnitTestSuite
   RRLIB_UNIT_TESTS_END_SUITE;
 
 private:
-
-  virtual void InitializeTests() {}
-  virtual void CleanUp() {}
 
   void Constructors()
   {
@@ -420,7 +417,7 @@ private:
 
 };
 
-RRLIB_UNIT_TESTS_REGISTER_SUITE(tTestVectors);
+RRLIB_UNIT_TESTS_REGISTER_SUITE(TestVectors);
 
 //----------------------------------------------------------------------
 // End of namespace declaration

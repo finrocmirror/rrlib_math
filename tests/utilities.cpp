@@ -68,18 +68,15 @@ namespace math
 //----------------------------------------------------------------------
 // Implementation
 //----------------------------------------------------------------------
-class tTestUtilities : public rrlib::util::tUnitTestSuite
+class TestUtilities : public util::tUnitTestSuite
 {
-  RRLIB_UNIT_TESTS_BEGIN_SUITE(tTestUtilities);
+  RRLIB_UNIT_TESTS_BEGIN_SUITE(TestUtilities);
   RRLIB_UNIT_TESTS_ADD_TEST(TestSignum);
   RRLIB_UNIT_TESTS_ADD_TEST(TestLimitedValue);
   RRLIB_UNIT_TESTS_ADD_TEST(TestBinomialCoefficient);
   RRLIB_UNIT_TESTS_END_SUITE;
 
 private:
-
-  virtual void InitializeTests() {}
-  virtual void CleanUp() {}
 
   void TestSignum()
   {
@@ -112,7 +109,7 @@ private:
   }
 };
 
-RRLIB_UNIT_TESTS_REGISTER_SUITE(tTestUtilities);
+RRLIB_UNIT_TESTS_REGISTER_SUITE(TestUtilities);
 
 //----------------------------------------------------------------------
 // End of namespace declaration

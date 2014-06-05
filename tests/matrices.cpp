@@ -76,9 +76,9 @@ namespace math
 //----------------------------------------------------------------------
 // Implementation
 //----------------------------------------------------------------------
-class tTestMatrices : public rrlib::util::tUnitTestSuite
+class TestMatrices : public util::tUnitTestSuite
 {
-  RRLIB_UNIT_TESTS_BEGIN_SUITE(tTestMatrices);
+  RRLIB_UNIT_TESTS_BEGIN_SUITE(TestMatrices);
   RRLIB_UNIT_TESTS_ADD_TEST(Constructors);
   RRLIB_UNIT_TESTS_ADD_TEST(AccessOperators);
   RRLIB_UNIT_TESTS_ADD_TEST(ComparisonOperators);
@@ -94,9 +94,6 @@ class tTestMatrices : public rrlib::util::tUnitTestSuite
   RRLIB_UNIT_TESTS_END_SUITE;
 
 private:
-
-  virtual void InitializeTests() {}
-  virtual void CleanUp() {}
 
   void Constructors()
   {
@@ -279,7 +276,7 @@ private:
 
 };
 
-RRLIB_UNIT_TESTS_REGISTER_SUITE(tTestMatrices);
+RRLIB_UNIT_TESTS_REGISTER_SUITE(TestMatrices);
 
 //----------------------------------------------------------------------
 // End of namespace declaration

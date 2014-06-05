@@ -70,9 +70,9 @@ namespace math
 //----------------------------------------------------------------------
 // Implementation
 //----------------------------------------------------------------------
-class tTestAngles : public rrlib::util::tUnitTestSuite
+class TestAngles : public util::tUnitTestSuite
 {
-  RRLIB_UNIT_TESTS_BEGIN_SUITE(tTestAngles);
+  RRLIB_UNIT_TESTS_BEGIN_SUITE(TestAngles);
   RRLIB_UNIT_TESTS_ADD_TEST(Constructors);
   RRLIB_UNIT_TESTS_ADD_TEST(ComparisonOperators);
   RRLIB_UNIT_TESTS_ADD_TEST(Conversions);
@@ -83,9 +83,6 @@ class tTestAngles : public rrlib::util::tUnitTestSuite
   RRLIB_UNIT_TESTS_END_SUITE;
 
 private:
-
-  virtual void InitializeTests() {}
-  virtual void CleanUp() {}
 
   void Constructors()
   {
@@ -420,7 +417,7 @@ private:
   }
 };
 
-RRLIB_UNIT_TESTS_REGISTER_SUITE(tTestAngles);
+RRLIB_UNIT_TESTS_REGISTER_SUITE(TestAngles);
 
 //----------------------------------------------------------------------
 // End of namespace declaration
