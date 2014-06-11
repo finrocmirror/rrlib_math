@@ -252,7 +252,7 @@ public:
    *
    * \return The sine of \a this angle
    */
-  inline decltype(std::sin(TElement())) Sine() const
+  inline TElement Sine() const
   {
     return std::sin(tAngle<TElement, angle::Radian>(*this).Value());
   }
@@ -263,7 +263,7 @@ public:
    *
    * \return The cosine of \a this angle
    */
-  inline decltype(std::cos(TElement())) Cosine() const
+  inline TElement Cosine() const
   {
     return std::cos(tAngle<TElement, angle::Radian>(*this).Value());
   }
@@ -274,7 +274,7 @@ public:
    *
    * \return The tangent of \a this angle
    */
-  inline decltype(std::tan(TElement())) Tangent() const
+  inline TElement Tangent() const
   {
     return std::tan(tAngle<TElement, angle::Radian>(*this).Value());
   }
