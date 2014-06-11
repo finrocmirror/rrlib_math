@@ -260,8 +260,8 @@ const tAngleRad EnclosedAngle(const tVector<2, TLeftElement, TData, TAdditionalD
 //----------------------------------------------------------------------
 // GetPolarVectorFromCartesian
 //----------------------------------------------------------------------
-template <size_t Tdimension, typename TPolarElement, typename TCartesianElement, typename TPolarUnitPolicy, typename TPolarSignPolicy>
-void GetPolarVectorFromCartesian(tVector<Tdimension, TPolarElement, vector::Polar, TPolarUnitPolicy, TPolarSignPolicy> &polar, const tVector<Tdimension, TCartesianElement, vector::Cartesian> &cartesian)
+template <size_t Tdimension, typename TPolarElement, typename TCartesianElement, typename TPolarUnitPolicy, typename TPolarAutoWrapPolicy>
+void GetPolarVectorFromCartesian(tVector<Tdimension, TPolarElement, vector::Polar, TPolarUnitPolicy, TPolarAutoWrapPolicy> &polar, const tVector<Tdimension, TCartesianElement, vector::Cartesian> &cartesian)
 {
   polar = cartesian.GetPolarVector();
 }
@@ -269,8 +269,8 @@ void GetPolarVectorFromCartesian(tVector<Tdimension, TPolarElement, vector::Pola
 //----------------------------------------------------------------------
 // GetCartesianVectorFromPolar
 //----------------------------------------------------------------------
-template <size_t Tdimension, typename TCartesianElement, typename TPolarElement, typename TPolarUnitPolicy, typename TPolarSignPolicy>
-void GetCartesianVectorFromPolar(tVector<Tdimension, TCartesianElement, vector::Cartesian> &cartesian, const tVector<Tdimension, TPolarElement, vector::Polar, TPolarUnitPolicy, TPolarSignPolicy> &polar)
+template <size_t Tdimension, typename TCartesianElement, typename TPolarElement, typename TPolarUnitPolicy, typename TPolarAutoWrapPolicy>
+void GetCartesianVectorFromPolar(tVector<Tdimension, TCartesianElement, vector::Cartesian> &cartesian, const tVector<Tdimension, TPolarElement, vector::Polar, TPolarUnitPolicy, TPolarAutoWrapPolicy> &polar)
 {
   cartesian = polar.GetCartesianVector();
 }

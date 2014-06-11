@@ -124,7 +124,7 @@ public:
 
   typedef math::tAngle<TElement, TUnitPolicy, TAutoWrapPolicy> tAngle;
 
-  inline tAngle Alpha() const __attribute__((always_inline));
+  inline const tAngle &Alpha() const __attribute__((always_inline));
 
   inline tAngle &Alpha() __attribute__((always_inline));
 
@@ -167,11 +167,11 @@ public:
 
   typedef math::tAngle<TElement, TUnitPolicy, TAutoWrapPolicy> tAngle;
 
-  inline tAngle Alpha() const __attribute__((always_inline));
+  inline const tAngle &Alpha() const __attribute__((always_inline));
 
   inline tAngle &Alpha() __attribute__((always_inline));
 
-  inline tAngle Beta() const __attribute__((always_inline));
+  inline const tAngle &Beta() const __attribute__((always_inline));
 
   inline tAngle &Beta() __attribute__((always_inline));
 

@@ -283,8 +283,8 @@ FunctionalitySpecialized<Tdimension, TElement, Polar, TAdditionalDataParameters.
 }
 
 template <size_t Tdimension, typename TElement, typename ... TAdditionalDataParameters>
-template <typename TOtherUnitPolicy, typename TOtherSignPolicy>
-FunctionalitySpecialized<Tdimension, TElement, Polar, TAdditionalDataParameters...>::FunctionalitySpecialized(const math::tVector<Tdimension, TElement, Polar, TOtherUnitPolicy, TOtherSignPolicy> &other)
+template <typename TPolarUnitPolicy, typename TPolarAutoWrapPolicy>
+FunctionalitySpecialized<Tdimension, TElement, Polar, TAdditionalDataParameters...>::FunctionalitySpecialized(const math::tVector<Tdimension, TElement, Polar, TPolarUnitPolicy, TPolarAutoWrapPolicy> &other)
 {
   tVector *that = reinterpret_cast<tVector *>(this);
   std::memset(this, 0, sizeof(tVector));

@@ -70,7 +70,7 @@ namespace vector
 // Cartesian 2 X
 //----------------------------------------------------------------------
 template <typename TElement>
-TElement Cartesian<2, TElement>::X() const
+const TElement &Cartesian<2, TElement>::X() const
 {
   return this->x;
 }
@@ -85,7 +85,7 @@ TElement &Cartesian<2, TElement>::X()
 // Cartesian 2 Y
 //----------------------------------------------------------------------
 template <typename TElement>
-TElement Cartesian<2, TElement>::Y() const
+const TElement &Cartesian<2, TElement>::Y() const
 {
   return this->y;
 }
@@ -100,7 +100,7 @@ TElement &Cartesian<2, TElement>::Y()
 // Cartesian 3 X
 //----------------------------------------------------------------------
 template <typename TElement>
-TElement Cartesian<3, TElement>::X() const
+const TElement &Cartesian<3, TElement>::X() const
 {
   return this->x;
 }
@@ -115,7 +115,7 @@ TElement &Cartesian<3, TElement>::X()
 // Cartesian 3 Y
 //----------------------------------------------------------------------
 template <typename TElement>
-TElement Cartesian<3, TElement>::Y() const
+const TElement &Cartesian<3, TElement>::Y() const
 {
   return this->y;
 }
@@ -130,7 +130,7 @@ TElement &Cartesian<3, TElement>::Y()
 // Cartesian 3 Z
 //----------------------------------------------------------------------
 template <typename TElement>
-TElement Cartesian<3, TElement>::Z() const
+const TElement &Cartesian<3, TElement>::Z() const
 {
   return this->z;
 }

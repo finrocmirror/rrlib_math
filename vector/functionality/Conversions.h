@@ -110,11 +110,11 @@ class Conversions<2, TElement, Cartesian>
 //----------------------------------------------------------------------
 public:
 
-  template <typename TPolarUnitPolicy = angle::Radian, typename TPolarSignPolicy = angle::Signed>
-  __attribute__((always_inline)) inline const tVector<2, TElement, Polar, TPolarUnitPolicy, TPolarSignPolicy> GetPolarVector() const
+  template <typename TPolarUnitPolicy = angle::Radian, typename TPolarAutoWrapPolicy = angle::Signed>
+  __attribute__((always_inline)) inline const tVector<2, TElement, Polar, TPolarUnitPolicy, TPolarAutoWrapPolicy> GetPolarVector() const
   {
     const tVector<2, TElement, Cartesian> *that = reinterpret_cast<const tVector<2, TElement, Cartesian> *>(this);
-    return tVector<2, TElement, Polar, TPolarUnitPolicy, TPolarSignPolicy>(tAngle<TElement, angle::Radian>(std::atan2(that->Y(), that->X())), that->Length());
+    return tVector<2, TElement, Polar, TPolarUnitPolicy, TPolarAutoWrapPolicy>(tAngle<TElement, angle::Radian>(std::atan2(that->Y(), that->X())), that->Length());
   }
 
 #ifdef _LIB_OIV_PRESENT_
@@ -155,12 +155,12 @@ class Conversions<3, TElement, Cartesian>
 //----------------------------------------------------------------------
 public:
 
-  template <typename TPolarUnitPolicy = angle::Radian, typename TPolarSignPolicy = angle::Signed>
-  __attribute__((always_inline)) inline const tVector<3, TElement, Polar, TPolarUnitPolicy, TPolarSignPolicy> GetPolarVector() const
+  template <typename TPolarUnitPolicy = angle::Radian, typename TPolarAutoWrapPolicy = angle::Signed>
+  __attribute__((always_inline)) inline const tVector<3, TElement, Polar, TPolarUnitPolicy, TPolarAutoWrapPolicy> GetPolarVector() const
   {
     const tVector<3, TElement, Cartesian> *that = reinterpret_cast<const tVector<3, TElement, Cartesian> *>(this);
     TElement length = that->Length();
-    return tVector<3, TElement, Polar, TPolarUnitPolicy, TPolarSignPolicy>(tAngle<TElement, angle::Radian>(std::atan2(that->Y(), that->X())), tAngle<TElement, angle::Radian>(std::acos(that->Z() / length)), length);
+    return tVector<3, TElement, Polar, TPolarUnitPolicy, TPolarAutoWrapPolicy>(tAngle<TElement, angle::Radian>(std::atan2(that->Y(), that->X())), tAngle<TElement, angle::Radian>(std::acos(that->Z() / length)), length);
   }
 
 #ifdef _LIB_OIV_PRESENT_

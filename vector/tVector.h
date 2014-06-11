@@ -111,8 +111,8 @@ public:
   template <size_t Tother_dimension, typename TOtherElement>
   inline tVector(const tVector<Tother_dimension, TOtherElement> &other) __attribute__((always_inline));
 
-  template <typename TOtherUnitPolicy, typename TOtherSignPolicy>
-  inline tVector(const tVector<Tdimension, TElement, TData, TOtherUnitPolicy, TOtherSignPolicy> &other) __attribute__((always_inline));
+  template <typename TPolarUnitPolicy, typename TPolarAutoWrapPolicy>
+  inline tVector(const tVector<Tdimension, TElement, TData, TPolarUnitPolicy, TPolarAutoWrapPolicy> &other) __attribute__((always_inline));
 
   template <typename ... TValues>
   explicit inline tVector(TValues... values) __attribute__((always_inline));

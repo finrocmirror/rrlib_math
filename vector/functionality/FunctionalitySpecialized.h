@@ -202,8 +202,8 @@ protected:
   template <size_t Tother_dimension, typename TOtherElement>
   explicit inline FunctionalitySpecialized(const math::tVector<Tother_dimension, TOtherElement, Polar, TAdditionalDataParameters...> &other) __attribute__((always_inline));
 
-  template <typename TOtherUnitPolicy, typename TOtherSignPolicy>
-  explicit inline FunctionalitySpecialized(const math::tVector<Tdimension, TElement, Polar, TOtherUnitPolicy, TOtherSignPolicy> &other) __attribute__((always_inline));
+  template <typename TPolarUnitPolicy, typename TPolarAutoWrapPolicy>
+  explicit inline FunctionalitySpecialized(const math::tVector<Tdimension, TElement, Polar, TPolarUnitPolicy, TPolarAutoWrapPolicy> &other) __attribute__((always_inline));
 
   template <typename ... TValues>
   explicit inline FunctionalitySpecialized(tAngle value, TValues... values) __attribute__((always_inline));

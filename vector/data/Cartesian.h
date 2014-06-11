@@ -107,11 +107,11 @@ class Cartesian<2, TElement>
 //----------------------------------------------------------------------
 public:
 
-  inline TElement X() const __attribute__((always_inline));
+  inline const TElement &X() const __attribute__((always_inline));
 
   inline TElement &X() __attribute__((always_inline));
 
-  inline TElement Y() const __attribute__((always_inline));
+  inline const TElement &Y() const __attribute__((always_inline));
 
   inline TElement &Y() __attribute__((always_inline));
 
@@ -148,15 +148,15 @@ class Cartesian<3, TElement>
 //----------------------------------------------------------------------
 public:
 
-  inline TElement X() const __attribute__((always_inline));
+  inline const TElement &X() const __attribute__((always_inline));
 
   inline TElement &X() __attribute__((always_inline));
 
-  inline TElement Y() const __attribute__((always_inline));
+  inline const TElement &Y() const __attribute__((always_inline));
 
   inline TElement &Y() __attribute__((always_inline));
 
-  inline TElement Z() const __attribute__((always_inline));
+  inline const TElement &Z() const __attribute__((always_inline));
 
   inline TElement &Z() __attribute__((always_inline));
 

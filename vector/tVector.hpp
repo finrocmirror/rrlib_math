@@ -119,8 +119,8 @@ tVector<Tdimension, TElement, TData, TAdditionalDataParameters...>::tVector(cons
 {}
 
 template <size_t Tdimension, typename TElement, template <size_t, typename, typename ...> class TData, typename ... TAdditionalDataParameters>
-template <typename TOtherUnitPolicy, typename TOtherSignPolicy>
-tVector<Tdimension, TElement, TData, TAdditionalDataParameters...>::tVector(const tVector<Tdimension, TElement, TData, TOtherUnitPolicy, TOtherSignPolicy> &other)
+template <typename TPolarUnitPolicy, typename TPolarAutoWrapPolicy>
+tVector<Tdimension, TElement, TData, TAdditionalDataParameters...>::tVector(const tVector<Tdimension, TElement, TData, TPolarUnitPolicy, TPolarAutoWrapPolicy> &other)
   : FunctionalitySpecialized(other)
 {}
 

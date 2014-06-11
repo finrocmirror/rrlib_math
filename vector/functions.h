@@ -101,8 +101,8 @@ const tAngleRad EnclosedAngle(const tVector<2, TLeftElement, TData, TAdditionalD
  * \param polar       A reference to the vector that is supposed to hold the polar coordinates (angle, radius)
  * \param cartesian   The vector that holds the Cartesian coordinates
  */
-template <size_t Tdimension, typename TPolarElement, typename TCartesianElement, typename TPolarUnitPolicy = angle::Radian, typename TPolarSignPolicy = angle::Unsigned>
-inline void GetPolarVectorFromCartesian(tVector<Tdimension, TPolarElement, vector::Polar, TPolarUnitPolicy, TPolarSignPolicy> &polar, const tVector<Tdimension, TCartesianElement, vector::Cartesian> &cartesian) __attribute__((always_inline));
+template <size_t Tdimension, typename TPolarElement, typename TCartesianElement, typename TPolarUnitPolicy = angle::Radian, typename TPolarAutoWrapPolicy = angle::Unsigned>
+inline void GetPolarVectorFromCartesian(tVector<Tdimension, TPolarElement, vector::Polar, TPolarUnitPolicy, TPolarAutoWrapPolicy> &polar, const tVector<Tdimension, TCartesianElement, vector::Cartesian> &cartesian) __attribute__((always_inline));
 
 /*!
  * \brief Convert polar coordinates into Cartesian coordinates
@@ -110,8 +110,8 @@ inline void GetPolarVectorFromCartesian(tVector<Tdimension, TPolarElement, vecto
  * \param cartesian   A reference to the vector that is supposed to hold the Cartesian coordinates
  * \param polar       The vector that holds the polar coordinates (angle, radius)
  */
-template <size_t Tdimension, typename TCartesianElement, typename TPolarElement, typename TPolarUnitPolicy, typename TPolarSignPolicy>
-inline void GetCartesianVectorFromPolar(tVector<Tdimension, TCartesianElement, vector::Cartesian> &cartesian, const tVector<Tdimension, TPolarElement, vector::Polar, TPolarUnitPolicy, TPolarSignPolicy> &polar) __attribute__((always_inline));
+template <size_t Tdimension, typename TCartesianElement, typename TPolarElement, typename TPolarUnitPolicy, typename TPolarAutoWrapPolicy>
+inline void GetCartesianVectorFromPolar(tVector<Tdimension, TCartesianElement, vector::Cartesian> &cartesian, const tVector<Tdimension, TPolarElement, vector::Polar, TPolarUnitPolicy, TPolarAutoWrapPolicy> &polar) __attribute__((always_inline));
 
 template <typename TElement, typename TPolarUnitPolicy = angle::Radian>
 inline tVector<2, TElement, vector::Polar, TPolarUnitPolicy, angle::Signed> GetPolarSignedVectorFromCartesian(tVector<2, TElement, vector::Cartesian> cartesian, double radius = 1) __attribute__((always_inline));

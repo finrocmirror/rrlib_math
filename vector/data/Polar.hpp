@@ -70,14 +70,14 @@ namespace vector
 //----------------------------------------------------------------------
 // Polar Length
 //----------------------------------------------------------------------
-template <size_t Tdimension, typename TElement, typename TOtherUnitPolicy, typename TOtherSignPolicy>
-TElement &Polar<Tdimension, TElement, TOtherUnitPolicy, TOtherSignPolicy>::Length() const
+template <size_t Tdimension, typename TElement, typename TUnitPolicy, typename TAutoWrapPolicy>
+TElement &Polar<Tdimension, TElement, TUnitPolicy, TAutoWrapPolicy>::Length() const
 {
   return this->length;
 }
 
-template <size_t Tdimension, typename TElement, typename TOtherUnitPolicy, typename TOtherSignPolicy>
-TElement &Polar<Tdimension, TElement, TOtherUnitPolicy, TOtherSignPolicy>::Length()
+template <size_t Tdimension, typename TElement, typename TUnitPolicy, typename TAutoWrapPolicy>
+TElement &Polar<Tdimension, TElement, TUnitPolicy, TAutoWrapPolicy>::Length()
 {
   return this->length;
 }
@@ -85,14 +85,14 @@ TElement &Polar<Tdimension, TElement, TOtherUnitPolicy, TOtherSignPolicy>::Lengt
 //----------------------------------------------------------------------
 // Polar 2 Alpha
 //----------------------------------------------------------------------
-template <typename TElement, typename TOtherUnitPolicy, typename TOtherSignPolicy>
-tAngle<TElement, TOtherUnitPolicy, TOtherSignPolicy> Polar<2, TElement, TOtherUnitPolicy, TOtherSignPolicy>::Alpha() const
+template <typename TElement, typename TUnitPolicy, typename TAutoWrapPolicy>
+const tAngle<TElement, TUnitPolicy, TAutoWrapPolicy> &Polar<2, TElement, TUnitPolicy, TAutoWrapPolicy>::Alpha() const
 {
   return this->alpha;
 }
 
-template <typename TElement, typename TOtherUnitPolicy, typename TOtherSignPolicy>
-tAngle<TElement, TOtherUnitPolicy, TOtherSignPolicy> &Polar<2, TElement, TOtherUnitPolicy, TOtherSignPolicy>::Alpha()
+template <typename TElement, typename TUnitPolicy, typename TAutoWrapPolicy>
+tAngle<TElement, TUnitPolicy, TAutoWrapPolicy> &Polar<2, TElement, TUnitPolicy, TAutoWrapPolicy>::Alpha()
 {
   return this->alpha;
 }
@@ -100,14 +100,14 @@ tAngle<TElement, TOtherUnitPolicy, TOtherSignPolicy> &Polar<2, TElement, TOtherU
 //----------------------------------------------------------------------
 // Polar 2 Length
 //----------------------------------------------------------------------
-template <typename TElement, typename TOtherUnitPolicy, typename TOtherSignPolicy>
-const TElement &Polar<2, TElement, TOtherUnitPolicy, TOtherSignPolicy>::Length() const
+template <typename TElement, typename TUnitPolicy, typename TAutoWrapPolicy>
+const TElement &Polar<2, TElement, TUnitPolicy, TAutoWrapPolicy>::Length() const
 {
   return this->length;
 }
 
-template <typename TElement, typename TOtherUnitPolicy, typename TOtherSignPolicy>
-TElement &Polar<2, TElement, TOtherUnitPolicy, TOtherSignPolicy>::Length()
+template <typename TElement, typename TUnitPolicy, typename TAutoWrapPolicy>
+TElement &Polar<2, TElement, TUnitPolicy, TAutoWrapPolicy>::Length()
 {
   return this->length;
 }
@@ -115,14 +115,14 @@ TElement &Polar<2, TElement, TOtherUnitPolicy, TOtherSignPolicy>::Length()
 //----------------------------------------------------------------------
 // Polar 3 Alpha
 //----------------------------------------------------------------------
-template <typename TElement, typename TOtherUnitPolicy, typename TOtherSignPolicy>
-tAngle<TElement, TOtherUnitPolicy, TOtherSignPolicy> Polar<3, TElement, TOtherUnitPolicy, TOtherSignPolicy>::Alpha() const
+template <typename TElement, typename TUnitPolicy, typename TAutoWrapPolicy>
+const tAngle<TElement, TUnitPolicy, TAutoWrapPolicy> &Polar<3, TElement, TUnitPolicy, TAutoWrapPolicy>::Alpha() const
 {
   return this->alpha;
 }
 
-template <typename TElement, typename TOtherUnitPolicy, typename TOtherSignPolicy>
-tAngle<TElement, TOtherUnitPolicy, TOtherSignPolicy> &Polar<3, TElement, TOtherUnitPolicy, TOtherSignPolicy>::Alpha()
+template <typename TElement, typename TUnitPolicy, typename TAutoWrapPolicy>
+tAngle<TElement, TUnitPolicy, TAutoWrapPolicy> &Polar<3, TElement, TUnitPolicy, TAutoWrapPolicy>::Alpha()
 {
   return this->alpha;
 }
@@ -130,14 +130,14 @@ tAngle<TElement, TOtherUnitPolicy, TOtherSignPolicy> &Polar<3, TElement, TOtherU
 //----------------------------------------------------------------------
 // Polar 3 Beta
 //----------------------------------------------------------------------
-template <typename TElement, typename TOtherUnitPolicy, typename TOtherSignPolicy>
-tAngle<TElement, TOtherUnitPolicy, TOtherSignPolicy> Polar<3, TElement, TOtherUnitPolicy, TOtherSignPolicy>::Beta() const
+template <typename TElement, typename TUnitPolicy, typename TAutoWrapPolicy>
+const tAngle<TElement, TUnitPolicy, TAutoWrapPolicy> &Polar<3, TElement, TUnitPolicy, TAutoWrapPolicy>::Beta() const
 {
   return this->beta;
 }
 
-template <typename TElement, typename TOtherUnitPolicy, typename TOtherSignPolicy>
-tAngle<TElement, TOtherUnitPolicy, TOtherSignPolicy> &Polar<3, TElement, TOtherUnitPolicy, TOtherSignPolicy>::Beta()
+template <typename TElement, typename TUnitPolicy, typename TAutoWrapPolicy>
+tAngle<TElement, TUnitPolicy, TAutoWrapPolicy> &Polar<3, TElement, TUnitPolicy, TAutoWrapPolicy>::Beta()
 {
   return this->beta;
 }
@@ -145,14 +145,14 @@ tAngle<TElement, TOtherUnitPolicy, TOtherSignPolicy> &Polar<3, TElement, TOtherU
 //----------------------------------------------------------------------
 // Polar 3 Length
 //----------------------------------------------------------------------
-template <typename TElement, typename TOtherUnitPolicy, typename TOtherSignPolicy>
-const TElement &Polar<3, TElement, TOtherUnitPolicy, TOtherSignPolicy>::Length() const
+template <typename TElement, typename TUnitPolicy, typename TAutoWrapPolicy>
+const TElement &Polar<3, TElement, TUnitPolicy, TAutoWrapPolicy>::Length() const
 {
   return this->length;
 }
 
-template <typename TElement, typename TOtherUnitPolicy, typename TOtherSignPolicy>
-TElement &Polar<3, TElement, TOtherUnitPolicy, TOtherSignPolicy>::Length()
+template <typename TElement, typename TUnitPolicy, typename TAutoWrapPolicy>
+TElement &Polar<3, TElement, TUnitPolicy, TAutoWrapPolicy>::Length()
 {
   return this->length;
 }
