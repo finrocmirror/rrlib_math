@@ -370,6 +370,30 @@ private:
       char delim;
       source >> delim;
     }
+
+    serialization::tMemoryBuffer memory_buffer;
+    serialization::tOutputStream output_stream(memory_buffer);
+    serialization::tInputStream input_stream(memory_buffer);
+
+    output_stream << tAngle<double, angle::Radian, angle::Signed>(5 * M_PI_2);
+    output_stream << tAngle<float, angle::Radian, angle::Unsigned>(3 * M_PI_2);
+    output_stream << tAngle<double, angle::Degree, angle::Signed>(90);
+    output_stream << tAngle<float, angle::Degree, angle::Unsigned>(45);
+    output_stream.Flush();
+
+    tAngle<double, angle::Radian, angle::Signed> double_rad_signed;
+    tAngle<float, angle::Radian, angle::Unsigned> float_rad_unsigned;
+    tAngle<double, angle::Degree, angle::Signed> double_deg_signed;
+    tAngle<float, angle::Degree, angle::Unsigned> float_deg_unsigned;
+
+    input_stream >> double_rad_signed;
+    RRLIB_UNIT_TESTS_EQUALITY((tAngle<double, angle::Radian, angle::Signed>(5 * M_PI_2)), double_rad_signed);
+    input_stream >> float_rad_unsigned;
+    RRLIB_UNIT_TESTS_EQUALITY((tAngle<float, angle::Radian, angle::Unsigned>(3 * M_PI_2)), float_rad_unsigned);
+    input_stream >> double_deg_signed;
+    RRLIB_UNIT_TESTS_EQUALITY((tAngle<double, angle::Degree, angle::Signed>(90)), double_deg_signed);
+    input_stream >> float_deg_unsigned;
+    RRLIB_UNIT_TESTS_EQUALITY((tAngle<float, angle::Degree, angle::Unsigned>(45)), float_deg_unsigned);
   }
 
   void TestFunctions()

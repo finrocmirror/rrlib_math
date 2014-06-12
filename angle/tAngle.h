@@ -643,7 +643,7 @@ std::istream &operator >> (std::istream &stream, tAngle<TElement, TUnitPolicy, T
 template <typename TElement, typename TUnitPolicy, typename TAutoWrapPolicy>
 serialization::tOutputStream &operator << (serialization::tOutputStream &stream, const tAngle<TElement, TUnitPolicy, TAutoWrapPolicy> &angle)
 {
-  stream << tAngle<double, angle::Radian, angle::NoWrap>(angle).Value();
+  stream << angle.Value();
   return stream;
 }
 
@@ -659,9 +659,9 @@ serialization::tOutputStream &operator << (serialization::tOutputStream &stream,
 template <typename TElement, typename TUnitPolicy, typename TAutoWrapPolicy>
 serialization::tInputStream &operator >> (serialization::tInputStream &stream, tAngle<TElement, TUnitPolicy, TAutoWrapPolicy> &angle)
 {
-  double radian_value;
-  stream >> radian_value;
-  angle = tAngle<double, angle::Radian, angle::NoWrap>(radian_value);
+  TElement value;
+  stream >> value;
+  angle = tAngle<TElement, TUnitPolicy, TAutoWrapPolicy>(value);
   return stream;
 }
 
