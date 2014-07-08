@@ -171,6 +171,13 @@ private:
     RRLIB_UNIT_TESTS_ASSERT((tAngle<double, angle::Degree, angle::NoWrap>(0.1) != tAngle<double, angle::Degree, angle::NoWrap>(0.2)));
     RRLIB_UNIT_TESTS_ASSERT((tAngle<double, angle::Degree, angle::Signed>(0.1) != tAngle<double, angle::Degree, angle::Signed>(0.2)));
     RRLIB_UNIT_TESTS_ASSERT((tAngle<double, angle::Degree, angle::Unsigned>(0.1) != tAngle<double, angle::Degree, angle::Unsigned>(0.2)));
+
+    RRLIB_UNIT_TESTS_ASSERT((tAngle<double, angle::Degree, angle::NoWrap>(40) < tAngle<double, angle::Degree, angle::NoWrap>(45)));
+    RRLIB_UNIT_TESTS_ASSERT((tAngle<double, angle::Degree, angle::NoWrap>(40) < tAngle<double, angle::Radian, angle::NoWrap>(M_PI_2)));
+    RRLIB_UNIT_TESTS_ASSERT((tAngle<double, angle::Degree, angle::NoWrap>(40) < tAngle<float, angle::Radian, angle::NoWrap>(M_PI_2)));
+    RRLIB_UNIT_TESTS_ASSERT((tAngle<double, angle::Degree, angle::NoWrap>(45) > tAngle<double, angle::Degree, angle::NoWrap>(40)));
+    RRLIB_UNIT_TESTS_ASSERT((tAngle<double, angle::Radian, angle::NoWrap>(M_PI_2) > tAngle<double, angle::Degree, angle::NoWrap>(40)));
+    RRLIB_UNIT_TESTS_ASSERT((tAngle<float, angle::Radian, angle::NoWrap>(M_PI_2) > tAngle<double, angle::Degree, angle::NoWrap>(40)));
   }
 
   void Conversions()

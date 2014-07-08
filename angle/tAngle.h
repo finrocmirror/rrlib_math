@@ -518,10 +518,10 @@ bool operator != (const tAngle<TElement, TUnitPolicy, TAutoWrapPolicy> &left, co
  *
  * \return Whether \a left is smaller than \a right
  */
-template <typename TElement, typename TUnitPolicy, typename TAutoWrapPolicy>
-bool operator < (const tAngle<TElement, TUnitPolicy, TAutoWrapPolicy> &left, const tAngle<TElement, TUnitPolicy, TAutoWrapPolicy> &right)
+template <typename TLeftElement, typename TRightElement, typename TLeftUnitPolicy, typename TRightUnitPolicy, typename TAutoWrapPolicy>
+bool operator < (const tAngle<TLeftElement, TLeftUnitPolicy, TAutoWrapPolicy> &left, const tAngle<TRightElement, TRightUnitPolicy, TAutoWrapPolicy> &right)
 {
-  return left.Value() < right.Value();
+  return left.Value() < tAngle<TLeftElement, TLeftUnitPolicy, TAutoWrapPolicy>(right).Value();
 }
 
 /*! Greater-than
@@ -531,10 +531,10 @@ bool operator < (const tAngle<TElement, TUnitPolicy, TAutoWrapPolicy> &left, con
  *
  * \return Whether \a left is greater than \a right
  */
-template <typename TElement, typename TUnitPolicy, typename TAutoWrapPolicy>
-bool operator > (const tAngle<TElement, TUnitPolicy, TAutoWrapPolicy> &left, const tAngle<TElement, TUnitPolicy, TAutoWrapPolicy> &right)
+template <typename TLeftElement, typename TRightElement, typename TLeftUnitPolicy, typename TRightUnitPolicy, typename TAutoWrapPolicy>
+bool operator > (const tAngle<TLeftElement, TLeftUnitPolicy, TAutoWrapPolicy> &left, const tAngle<TRightElement, TRightUnitPolicy, TAutoWrapPolicy> &right)
 {
-  return left.Value() > right.Value();
+  return left.Value() > tAngle<TLeftElement, TLeftUnitPolicy, TAutoWrapPolicy>(right).Value();
 }
 
 /*! Not greater-than
@@ -544,8 +544,8 @@ bool operator > (const tAngle<TElement, TUnitPolicy, TAutoWrapPolicy> &left, con
  *
  * \return Whether \a left is not greater than \a right
  */
-template <typename TElement, typename TUnitPolicy, typename TAutoWrapPolicy>
-bool operator <= (const tAngle<TElement, TUnitPolicy, TAutoWrapPolicy> &left, const tAngle<TElement, TUnitPolicy, TAutoWrapPolicy> &right)
+template <typename TLeftElement, typename TRightElement, typename TLeftUnitPolicy, typename TRightUnitPolicy, typename TAutoWrapPolicy>
+bool operator <= (const tAngle<TLeftElement, TLeftUnitPolicy, TAutoWrapPolicy> &left, const tAngle<TRightElement, TRightUnitPolicy, TAutoWrapPolicy> &right)
 {
   return !(left > right);
 }
@@ -557,8 +557,8 @@ bool operator <= (const tAngle<TElement, TUnitPolicy, TAutoWrapPolicy> &left, co
  *
  * \return Whether \a left is not smaller than \a right
  */
-template <typename TElement, typename TUnitPolicy, typename TAutoWrapPolicy>
-bool operator >= (const tAngle<TElement, TUnitPolicy, TAutoWrapPolicy> &left, const tAngle<TElement, TUnitPolicy, TAutoWrapPolicy> &right)
+template <typename TLeftElement, typename TRightElement, typename TLeftUnitPolicy, typename TRightUnitPolicy, typename TAutoWrapPolicy>
+bool operator >= (const tAngle<TLeftElement, TLeftUnitPolicy, TAutoWrapPolicy> &left, const tAngle<TRightElement, TRightUnitPolicy, TAutoWrapPolicy> &right)
 {
   return !(left < right);
 }
