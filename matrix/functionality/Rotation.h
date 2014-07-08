@@ -114,8 +114,8 @@ public:
    *  rotation axis and angle that the matrix represents.
    * code taken from Coin 2.4.5 SbRotation.cpp
    */
-  template <typename TVectorElement, typename TAngle>
-  typename std::enable_if<std::is_floating_point<TAngle>::value, void>::type GetRotation(tVector<3, TVectorElement, vector::Cartesian> &axis, TAngle &angle) const
+  template <typename TVectorElement, typename TAngleElement, typename TUnitPolicy, typename TAutoWrapPolicy>
+  void GetRotation(tVector<3, TVectorElement, vector::Cartesian> &axis, tAngle<TAngleElement, TUnitPolicy, TAutoWrapPolicy> &angle) const
   {
     const tMatrix *that = reinterpret_cast<const tMatrix *>(this);
 
@@ -163,11 +163,11 @@ public:
 
     // convert quaternion to angle
     axis.Set(0, 0, 1);
-    angle = 0.0;
+    angle = tAngleRad();
     if ((quaternion[3] >= -1.0) && (quaternion[3] <= 1.0))
     {
-      angle = std::acos(quaternion[3]) * 2.0;
-      float scale = static_cast<float>(std::sin(angle / 2));
+      angle = tAngleRad(std::acos(quaternion[3]) * 2.0);
+      float scale = (angle / 2).Sine();
 
       if (scale != 0)
       {
@@ -227,8 +227,8 @@ class Rotation<4, 4, TElement>
 //----------------------------------------------------------------------
 public:
 
-  template <typename TVectorElement, typename TAngle>
-  typename std::enable_if<std::is_floating_point<TAngle>::value, void>::type GetRotation(tVector<3, TVectorElement, vector::Cartesian> &axis, TAngle &angle) const
+  template <typename TVectorElement, typename TAngleElement, typename TUnitPolicy, typename TAutoWrapPolicy>
+  void GetRotation(tVector<3, TVectorElement, vector::Cartesian> &axis, tAngle<TAngleElement, TUnitPolicy, TAutoWrapPolicy> &angle) const
   {
     const tMatrix *that = reinterpret_cast<const tMatrix *>(this);
     TElement data[3 * 3];
@@ -264,8 +264,8 @@ public:
    *
    *  \note: code taken from Coin 2.5.0 SbRotation.cpp
    */
-  template <typename TVectorElement>
-  tMatrix &SetRotation(const tVector<3, TVectorElement, vector::Cartesian> &axis, double angle)
+  template <typename TVectorElement, typename TAngleElement = double, typename TUnitPolicy = angle::Radian, typename TAutoWrapPolicy = angle::Signed>
+  tMatrix &SetRotation(const tVector<3, TVectorElement, vector::Cartesian> &axis, tAngle<TAngleElement, TUnitPolicy, TAutoWrapPolicy> angle)
   {
     tMatrix *that = reinterpret_cast<tMatrix *>(this);
     if (axis.Length() == 0)
@@ -275,9 +275,9 @@ public:
 
     tVector<3, TVectorElement, vector::Cartesian> normalized_axis(axis.Normalized());
 
-    double half_angle = angle / 2;
-    double sin_angle = std::sin(half_angle);
-    double cos_angle = std::cos(half_angle);
+    auto half_angle = angle / 2;
+    double sin_angle = half_angle.Sine();
+    double cos_angle = half_angle.Cosine();
 
     double x = sin_angle * normalized_axis.X();
     double y = sin_angle * normalized_axis.Y();
