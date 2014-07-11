@@ -81,7 +81,9 @@ class ConstantValuesShared
 //----------------------------------------------------------------------
 public:
 
-  static const size_t cDIMENSION = Tdimension;
+  static const size_t cDIMENSION;
+
+  static const size_t cSIZE;
 
   typedef TElement tElement;
 
@@ -118,7 +120,9 @@ class ConstantValuesShared<Tdimension, TElement, Cartesian>
 //----------------------------------------------------------------------
 public:
 
-  static const size_t cDIMENSION = Tdimension;
+  static const size_t cDIMENSION;
+
+  static const size_t cSIZE;
 
   typedef TElement tElement;
 

@@ -81,8 +81,8 @@ class ConstantValuesShared
 //----------------------------------------------------------------------
 public:
 
-  static const size_t cROWS = Trows;
-  static const size_t cCOLUMNS = Tcolumns;
+  static const size_t cROWS;
+  static const size_t cCOLUMNS;
 
   typedef TElement tElement;
 

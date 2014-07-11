@@ -63,6 +63,15 @@ namespace matrix
 //----------------------------------------------------------------------
 
 //----------------------------------------------------------------------
+// Const values
+//----------------------------------------------------------------------
+template <size_t Trows, size_t Tcolumns, typename TElement>
+const size_t ConstantValuesShared<Trows, Tcolumns, TElement>::cROWS = Trows;
+
+template <size_t Trows, size_t Tcolumns, typename TElement>
+const size_t ConstantValuesShared<Trows, Tcolumns, TElement>::cCOLUMNS = Tcolumns;
+
+//----------------------------------------------------------------------
 // Implementation
 //----------------------------------------------------------------------
 

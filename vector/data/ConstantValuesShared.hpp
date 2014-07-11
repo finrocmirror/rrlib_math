@@ -63,6 +63,21 @@ namespace vector
 //----------------------------------------------------------------------
 
 //----------------------------------------------------------------------
+// Const values
+//----------------------------------------------------------------------
+template <size_t Tdimension, typename TElement, template <size_t, typename, typename ...> class TData, typename ... TAdditionalDataParameters>
+const size_t ConstantValuesShared<Tdimension, TElement, TData, TAdditionalDataParameters...>::cDIMENSION = Tdimension;
+
+template <size_t Tdimension, typename TElement, template <size_t, typename, typename ...> class TData, typename ... TAdditionalDataParameters>
+const size_t ConstantValuesShared<Tdimension, TElement, TData, TAdditionalDataParameters...>::cSIZE = Tdimension;
+
+template <size_t Tdimension, typename TElement>
+const size_t ConstantValuesShared<Tdimension, TElement, Cartesian>::cDIMENSION = Tdimension;
+
+template <size_t Tdimension, typename TElement>
+const size_t ConstantValuesShared<Tdimension, TElement, Cartesian>::cSIZE = Tdimension;
+
+//----------------------------------------------------------------------
 // Implementation
 //----------------------------------------------------------------------
 
