@@ -189,6 +189,9 @@ private:
     RRLIB_UNIT_TESTS_EQUALITY((tAngle<float, angle::Degree, angle::NoWrap>(5 * 90.0)), (tAngle<float, angle::Degree, angle::NoWrap>(tAngle<double, angle::Radian, angle::NoWrap>(5 * M_PI_2))));
     RRLIB_UNIT_TESTS_EQUALITY((tAngle<float, angle::Degree, angle::Signed>(5 * 90.0)), (tAngle<float, angle::Degree, angle::Signed>(tAngle<double, angle::Radian, angle::NoWrap>(5 * M_PI_2))));
     RRLIB_UNIT_TESTS_EQUALITY((tAngle<float, angle::Degree, angle::Unsigned>(5 * 90.0)), (tAngle<float, angle::Degree, angle::Unsigned>(tAngle<double, angle::Radian, angle::NoWrap>(5 * M_PI_2))));
+
+    RRLIB_UNIT_TESTS_EQUALITY(10.0, static_cast<double>(tAngle<double, angle::Degree, angle::NoWrap>(10)));
+    RRLIB_UNIT_TESTS_EQUALITY(10.0, static_cast<double>(tAngle<float, angle::Degree, angle::NoWrap>(10)));
   }
 
   void AssignmentOperators()

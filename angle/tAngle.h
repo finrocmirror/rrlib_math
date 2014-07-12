@@ -80,6 +80,9 @@ namespace math
 //----------------------------------------------------------------------
 // Class declaration
 //----------------------------------------------------------------------
+class tAngleBase
+{};
+
 //! A class that helps to avoid errors wrt different angle representations
 /*!
  * At least two different representations for angles (units) exist: Radian
@@ -174,13 +177,14 @@ public:
 
   /*! Conversion operator for raw value
    *
-   * To access the raw value via static_cast
+   * To access the raw value via static_cast to every fundamental arithmetic type \a this->value can be converted to.
    *
    * \return The raw value
    */
-  explicit inline operator TElement() const
+  template <typename T, typename = typename std::enable_if<std::is_arithmetic<T>::value, int>::type>
+  explicit inline operator T() const
   {
-    return this->value;
+    return static_cast<T>(this->value);
   }
 
   /*! Access the raw value
