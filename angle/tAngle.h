@@ -103,7 +103,7 @@ typename TElement = double,
          typename TUnitPolicy = angle::Radian,
          typename TAutoWrapPolicy = angle::Signed
          >
-class tAngle
+class tAngle : public tAngleBase
 {
 
 //----------------------------------------------------------------------
@@ -425,7 +425,7 @@ inline tAngle < decltype(TLeftElement() - TRightElement()), TLeftUnitPolicy, TLe
  *
  * \return The \a angle scaled by the \a factor
  */
-template <typename TElement, typename TUnitPolicy, typename TAutoWrapPolicy, typename TFactor>
+template < typename TElement, typename TUnitPolicy, typename TAutoWrapPolicy, typename TFactor, typename = typename std::enable_if < !std::is_base_of<tAngleBase, TFactor>::value, int >::type >
 inline tAngle<decltype(TElement() * TFactor()), TUnitPolicy, TAutoWrapPolicy> operator * (const tAngle<TElement, TUnitPolicy, TAutoWrapPolicy> &angle, TFactor factor)
 {
   return tAngle<decltype(TElement() * TFactor()), TUnitPolicy, TAutoWrapPolicy>(angle.Value() * factor);
@@ -438,7 +438,7 @@ inline tAngle<decltype(TElement() * TFactor()), TUnitPolicy, TAutoWrapPolicy> op
  *
  * \return The \a angle scaled by the \a factor
  */
-template <typename TElement, typename TUnitPolicy, typename TAutoWrapPolicy, typename TFactor>
+template < typename TElement, typename TUnitPolicy, typename TAutoWrapPolicy, typename TFactor, typename = typename std::enable_if < !std::is_base_of<tAngleBase, TFactor>::value, int >::type >
 inline tAngle<decltype(TElement() * TFactor()), TUnitPolicy, TAutoWrapPolicy> operator * (TFactor factor, const tAngle<TElement, TUnitPolicy, TAutoWrapPolicy> &angle)
 {
   return angle * factor;
