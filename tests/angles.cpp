@@ -281,19 +281,19 @@ private:
     RRLIB_UNIT_TESTS_EQUALITY((tAngle<double, angle::Radian, angle::NoWrap>(2.0 * 2.5)), (tAngle<double, angle::Radian, angle::NoWrap>(2.0) * 2.5));
     RRLIB_UNIT_TESTS_EQUALITY((tAngle<double, angle::Radian, angle::NoWrap>(2.0) * 2.5), (2.5 * tAngle<double, angle::Radian, angle::NoWrap>(2.0)));
 
-    RRLIB_UNIT_TESTS_EQUALITY((tAngle<double, angle::Radian, angle::Signed>(3 * M_PI_2)), (tAngle<double, angle::Radian, angle::Signed>(M_PI) + tAngle<double, angle::Radian, angle::NoWrap>(M_PI_2)));
-    RRLIB_UNIT_TESTS_EQUALITY((tAngle<double, angle::Radian, angle::Signed>(3 * M_PI_2)), (tAngle<double, angle::Radian, angle::Signed>(M_PI) + tAngle<float, angle::Degree, angle::NoWrap>(90)));
-    RRLIB_UNIT_TESTS_EQUALITY((tAngle<double, angle::Radian, angle::Signed>(M_PI_2)), (tAngle<double, angle::Radian, angle::Signed>(M_PI) - tAngle<double, angle::Radian, angle::NoWrap>(M_PI_2)));
-    RRLIB_UNIT_TESTS_EQUALITY((tAngle<double, angle::Radian, angle::Signed>(M_PI_2)), (tAngle<double, angle::Radian, angle::Signed>(M_PI) - tAngle<float, angle::Degree, angle::NoWrap>(90)));
+    RRLIB_UNIT_TESTS_EQUALITY((tAngle<double, angle::Radian, angle::Signed>(3 * M_PI_2)), (tAngle<double, angle::Radian, angle::Signed>(tAngle<double, angle::Radian, angle::Signed>(M_PI) + tAngle<double, angle::Radian, angle::NoWrap>(M_PI_2))));
+    RRLIB_UNIT_TESTS_EQUALITY((tAngle<double, angle::Radian, angle::Signed>(3 * M_PI_2)), (tAngle<double, angle::Radian, angle::Signed>(tAngle<double, angle::Radian, angle::Signed>(M_PI) + tAngle<float, angle::Degree, angle::NoWrap>(90))));
+    RRLIB_UNIT_TESTS_EQUALITY((tAngle<double, angle::Radian, angle::Signed>(M_PI_2)), (tAngle<double, angle::Radian, angle::Signed>(tAngle<double, angle::Radian, angle::Signed>(M_PI) - tAngle<double, angle::Radian, angle::NoWrap>(M_PI_2))));
+    RRLIB_UNIT_TESTS_EQUALITY((tAngle<double, angle::Radian, angle::Signed>(M_PI_2)), (tAngle<double, angle::Radian, angle::Signed>(tAngle<double, angle::Radian, angle::Signed>(M_PI) - tAngle<float, angle::Degree, angle::NoWrap>(90))));
     RRLIB_UNIT_TESTS_EQUALITY_DOUBLE(10.0, (tAngle<double, angle::Radian, angle::Signed>(2.0) / tAngle<double, angle::Radian, angle::NoWrap>(0.2)), 1E-9);
     RRLIB_UNIT_TESTS_EQUALITY_DOUBLE(45.0, (tAngle<double, angle::Radian, angle::Signed>(M_PI_2) / tAngle<float, angle::Degree, angle::NoWrap>(2.0)), 1E-6);
     RRLIB_UNIT_TESTS_EQUALITY((tAngle<double, angle::Radian, angle::Signed>(2.0 * 2.5)), (tAngle<double, angle::Radian, angle::Signed>(2.0) * 2.5));
     RRLIB_UNIT_TESTS_EQUALITY((tAngle<double, angle::Radian, angle::Signed>(2.0) * 2.5), (2.5 * tAngle<double, angle::Radian, angle::Signed>(2.0)));
 
-    RRLIB_UNIT_TESTS_EQUALITY((tAngle<double, angle::Radian, angle::Unsigned>(3 * M_PI_2)), (tAngle<double, angle::Radian, angle::Unsigned>(M_PI) + tAngle<double, angle::Radian, angle::NoWrap>(M_PI_2)));
-    RRLIB_UNIT_TESTS_EQUALITY((tAngle<double, angle::Radian, angle::Unsigned>(3 * M_PI_2)), (tAngle<double, angle::Radian, angle::Unsigned>(M_PI) + tAngle<float, angle::Degree, angle::NoWrap>(90)));
-    RRLIB_UNIT_TESTS_EQUALITY((tAngle<double, angle::Radian, angle::Unsigned>(M_PI_2)), (tAngle<double, angle::Radian, angle::Unsigned>(M_PI) - tAngle<double, angle::Radian, angle::NoWrap>(M_PI_2)));
-    RRLIB_UNIT_TESTS_EQUALITY((tAngle<double, angle::Radian, angle::Unsigned>(M_PI_2)), (tAngle<double, angle::Radian, angle::Unsigned>(M_PI) - tAngle<float, angle::Degree, angle::NoWrap>(90)));
+    RRLIB_UNIT_TESTS_EQUALITY((tAngle<double, angle::Radian, angle::Unsigned>(3 * M_PI_2)), (tAngle<double, angle::Radian, angle::Unsigned>(tAngle<double, angle::Radian, angle::Unsigned>(M_PI) + tAngle<double, angle::Radian, angle::NoWrap>(M_PI_2))));
+    RRLIB_UNIT_TESTS_EQUALITY((tAngle<double, angle::Radian, angle::Unsigned>(3 * M_PI_2)), (tAngle<double, angle::Radian, angle::Unsigned>(tAngle<double, angle::Radian, angle::Unsigned>(M_PI) + tAngle<float, angle::Degree, angle::NoWrap>(90))));
+    RRLIB_UNIT_TESTS_EQUALITY((tAngle<double, angle::Radian, angle::Unsigned>(M_PI_2)), (tAngle<double, angle::Radian, angle::Unsigned>(tAngle<double, angle::Radian, angle::Unsigned>(M_PI) - tAngle<double, angle::Radian, angle::NoWrap>(M_PI_2))));
+    RRLIB_UNIT_TESTS_EQUALITY((tAngle<double, angle::Radian, angle::Unsigned>(M_PI_2)), (tAngle<double, angle::Radian, angle::Unsigned>(tAngle<double, angle::Radian, angle::Unsigned>(M_PI) - tAngle<float, angle::Degree, angle::NoWrap>(90))));
     RRLIB_UNIT_TESTS_EQUALITY_DOUBLE(10.0, (tAngle<double, angle::Radian, angle::Unsigned>(2.0) / tAngle<double, angle::Radian, angle::NoWrap>(0.2)), 1E-9);
     RRLIB_UNIT_TESTS_EQUALITY_DOUBLE(45.0, (tAngle<double, angle::Radian, angle::Unsigned>(M_PI_2) / tAngle<float, angle::Degree, angle::NoWrap>(2.0)), 1E-6);
     RRLIB_UNIT_TESTS_EQUALITY((tAngle<double, angle::Radian, angle::Unsigned>(2.0 * 2.5)), (tAngle<double, angle::Radian, angle::Unsigned>(2.0) * 2.5));

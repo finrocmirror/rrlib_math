@@ -59,6 +59,7 @@
 //----------------------------------------------------------------------
 // Internal includes with ""
 //----------------------------------------------------------------------
+#include "rrlib/math/angle/type_traits.h"
 #include "rrlib/math/utilities.h"
 
 //----------------------------------------------------------------------
@@ -398,9 +399,9 @@ inline tAngle<TElement, TUnitPolicy, TAutoWrapPolicy> operator - (tAngle<TElemen
  * \return \a left + \a right
  */
 template <typename TLeftElement, typename TRightElement, typename TLeftUnitPolicy, typename TRightUnitPolicy, typename TLeftAutoWrapPolicy, typename TRightAutoWrapPolicy>
-inline tAngle < decltype(TLeftElement() + TRightElement()), TLeftUnitPolicy, TLeftAutoWrapPolicy > operator + (const tAngle<TLeftElement, TLeftUnitPolicy, TLeftAutoWrapPolicy> &left, const tAngle<TRightElement, TRightUnitPolicy, TRightAutoWrapPolicy> &right)
+inline tAngle < decltype(TLeftElement() + TRightElement()), TLeftUnitPolicy, typename angle::AutoWrapPolicy<TLeftAutoWrapPolicy, TRightAutoWrapPolicy>::tType > operator + (const tAngle<TLeftElement, TLeftUnitPolicy, TLeftAutoWrapPolicy> &left, const tAngle<TRightElement, TRightUnitPolicy, TRightAutoWrapPolicy> &right)
 {
-  tAngle < decltype(TLeftElement() + TRightElement()), TLeftUnitPolicy, TLeftAutoWrapPolicy > temp(left);
+  tAngle < decltype(TLeftElement() + TRightElement()), TLeftUnitPolicy, typename angle::AutoWrapPolicy<TLeftAutoWrapPolicy, TRightAutoWrapPolicy>::tType > temp(left);
   temp += right;
   return temp;
 }
@@ -413,9 +414,9 @@ inline tAngle < decltype(TLeftElement() + TRightElement()), TLeftUnitPolicy, TLe
  * \return \a left - \a right
  */
 template <typename TLeftElement, typename TRightElement, typename TLeftUnitPolicy, typename TRightUnitPolicy, typename TLeftAutoWrapPolicy, typename TRightAutoWrapPolicy>
-inline tAngle < decltype(TLeftElement() - TRightElement()), TLeftUnitPolicy, TLeftAutoWrapPolicy > operator - (const tAngle<TLeftElement, TLeftUnitPolicy, TLeftAutoWrapPolicy> &left, const tAngle<TRightElement, TRightUnitPolicy, TRightAutoWrapPolicy> &right)
+inline tAngle < decltype(TLeftElement() - TRightElement()), TLeftUnitPolicy, typename angle::AutoWrapPolicy<TLeftAutoWrapPolicy, TRightAutoWrapPolicy>::tType > operator - (const tAngle<TLeftElement, TLeftUnitPolicy, TLeftAutoWrapPolicy> &left, const tAngle<TRightElement, TRightUnitPolicy, TRightAutoWrapPolicy> &right)
 {
-  tAngle < decltype(TLeftElement() - TRightElement()), TLeftUnitPolicy, TLeftAutoWrapPolicy > temp(left);
+  tAngle < decltype(TLeftElement() - TRightElement()), TLeftUnitPolicy, typename angle::AutoWrapPolicy<TLeftAutoWrapPolicy, TRightAutoWrapPolicy>::tType > temp(left);
   temp -= right;
   return temp;
 }
