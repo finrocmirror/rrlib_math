@@ -206,15 +206,15 @@ const math::tMatrix < Trows, Tcolumns, decltype(TLeftElement() + TRightElement()
 }
 
 template <size_t Trows, size_t Tcolumns, typename TLeftElement, typename TRightElement>
-inline const math::tMatrix < Trows, Tcolumns, decltype(TLeftElement() + TRightElement()) > operator - (const math::tMatrix<Trows, Tcolumns, TLeftElement> &left, const math::tMatrix<Trows, Tcolumns, TRightElement> &right)
+inline const math::tMatrix < Trows, Tcolumns, decltype(TLeftElement() - TRightElement()) > operator - (const math::tMatrix<Trows, Tcolumns, TLeftElement> &left, const math::tMatrix<Trows, Tcolumns, TRightElement> &right)
 {
   return left + -right;
 }
 
 template <size_t Trows, size_t Tconnection, size_t Tcolumns, typename TLeftElement, typename TRightElement>
-const math::tMatrix < Trows, Tcolumns, decltype(TLeftElement() + TRightElement()) > operator *(const math::tMatrix<Trows, Tconnection, TLeftElement> &left, const math::tMatrix<Tconnection, Tcolumns, TRightElement> &right)
+const math::tMatrix < Trows, Tcolumns, decltype((TLeftElement() * TRightElement()) + (TLeftElement() * TRightElement())) > operator *(const math::tMatrix<Trows, Tconnection, TLeftElement> &left, const math::tMatrix<Tconnection, Tcolumns, TRightElement> &right)
 {
-  typedef math::tMatrix < Trows, Tcolumns, decltype(TLeftElement() + TRightElement()) > tResult;
+  typedef math::tMatrix < Trows, Tcolumns, decltype((TLeftElement() * TRightElement()) + (TLeftElement() * TRightElement())) > tResult;
   typename tResult::tElement data[Trows * Tcolumns];
   std::memset(data, 0, sizeof(data));
   size_t index = 0;
@@ -234,9 +234,9 @@ const math::tMatrix < Trows, Tcolumns, decltype(TLeftElement() + TRightElement()
 }
 
 template <size_t Trows, size_t Tcolumns, typename TMatrixElement, typename TVectorElement>
-const tVector < Trows, decltype(TMatrixElement() + TVectorElement()), vector::Cartesian > operator *(const math::tMatrix<Trows, Tcolumns, TMatrixElement> &matrix, const tVector<Tcolumns, TVectorElement, vector::Cartesian> &vector)
+const tVector < Trows, decltype((TMatrixElement() * TVectorElement()) + (TMatrixElement() * TVectorElement())), vector::Cartesian > operator *(const math::tMatrix<Trows, Tcolumns, TMatrixElement> &matrix, const tVector<Tcolumns, TVectorElement, vector::Cartesian> &vector)
 {
-  typedef tVector < Trows, decltype(TMatrixElement() + TVectorElement()), vector::Cartesian > tResult;
+  typedef tVector < Trows, decltype((TMatrixElement() * TVectorElement()) + (TMatrixElement() * TVectorElement())), vector::Cartesian > tResult;
   typename tResult::tElement data[Trows];
   for (size_t row = 0; row < Trows; ++row)
   {
@@ -251,9 +251,9 @@ const tVector < Trows, decltype(TMatrixElement() + TVectorElement()), vector::Ca
 }
 
 template <size_t Trows, size_t Tcolumns, typename TMatrixElement, typename TVectorElement>
-const tVector < Tcolumns, decltype(TMatrixElement() + TVectorElement()), vector::Cartesian > operator *(const tVector<Trows, TVectorElement, vector::Cartesian> &vector, const math::tMatrix<Trows, Tcolumns, TMatrixElement> &matrix)
+const tVector < Tcolumns, decltype((TMatrixElement() * TVectorElement()) + (TMatrixElement() * TVectorElement())), vector::Cartesian > operator *(const tVector<Trows, TVectorElement, vector::Cartesian> &vector, const math::tMatrix<Trows, Tcolumns, TMatrixElement> &matrix)
 {
-  typedef tVector < Tcolumns, decltype(TMatrixElement() + TVectorElement()), vector::Cartesian > tResult;
+  typedef tVector < Tcolumns, decltype((TMatrixElement() * TVectorElement()) + (TMatrixElement() * TVectorElement())), vector::Cartesian > tResult;
   typename tResult::tElement data[Tcolumns];
   for (size_t column = 0; column < Tcolumns; ++column)
   {
@@ -267,9 +267,9 @@ const tVector < Tcolumns, decltype(TMatrixElement() + TVectorElement()), vector:
 }
 
 template <size_t Trows, size_t Tcolumns, typename TMatrixElement, typename TScalar>
-const typename std::enable_if < std::is_scalar<TScalar>::value, math::tMatrix < Trows, Tcolumns, decltype(TMatrixElement() + TScalar()) > >::type operator *(const math::tMatrix<Trows, Tcolumns, TMatrixElement> &matrix, const TScalar scalar)
+const typename std::enable_if <std::is_scalar<TScalar>::value, math::tMatrix <Trows, Tcolumns, decltype(TMatrixElement() * TScalar())>>::type operator *(const math::tMatrix<Trows, Tcolumns, TMatrixElement> &matrix, const TScalar scalar)
 {
-  typedef math::tMatrix < Trows, Tcolumns, decltype(TMatrixElement() + TScalar()) > tResult;
+  typedef math::tMatrix <Trows, Tcolumns, decltype(TMatrixElement() * TScalar())> tResult;
   typename tResult::tElement data[sizeof(tResult) / sizeof(typename tResult::tElement)];
   for (size_t i = 0; i < sizeof(tResult) / sizeof(typename tResult::tElement); ++i)
   {
@@ -279,13 +279,13 @@ const typename std::enable_if < std::is_scalar<TScalar>::value, math::tMatrix < 
 }
 
 template <size_t Trows, size_t Tcolumns, typename TMatrixElement, typename TScalar>
-const typename std::enable_if < std::is_scalar<TScalar>::value, math::tMatrix < Trows, Tcolumns, decltype(TMatrixElement() + TScalar()) > >::type operator *(const TScalar scalar, const math::tMatrix<Trows, Tcolumns, TMatrixElement> &matrix)
+const typename std::enable_if <std::is_scalar<TScalar>::value, math::tMatrix <Trows, Tcolumns, decltype(TMatrixElement() * TScalar())>>::type operator *(const TScalar scalar, const math::tMatrix<Trows, Tcolumns, TMatrixElement> &matrix)
 {
   return matrix * scalar;
 }
 
 template <size_t Trows, size_t Tcolumns, typename TMatrixElement, typename TScalar>
-const typename std::enable_if < std::is_scalar<TScalar>::value, math::tMatrix < Trows, Tcolumns, decltype(TMatrixElement() + TScalar()) > >::type operator / (const math::tMatrix<Trows, Tcolumns, TMatrixElement> &matrix, const TScalar scalar)
+const typename std::enable_if <std::is_scalar<TScalar>::value, math::tMatrix <Trows, Tcolumns, decltype(TMatrixElement() * TScalar())>>::type operator / (const math::tMatrix<Trows, Tcolumns, TMatrixElement> &matrix, const TScalar scalar)
 {
   return matrix * (1 / scalar);
 }
