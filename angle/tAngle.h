@@ -111,6 +111,8 @@ class tAngle : public tAngleBase
 //----------------------------------------------------------------------
 public:
 
+  typedef TElement tElement;
+
   /*! Default ctor of tAngle
    *
    * Initializes with zero
