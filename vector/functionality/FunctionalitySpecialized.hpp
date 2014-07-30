@@ -105,10 +105,11 @@ FunctionalitySpecialized<Tdimension, TElement, Cartesian>::FunctionalitySpeciali
 }
 
 template <size_t Tdimension, typename TElement>
-template <typename ... TValues>
-FunctionalitySpecialized<Tdimension, TElement, Cartesian>::FunctionalitySpecialized(TElement value, TValues... values)
+template <typename TValue, typename ... TValues, typename>
+FunctionalitySpecialized<Tdimension, TElement, Cartesian>::FunctionalitySpecialized(TValue value, TValues... values)
 {
-  FunctionalitySpecialized::Set(value, values...);
+  tVector *that = reinterpret_cast<tVector *>(this);
+  that->Set(value, values...);
 }
 
 //----------------------------------------------------------------------
@@ -146,7 +147,7 @@ void FunctionalitySpecialized<Tdimension, TElement, Cartesian>::Set(TValues... v
   {
     *p++ = x;
   },
-  values...);
+  TElement(values)...);
 }
 
 //----------------------------------------------------------------------
@@ -296,10 +297,11 @@ FunctionalitySpecialized<Tdimension, TElement, Polar, TAdditionalDataParameters.
 }
 
 template <size_t Tdimension, typename TElement, typename ... TAdditionalDataParameters>
-template <typename ... TValues>
-FunctionalitySpecialized<Tdimension, TElement, Polar, TAdditionalDataParameters...>::FunctionalitySpecialized(tAngle value, TValues... values)
+template <typename TValue, typename ... TValues, typename>
+FunctionalitySpecialized<Tdimension, TElement, Polar, TAdditionalDataParameters...>::FunctionalitySpecialized(TValue value, TValues... values)
 {
-  FunctionalitySpecialized::Set(value, values...);
+  tVector *that = reinterpret_cast<tVector *>(this);
+  that->Set(value, values...);
 }
 
 //----------------------------------------------------------------------
@@ -321,23 +323,6 @@ typename Polar<Tdimension, TElement, TAdditionalDataParameters...>::tAngle &Func
     throw std::logic_error(stream.str());
   }
   return reinterpret_cast<tAngle *>(this)[i];
-}
-
-//----------------------------------------------------------------------
-// FunctionalitySpecialized Polar Set
-//----------------------------------------------------------------------
-template <size_t Tdimension, typename TElement, typename ... TAdditionalDataParameters>
-template <typename ... TValues>
-void FunctionalitySpecialized<Tdimension, TElement, Polar, TAdditionalDataParameters...>::Set(TValues... values)
-{
-  static_assert(sizeof...(values) == Tdimension, "Wrong number of values given to store in vector");
-
-  TElement *p = reinterpret_cast<TElement *>(this);
-  util::ProcessVariadicValues([&p](TElement x)
-  {
-    *p++ = x;
-  },
-  static_cast<TElement>(values)...);
 }
 
 //----------------------------------------------------------------------

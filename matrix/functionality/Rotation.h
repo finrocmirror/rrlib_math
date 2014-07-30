@@ -184,16 +184,16 @@ public:
     assert(IsEqual(that->Determinant(), 1.0, max_error));
     if (!use_second_solution)
     {
-      roll = std::atan2((*that)[2][1], (*that)[2][2]);
+      roll = ATan2((*that)[2][1], (*that)[2][2]);
     }
     else
     {
-      roll = std::atan2(-(*that)[2][1], -(*that)[2][2]);
+      roll = ATan2(-(*that)[2][1], -(*that)[2][2]);
     }
     double sin_roll, cos_roll;
     roll.SinCos(sin_roll, cos_roll);
-    pitch = std::atan2(-(*that)[2][0], sin_roll * (*that)[2][1] + cos_roll * (*that)[2][2]);
-    yaw = std::atan2(sin_roll * (*that)[0][2] - cos_roll * (*that)[0][1], cos_roll * (*that)[1][1] - sin_roll * (*that)[1][2]);
+    pitch = ATan2(-(*that)[2][0], sin_roll * (*that)[2][1] + cos_roll * (*that)[2][2]);
+    yaw = ATan2(sin_roll * (*that)[0][2] - cos_roll * (*that)[0][1], cos_roll * (*that)[1][1] - sin_roll * (*that)[1][2]);
   }
 
 //----------------------------------------------------------------------

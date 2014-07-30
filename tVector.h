@@ -55,6 +55,9 @@ namespace rrlib
 {
 namespace math
 {
+class tVectorBase
+{};
+
 template <size_t, typename, template <size_t, typename, typename ...> class, typename ...>
 class tVector;
 }

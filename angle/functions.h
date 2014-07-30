@@ -60,6 +60,30 @@ namespace rrlib
 namespace math
 {
 
+/*! Analogous function to std::asin but returns a proper tAngle-value directly
+ *
+ */
+template <typename T>
+tAngle<T, angle::Radian, angle::NoWrap> ASin(T sine);
+
+/*! Analogous function to std::acos but returns a proper tAngle-value directly
+ *
+ */
+template <typename T>
+tAngle<T, angle::Radian, angle::NoWrap> ACos(T cosine);
+
+/*! Analogous function to std::acos but returns a proper tAngle-value directly
+ *
+ */
+template <typename T>
+tAngle<T, angle::Radian, angle::NoWrap> ATan(T tangent);
+
+/*! Analogous function to std::atan2 but returns a proper tAngle-value directly
+ *
+ */
+template <typename TY, typename TX>
+tAngle < decltype(TY() + TX()), angle::Radian, angle::NoWrap > ATan2(TY y, TX x);
+
 /*!
  * \brief Test if an angle is inbetween two other angles (in the mathematically positive direction)
  *

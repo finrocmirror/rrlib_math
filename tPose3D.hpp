@@ -75,7 +75,7 @@ void tPose3D::TransformCoordinateSystem(TIterator points_begin, TIterator points
     reference_transformation_matrix.Invert();
   }
   // transformation matrix for points of the cloud, rotation matrix is always zero, translation vector is different for each point
-  rrlib::math::tMat4x4d point_transformation_matrix = rrlib::math::tPose3D(0.0, 0.0, 0.0, 0.0, 0.0, 0.0).GetTransformationMatrix();
+  rrlib::math::tMat4x4d point_transformation_matrix = rrlib::math::tPose3D::Zero().GetTransformationMatrix();
   //
   rrlib::math::tMat4x4d result_matrix;
 

@@ -68,21 +68,6 @@ namespace vector
 //----------------------------------------------------------------------
 
 //----------------------------------------------------------------------
-// Polar Length
-//----------------------------------------------------------------------
-template <size_t Tdimension, typename TElement, typename TUnitPolicy, typename TAutoWrapPolicy>
-TElement &Polar<Tdimension, TElement, TUnitPolicy, TAutoWrapPolicy>::Length() const
-{
-  return this->length;
-}
-
-template <size_t Tdimension, typename TElement, typename TUnitPolicy, typename TAutoWrapPolicy>
-TElement &Polar<Tdimension, TElement, TUnitPolicy, TAutoWrapPolicy>::Length()
-{
-  return this->length;
-}
-
-//----------------------------------------------------------------------
 // Polar 2 Alpha
 //----------------------------------------------------------------------
 template <typename TElement, typename TUnitPolicy, typename TAutoWrapPolicy>
@@ -110,6 +95,17 @@ template <typename TElement, typename TUnitPolicy, typename TAutoWrapPolicy>
 TElement &Polar<2, TElement, TUnitPolicy, TAutoWrapPolicy>::Length()
 {
   return this->length;
+}
+
+//----------------------------------------------------------------------
+// Polar 2 Set
+//----------------------------------------------------------------------
+template <typename TElement, typename TUnitPolicy, typename TAutoWrapPolicy>
+template <typename TAlpha, typename TLength>
+void Polar<2, TElement, TUnitPolicy, TAutoWrapPolicy>::Set(TAlpha alpha, TLength length)
+{
+  this->alpha = tAngle(alpha);
+  this->length = TElement(length);
 }
 
 //----------------------------------------------------------------------
@@ -157,7 +153,17 @@ TElement &Polar<3, TElement, TUnitPolicy, TAutoWrapPolicy>::Length()
   return this->length;
 }
 
-
+//----------------------------------------------------------------------
+// Polar 3 Set
+//----------------------------------------------------------------------
+template <typename TElement, typename TUnitPolicy, typename TAutoWrapPolicy>
+template <typename TAlpha, typename TBeta, typename TLength>
+void Polar<3, TElement, TUnitPolicy, TAutoWrapPolicy>::Set(TAlpha alpha, TBeta beta, TLength length)
+{
+  this->alpha = tAngle(alpha);
+  this->beta = tAngle(beta);
+  this->length = TElement(length);
+}
 
 //----------------------------------------------------------------------
 // End of namespace declaration

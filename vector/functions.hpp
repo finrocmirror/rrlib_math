@@ -230,18 +230,18 @@ const tAngleRad EnclosedAngle(const tVector<Tdimension, TLeftElement, TData, TAd
 {
   if (left.IsZero() || right.IsZero())
   {
-    return M_PI_2;
+    return cPI_2;
   }
   double cos_angle = (left * right) / (left.Length() * right.Length());
   if (cos_angle >= 1.0)
   {
-    return 0;
+    return tAngleRad();
   }
   if (cos_angle <= -1)
   {
-    return M_PI;
+    return cPI;
   }
-  return std::acos(cos_angle);
+  return ACos(cos_angle);
 }
 
 //----------------------------------------------------------------------

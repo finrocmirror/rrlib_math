@@ -83,6 +83,12 @@ typedef tAngleRadSigned tAngleRad;
 typedef tAngleDegSigned tAngleDeg;
 
 //----------------------------------------------------------------------
+// Const values
+//----------------------------------------------------------------------
+const tAngle<double, angle::Radian, angle::NoWrap> cPI = tAngle<double, angle::Radian, angle::NoWrap>(M_PI);
+const tAngle<double, angle::Radian, angle::NoWrap> cPI_2 = tAngle<double, angle::Radian, angle::NoWrap>(M_PI_2);
+
+//----------------------------------------------------------------------
 // Explicit template instantiation
 //----------------------------------------------------------------------
 

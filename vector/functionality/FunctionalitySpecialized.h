@@ -151,8 +151,8 @@ protected:
   template <size_t Tother_dimension, typename TOtherElement>
   explicit inline FunctionalitySpecialized(const math::tVector<Tother_dimension, TOtherElement, Cartesian> &other) __attribute__((always_inline));
 
-  template <typename ... TValues>
-  explicit inline FunctionalitySpecialized(TElement value, TValues... values) __attribute__((always_inline));
+  template < typename TValue, typename ... TValues, typename = typename std::enable_if < !(std::is_pointer<TValue>::value || std::is_array<TValue>::value || std::is_base_of<tVectorBase, TValue>::value), int >::type >
+  explicit inline FunctionalitySpecialized(TValue value, TValues... values) __attribute__((always_inline));
 
 //----------------------------------------------------------------------
 // Private fields and methods
@@ -181,9 +181,6 @@ public:
   inline const tAngle &operator [](size_t i) const __attribute__((always_inline));
   inline tAngle &operator [](size_t i) __attribute__((always_inline));
 
-  template <typename ... TValues>
-  inline void Set(TValues... values) __attribute__((always_inline));
-
   inline const decltype(TElement() * TElement()) SquaredLength() const __attribute__((always_inline));
 
   inline const bool IsZero(double epsilon = 0) const __attribute__((always_inline));
@@ -205,8 +202,8 @@ protected:
   template <typename TPolarUnitPolicy, typename TPolarAutoWrapPolicy>
   explicit inline FunctionalitySpecialized(const math::tVector<Tdimension, TElement, Polar, TPolarUnitPolicy, TPolarAutoWrapPolicy> &other) __attribute__((always_inline));
 
-  template <typename ... TValues>
-  explicit inline FunctionalitySpecialized(tAngle value, TValues... values) __attribute__((always_inline));
+  template < typename TValue, typename ... TValues, typename = typename std::enable_if < !(std::is_pointer<TValue>::value || std::is_array<TValue>::value) && sizeof...(TValues), int >::type >
+  explicit inline FunctionalitySpecialized(TValue value, TValues... values) __attribute__((always_inline));
 
 //----------------------------------------------------------------------
 // Private fields and methods

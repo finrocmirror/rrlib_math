@@ -119,14 +119,15 @@ public:
    * Initializes with zero
    */
   inline tAngle()
-    : value(0)
-  {}
+  {
+    std::memset(this, 0, sizeof(tAngle));
+  }
 
   /*! Conversion from raw value
    *
    * \param value   The raw value used for initialization
    */
-  inline tAngle(TElement value)
+  explicit inline tAngle(TElement value)
     : value(value)
   {
     TAutoWrapPolicy::Wrap(*this);

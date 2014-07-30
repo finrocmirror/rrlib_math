@@ -180,7 +180,7 @@ void tPose3D::Set(const tMat4x4d &matrix, bool use_second_solution, double max_e
 void tPose3D::Reset()
 {
   this->position = tVec3d::Zero();
-  this->roll = this->pitch = this->yaw = 0;
+  this->roll = this->pitch = this->yaw = tAngleRad();
 }
 
 //----------------------------------------------------------------------

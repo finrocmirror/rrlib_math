@@ -104,30 +104,31 @@ TElement tVector<Tdimension, TElement, TData, TAdditionalDataParameters...>::Euc
 // tVector constructors
 //----------------------------------------------------------------------
 template <size_t Tdimension, typename TElement, template <size_t, typename, typename ...> class TData, typename ... TAdditionalDataParameters>
-tVector<Tdimension, TElement, TData, TAdditionalDataParameters...>::tVector()
+tVector<Tdimension, TElement, TData, TAdditionalDataParameters...>::tVector() :
+  FunctionalityShared()
 {}
 
 template <size_t Tdimension, typename TElement, template <size_t, typename, typename ...> class TData, typename ... TAdditionalDataParameters>
-tVector<Tdimension, TElement, TData, TAdditionalDataParameters...>::tVector(const tVector &other)
-  : FunctionalityShared(other)
+tVector<Tdimension, TElement, TData, TAdditionalDataParameters...>::tVector(const tVector &other) :
+  FunctionalityShared(other)
 {}
 
 template <size_t Tdimension, typename TElement, template <size_t, typename, typename ...> class TData, typename ... TAdditionalDataParameters>
 template <size_t Tother_dimension, typename TOtherElement>
-tVector<Tdimension, TElement, TData, TAdditionalDataParameters...>::tVector(const tVector<Tother_dimension, TOtherElement> &other)
-  : FunctionalitySpecialized(other)
+tVector<Tdimension, TElement, TData, TAdditionalDataParameters...>::tVector(const tVector<Tother_dimension, TOtherElement> &other) :
+  FunctionalitySpecialized(other)
 {}
 
 template <size_t Tdimension, typename TElement, template <size_t, typename, typename ...> class TData, typename ... TAdditionalDataParameters>
 template <typename TPolarUnitPolicy, typename TPolarAutoWrapPolicy>
-tVector<Tdimension, TElement, TData, TAdditionalDataParameters...>::tVector(const tVector<Tdimension, TElement, TData, TPolarUnitPolicy, TPolarAutoWrapPolicy> &other)
-  : FunctionalitySpecialized(other)
+tVector<Tdimension, TElement, TData, TAdditionalDataParameters...>::tVector(const tVector<Tdimension, TElement, TData, TPolarUnitPolicy, TPolarAutoWrapPolicy> &other) :
+  FunctionalitySpecialized(other)
 {}
 
 template <size_t Tdimension, typename TElement, template <size_t, typename, typename ...> class TData, typename ... TAdditionalDataParameters>
 template <typename ... TValues>
-tVector<Tdimension, TElement, TData, TAdditionalDataParameters...>::tVector(TValues... values)
-  : FunctionalitySpecialized(values...)
+tVector<Tdimension, TElement, TData, TAdditionalDataParameters...>::tVector(TValues... values) :
+  FunctionalitySpecialized(values...)
 {}
 
 #ifdef _LIB_OIV_PRESENT_
@@ -136,14 +137,14 @@ template <size_t Tdimension, typename TElement, template <size_t, typename, type
 template <typename T>
 tVector<Tdimension, TElement, TData, TAdditionalDataParameters...>::tVector(const SbVec2f &v, typename std::enable_if <(Tdimension == 2), T>::type)
 {
-  FunctionalitySpecialized::Set(v[0], v[1]);
+  this->Set(v[0], v[1]);
 }
 
 template <size_t Tdimension, typename TElement, template <size_t, typename, typename ...> class TData, typename ... TAdditionalDataParameters>
 template <typename T>
 tVector<Tdimension, TElement, TData, TAdditionalDataParameters...>::tVector(const SbVec3f &v, typename std::enable_if <(Tdimension == 3), T>::type)
 {
-  FunctionalitySpecialized::Set(v[0], v[1], v[2]);
+  this->Set(v[0], v[1], v[2]);
 }
 
 #endif

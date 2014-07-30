@@ -64,6 +64,43 @@ namespace math
 //----------------------------------------------------------------------
 // Implementation
 //----------------------------------------------------------------------
+
+//----------------------------------------------------------------------
+// ArcSine
+//----------------------------------------------------------------------
+template <typename T>
+tAngle<T, angle::Radian, angle::NoWrap> ASin(T sine)
+{
+  return tAngle<T, angle::Radian, angle::NoWrap>(std::asin(sine));
+}
+
+//----------------------------------------------------------------------
+// ArcCosine
+//----------------------------------------------------------------------
+template <typename T>
+tAngle<T, angle::Radian, angle::NoWrap> ACos(T cosine)
+{
+  return tAngle<T, angle::Radian, angle::NoWrap>(std::acos(cosine));
+}
+
+//----------------------------------------------------------------------
+// ArcTangent
+//----------------------------------------------------------------------
+template <typename T>
+tAngle<T, angle::Radian, angle::NoWrap> ATan(T tangent)
+{
+  return tAngle<T, angle::Radian, angle::NoWrap>(std::atan(tangent));
+}
+
+//----------------------------------------------------------------------
+// ArcTangent2
+//----------------------------------------------------------------------
+template <typename TY, typename TX>
+tAngle < decltype(TY() + TX()), angle::Radian, angle::NoWrap > ATan2(TY y, TX x)
+{
+  return tAngle < decltype(TY() + TX()), angle::Radian, angle::NoWrap > (std::atan2(y, x));
+}
+
 template <template <typename, typename, typename> class TAngle, typename TElement, typename TUnitPolicy, typename TAutoWrapPolicy>
 bool IsAngleInbetween(const TAngle<TElement, TUnitPolicy, TAutoWrapPolicy> &test, const TAngle<TElement, TUnitPolicy, TAutoWrapPolicy> &first, const TAngle<TElement, TUnitPolicy, TAutoWrapPolicy> &second)
 {
@@ -88,7 +125,6 @@ TAngle<TElement, TUnitPolicy, angle::Unsigned> GetAngleInbetween(const TAngle<TE
   /* important: this function operates on UNsigned types! */
   return TAngle<TElement, TUnitPolicy, angle::Unsigned>((double) tAngle<TElement, TUnitPolicy, angle::Unsigned>(second) - (double) tAngle<TElement, TUnitPolicy, angle::Unsigned>(first));
 }
-
 
 //----------------------------------------------------------------------
 // End of namespace declaration

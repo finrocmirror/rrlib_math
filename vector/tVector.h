@@ -80,7 +80,8 @@ namespace math
  *
  */
 template <size_t Tdimension, typename TElement = double, template <size_t, typename, typename ...> class TData = vector::Cartesian, typename ... TAdditionalDataParameters>
-class tVector : public TData<Tdimension, TElement, TAdditionalDataParameters...>,
+class tVector : public tVectorBase,
+  public TData<Tdimension, TElement, TAdditionalDataParameters...>,
   public vector::FunctionalityShared<Tdimension, TElement, TData, TAdditionalDataParameters...>,
   public vector::FunctionalitySpecialized<Tdimension, TElement, TData, TAdditionalDataParameters...>,
   public vector::Conversions<Tdimension, TElement, TData, TAdditionalDataParameters...>,
@@ -133,8 +134,6 @@ public:
   inline tVector &operator = (const tVector<Tother_dimension, TOtherElement, TData, TAdditionalDataParameters...> &other) __attribute__((always_inline));
 
 };
-
-
 
 //----------------------------------------------------------------------
 // End of namespace declaration

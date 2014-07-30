@@ -75,40 +75,40 @@ namespace vector
 
 
 template <size_t Tdimension, typename TElement, typename TUnitPolicy = angle::Radian, typename TAutoWrapPolicy = angle::Signed>
-class Polar
-{
-
-//----------------------------------------------------------------------
-// Public methods and typedefs
-//----------------------------------------------------------------------
-public:
-
-  typedef math::tAngle<TElement, TUnitPolicy, TAutoWrapPolicy> tAngle;
-
-  inline TElement &Length() const __attribute__((always_inline));
-
-  inline TElement &Length() __attribute__((always_inline));
-
-//----------------------------------------------------------------------
-// Protected methods
-//----------------------------------------------------------------------
-protected:
-
-  inline Polar()
-  {}
-
-//----------------------------------------------------------------------
-// Private fields and methods
-//----------------------------------------------------------------------
-private:
-
-  tAngle angles[Tdimension - 1];
-  TElement length;
-
-  Polar(const Polar &);
-  Polar &operator = (const Polar &);
-
-};
+class Polar;
+//{
+//
+////----------------------------------------------------------------------
+//// Public methods and typedefs
+////----------------------------------------------------------------------
+//public:
+//
+//  typedef math::tAngle<TElement, TUnitPolicy, TAutoWrapPolicy> tAngle;
+//
+//  inline TElement &Length() const __attribute__((always_inline));
+//
+//  inline TElement &Length() __attribute__((always_inline));
+//
+////----------------------------------------------------------------------
+//// Protected methods
+////----------------------------------------------------------------------
+//protected:
+//
+//  inline Polar()
+//  {}
+//
+////----------------------------------------------------------------------
+//// Private fields and methods
+////----------------------------------------------------------------------
+//private:
+//
+//  tAngle angles[Tdimension - 1];
+//  TElement length;
+//
+//  Polar(const Polar &);
+//  Polar &operator = (const Polar &);
+//
+//};
 
 /*!
  *
@@ -131,6 +131,9 @@ public:
   inline const TElement &Length() const __attribute__((always_inline));
 
   inline TElement &Length() __attribute__((always_inline));
+
+  template <typename TAlpha, typename TLength>
+  inline void Set(TAlpha alpha, TLength length);
 
 //----------------------------------------------------------------------
 // Protected methods
@@ -178,6 +181,9 @@ public:
   inline const TElement &Length() const __attribute__((always_inline));
 
   inline TElement &Length() __attribute__((always_inline));
+
+  template <typename TAlpha, typename TBeta, typename TLength>
+  inline void Set(TAlpha alpha, TBeta beta, TLength length);
 
 //----------------------------------------------------------------------
 // Protected methods

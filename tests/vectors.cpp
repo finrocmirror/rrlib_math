@@ -110,6 +110,10 @@ private:
     tVector<4, float> converted(vector);
     float converted_raw[] = { 1.0, 2.0, 3.0, 4.0 };
     RRLIB_UNIT_TESTS_ASSERT(std::memcmp(&converted, &converted_raw, sizeof(converted)) == 0);
+
+    tVector<2, double, vector::Polar> polar_vector(M_PI, 1);
+    RRLIB_UNIT_TESTS_EQUALITY(tAngleRad(M_PI), polar_vector[0]);
+    RRLIB_UNIT_TESTS_EQUALITY(1.0, polar_vector.Length());
   }
 
   void AccessOperators()
