@@ -38,17 +38,11 @@
 // External includes (system with <>, local with "")
 //----------------------------------------------------------------------
 
+#include "rrlib/localization/tPose.h"
+
 //----------------------------------------------------------------------
 // Internal includes with ""
 //----------------------------------------------------------------------
-#include "rrlib/math/tVector.h"
-#include "rrlib/math/tMatrix.h"
-#include "rrlib/math/tAngle.h"
-
-#ifdef _LIB_RRLIB_SERIALIZATION_PRESENT_
-#include "rrlib/serialization/serialization.h"
-#include <sstream>
-#endif
 
 //----------------------------------------------------------------------
 // Debugging
@@ -74,8 +68,10 @@ class tPose3D;
 /*!
  *
  */
-class tPose2D
+class tPose2D : public localization::tPose2D<>
 {
+
+  typedef localization::tPose2D<> tBase;
 
 //----------------------------------------------------------------------
 // Public methods and typedefs
@@ -88,15 +84,29 @@ public:
     return pose;
   }
 
-  tPose2D();
+  inline tPose2D() :
+    tBase()
+  {}
 
-  explicit tPose2D(const tVec2d &position, tAngleRad yaw = tAngleRad());
+  explicit inline tPose2D(const tVec2d &position, tAngleRad yaw = tAngleRad()) :
+    tBase(position.X(), position.Y(), yaw)
+  {}
 
-  tPose2D(double x, double y, tAngleRad yaw = tAngleRad());
+  inline tPose2D(double x, double y, tAngleRad yaw = tAngleRad()) :
+    tBase(x, y, yaw)
+  {}
 
-  tPose2D(const tMat3x3d &matrix, double max_error = 1E-6);
+  inline tPose2D(const tMat3x3d &matrix, double max_error = 1E-6) :
+    tBase(matrix, max_error)
+  {}
 
-  tPose2D(const tPose3D &other);
+  inline tPose2D(const localization::tPose3D<> &other) :
+    tBase(other)
+  {}
+
+  inline tPose2D(const tBase &base) :
+    tBase(base)
+  {}
 
   inline const char *Description() const
   {
@@ -105,139 +115,209 @@ public:
 
   inline const double X() const
   {
-    return this->position.X();
+    return reinterpret_cast<const double &>(tBase::X());
   }
   inline double &X()
   {
-    return this->position.X();
+    return reinterpret_cast<double &>(tBase::X());
   }
 
   inline const double Y() const
   {
-    return this->position.Y();
+    return reinterpret_cast<const double &>(tBase::Y());
   }
   inline double &Y()
   {
-    return this->position.Y();
+    return reinterpret_cast<double &>(tBase::Y());
   }
 
   inline const tAngleRad Yaw() const
   {
-    return this->yaw;
+    return reinterpret_cast<const tAngleRad &>(tBase::Yaw());
   }
   inline tAngleRad &Yaw()
   {
-    return this->yaw;
+    return reinterpret_cast<tAngleRad &>(tBase::Yaw());
   }
 
   inline const tVec2d &Position() const
   {
-    return this->position;
+    return reinterpret_cast<const tVec2d &>(tBase::Position());
   }
   inline tVec2d &Position()
   {
-    return this->position;
+    return reinterpret_cast<tVec2d &>(tBase::Position());
   }
 
-  void SetPosition(const tVec2d &position);
+  inline void SetPosition(const tVec2d &position)
+  {
+    tBase::SetPosition(position.X(), position.Y());
+  }
 
-  void SetPosition(double x, double y);
+  inline void SetPosition(double x, double y)
+  {
+    tBase::SetPosition(x, y);
+  }
 
-  void SetOrientation(tAngleRad yaw);
+  inline void SetOrientation(tAngleRad yaw)
+  {
+    tBase::SetOrientation(yaw);
+  }
 
-  void SetOrientation(const tMat2x2d &matrix, double max_error = 1E-6);
+  inline void SetOrientation(const tMat2x2d &matrix, double max_error = 1E-6)
+  {
+    tBase::SetOrientation(matrix, max_error);
+  }
 
-  void Set(const tVec2d &position, tAngleRad yaw = tAngleRad());
+  inline void Set(const tVec2d &position, tAngleRad yaw = tAngleRad())
+  {
+    this->SetPosition(position);
+    this->SetOrientation(yaw);
+  }
 
-  void Set(double x, double y, tAngleRad yaw = tAngleRad());
+  inline void Set(double x, double y, tAngleRad yaw = tAngleRad())
+  {
+    this->SetPosition(x, y);
+    this->SetOrientation(yaw);
+  }
 
-  void Set(const tMat3x3d &matrix, double max_error = 1E-6);
+  inline void Set(const tMat3x3d &matrix, double max_error = 1E-6)
+  {
+    tBase::Set(matrix, max_error);
+  }
 
-  void Reset();
+  inline tPose2D &operator += (const tPose2D &other)
+  {
+    tBase::operator +=(other);
+    return *this;
+  }
 
-  tPose2D &operator += (const tPose2D &other);
+  tPose2D &operator -= (const tPose2D &other)
+  {
+    tBase::operator -=(other);
+    return *this;
+  }
 
-  tPose2D &operator -= (const tPose2D &other);
+  tMat2x2d GetRotationMatrix() const
+  {
+    return this->Orientation().GetMatrix();
+  }
 
-  const tMat2x2d GetRotationMatrix() const;
+  void GetRotationMatrix(tMat2x2d &matrix) const
+  {
+    this->Orientation().GetMatrix(matrix);
+  }
 
-  void GetRotationMatrix(tMat2x2d &matrix) const;
+  inline const tPose2D GetPoseInParentFrame(const tPose2D &reference) const
+  {
+    return tPose2D(tBase::GetPoseInParentFrame(reference));
+  }
 
-  const tMat3x3d GetTransformationMatrix() const;
+  inline const tPose2D GetPoseInLocalFrame(const tPose2D &reference) const
+  {
+    return tPose2D(tBase::GetPoseInLocalFrame(reference));
+  }
 
-  void GetTransformationMatrix(tMat3x3d &matrix) const;
+  inline tPose2D &Translate(const tVec2d &translation)
+  {
+    tBase::Translate(translation);
+    return reinterpret_cast<tPose2D &>(*this);
+  }
 
-  const tPose2D GetPoseInParentFrame(const tPose2D &reference) const;
+  inline tPose2D Translated(const tVec2d &translation) const
+  {
+    return tPose2D(tBase::Translated(translation));
+  }
 
-  const tPose2D GetPoseInLocalFrame(const tPose2D &reference) const;
+  inline tPose2D &Rotate(tAngleRad angle)
+  {
+    tBase::Rotate(angle);
+    return reinterpret_cast<tPose2D &>(*this);
+  }
 
-  tPose2D &Translate(const tVec2d &translation);
+  inline tPose2D &Rotate(const tMat2x2d &matrix)
+  {
+    tBase::Rotate(matrix);
+    return reinterpret_cast<tPose2D &>(*this);
+  }
 
-  tPose2D Translated(const tVec2d &translation) const;
+  inline tPose2D Rotated(tAngleRad angle) const
+  {
+    return tPose2D(tBase::Rotated(angle));
+  }
 
-  tPose2D &Rotate(tAngleRad angle);
+  inline tPose2D Rotated(const tMat2x2d &matrix) const
+  {
+    return tPose2D(tBase::Rotated(matrix));
+  }
 
-  tPose2D &Rotate(const tMat2x2d &matrix);
+  inline tPose2D &Scale(double factor)
+  {
+    tBase::Scale(factor);
+    return reinterpret_cast<tPose2D &>(*this);
+  }
 
-  tPose2D Rotated(tAngleRad angle) const;
+  inline tPose2D Scaled(double factor) const
+  {
+    return tPose2D(tBase::Scaled(factor));
+  }
 
-  tPose2D Rotated(const tMat2x2d &matrix) const;
+  inline tPose2D &ApplyRelativePoseTransformation(const tPose2D &pose)
+  {
+    tBase::ApplyRelativePoseTransformation(pose);
+    return *this;
+  }
 
-  tPose2D &Scale(double factor);
-
-  tPose2D Scaled(double factor) const;
-
-  tPose2D &ApplyRelativePoseTransformation(const tPose2D &pose);
-
-  void ApplyPose(const tPose2D &pose) __attribute__((deprecated));
-
-  const double GetEuclideanNorm() const;
-
-  const bool IsZero() const;
-
-//----------------------------------------------------------------------
-// Private fields and methods
-//----------------------------------------------------------------------
-private:
-
-  tVec2d position;
-  tAngleRad yaw;
+  inline void ApplyPose(const tPose2D &pose)
+  {
+    ApplyRelativePoseTransformation(pose);
+  }
 
 };
 
-const tPose2D operator - (const tPose2D &other);
+inline const tPose2D operator - (const tPose2D &pose)
+{
+  return tPose2D(-localization::tPose2D<>(pose));
+}
 
-const tPose2D operator + (const tPose2D &left, const tPose2D &right);
+inline const tPose2D operator + (const tPose2D &left, const tPose2D &right)
+{
+  return tPose2D(localization::tPose2D<>(left) + localization::tPose2D<>(right));
+}
 
-const tPose2D operator - (const tPose2D &left, const tPose2D &right);
+inline const tPose2D operator - (const tPose2D &left, const tPose2D &right)
+{
+  return tPose2D(localization::tPose2D<>(left) - localization::tPose2D<>(right));
+}
 
-bool IsEqual(const tPose2D &left, const tPose2D &right, float max_error = 1E-6, tFloatComparisonMethod method = eFCM_ABSOLUTE_ERROR);
+inline const tPose2D Compound(const tPose2D &base, const tPose2D &diff)
+{
+  return diff.GetPoseInParentFrame(base);
+}
+inline const tPose2D InverseCompound(const tPose2D &target, const tPose2D &base)
+{
+  return target.GetPoseInLocalFrame(base);
+}
 
-const bool operator == (const tPose2D &left, const tPose2D &right);
-
-const bool operator != (const tPose2D &left, const tPose2D &right);
-
-const bool operator < (const tPose2D &left, const tPose2D &right);
-
-const tPose2D Compound(const tPose2D &base, const tPose2D &diff) __attribute__((deprecated));
-
-const tPose2D InverseCompound(const tPose2D &target, const tPose2D &base) __attribute__((deprecated));
-
-std::ostream &operator << (std::ostream &stream, const tPose2D &pose);
-
-std::istream &operator >> (std::istream &stream, tPose2D &pose);
-
-#ifdef _LIB_RRLIB_SERIALIZATION_PRESENT_
-
-serialization::tOutputStream &operator << (serialization::tOutputStream &stream, const tPose2D &pose);
-
-serialization::tInputStream &operator >> (serialization::tInputStream &stream, tPose2D &pose);
-
-serialization::tStringOutputStream &operator << (serialization::tStringOutputStream &stream, const tPose2D &pose);
-
-serialization::tStringInputStream &operator >> (serialization::tStringInputStream &stream, tPose2D &pose);
-
-#endif
+inline std::istream &operator >> (std::istream &stream, tPose2D &pose)
+{
+  char temp;
+  stream >> temp;
+  if (temp == '(')
+  {
+    tAngleDeg yaw;
+    stream >> pose.X() >> temp >> pose.Y() >> temp >> yaw >> temp;
+    pose.Yaw() = yaw;
+  }
+  else
+  {
+    stream.putback(temp);
+    double yaw;
+    stream >> pose.X() >> pose.Y() >> yaw;
+    pose.Yaw() = tAngleDeg(yaw);
+  }
+  return stream;
+}
 
 //----------------------------------------------------------------------
 // End of namespace declaration

@@ -37,20 +37,13 @@
 //----------------------------------------------------------------------
 // External includes (system with <>, local with "")
 //----------------------------------------------------------------------
-#include <iostream>
+#include "rrlib/localization/tPose.h"
+
+#include "rrlib/math/tPose2D.h"
 
 //----------------------------------------------------------------------
 // Internal includes with ""
 //----------------------------------------------------------------------
-#include "rrlib/math/tVector.h"
-#include "rrlib/math/tAngle.h"
-#include "rrlib/math/tMatrix.h"
-#include "rrlib/math/tPose2D.h"
-
-#ifdef _LIB_RRLIB_SERIALIZATION_PRESENT_
-#include "rrlib/serialization/serialization.h"
-#include <sstream>
-#endif
 
 //----------------------------------------------------------------------
 // Debugging
@@ -67,6 +60,7 @@ namespace math
 //----------------------------------------------------------------------
 // Forward declarations / typedefs / enums
 //----------------------------------------------------------------------
+class tPose2D;
 
 //----------------------------------------------------------------------
 // Class declaration
@@ -75,8 +69,10 @@ namespace math
 /*!
  *
  */
-class tPose3D
+class tPose3D : public localization::tPose3D<>
 {
+
+  typedef localization::tPose3D<> tBase;
 
 //----------------------------------------------------------------------
 // Public methods
@@ -89,19 +85,37 @@ public:
     return pose;
   }
 
-  tPose3D();
+  inline tPose3D() :
+    tBase()
+  {}
 
-  tPose3D(double x, double y, double z, tAngleRad roll, tAngleRad pitch, tAngleRad yaw);
+  inline tPose3D(const double x, double y, double z, tAngleRad roll, tAngleRad pitch, tAngleRad yaw) :
+    tBase(x, y, z, roll, pitch, yaw)
+  {}
 
-  tPose3D(double x, double y, double z);
+  inline tPose3D(const double x, double y, double z) :
+    tBase(x, y, z)
+  {}
 
-  explicit tPose3D(const tVec3d &position);
+  explicit inline tPose3D(const tVec3d &position) :
+    tBase(position.X(), position.Y(), position.Z())
+  {}
 
-  tPose3D(const tVec3d &position, tAngleRad roll, tAngleRad pitch, tAngleRad yaw);
+  inline tPose3D(const tVec3d &position, tAngleRad roll, tAngleRad pitch, tAngleRad yaw) :
+    tBase(position.X(), position.Y(), position.Z(), roll, pitch, yaw)
+  {}
 
-  explicit tPose3D(const tPose2D &pose_2d);
+  explicit inline tPose3D(const localization::tPose2D<> &pose_2d) :
+    tBase(pose_2d)
+  {}
 
-  explicit tPose3D(const tMat4x4d &matrix, bool use_second_solution = false, double max_error = 1E-6);
+  explicit inline tPose3D(const tMat4x4d &matrix, bool use_second_solution = false, double max_error = 1E-6) :
+    tBase(matrix, max_error)
+  {}
+
+  tPose3D(const tBase &base) :
+    tBase(base)
+  {}
 
   inline const char *GetDescription() const
   {
@@ -110,105 +124,148 @@ public:
 
   inline const double X() const
   {
-    return this->position.X();
+    return reinterpret_cast<const double &>(tBase::X());
   }
   inline double &X()
   {
-    return this->position.X();
+    return reinterpret_cast<double &>(tBase::X());
   }
 
   inline const double Y() const
   {
-    return this->position.Y();
+    return reinterpret_cast<const double &>(tBase::Y());
   }
   inline double &Y()
   {
-    return this->position.Y();
+    return reinterpret_cast<double &>(tBase::Y());
   }
 
   inline const double Z() const
   {
-    return this->position.Z();
+    return reinterpret_cast<const double &>(tBase::Z());
   }
   inline double &Z()
   {
-    return this->position.Z();
+    return reinterpret_cast<double &>(tBase::Z());
   }
 
   inline const tAngleRad Roll() const
   {
-    return this->roll;
+    return reinterpret_cast<const tAngleRad &>(tBase::Roll());
   }
   inline tAngleRad &Roll()
   {
-    return this->roll;
+    return reinterpret_cast<tAngleRad &>(tBase::Roll());
   }
 
   inline const tAngleRad Pitch() const
   {
-    return this->pitch;
+    return reinterpret_cast<const tAngleRad &>(tBase::Pitch());
   }
   inline tAngleRad &Pitch()
   {
-    return this->pitch;
+    return reinterpret_cast<tAngleRad &>(tBase::Pitch());
   }
 
   inline const tAngleRad Yaw() const
   {
-    return this->yaw;
+    return reinterpret_cast<const tAngleRad &>(tBase::Yaw());
   }
   inline tAngleRad &Yaw()
   {
-    return this->yaw;
+    return reinterpret_cast<tAngleRad &>(tBase::Yaw());
   }
 
   inline const tVec3d &Position() const
   {
-    return this->position;
+    return reinterpret_cast<const tVec3d &>(tBase::Position());
   }
-
   inline tVec3d &Position()
   {
-    return this->position;
+    return reinterpret_cast<tVec3d &>(tBase::Position());
   }
 
-  void SetPosition(const tVec3d &position);
+  inline void SetPosition(const tVec3d &position)
+  {
+    tBase::SetPosition(position.X(), position.Y(), position.Z());
+  }
 
-  void SetPosition(double x, double y, double z);
+  inline void SetPosition(double x, double y, double z)
+  {
+    tBase::SetPosition(x, y, z);
+  }
 
-  void SetOrientation(tAngleRad roll, tAngleRad pitch, tAngleRad yaw);
+  inline void SetOrientation(tAngleRad roll, tAngleRad pitch, tAngleRad yaw)
+  {
+    tBase::SetOrientation(roll, pitch, yaw);
+  }
 
-  void SetOrientation(const tMat3x3d &matrix, bool use_second_solution = false, double max_error = 1E-6);
+  inline void SetOrientation(const tMat3x3d &matrix, bool use_second_solution = false, double max_error = 1E-6)
+  {
+    tBase::SetOrientation(matrix, max_error);
+  }
 
-  void Set(const tVec3d &position, tAngleRad roll, tAngleRad pitch, tAngleRad yaw);
+  inline void Set(const tVec3d &position, tAngleRad roll, tAngleRad pitch, tAngleRad yaw)
+  {
+    tBase::Set(position.X(), position.Y(), position.Z(), roll, pitch, yaw);
+  }
 
-  void Set(const tVec3d &position);
+  inline void Set(const tVec3d &position)
+  {
+    tBase::SetPosition(position.X(), position.Y(), position.Z());
+  }
 
-  void Set(double x, double y, double z, tAngleRad roll, tAngleRad pitch, tAngleRad yaw);
+  inline void Set(double x, double y, double z, tAngleRad roll, tAngleRad pitch, tAngleRad yaw)
+  {
+    tBase::Set(x, y, z, roll, pitch, yaw);
+  }
 
-  void Set(double x, double y, double z);
+  inline void Set(double x, double y, double z)
+  {
+    tBase::SetPosition(x, y, z);
+  }
 
-  void Set(const tMat4x4d &matrix, bool use_second_solution = false, double max_error = 1E-6);
+  inline void Set(const tMat4x4d &matrix, bool use_second_solution = false, double max_error = 1E-6)
+  {
+    tBase::Set(matrix, max_error);
+  }
 
-  void Reset();
+  inline const tPose2D GetPose2D() const
+  {
+    return *this;
+  }
 
-  const tPose2D GetPose2D() const;
+  inline tPose3D &operator += (const tPose3D &other)
+  {
+    tBase::operator +=(other);
+    return *this;
+  }
 
-  tPose3D &operator += (const tPose3D &other);
+  inline tPose3D &operator -= (const tPose3D &other)
+  {
+    tBase::operator -=(other);
+    return *this;
+  }
 
-  tPose3D &operator -= (const tPose3D &other);
+  const tMat3x3d GetRotationMatrix() const
+  {
+    return this->Orientation().GetMatrix();
+  }
 
-  const tMat3x3d GetRotationMatrix() const;
+  void GetRotationMatrix(tMat3x3d &matrix) const
+  {
+    this->Orientation().GetMatrix(matrix);
+  }
 
-  void GetRotationMatrix(tMat3x3d &matrix) const;
+  inline const tPose3D GetPoseInParentFrame(const tPose3D &reference) const
+  {
+    return tPose3D(tBase::GetPoseInParentFrame(reference));
+  }
 
-  const tMat4x4d GetTransformationMatrix() const;
-
-  void GetTransformationMatrix(tMat4x4d &matrix) const;
-
-  const tPose3D GetPoseInParentFrame(const tPose3D &reference) const;
-
-  const tPose3D GetPoseInLocalFrame(const tPose3D &reference) const;
+  inline const tPose3D GetPoseInLocalFrame(const tPose3D &reference) const
+  {
+    return tPose3D(tBase::GetPoseInLocalFrame(reference));
+  }
 
   /*! Transform given 3D points to a coordinate system defined by a reference pose
    *
@@ -218,80 +275,132 @@ public:
    *                        Choose true if you want to convert points from system A to B, false if you want to transform points from B to A
    */
   template<typename TIterator>
-  void TransformCoordinateSystem(TIterator points_begin, TIterator points_end, bool in_local_frame) const;
+  void TransformCoordinateSystem(TIterator points_begin, TIterator points_end, bool in_local_frame) const
+  {
+    // fixed transformation matrix
+    tMat4x4d reference_transformation_matrix = this->GetTransformationMatrix();
+    if (in_local_frame)
+    {
+      reference_transformation_matrix.Invert();
+    }
+    // transformation matrix for points of the cloud, rotation matrix is always zero, translation vector is different for each point
+    tMat4x4d point_transformation_matrix = tPose3D::Zero().GetTransformationMatrix();
+    //
+    tMat4x4d result_matrix;
 
-  tPose3D &Translate(const tVec3d &translation);
+    for (auto it = points_begin; it < points_end; ++it)
+    {
+      // set translation component of the transformation matrix
+      point_transformation_matrix[0][3] = (*it).X();
+      point_transformation_matrix[1][3] = (*it).Y();
+      point_transformation_matrix[2][3] = (*it).Z();
 
-  tPose3D Translated(const tVec3d &translation) const;
+      result_matrix = reference_transformation_matrix * point_transformation_matrix;
 
-  tPose3D &Rotate(tAngleRad roll, tAngleRad pitch, tAngleRad yaw);
+      // copy position from result matrix
+      (*it).Set(result_matrix[0][3], result_matrix[1][3], result_matrix[2][3]);
+    }
+  }
 
-  tPose3D &Rotate(const tMat3x3d &matrix);
+  inline tPose3D &Translate(const tVec3d &translation)
+  {
+    tBase::Translate(translation);
+    return reinterpret_cast<tPose3D &>(*this);
+  }
 
-  tPose3D Rotated(tAngleRad roll, tAngleRad pitch, tAngleRad yaw) const;
+  inline tPose3D Translated(const tVec3d &translation) const
+  {
+    return tPose3D(tBase::Translated(translation));
+  }
 
-  tPose3D Rotated(const tMat3x3d &matrix) const;
+  inline tPose3D &Rotate(tAngleRad roll, tAngleRad pitch, tAngleRad yaw)
+  {
+    tBase::Rotate(roll, pitch, yaw);
+    return reinterpret_cast<tPose3D &>(*this);
+  }
 
-  tPose3D &Scale(double factor);
+  inline tPose3D &Rotate(const tMat3x3d &matrix)
+  {
+    tBase::Rotate(matrix);
+    return reinterpret_cast<tPose3D &>(*this);
+  }
 
-  tPose3D Scaled(double factor) const;
+  inline tPose3D Rotated(tAngleRad roll, tAngleRad pitch, tAngleRad yaw) const
+  {
+    return tPose3D(tBase::Rotated(roll, pitch, yaw));
+  }
 
-  tPose3D &ApplyRelativePoseTransformation(const tPose3D &pose);
+  inline tPose3D Rotated(const tMat3x3d &matrix) const
+  {
+    return tPose3D(tBase::Rotated(matrix));
+  }
 
-  void ApplyPose(const tPose3D &pose) __attribute__((deprecated));
+  inline tPose3D &Scale(double factor)
+  {
+    tBase::Scale(factor);
+    return reinterpret_cast<tPose3D &>(*this);
+  }
 
-  const double GetEuclideanNorm() const;
+  tPose3D Scaled(double factor) const
+  {
+    return tPose3D(tBase::Scaled(factor));
+  }
 
-  const bool IsZero() const;
+  inline tPose3D &ApplyRelativePoseTransformation(const tPose3D &pose)
+  {
+    tBase::ApplyRelativePoseTransformation(pose);
+    return *this;
+  }
 
-//----------------------------------------------------------------------
-// Private fields and methods
-//----------------------------------------------------------------------
-private:
-
-  tVec3d position;
-  tAngleRad roll;
-  tAngleRad pitch;
-  tAngleRad yaw;
+  inline void ApplyPose(const tPose3D &pose)
+  {
+    ApplyRelativePoseTransformation(pose);
+  }
 
 };
 
-const tPose3D operator - (const tPose3D &other);
+inline const tPose3D operator - (const tPose3D &pose)
+{
+  return tPose3D(-localization::tPose3D<>(pose));
+}
 
-const tPose3D operator + (const tPose3D &left, const tPose3D &right);
+inline const tPose3D operator + (const tPose3D &left, const tPose3D &right)
+{
+  return tPose3D(localization::tPose3D<>(left) + localization::tPose3D<>(right));
+}
 
-const tPose3D operator - (const tPose3D &left, const tPose3D &right);
+inline const tPose3D operator - (const tPose3D &left, const tPose3D &right)
+{
+  return tPose3D(localization::tPose3D<>(left) - localization::tPose3D<>(right));
+}
 
-bool IsEqual(const tPose3D &left, const tPose3D &right, float max_error = 1E-6, tFloatComparisonMethod method = eFCM_ABSOLUTE_ERROR);
-
-const bool operator == (const tPose3D &left, const tPose3D &right);
-
-const bool operator != (const tPose3D &left, const tPose3D &right);
-
-const bool operator < (const tPose3D &left, const tPose3D &right);
-
-std::ostream &operator << (std::ostream &stream, const tPose3D &pose);
-
-std::istream &operator >> (std::istream &stream, tPose3D &pose);
-
-#ifdef _LIB_RRLIB_SERIALIZATION_PRESENT_
-
-serialization::tOutputStream &operator << (serialization::tOutputStream &stream, const tPose3D &pose);
-
-serialization::tInputStream &operator >> (serialization::tInputStream &stream, tPose3D &pose);
-
-serialization::tStringOutputStream &operator << (serialization::tStringOutputStream &stream, const tPose3D &pose);
-
-serialization::tStringInputStream &operator >> (serialization::tStringInputStream &stream, tPose3D &pose);
-
-#endif
-
+inline std::istream &operator >> (std::istream &stream, tPose3D &pose)
+{
+  char temp(0);
+  stream >> temp;
+  if (temp == '(')
+  {
+    tAngleDeg roll, pitch, yaw;
+    stream >> pose.X() >> temp >> pose.Y() >> temp >> pose.Z() >> temp >> roll >> temp >> pitch >> temp >> yaw >> temp;
+    pose.Roll() = roll;
+    pose.Pitch() = pitch;
+    pose.Yaw() = yaw;
+  }
+  else
+  {
+    stream.putback(temp);
+    double roll(0.0), pitch(0.0), yaw(0.0);
+    stream >> pose.X() >> pose.Y() >> pose.Z() >> roll >> pitch >> yaw;
+    pose.Roll() = tAngleDeg(roll);
+    pose.Pitch() = tAngleDeg(pitch);
+    pose.Yaw() = tAngleDeg(yaw);
+  }
+  return stream;
+}
 //----------------------------------------------------------------------
 // End of namespace declaration
 //----------------------------------------------------------------------
 }
 }
-
-#include "rrlib/math/tPose3D.hpp"
 
 #endif
