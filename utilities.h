@@ -225,7 +225,7 @@ inline int Signum(T value)
 template <typename T>
 inline T LimitedValue(T value, T min_value, T max_value)
 {
-  assert(min_value < max_value);
+  assert(min_value <= max_value);
   return std::min(std::max(value, min_value), max_value);
 }
 
