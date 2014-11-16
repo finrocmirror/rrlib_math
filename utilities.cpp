@@ -126,6 +126,35 @@ const bool IsEqual(float a, float b, float max_error, tFloatComparisonMethod met
 }
 
 //----------------------------------------------------------------------
+// BinomialCoefficient
+//----------------------------------------------------------------------
+unsigned int BinomialCoefficient(unsigned int n, unsigned int k)
+{
+  if (k > n)
+  {
+    return 0;
+  }
+
+  if (k == 0)
+  {
+    return 1;
+  }
+
+  if (2 * k > n)
+  {
+    return BinomialCoefficient(n, n - k);
+  }
+
+  unsigned int result = n - k + 1;
+  for (unsigned int i = 2; i <= k; ++i)
+  {
+    result *= n - k + i;
+    result /= i;
+  }
+  return result;
+}
+
+//----------------------------------------------------------------------
 // End of namespace declaration
 //----------------------------------------------------------------------
 }
