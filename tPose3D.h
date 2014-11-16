@@ -275,32 +275,7 @@ public:
    *                        Choose true if you want to convert points from system A to B, false if you want to transform points from B to A
    */
   template<typename TIterator>
-  void TransformCoordinateSystem(TIterator points_begin, TIterator points_end, bool in_local_frame) const
-  {
-    // fixed transformation matrix
-    tMat4x4d reference_transformation_matrix = this->GetTransformationMatrix();
-    if (in_local_frame)
-    {
-      reference_transformation_matrix.Invert();
-    }
-    // transformation matrix for points of the cloud, rotation matrix is always zero, translation vector is different for each point
-    tMat4x4d point_transformation_matrix = tPose3D::Zero().GetTransformationMatrix();
-    //
-    tMat4x4d result_matrix;
-
-    for (auto it = points_begin; it < points_end; ++it)
-    {
-      // set translation component of the transformation matrix
-      point_transformation_matrix[0][3] = (*it).X();
-      point_transformation_matrix[1][3] = (*it).Y();
-      point_transformation_matrix[2][3] = (*it).Z();
-
-      result_matrix = reference_transformation_matrix * point_transformation_matrix;
-
-      // copy position from result matrix
-      (*it).Set(result_matrix[0][3], result_matrix[1][3], result_matrix[2][3]);
-    }
-  }
+  void TransformCoordinateSystem(TIterator points_begin, TIterator points_end, bool in_local_frame) const __attribute__((deprecated));
 
   inline tPose3D &Translate(const tVec3d &translation)
   {
@@ -359,6 +334,19 @@ public:
 
 };
 
+template<typename TIterator>
+void tPose3D::TransformCoordinateSystem(TIterator points_begin, TIterator points_end, bool in_local_frame) const
+{
+  if (in_local_frame)
+  {
+    TransformVectors(points_begin, points_end, this->GetTransformationMatrix().Inverse());
+  }
+  else
+  {
+    TransformVectors(points_begin, points_end, this->GetTransformationMatrix());
+  }
+}
+
 inline const tPose3D operator - (const tPose3D &pose)
 {
   return tPose3D(-localization::tPose3D<>(pose));
@@ -397,6 +385,7 @@ inline std::istream &operator >> (std::istream &stream, tPose3D &pose)
   }
   return stream;
 }
+
 //----------------------------------------------------------------------
 // End of namespace declaration
 //----------------------------------------------------------------------

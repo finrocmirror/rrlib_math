@@ -238,6 +238,21 @@ inline T LimitedValue(T value, T min_value, T max_value)
  */
 unsigned int BinomialCoefficient(unsigned int n, unsigned int k);
 
+/*! Transform a list of vectors via a given transformation matrix (inplace)
+ *
+ * \param begin            Begin iterator of the points to transform
+ * \param end              End iterator of the points to transform
+ * \param transformation   The according transformation matrix
+ */
+template<typename TIterator, typename TTransformation>
+void TransformVectors(TIterator begin, TIterator end, const TTransformation &transformation)
+{
+  for (auto it = begin; it != end; ++it)
+  {
+    *it = transformation.MultiplyHomogeneously(*it);
+  }
+}
+
 //----------------------------------------------------------------------
 // End of namespace declaration
 //----------------------------------------------------------------------
