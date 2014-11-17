@@ -134,6 +134,24 @@ private:
     typedef math::tVector<4, double> tVector;
     RRLIB_UNIT_TESTS_ASSERT(tVector(1, 2, 3, 4) == tVector(1, 2, 3, 4));
     RRLIB_UNIT_TESTS_ASSERT(tVector(1, 2, 3, 4) != tVector(1, 3, 3, 4));
+    RRLIB_UNIT_TESTS_ASSERT(!IsLinearlyDependent(tVector(1, 2, 3, 4), tVector(1, 3, 3, 4)));
+    RRLIB_UNIT_TESTS_ASSERT(IsLinearlyDependent(tVector(1, 2, 3, 4), tVector(1, 2, 3, 4)));
+    RRLIB_UNIT_TESTS_ASSERT(!IsLinearlyDependent(tVec2d(1, 1), tVec2d(1, 2)));
+    RRLIB_UNIT_TESTS_ASSERT(!IsLinearlyDependent(tVec2d(2, 1), tVec2d(1, 2)));
+    RRLIB_UNIT_TESTS_ASSERT(IsLinearlyDependent(tVec2d(0, 1), tVec2d(0, 2)));
+    RRLIB_UNIT_TESTS_ASSERT(IsLinearlyDependent(tVec2d(0, 0), tVec2d(0, 2)));
+    RRLIB_UNIT_TESTS_ASSERT(IsLinearlyDependent(tVec2d(0, 0), tVec2d(0, 0)));
+    RRLIB_UNIT_TESTS_ASSERT(!IsLinearlyDependent(tVec2d(1, 0), tVec2d(0, 1)));
+    RRLIB_UNIT_TESTS_ASSERT(IsLinearlyDependent(tVec2d(1, 4), tVec2d(0, 0)));
+    RRLIB_UNIT_TESTS_ASSERT(IsLinearlyDependent(tVec2d(1, 1), tVec2d(3, 3)));
+    RRLIB_UNIT_TESTS_ASSERT(IsLinearlyDependent(tVec2f(1.5, 6.13), tVec2f(-3, -12.26)));
+    RRLIB_UNIT_TESTS_ASSERT(!IsLinearlyDependent(tVec3f(1, 0, 0), tVec3f(0, 1, 0)));
+    RRLIB_UNIT_TESTS_ASSERT(!IsLinearlyDependent(tVec3f(1, 0, 1), tVec3f(1, 2, 3)));
+    RRLIB_UNIT_TESTS_ASSERT(!IsLinearlyDependent(tVec3f(1, 1, 2), tVec3f(1, 1, 3)));
+    RRLIB_UNIT_TESTS_ASSERT(IsLinearlyDependent(tVec3f(1, 1, 2), tVec3f(0, 0, 0)));
+    RRLIB_UNIT_TESTS_ASSERT(!IsLinearlyDependent(tVec3f(1, 0, 0), tVec3f(0, 1, 1)));
+    RRLIB_UNIT_TESTS_ASSERT(IsLinearlyDependent(tVec3d(1, 1.0001, 2), tVec3d(2, 2.0002, 4)));
+    RRLIB_UNIT_TESTS_ASSERT(IsLinearlyDependent(tVec3f(1, 2, 4), tVec3f(-10, -20, -40)));
   }
 
   void AssignmentOperators()
