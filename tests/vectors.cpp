@@ -144,6 +144,7 @@ private:
     RRLIB_UNIT_TESTS_ASSERT(!IsLinearlyDependent(tVec2d(1, 0), tVec2d(0, 1)));
     RRLIB_UNIT_TESTS_ASSERT(IsLinearlyDependent(tVec2d(1, 4), tVec2d(0, 0)));
     RRLIB_UNIT_TESTS_ASSERT(IsLinearlyDependent(tVec2d(1, 1), tVec2d(3, 3)));
+    RRLIB_UNIT_TESTS_ASSERT(IsLinearlyDependent(tVec2i(1, 1), tVec2i(3, 3)));
     RRLIB_UNIT_TESTS_ASSERT(IsLinearlyDependent(tVec2f(1.5, 6.13), tVec2f(-3, -12.26)));
     RRLIB_UNIT_TESTS_ASSERT(!IsLinearlyDependent(tVec3f(1, 0, 0), tVec3f(0, 1, 0)));
     RRLIB_UNIT_TESTS_ASSERT(!IsLinearlyDependent(tVec3f(1, 0, 1), tVec3f(1, 2, 3)));

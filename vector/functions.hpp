@@ -112,20 +112,33 @@ bool IsEqual(const tVector<Tdimension, TElement, TData, TAdditionalDataParameter
 template <size_t Tdimension, typename TElement>
 bool IsLinearlyDependent(const tVector<Tdimension, TElement, vector::Cartesian> &left, const tVector<Tdimension, TElement, vector::Cartesian> &right, float max_error, tFloatComparisonMethod method)
 {
-  TElement factor = 0;
+  float factor = 0;
 
   // using the first non zero element pair to define the factor
   for (size_t i = 0; i < Tdimension; ++i)
   {
     if (!IsEqual(left[i], 0, max_error, method) && !IsEqual(right[i], 0, max_error, method))
     {
-      factor = left[i] / right[i];
+      factor = (float)left[i] / right[i];
       break;
     }
   }
 
-  // if right is zero, left and right are linearly dependent for every factor, otherwise that depends on left and scaled right
-  return right.IsZero(max_error) || IsEqual(left, factor * right, max_error, method);
+  // if right is zero, left and right are linearly dependent for every factor
+  if (right.IsZero(max_error))
+  {
+    return true;
+  }
+
+  // otherwise that depends on left and scaled right
+  for (size_t i = 0; i < Tdimension; ++i)
+  {
+    if (!IsEqual(left[i], factor * right[i], max_error, method))
+    {
+      return false;
+    }
+  }
+  return true;
 }
 
 //----------------------------------------------------------------------
