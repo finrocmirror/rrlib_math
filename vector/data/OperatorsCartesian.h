@@ -88,6 +88,30 @@ std::ostream &operator << (std::ostream &stream, const tVector<Tdimension, TElem
   return stream;
 }
 
+template <size_t Tdimension>
+std::ostream &operator << (std::ostream &stream, const tVector<Tdimension, char, Cartesian> &vector)
+{
+  stream << "(" << int(vector[0]);
+  for (size_t i = 1; i < Tdimension; ++i)
+  {
+    stream << ", " << int(vector[i]);
+  }
+  stream << ")";
+  return stream;
+}
+
+template <size_t Tdimension>
+std::ostream &operator << (std::ostream &stream, const tVector<Tdimension, unsigned char, Cartesian> &vector)
+{
+  stream << "(" << int(vector[0]);
+  for (size_t i = 1; i < Tdimension; ++i)
+  {
+    stream << ", " << int(vector[i]);
+  }
+  stream << ")";
+  return stream;
+}
+
 template <size_t Tdimension, typename TElement>
 std::istream &operator >> (std::istream &stream, tVector<Tdimension, TElement, Cartesian> &vector)
 {
@@ -106,6 +130,58 @@ std::istream &operator >> (std::istream &stream, tVector<Tdimension, TElement, C
   for (size_t i = 0; i < Tdimension; ++i)
   {
     stream >> vector[i];
+  }
+  return stream;
+}
+
+template <size_t Tdimension>
+std::istream &operator >> (std::istream &stream, tVector<Tdimension, char, Cartesian> &vector)
+{
+  char temp;
+  stream >> temp;
+
+  if (temp == '(')
+  {
+    for (size_t i = 0; i < Tdimension; ++i)
+    {
+      int value;
+      stream >> value >> temp;
+      vector[i] = value;
+    }
+    return stream;
+  }
+  stream.putback(temp);
+  for (size_t i = 0; i < Tdimension; ++i)
+  {
+    int value;
+    stream >> value >> temp;
+    vector[i] = value;
+  }
+  return stream;
+}
+
+template <size_t Tdimension>
+std::istream &operator >> (std::istream &stream, tVector<Tdimension, unsigned char, Cartesian> &vector)
+{
+  char temp;
+  stream >> temp;
+
+  if (temp == '(')
+  {
+    for (size_t i = 0; i < Tdimension; ++i)
+    {
+      int value;
+      stream >> value >> temp;
+      vector[i] = value;
+    }
+    return stream;
+  }
+  stream.putback(temp);
+  for (size_t i = 0; i < Tdimension; ++i)
+  {
+    int value;
+    stream >> value >> temp;
+    vector[i] = value;
   }
   return stream;
 }

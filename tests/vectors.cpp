@@ -86,6 +86,7 @@ class TestVectors : public util::tUnitTestSuite
   RRLIB_UNIT_TESTS_ADD_TEST(PolarDegreeSigned);
   RRLIB_UNIT_TESTS_ADD_TEST(PolarAssignments);
   RRLIB_UNIT_TESTS_ADD_TEST(PolarOperators);
+  RRLIB_UNIT_TESTS_ADD_TEST(Streaming);
 #ifdef _LIB_OIV_PRESENT_
   RRLIB_UNIT_TESTS_ADD_TEST(CoinConversions);
 #endif
@@ -426,6 +427,58 @@ private:
     tVecDegUnsigned c = a + b;
     RRLIB_UNIT_TESTS_EQUALITY_MESSAGE("Addition must be correct", tVecDegUnsigned(90, 90, 1), c);
 #endif
+  }
+
+  void Streaming()
+  {
+    std::stringstream actual;
+    std::stringstream expected;
+
+    actual << tVector<2, double>(0, 1);
+    expected << "(0, 1)";
+    RRLIB_UNIT_TESTS_EQUALITY(expected.str(), actual.str());
+
+    actual << tVector<3, int>(0, 1, 2);
+    expected << "(0, 1, 2)";
+    RRLIB_UNIT_TESTS_EQUALITY(expected.str(), actual.str());
+
+    actual << tVector<3, unsigned char>(0, 1, 2);
+    expected << "(0, 1, 2)";
+    RRLIB_UNIT_TESTS_EQUALITY(expected.str(), actual.str());
+
+    tVector<2, double> vector_2d_double;
+    tVector<3, int> vector_3d_int;
+    tVector<3, unsigned char> vector_3d_char;
+    std::stringstream source;
+    source.exceptions(std::istream::failbit);
+    RRLIB_UNIT_TESTS_EXCEPTION(source >> vector_2d_double, std::ios_base::failure);
+    source.clear();
+    RRLIB_UNIT_TESTS_EXCEPTION(source >> vector_3d_int, std::ios_base::failure);
+    source.clear();
+    RRLIB_UNIT_TESTS_EXCEPTION(source >> vector_3d_char, std::ios_base::failure);
+    source.clear();
+    source << "(3.2, 4.1)";
+    source >> vector_2d_double;
+    RRLIB_UNIT_TESTS_EQUALITY((tVector<2, double>(3.2, 4.1)), vector_2d_double);
+    source.clear();
+    source << "(120)";
+    RRLIB_UNIT_TESTS_EXCEPTION(source >> vector_2d_double, std::ios_base::failure);
+    source.clear();
+    source.str("");
+    source << "(3, 4, 5)";
+    source >> vector_3d_int;
+    RRLIB_UNIT_TESTS_EQUALITY((tVector<3, int>(3, 4, 5)), vector_3d_int);
+    source.clear();
+    source << "(120)";
+    RRLIB_UNIT_TESTS_EXCEPTION(source >> vector_3d_int, std::ios_base::failure);
+    source.clear();
+    source.str("");
+    source << "(0, 1, 2)";
+    source >> vector_3d_char;
+    RRLIB_UNIT_TESTS_EQUALITY((tVector<3, unsigned char>(0, 1, 2)), vector_3d_char);
+    source.clear();
+    source << "(120)";
+    RRLIB_UNIT_TESTS_EXCEPTION(source >> vector_3d_char, std::ios_base::failure);
   }
 
 #ifdef _LIB_OIV_PRESENT_

@@ -96,6 +96,46 @@ std::ostream &operator << (std::ostream &stream, const math::tMatrix<Trows, Tcol
   return stream;
 }
 
+template <size_t Trows, size_t Tcolumns>
+std::ostream &operator << (std::ostream &stream, const math::tMatrix<Trows, Tcolumns, char> &matrix)
+{
+  stream << "[";
+  for (size_t k = 0; k < Tcolumns; ++k)
+  {
+    stream << " " << int(matrix[0][k]);
+  }
+  for (size_t i = 1; i < Trows; ++i)
+  {
+    stream << " ;";
+    for (size_t k = 0; k < Tcolumns; ++k)
+    {
+      stream << " " << int(matrix[i][k]);
+    }
+  }
+  stream << " ]";
+  return stream;
+}
+
+template <size_t Trows, size_t Tcolumns>
+std::ostream &operator << (std::ostream &stream, const math::tMatrix<Trows, Tcolumns, unsigned char> &matrix)
+{
+  stream << "[";
+  for (size_t k = 0; k < Tcolumns; ++k)
+  {
+    stream << " " << int(matrix[0][k]);
+  }
+  for (size_t i = 1; i < Trows; ++i)
+  {
+    stream << " ;";
+    for (size_t k = 0; k < Tcolumns; ++k)
+    {
+      stream << " " << int(matrix[i][k]);
+    }
+  }
+  stream << " ]";
+  return stream;
+}
+
 template <size_t Trows, size_t Tcolumns, typename TElement>
 std::istream &operator >> (std::istream &stream, math::tMatrix<Trows, Tcolumns, TElement> &matrix)
 {
@@ -134,6 +174,108 @@ std::istream &operator >> (std::istream &stream, math::tMatrix<Trows, Tcolumns, 
       for (size_t column = 0; column < Tcolumns; ++column)
       {
         stream >> data[row * Tcolumns + column];
+      }
+    }
+  }
+  matrix.SetFromArray(data);
+  return stream;
+}
+
+template <size_t Trows, size_t Tcolumns>
+std::istream &operator >> (std::istream &stream, math::tMatrix<Trows, Tcolumns, char> &matrix)
+{
+  char temp;
+  stream >> temp;
+
+  char data[Trows * Tcolumns];
+  std::memset(data, 0, sizeof(data));
+
+  if (temp == '[')
+  {
+    for (size_t row = 0; row < Trows; ++row)
+    {
+      for (size_t column = 0; column < Tcolumns; ++column)
+      {
+        int value;
+        stream >> value;
+        data[row * Tcolumns + column] = value;
+      }
+      stream >> temp;
+    }
+  }
+  else if (temp == '(')
+  {
+    for (size_t row = 0; row < Trows; ++row)
+    {
+      for (size_t column = 0; column < Tcolumns; ++column)
+      {
+        int value;
+        stream >> value >> temp;
+        data[row * Tcolumns + column] = value;
+      }
+    }
+  }
+  else
+  {
+    stream.putback(temp);
+    for (size_t row = 0; row < Trows; ++row)
+    {
+      for (size_t column = 0; column < Tcolumns; ++column)
+      {
+        int value;
+        stream >> value;
+        data[row * Tcolumns + column] = value;
+      }
+    }
+  }
+  matrix.SetFromArray(data);
+  return stream;
+}
+
+template <size_t Trows, size_t Tcolumns>
+std::istream &operator >> (std::istream &stream, math::tMatrix<Trows, Tcolumns, unsigned char> &matrix)
+{
+  char temp;
+  stream >> temp;
+
+  unsigned char data[Trows * Tcolumns];
+  std::memset(data, 0, sizeof(data));
+
+  if (temp == '[')
+  {
+    for (size_t row = 0; row < Trows; ++row)
+    {
+      for (size_t column = 0; column < Tcolumns; ++column)
+      {
+        int value;
+        stream >> value;
+        data[row * Tcolumns + column] = value;
+      }
+      stream >> temp;
+    }
+  }
+  else if (temp == '(')
+  {
+    for (size_t row = 0; row < Trows; ++row)
+    {
+      for (size_t column = 0; column < Tcolumns; ++column)
+      {
+        int value;
+        stream >> value >> temp;
+        data[row * Tcolumns + column] = value;
+      }
+    }
+  }
+  else
+  {
+    stream.putback(temp);
+    for (size_t row = 0; row < Trows; ++row)
+    {
+      for (size_t column = 0; column < Tcolumns; ++column)
+      {
+        int value;
+        stream >> value;
+        data[row * Tcolumns + column] = value;
       }
     }
   }
