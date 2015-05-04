@@ -37,7 +37,7 @@
 #include "rrlib/math/tVector.h"
 
 #ifdef _LIB_OIV_PRESENT_
-#include <Inventor/SbVec3f.h>
+#include "rrlib/simvis3d/math_functions.h"
 #endif
 
 //----------------------------------------------------------------------
@@ -485,9 +485,9 @@ private:
   void CoinConversions()
   {
     tVector<3, double> rrlib_vector(1, 2, 3);
-    SbVec3f sb_vector = rrlib_vector.GetCoinVector();
+    SbVec3f sb_vector = rrlib::simvis3d::GetCoinVector(rrlib_vector);
     RRLIB_UNIT_TESTS_ASSERT(sb_vector.equals(SbVec3f(1, 2, 3), 1E-6));
-    RRLIB_UNIT_TESTS_EQUALITY(rrlib_vector, (tVector<3, double>(sb_vector)));
+    RRLIB_UNIT_TESTS_EQUALITY(rrlib_vector, rrlib::simvis3d::VectorFromCoin<double>(sb_vector));
   }
 #endif
 

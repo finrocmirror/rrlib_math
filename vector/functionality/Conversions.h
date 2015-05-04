@@ -43,10 +43,6 @@
 //----------------------------------------------------------------------
 #include <cmath>
 
-#ifdef _LIB_OIV_PRESENT_
-#include <Inventor/SbVec2f.h>
-#include <Inventor/SbVec3f.h>
-#endif
 //----------------------------------------------------------------------
 // Internal includes with ""
 //----------------------------------------------------------------------
@@ -117,14 +113,6 @@ public:
     return tVector<2, TElement, Polar, TPolarUnitPolicy, TPolarAutoWrapPolicy>(tAngle<TElement, angle::Radian>(std::atan2(that->Y(), that->X())), that->Length());
   }
 
-#ifdef _LIB_OIV_PRESENT_
-  inline const SbVec2f GetCoinVector() const __attribute__((always_inline))
-  {
-    const tVector<2, TElement, Cartesian> *that = reinterpret_cast<const tVector<3, TElement, Cartesian> *>(this);
-    return SbVec2f(that->X(), that->Y());
-  }
-#endif
-
 //----------------------------------------------------------------------
 // Protected methods
 //----------------------------------------------------------------------
@@ -163,14 +151,6 @@ public:
     return tVector<3, TElement, Polar, TPolarUnitPolicy, TPolarAutoWrapPolicy>(tAngle<TElement, angle::Radian>(std::atan2(that->Y(), that->X())), tAngle<TElement, angle::Radian>(std::acos(that->Z() / length)), length);
   }
 
-#ifdef _LIB_OIV_PRESENT_
-  inline const SbVec3f GetCoinVector() const __attribute__((always_inline))
-  {
-    const tVector<3, TElement, Cartesian> *that = reinterpret_cast<const tVector<3, TElement, Cartesian> *>(this);
-    return SbVec3f(that->X(), that->Y(), that->Z());
-  }
-#endif
-
 //----------------------------------------------------------------------
 // Protected methods
 //----------------------------------------------------------------------
@@ -206,14 +186,6 @@ public:
     const tVector<2, TElement, Polar, TAdditionalDataParameters...> *that = reinterpret_cast<const tVector<2, TElement, Polar, TAdditionalDataParameters...> *>(this);
     return tVector<2, TElement, Cartesian>(that->Length() * that->Alpha().Cosine(), that->Length() * that->Alpha().Sine());
   }
-
-#ifdef _LIB_OIV_PRESENT_
-  inline const SbVec2f GetCoinVector() const __attribute__((always_inline))
-  {
-    const tVector<2, TElement, Cartesian> *that = this->GetCartesianVector();
-    return SbVec2f(that->X(), that->Y());
-  }
-#endif
 
 //----------------------------------------------------------------------
 // Protected methods
@@ -254,14 +226,6 @@ public:
     TElement cos_beta = that->Beta().Cosine();
     return tVector<3, TElement, Cartesian>(that->Length() * cos_alpha * sin_beta, that->Length() * sin_alpha * sin_beta, that->Length() * cos_beta);
   }
-
-#ifdef _LIB_OIV_PRESENT_
-  inline const SbVec3f GetCoinVector() const __attribute__((always_inline))
-  {
-    const tVector<2, TElement, Cartesian> *that = this->GetCartesianVector();
-    return SbVec3f(that->X(), that->Y(), that->Z());
-  }
-#endif
 
 //----------------------------------------------------------------------
 // Protected methods

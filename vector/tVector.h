@@ -43,11 +43,6 @@
 //----------------------------------------------------------------------
 #include <functional>
 
-#ifdef _LIB_OIV_PRESENT_
-#include <Inventor/SbVec2f.h>
-#include <Inventor/SbVec3f.h>
-#include <type_traits>
-#endif
 //----------------------------------------------------------------------
 // Internal includes with ""
 //----------------------------------------------------------------------
@@ -117,16 +112,6 @@ public:
 
   template <typename ... TValues>
   explicit inline tVector(TValues... values) __attribute__((always_inline));
-
-#ifdef _LIB_OIV_PRESENT_
-
-  template <typename T = int>
-  explicit inline tVector(const SbVec2f &v, typename std::enable_if <(Tdimension == 2), T>::type = 0) __attribute__((always_inline));
-
-  template <typename T = int>
-  explicit inline tVector(const SbVec3f &v, typename std::enable_if <(Tdimension == 3), T>::type = 0) __attribute__((always_inline));
-
-#endif
 
   inline tVector &operator = (const tVector &other) __attribute__((always_inline));
 

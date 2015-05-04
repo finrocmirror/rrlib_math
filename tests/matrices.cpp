@@ -40,6 +40,7 @@
 #include "rrlib/math/tLUDecomposition.h"
 
 #ifdef _LIB_OIV_PRESENT_
+#include "rrlib/simvis3d/math_functions.h"
 #include <Inventor/SbRotation.h>
 #include <cmath>
 #endif
@@ -261,16 +262,16 @@ private:
 #ifdef _LIB_OIV_PRESENT_
   void CoinConversions()
   {
-    RRLIB_UNIT_TESTS_EQUALITY((tMatrix<4, 4, double>::Identity()), (tMatrix<4, 4, double>(SbMatrix::identity())));
+    RRLIB_UNIT_TESTS_EQUALITY((tMatrix<4, 4, double>::Identity()), (rrlib::simvis3d::MatrixFromCoin<double>(SbMatrix::identity())));
 
     SbMatrix sb_matrix;
     sb_matrix.setRotate(SbRotation(SbVec3f(0, 1, 0), M_PI_2));
     RRLIB_UNIT_TESTS_ASSERT_MESSAGE("Assert internal representation of SbMatrix is transposed", IsEqual(sb_matrix[0][2], -1));
 
     tMatrix<4, 4, double> rrlib_matrix(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16);
-    sb_matrix = rrlib_matrix.GetCoinMatrix();
+    sb_matrix = rrlib::simvis3d::GetCoinMatrix(rrlib_matrix);
     RRLIB_UNIT_TESTS_ASSERT(sb_matrix.equals(SbMatrix(1, 5, 9, 13, 2, 6, 10, 14, 3, 7, 11, 15, 4, 8, 12, 16), 1E-6));
-    RRLIB_UNIT_TESTS_EQUALITY(rrlib_matrix, (tMatrix<4, 4, double>(sb_matrix)));
+    RRLIB_UNIT_TESTS_EQUALITY(rrlib_matrix, rrlib::simvis3d::MatrixFromCoin<double>(sb_matrix));
   }
 #endif
 

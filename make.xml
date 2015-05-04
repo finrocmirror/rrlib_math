@@ -2,7 +2,7 @@
 <!DOCTYPE targets PUBLIC "-//RRLIB//DTD make 14.05" "http://finroc.org/xml/14.05/make.dtd">
 <targets>
 
-  <library optionallibs="oiv">
+  <library>
     <sources>
       rtti.cpp
       tAngle.cpp
@@ -17,7 +17,7 @@
       vector/**
     </sources>
   </library>
-
+  
   <library name="legacy">
     <sources>
       rtti_legacy.cpp

@@ -47,10 +47,6 @@
 //----------------------------------------------------------------------
 #include "rrlib/math/tVector.h"
 
-#ifdef _LIB_OIV_PRESENT_
-#include <Inventor/SbMatrix.h>
-#include <type_traits>
-#endif
 //----------------------------------------------------------------------
 // Debugging
 //----------------------------------------------------------------------
@@ -108,13 +104,6 @@ public:
 
   template <typename ... TValues>
   explicit inline tMatrix(TElement value, TValues... values) __attribute__((always_inline));
-
-#ifdef _LIB_OIV_PRESENT_
-
-  template <class T = int>
-  explicit inline tMatrix(const SbMatrix &m, typename std::enable_if < (Trows == 4 && Tcolumns == 4), T >::type = 0) __attribute__((always_inline));
-
-#endif
 
   inline tMatrix &operator = (const tMatrix &other) __attribute__((always_inline));
 

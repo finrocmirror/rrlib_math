@@ -40,11 +40,6 @@
 // External includes (system with <>, local with "")
 //----------------------------------------------------------------------
 
-#ifdef _LIB_OIV_PRESENT_
-#include <Inventor/SbVec2f.h>
-#include <Inventor/SbVec3f.h>
-#include <type_traits>
-#endif
 //----------------------------------------------------------------------
 // Internal includes with ""
 //----------------------------------------------------------------------
@@ -130,24 +125,6 @@ template <typename ... TValues>
 tVector<Tdimension, TElement, TData, TAdditionalDataParameters...>::tVector(TValues... values) :
   FunctionalitySpecialized(values...)
 {}
-
-#ifdef _LIB_OIV_PRESENT_
-
-template <size_t Tdimension, typename TElement, template <size_t, typename, typename ...> class TData, typename ... TAdditionalDataParameters>
-template <typename T>
-tVector<Tdimension, TElement, TData, TAdditionalDataParameters...>::tVector(const SbVec2f &v, typename std::enable_if <(Tdimension == 2), T>::type)
-{
-  this->Set(v[0], v[1]);
-}
-
-template <size_t Tdimension, typename TElement, template <size_t, typename, typename ...> class TData, typename ... TAdditionalDataParameters>
-template <typename T>
-tVector<Tdimension, TElement, TData, TAdditionalDataParameters...>::tVector(const SbVec3f &v, typename std::enable_if <(Tdimension == 3), T>::type)
-{
-  this->Set(v[0], v[1], v[2]);
-}
-
-#endif
 
 //----------------------------------------------------------------------
 // tVector operator =

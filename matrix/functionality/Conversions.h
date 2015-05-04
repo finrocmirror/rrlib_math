@@ -44,9 +44,6 @@
 //----------------------------------------------------------------------
 #include <cmath>
 
-#ifdef _LIB_OIV_PRESENT_
-#include <Inventor/SbMatrix.h>
-#endif
 //----------------------------------------------------------------------
 // Internal includes with ""
 //----------------------------------------------------------------------
@@ -108,19 +105,6 @@ class Conversions<4, 4, TElement>
 // Public methods and typedefs
 //----------------------------------------------------------------------
 public:
-
-#ifdef _LIB_OIV_PRESENT_
-  inline const SbMatrix GetCoinMatrix() const __attribute__((always_inline))
-  {
-    const math::tMatrix<4, 4, TElement> *that = reinterpret_cast<const math::tMatrix<4, 4, TElement> *>(this);
-    return SbMatrix(
-             (*that)[0][0], (*that)[1][0], (*that)[2][0], (*that)[3][0],
-             (*that)[0][1], (*that)[1][1], (*that)[2][1], (*that)[3][1],
-             (*that)[0][2], (*that)[1][2], (*that)[2][2], (*that)[3][2],
-             (*that)[0][3], (*that)[1][3], (*that)[2][3], (*that)[3][3]
-           );
-  }
-#endif
 
 //----------------------------------------------------------------------
 // Protected methods
