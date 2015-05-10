@@ -39,7 +39,7 @@
 #include "rrlib/math/tCholeskyDecomposition.h"
 #include "rrlib/math/tLUDecomposition.h"
 
-#ifdef _LIB_OIV_PRESENT_
+#ifdef _LIB_RRLIB_SIMVIS3D_MATH_PRESENT_
 #include "rrlib/simvis3d/math_functions.h"
 #include <Inventor/SbRotation.h>
 #include <cmath>
@@ -89,7 +89,7 @@ class TestMatrices : public util::tUnitTestSuite
   RRLIB_UNIT_TESTS_ADD_TEST(InversionOfHilbertMatrix<5>);
   RRLIB_UNIT_TESTS_ADD_TEST(CholeskyDecomposition);
   RRLIB_UNIT_TESTS_ADD_TEST(LUDecomposition);
-#ifdef _LIB_OIV_PRESENT_
+#ifdef _LIB_RRLIB_SIMVIS3D_MATH_PRESENT_
   RRLIB_UNIT_TESTS_ADD_TEST(CoinConversions);
 #endif
   RRLIB_UNIT_TESTS_END_SUITE;
@@ -259,7 +259,7 @@ private:
     RRLIB_UNIT_TESTS_EQUALITY((tVector<2, double>(2.0, 1.0)), (tLUDecomposition<2, double>(C).Solve(tVector<3, double>(0.0, 1.0, -2.0))));
   }
 
-#ifdef _LIB_OIV_PRESENT_
+#ifdef _LIB_RRLIB_SIMVIS3D_MATH_PRESENT_
   void CoinConversions()
   {
     RRLIB_UNIT_TESTS_EQUALITY((tMatrix<4, 4, double>::Identity()), (rrlib::simvis3d::MatrixFromCoin<double>(SbMatrix::identity())));

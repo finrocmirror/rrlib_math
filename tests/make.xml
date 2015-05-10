@@ -3,9 +3,9 @@
 <targets>
 
   <program name="angles" sources="angles.cpp" />
-  <program name="matrices" optionallibs="oiv" sources="matrices.cpp" />
+  <program name="matrices" sources="matrices.cpp" />
   <program name="poses" sources="poses.cpp" />
   <program name="utilities" sources="utilities.cpp" />
-  <program name="vectors" optionallibs="oiv" sources="vectors.cpp" />
+  <program name="vectors" sources="vectors.cpp" />
 
 </targets>

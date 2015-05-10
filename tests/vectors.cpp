@@ -36,7 +36,7 @@
 
 #include "rrlib/math/tVector.h"
 
-#ifdef _LIB_OIV_PRESENT_
+#ifdef _LIB_RRLIB_SIMVIS3D_MATH_PRESENT_
 #include "rrlib/simvis3d/math_functions.h"
 #endif
 
@@ -87,7 +87,7 @@ class TestVectors : public util::tUnitTestSuite
   RRLIB_UNIT_TESTS_ADD_TEST(PolarAssignments);
   RRLIB_UNIT_TESTS_ADD_TEST(PolarOperators);
   RRLIB_UNIT_TESTS_ADD_TEST(Streaming);
-#ifdef _LIB_OIV_PRESENT_
+#ifdef _LIB_RRLIB_SIMVIS3D_MATH_PRESENT_
   RRLIB_UNIT_TESTS_ADD_TEST(CoinConversions);
 #endif
   RRLIB_UNIT_TESTS_END_SUITE;
@@ -481,7 +481,7 @@ private:
     RRLIB_UNIT_TESTS_EXCEPTION(source >> vector_3d_char, std::ios_base::failure);
   }
 
-#ifdef _LIB_OIV_PRESENT_
+#ifdef _LIB_RRLIB_SIMVIS3D_MATH_PRESENT_
   void CoinConversions()
   {
     tVector<3, double> rrlib_vector(1, 2, 3);
