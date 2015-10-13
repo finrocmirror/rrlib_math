@@ -609,7 +609,7 @@ template <typename TElement, typename TUnitPolicy, typename TAutoWrapPolicy>
 std::istream &operator >> (std::istream &stream, tAngle<TElement, TUnitPolicy, TAutoWrapPolicy> &angle)
 {
   std::istream::sentry stream_ok(stream, true);
-  if (!stream_ok || stream.peek() == std::char_traits<TElement>::eof())
+  if (!stream_ok || stream.peek() == std::char_traits<char>::eof())
   {
     stream.setstate(std::ios_base::failbit);
     return stream;
