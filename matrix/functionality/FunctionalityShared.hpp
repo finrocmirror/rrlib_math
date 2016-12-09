@@ -260,7 +260,7 @@ const bool FunctionalityShared<Trows, Tcolumns, TElement>::IsZero(double epsilon
 template <size_t Trows, size_t Tcolumns, typename TElement>
 tVector<Tcolumns, TElement, vector::Cartesian> FunctionalityShared<Trows, Tcolumns, TElement>::GetRow(size_t row) const
 {
-  tMatrix *that = reinterpret_cast<tMatrix *>(this);
+  const tMatrix *that = reinterpret_cast<const tMatrix *>(this);
   TElement result[Tcolumns];
   for (size_t column = 0; column < Tcolumns; ++column)
   {
@@ -275,7 +275,7 @@ tVector<Tcolumns, TElement, vector::Cartesian> FunctionalityShared<Trows, Tcolum
 template <size_t Trows, size_t Tcolumns, typename TElement>
 tVector<Trows, TElement, vector::Cartesian> FunctionalityShared<Trows, Tcolumns, TElement>::GetColumn(size_t column) const
 {
-  tMatrix *that = reinterpret_cast<tMatrix *>(this);
+  const tMatrix *that = reinterpret_cast<const tMatrix *>(this);
   TElement result[Trows];
   for (size_t row = 0; column < Trows; ++row)
   {
